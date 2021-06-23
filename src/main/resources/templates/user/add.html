@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add User</title>
+    <!--    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<br/><br/>
+<div class="container">
+    <center>
+        <h1>TAMBAH DATA USER</h1>
+        <hr/>
+    </center>
+    <br/>
+    <div class="row">
+        <div class="col">
+            <form th:action="@{addUser}" th:object="${userObj}" method="post" enctype="multipart/form-data" >
+                <div class="row">
+                    <div class="col">
+                        <label for="namaDepan">Nama Depan<span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="namaDepan" id="namaDepan"  required>
+                        <br/>
+
+                        <label for="namaBelakang">Nama Belakang<span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="namaBelakang" id="namaBelakang"  required>
+                        <br/>
+
+                        <label for="telephone">Telepon <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="telephone" id="telephone" required>
+                        <br/>
+
+                        <label for="email">Email <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="email" id="email" required>
+                        <br/>
+
+                        <label for="tanggal_Lahir">Tanggal Lahir <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="date" name="tanggal_Lahir" id="tanggal_Lahir"  required>
+                        <br/>
+
+                        <label>Jenis Kelamin <span style="color: red">*</span> </label>
+                        <br/>
+                        <input type="radio" id="laki" name="jenisKelamin" value="L">
+                          <label for="laki">Laki - Laki</label><br>
+                        <input type="radio" id="perempuan" name="jenisKelamin" value="P">
+                          <label for="perempuan">Perempuan</label><br>
+                        <br/>
+
+                        <label>Foto Merchant <span style="color: red">*</span> </label>
+                        <br/>
+                        <input type="file" name="file" id="file"  accept="image/png, image/jpeg" required>
+                        <br/><br/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-outline-secondary" href="/User">Kembali</a>&#32
+                        <button class="btn btn-outline-primary">Simpan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
+</body>
+</html>
