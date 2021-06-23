@@ -25,7 +25,7 @@
                         <br/>
 
                         <label for="tgl_Berdiri">Tanggal Berdiri <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="date" name="tgl_Berdiri" id="tgl_Berdiri" th:placeholder="${timObj.tglBerdiri}" th:value="${timObj.tglBerdiri}" required>
+                        <input class="form form-control" type="date" name="tglBerdiri" id="tgl_Berdiri" th:placeholder="${timObj.tglBerdiri}" th:value="${timObj.tglBerdiri}" required>
                         <br/>
 
                         <label>Privat <span style="color: red">*</span> </label>
@@ -33,24 +33,24 @@
                         <input th:if="${timObj.privat == 1}" type="radio" id="ya" name="privat" value="1" checked>
                         <input th:if="${timObj.privat == 0}" type="radio" id="ya1" name="privat" value="1">
                           <label for="ya">Ya</label><br>
-                        <input th:if="${timObj.privat == 1}" type="radio" id="t" name="privat" value="0" checked>
-                        <input th:if="${timObj.privat == 0}" type="radio" id="t1" name="privat" value="0">
+                        <input th:if="${timObj.privat == 0}" type="radio" id="t" name="privat" value="0" checked>
+                        <input th:if="${timObj.privat == 1}" type="radio" id="t1" name="privat" value="0">
                           <label for="t">Tidak</label><br>
                         <br/>
 
                         <label>Tipe Pemain <span style="color: red">*</span> </label>
                         <br/>
-                        <input th:if="${timObj.privat == 1}" type="radio" id="a" name="tipePemain" value="1" checked>
-                        <input th:if="${timObj.privat == 2}" type="radio" id="a1" name="tipePemain" value="1">
-                        <input th:if="${timObj.privat == 3}" type="radio" id="a2" name="tipePemain" value="1">
+                        <input th:if="${timObj.tipePemain == 1}" type="radio" id="a" name="tipePemain" value="1" checked>
+                        <input th:if="${timObj.tipePemain == 2}" type="radio" id="a1" name="tipePemain" value="1">
+                        <input th:if="${timObj.tipePemain == 3}" type="radio" id="a2" name="tipePemain" value="1">
                           <label for="ya">Anak - anak</label><br>
-                        <input th:if="${timObj.privat == 2}" type="radio" id="b" name="tipePemain" value="2" checked>
-                        <input th:if="${timObj.privat == 1}" type="radio" id="b1" name="tipePemain" value="2">
-                        <input th:if="${timObj.privat == 3}" type="radio" id="b2" name="tipePemain" value="2">
+                        <input th:if="${timObj.tipePemain == 2}" type="radio" id="b" name="tipePemain" value="2" checked>
+                        <input th:if="${timObj.tipePemain == 1}" type="radio" id="b1" name="tipePemain" value="2">
+                        <input th:if="${timObj.tipePemain == 3}" type="radio" id="b2" name="tipePemain" value="2">
                           <label for="t">Dewasa</label><br>
-                        <input th:if="${timObj.privat == 3}" type="radio" id="c" name="tipePemain" value="3" checked>
-                        <input th:if="${timObj.privat == 1}" type="radio" id="c1" name="tipePemain" value="3">
-                        <input th:if="${timObj.privat == 2}" type="radio" id="c2" name="tipePemain" value="3">
+                        <input th:if="${timObj.tipePemain == 3}" type="radio" id="c" name="tipePemain" value="3" checked>
+                        <input th:if="${timObj.tipePemain == 1}" type="radio" id="c1" name="tipePemain" value="3">
+                        <input th:if="${timObj.tipePemain == 2}" type="radio" id="c2" name="tipePemain" value="3">
                           <label for="t">Bebas</label><br>
                         <br/>
 
