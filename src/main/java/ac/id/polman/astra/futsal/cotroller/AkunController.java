@@ -92,6 +92,21 @@ public class AkunController {
         akunService.saveAkun(msAkun);
         return "redirect:/Akun";
     }
+    @GetMapping("/undoAkun")
+    public String undoAkun(
+            @RequestParam("id_akun") int id_akun
+    ){
+        MsAkun ma = akunService.getAkunByIdAkun(id_akun);
+
+        ma.setModiby("Yang sekarang login");
+        ma.setModidate(LocalDateTime.now());
+
+        ma.setStatus(1);
+
+        akunService.saveAkun(ma);
+
+        return "redirect:/Akun?id_role="+ma.getIdRole();
+    }
 
     @GetMapping("/deleteAkun")
     public String deleteAkun(
