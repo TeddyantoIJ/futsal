@@ -1,10 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit Tim</title>
+    <!--    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+<br/><br/>
+<div class="container">
+    <center>
+        <h1>EDIT DATA TIM</h1>
+        <hr/>
+    </center>
+    <br/>
+    <div class="row">
+        <div class="col">
+            <form th:action="@{editTim}" th:object="${timObj}" method="post" enctype="multipart/form-data" >
+                <div class="row">
+                    <div class="col">
+                        <input type="hidden" name="idTim" th:value="${timObj.idTim}">
+                        <label for="nama">Nama Tim <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="nama" id="nama" th:placeholder="${timObj.nama}" th:value="${timObj.nama}" required>
+                        <br/>
 
+                        <label for="tgl_Berdiri">Tanggal Berdiri <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="date" name="tgl_Berdiri" id="tgl_Berdiri" th:placeholder="${timObj.tglBerdiri}" th:value="${timObj.tglBerdiri}" required>
+                        <br/>
+
+                        <label>Privat <span style="color: red">*</span> </label>
+                        <br/>
+                        <input th:if="${timObj.privat == 0}" type="radio" id="ya" name="privat" value="1" checked>
+                        <input th:if="${timObj.privat == 1}" type="radio" id="ya1" name="privat" value="1">
+                          <label for="ya">YA</label><br>
+                        <input th:if="${timObj.privat == 0}" type="radio" id="t" name="privat" value="0" checked>
+                        <input th:if="${timObj.privat == 1}" type="radio" id="t1" name="privat" value="0">
+                          <label for="t">Tidak</label><br>
+                        <br/>
+
+                        <label>Tipe Pemain <span style="color: red">*</span> </label>
+                        <br/>
+                        <input type="radio" id="z" name="tipePemain" value="1">
+                          <label for="z">Anak - anak</label><br>
+                        <input type="radio" id="c" name="tipePemain" value="2">
+                          <label for="c">Dewasa</label><br>
+                        <input type="radio" id="x" name="tipePemain" value="3">
+                          <label for="x">Bebas</label><br>
+                        <br/>
+
+                        <label>Logo </label>
+                        <br/>
+                        <input type="file" name="file" id="file"  accept="image/png, image/jpeg">
+
+                        <br/><br/>
+
+                        <label>Banner</label>
+                        <br/>
+                        <input type="file" name="file1" id="file1"  accept="image/png, image/jpeg">
+                        <br/><br/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-outline-secondary" href="/Tim">Kembali</a>&#32
+                        <button class="btn btn-outline-primary">Perbarui</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
 </body>
 </html>
