@@ -65,7 +65,7 @@ public class UserController {
 
         String foto = uploadController.uploadFotoMerchant(file, "none");
 
-        msUser.setTanggalLahir(LocalDateTime.now());
+//        msUser.setTanggalLahir(LocalDateTime.now());
         msUser.setIdAkun(1);
         msUser.setFoto(foto);
         msUser.setCreaby("Teddy(harusnya ambil nama yang bikin)");
@@ -87,7 +87,7 @@ public class UserController {
         MsUser oldUser = userService.getUserById(msUser.getIdUser());
 
         //msUser.setIdUser(oldUser.getIdUser());
-        msUser.setTanggalLahir(LocalDateTime.now());
+//        msUser.setTanggalLahir(LocalDateTime.now());
         msUser.setCreaby(oldUser.getCreaby());
         msUser.setCreadate(oldUser.getCreadate());
         msUser.setModiby("yang login sekarang");

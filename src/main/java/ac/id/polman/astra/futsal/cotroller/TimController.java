@@ -68,7 +68,7 @@ public class TimController {
         String banner = uploadController.uploadBannerMerchant(file1, "none");
 
         msTim.setIdUser(1);
-        msTim.setTglBerdiri(LocalDateTime.now());
+//        msTim.setTglBerdiri(LocalDateTime.now());
         msTim.setLogo(logo);
         msTim.setBanner(banner);
         msTim.setCreaby("Teddy(harusnya ambil nama yang bikin)");
