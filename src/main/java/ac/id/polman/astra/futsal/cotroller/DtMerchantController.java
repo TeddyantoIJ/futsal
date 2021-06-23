@@ -1,7 +1,9 @@
 package ac.id.polman.astra.futsal.cotroller;
 
 import ac.id.polman.astra.futsal.model.DtMerchant;
+import ac.id.polman.astra.futsal.model.MsFasilitas;
 import ac.id.polman.astra.futsal.service.DtMerchantService;
+import ac.id.polman.astra.futsal.service.FasilitasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,9 @@ public class DtMerchantController {
     @Autowired
     DtMerchantService dtMerchantService;
 
+    @Autowired
+    FasilitasService msFasilitasService;
+
     @GetMapping("/DtMerchant")
     public String getDtMerchant(
             @RequestParam("id_merchant") Integer id_merchant,
@@ -30,8 +35,11 @@ public class DtMerchantController {
                 dtMerchantList.add(dtMerchant);
             }
         }
+        List<MsFasilitas> msFasilitasList = msFasilitasService.getAllFacilities();
+
         model.addAttribute("listDtMerchant", dtMerchantList);
         model.addAttribute("id_merchant",id_merchant);
+        model.addAttribute("listFasilitas",msFasilitasList);
         return "dtmerchant/list";
     }
 
@@ -39,8 +47,12 @@ public class DtMerchantController {
     public String gotoAdd(
             @RequestParam("id_merchant") Integer id_merchant,
             Model model){
+
+        List<MsFasilitas> msFasilitasList = msFasilitasService.getAllFacilities();
+
         model.addAttribute("dtMerchant", new DtMerchant());
         model.addAttribute("id_merchant", id_merchant);
+        model.addAttribute("listFasilitas",msFasilitasList);
         return "dtmerchant/add";
     }
 
