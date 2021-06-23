@@ -99,7 +99,7 @@ public class DtLapanganController {
         return "redirect:/Foto-Lapangan?id_lapangan="+dtFotolapangan.getIdLapangan();
     }
 
-    @PostMapping("/deletePotoLapangan")
+    @GetMapping("/deletePotoLapangan")
     public String deletePotoLapangan(
             @RequestParam("id_foto") int id_foto
     ){
