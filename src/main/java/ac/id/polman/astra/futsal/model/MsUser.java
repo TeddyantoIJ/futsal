@@ -1,12 +1,15 @@
 package ac.id.polman.astra.futsal.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class MsUser {
@@ -19,8 +22,8 @@ public class MsUser {
     private String namaBelakang;
     private String telephone;
     private String email;
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    private LocalDateTime tanggalLahir;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date tanggalLahir;
     private String jenisKelamin;
     private String foto;
     private String creaby;
@@ -87,11 +90,12 @@ public class MsUser {
         this.email = email;
     }
 
-    public LocalDateTime getTanggalLahir() {
-        return tanggalLahir;
+    public String getTanggalLahir() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(tanggalLahir);
     }
 
-    public void setTanggalLahir(LocalDateTime tanggalLahir) {
+    public void setTanggalLahir(Date tanggalLahir) {
         this.tanggalLahir = tanggalLahir;
     }
 

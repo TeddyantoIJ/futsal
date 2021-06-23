@@ -1,12 +1,15 @@
 package ac.id.polman.astra.futsal.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class MsTim {
@@ -15,8 +18,8 @@ public class MsTim {
     private Integer idTim;
     private Integer idUser;
     private String nama;
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    private LocalDateTime tglBerdiri;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date tglBerdiri;
     private Integer privat;
     private Integer tipePemain;
     private String logo  ;
@@ -53,11 +56,12 @@ public class MsTim {
         this.nama = nama;
     }
 
-    public LocalDateTime getTglBerdiri() {
-        return tglBerdiri;
+    public String getTglBerdiri() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(tglBerdiri);
     }
 
-    public void setTglBerdiri(LocalDateTime tglBerdiri) {
+    public void setTglBerdiri(Date tglBerdiri) {
         this.tglBerdiri = tglBerdiri;
     }
 
