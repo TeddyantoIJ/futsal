@@ -5,6 +5,7 @@
     <title>Add Fasilitas Merchant</title>
     <!--    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <br/><br/>
@@ -23,10 +24,10 @@
 
                         <label>Fasilitas <span style="color: red">*</span> </label>
                         <select  name="id_fasilitas" id="id_fasilitas" required class="form-control">
-                            <option value="">- Pilih -</option>
-                            <option value="1">TOILET</option>
-                            <option value="2">WIFI</option>
-                            <option value="3">PARKIR</option>
+                            <div  th:each="item, iter: ${listFasilitas}">
+                                <option th:value="${item.idFasilitas}" th:text="${item.fasilitas}"><i th:class="${item.icon}"></i> </option>
+                            </div>
+
                         </select>
                         <br/>
 
