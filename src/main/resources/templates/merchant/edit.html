@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Merchant</title>
+    <!--    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<br/><br/>
+<div class="container">
+    <center>
+        <h1>EDIT DATA MERCHANT</h1>
+        <hr/>
+    </center>
+    <br/>
+    <div class="row">
+        <div class="col">
+            <form th:action="@{editMerchant}" th:object="${merchantObj}" method="post" enctype="multipart/form-data" >
+                <div class="row">
+                    <div class="col">
+                        <input type="hidden" name="id_merchant" th:value="${merchantObj.id_merchant}">
+                        <label for="nama">Nama Merchant <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="nama" id="nama" th:placeholder="${merchantObj.nama}" th:value="${merchantObj.nama}" required>
+                        <br/>
+
+                        <label for="alamat">Alamat <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="alamat" id="alamat" th:placeholder="${merchantObj.alamat}" th:value="${merchantObj.alamat}" required>
+                        <br/>
+
+                        <label for="narahubung">Narahubung <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="narahubung" id="narahubung" th:placeholder="${merchantObj.narahubung}" th:value="${merchantObj.narahubung}" required>
+                        <br/>
+
+                        <label for="telephone">Telepon <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="telephone" id="telephone" th:placeholder="${merchantObj.telephone}" th:value="${merchantObj.telephone}" required>
+                        <br/>
+
+                        <label for="deskripsi">Deskripsi <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="deskripsi" id="deskripsi" th:placeholder="${merchantObj.deskripsi}" th:value="${merchantObj.deskripsi}" required>
+                        <br/>
+
+                        <div class="row">
+                            <div class="col">
+                                <label>Foto Merchant <span style="color: red">*</span> </label>
+                                <br/>
+                                <img class="card card-body card-img" th:src="@{'images/merchant/foto/'+${merchantObj.foto}}">
+                                <br/><br/>
+                                <input type="file" name="file" id="file" th:value="${merchantObj.foto}">
+                            </div>
+                            <div class="col">
+                                <label>Banner Merchant <span style="color: red">*</span> </label>
+                                <br/>
+                                <img class="card card-body card-img" th:src="@{'images/merchant/banner/'+${merchantObj.banner}}">
+                                <br/><br/>
+                                <input type="file" name="file1" id="file1" th:value="${merchantObj.banner}">
+                            </div>
+                        </div>
+                        <br/><br/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-outline-secondary" href="/Merchant">Kembali</a>&#32
+                        <button class="btn btn-outline-primary">Perbarui</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
+</body>
+</html>

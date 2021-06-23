@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Foto Lapangan</title>
+    <!--    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--    <link rel="stylesheet" href="../../static/css/bootstrap.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<br/><br/>
+<div class="container">
+    <center>
+        <h1>FOTO-FOTO LAPANGAN MERCHANT</h1>
+        <hr/>
+    </center>
+    <div class="row">
+        <div class="col">
+            <a th:href="@{'/Foto-Lapangan-add?id_lapangan='+${id_lapangan}}" class="btn btn-outline-primary">Tambah Foto Lapangan</a>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-4" style="align-items: center; justify-content: center" th:each="item, iter: ${listDtFotoLapangan}">
+
+            <img class="card-img" style="margin-top: 10px; height: auto; width: 100%" th:src="@{'images/lapangan/'+${item.foto}}">
+            <br/>
+            <center>
+                <label style="font-family: 'Segoe UI'"><b th:text="${item.caption}"></b></label>
+                <a th:href="@{'Foto-Lapangan-edit?id_foto='+${item.idFoto}}" class="float-end" title="Perbarui caption"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                <a th:href="@{'deletePotoLapangan?id_foto='+${item.idFoto}}" class="float-end" title="Hapus foto"><i  style="color: red" class="fa fa-trash" aria-hidden="true"></i></a>
+            </center>
+<!--                <div class="row">-->
+<!--                    <div class="col">-->
+<!--                        <a th:href="@{'Lapangan-edit?id_lapangan='+${item.idLapangan}}" class="btn btn-info form-control">Edit</a>-->
+<!--                    </div>-->
+<!--                    <div class="col">-->
+<!--                        <a th:href="@{'Lapangan-detail?id_lapangan='+${item.idLapangan}}" class="btn btn-success form-control">Detail</a>-->
+<!--                    </div>-->
+<!--                    <div class="col">-->
+<!--                        <a th:if="${item.status == 1}" th:href="@{'deleteLapangan?id_lapangan='+${item.idLapangan}}" class="btn btn-danger form-control">Hapus</a>-->
+<!--                        <a th:if="${item.status == 0}" th:href="@{'undoLapangan?id_lapangan='+${item.idLapangan}}" class="btn btn-primary form-control">Aktifkan</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col">
+            <a th:href="@{'Lapangan-detail?id_lapangan='+${id_lapangan}}" class="btn btn-outline-secondary">Kembali</a>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
+</body>
+</html>

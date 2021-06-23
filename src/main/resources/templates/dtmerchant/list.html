@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Merchant</title>
+    <!--    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--    <link rel="stylesheet" href="../../static/css/bootstrap.css">-->
+
+</head>
+<body>
+<br/><br/>
+<div class="container">
+    <center>
+        <h1>DAFTAR FASILITAS MERCHANT</h1>
+        <hr/>
+    </center>
+    <div class="row">
+        <div class="col">
+            <a th:href="@{'/DtMerchant-add?id_merchant='+${id_merchant}}" class="btn btn-outline-primary">Tambah Fasilitas Merchant</a>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col">
+            <table id="table" class="table table-striped">
+                <thead>
+                <tr>
+                    <td>No</td>
+                    <td>Id Fasilitas</td>
+                    <td>Jumlah</td>
+                    <td>Aksi</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item, iter: ${listDtMerchant}">
+                    <!--                <td th:text="${Merchant.id_merchant}">ID</td>-->
+                    <td><span th:text="${iter.count}"></span></td>
+                    <td th:text="${item.id_fasilitas}"></td>
+                    <td th:text="${item.jumlah}"></td>
+                    <td>
+                        <div class="row">
+                            <div class="col">
+                                <a th:href="@{'DtMerchant-edit?id_dtmerchant='+${item.id_dtmerchant}}" class="btn btn-info form-control">Edit</a>
+                            </div>
+                            <div class="col">
+                                <a th:href="@{'deleteDtMerchant?id_dtmerchant='+${item.id_dtmerchant}}" class="btn btn-danger form-control"  onclick="return confirm('Tekan OK untuk menghapus')">Hapus</a>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a th:href="@{'Merchant-detail?id_merchant='+${id_merchant}}" class="btn btn-outline-secondary">Kembali</a>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
+</body>
+</html>

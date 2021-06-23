@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Lapangan Merchant</title>
+    <!--    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<br/><br/>
+<div class="container">
+    <center>
+        <h1>DETAIL LAPANGAN MERCHANT</h1>
+        <hr/>
+    </center>
+    <div class="row">
+        <div class="col">
+            <a th:href="@{'/Foto-Lapangan?id_lapangan='+${MsLapangan.idLapangan}}" class="btn btn-success">Lihat Foto Lapangan</a>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <label>Nama Lapangan</label>
+                    <input class="form form-control" type="text" name="nama" id="nama" th:value="${MsLapangan.nama}" disabled>
+                    <br/>
+
+                    <label>Tipe Lapangan</label>
+                    <input class="form form-control" type="text" name="tipe_lapangan" id="tipe_lapangan" th:value="${MsLapangan.tipe_lapangan}" disabled>
+                    <br/>
+
+                    <label>Harga Biasa (Tanpa penerangan)</label>
+                    <input class="form form-control" type="number" name="harga" id="harga" th:value="${MsLapangan.harga}" disabled>
+                    <br/>
+
+                    <label>Harga Dengan Penerangan</label>
+                    <input class="form form-control" type="text" name="harga_penerangan" id="harga_penerangan" th:value="${MsLapangan.harga_penerangan}" disabled>
+                    <br/>
+
+                    <label>Ukuran Lapangan</label>
+                    <div class="row">
+                        <div class="col">
+                            <label>Panjang Lapangan</label>
+                            <input class="form form-control" type="text" name="panjang_lapangan" id="panjang_lapangan" th:value="${MsLapangan.panjang_lapangan}" disabled>
+                        </div>
+                        <div class="col">
+                            <label>Lebar Lapangan</label>
+                            <input class="form form-control" type="text" name="lebar_lapangan" id="lebar_lapangan" th:value="${MsLapangan.lebar_lapangan}" disabled>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-outline-secondary" th:href="@{'Lapangan?id_merchant='+${MsLapangan.id_merchant}}">Kembali</a>&#32
+                    <button class="btn btn-outline-primary">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
+</body>
+</html>

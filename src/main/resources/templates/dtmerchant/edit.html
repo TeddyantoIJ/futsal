@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Fasilitas Merchant</title>
+    <!--    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<br/><br/>
+<div class="container">
+    <center>
+        <h1>EDIT DATA FASILITAS MERCHANT</h1>
+        <hr/>
+    </center>
+    <br/>
+    <div class="row">
+        <div class="col">
+            <form th:action="@{editDtMerchant}" th:object="${dtMerchant}" method="post">
+                <div class="row">
+                    <div class="col">
+                        <input type="hidden" name="id_dtmerchant" th:value="${dtMerchant.id_dtmerchant}">
+
+                        <label>Fasilitas <span style="color: red">*</span> </label>
+                        <select  name="id_fasilitas" id="id_fasilitas" disabled class="form-control">
+                            <option value=""  th:if="${dtMerchant.id_fasilitas == ''}">- Pilih -</option>
+                            <option value="1" th:if="${dtMerchant.id_fasilitas == 1}">TOILET</option>
+                            <option value="2" th:if="${dtMerchant.id_fasilitas == 2}">WIFI</option>
+                            <option value="3" th:if="${dtMerchant.id_fasilitas == 3}">PARKIR</option>
+                        </select>
+                        <br/>
+
+                        <label>Jumlah <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="number" th:placeholder="${dtMerchant.jumlah}" th:value="${dtMerchant.jumlah}" name="jumlah" id="jumlah" required>
+                        <br/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-outline-secondary" th:href="@{'DtMerchant?id_merchant='+${dtMerchant.id_merchant}}">Kembali</a>&#32
+                        <button class="btn btn-outline-primary">Perbarui</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
+</body>
+</html>

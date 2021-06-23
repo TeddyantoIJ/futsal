@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Lapangan Merchant</title>
+    <!--    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<br/><br/>
+<div class="container">
+    <center>
+        <h1>EDIT LAPANGAN MERCHANT</h1>
+        <hr/>
+    </center>
+    <br/>
+    <div class="row">
+        <div class="col">
+            <form th:action="@{editLapangan}" th:object="${MsLapangan}" method="post">
+                <div class="row">
+                    <div class="col">
+                        <input type="hidden" name="idLapangan" th:value="${MsLapangan.idLapangan}">
+
+                        <label>Nama Lapangan <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="nama" id="nama" th:value="${MsLapangan.nama}" th:placeholder="${MsLapangan.nama}" required>
+                        <br/>
+
+                        <label>Tipe Lapangan <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="tipe_lapangan" id="tipe_lapangan" th:value="${MsLapangan.tipe_lapangan}" th:placeholder="${MsLapangan.tipe_lapangan}" required>
+                        <br/>
+
+                        <label>Harga Biasa (Tanpa penerangan) <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="number" name="harga" id="harga" th:value="${MsLapangan.harga}" th:placeholder="${MsLapangan.harga}" required>
+                        <br/>
+
+                        <label>Harga Dengan Penerangan <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="harga_penerangan" id="harga_penerangan" th:value="${MsLapangan.harga_penerangan}" th:placeholder="${MsLapangan.harga_penerangan}" required>
+                        <br/>
+
+                        <label>Ukuran Lapangan <span style="color: red">*</span> </label>
+                        <div class="row">
+                            <div class="col">
+                                <label>Panjang Lapangan <span style="color: red">*</span> </label>
+                                <input class="form form-control" type="text" name="panjang_lapangan" id="panjang_lapangan" th:value="${MsLapangan.panjang_lapangan}" th:placeholder="${MsLapangan.panjang_lapangan}" required>
+                            </div>
+                            <div class="col">
+                                <label>Lebar Lapangan <span style="color: red">*</span> </label>
+                                <input class="form form-control" type="text" name="lebar_lapangan" id="lebar_lapangan" th:value="${MsLapangan.lebar_lapangan}" th:placeholder="${MsLapangan.lebar_lapangan}" required>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-outline-secondary" th:href="@{'Lapangan?id_merchant='+${MsLapangan.id_merchant}}">Kembali</a>&#32
+                        <button class="btn btn-outline-primary">Simpan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
+</body>
+</html>

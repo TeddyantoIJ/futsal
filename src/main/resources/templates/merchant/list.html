@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Merchant</title>
+<!--    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!--    <link rel="stylesheet" href="../../static/css/bootstrap.css">-->
+
+</head>
+<body>
+<br/><br/>
+<div class="container">
+    <center>
+        <h1>DAFTAR MERCHANT</h1>
+        <hr/>
+    </center>
+    <div class="row">
+        <div class="col">
+            <a href="/Merchant-add" class="btn btn-outline-primary">Tambah</a>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col">
+            <table id="table" class="table table-striped">
+                <thead>
+                <tr>
+                    <td>No</td>
+                    <!--                    <td>Id Merchant</td>-->
+                    <td>Nama Merchant</td>
+                    <td>Telepon</td>
+                    <td>Alamat</td>
+                    <td>Foto</td>
+                    <td>Aksi</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="Merchant, iter: ${listMerchant}">
+                    <!--                <td th:text="${Merchant.id_merchant}">ID</td>-->
+                    <td><span th:text="${iter.count}"></span></td>
+                    <td th:text="${Merchant.nama}"></td>
+                    <td th:text="${Merchant.telephone}"></td>
+                    <td th:text="${Merchant.alamat}"></td>
+                    <td>
+                        <img style="height: 100px; width: auto" class="card-img" th:src="@{'images/merchant/foto/'+${Merchant.foto}}">
+                    </td>
+                    <td >
+                        <div class="row">
+                            <div class="col">
+                                <a th:href="@{'Merchant-edit?id_merchant='+${Merchant.id_merchant}}" class="btn btn-info form-control">Edit</a>
+                            </div>
+                            <div class="col">
+                                <a th:href="@{'Merchant-detail?id_merchant='+${Merchant.id_merchant}}" class="btn btn-success form-control">Detail</a>
+                            </div>
+                            <div class="col">
+                                <a th:href="@{'deleteMerchant?id_merchant='+${Merchant.id_merchant}}" class="btn btn-danger form-control"  onclick="return confirm('Tekan OK untuk menghapus')">Hapus</a>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col">
+                                <a th:if="${Merchant.status == 0}" class="btn btn-outline-success col">Aktifkan</a>
+                                <a th:if="${Merchant.status == 1}" class="btn btn-outline-danger col">Nonaktifkan</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-outline-secondary">
+                Kembali
+            </button>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
+</body>
+</html>

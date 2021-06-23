@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Foto Lapangan</title>
+    <!--    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<br/><br/>
+<div class="container">
+    <center>
+        <h1>EDIT FOTO LAPANGAN</h1>
+        <hr/>
+    </center>
+    <br/>
+    <div class="row">
+        <div class="col">
+            <form th:action="@{editFotoLapangan}" method="post" enctype="multipart/form-data" >
+                <div class="row">
+                    <div class="col">
+                        <input name="id_foto" type="hidden" th:value="${dtFotoLapangan.idFoto}">
+                        <br/>
+                        <center>
+                            <img class="card-img" th:src="@{'images/lapangan/'+${dtFotoLapangan.foto}}">
+                        </center>
+                        <label>Caption Foto</label>
+                        <input class="form-control" type="text" name="caption" id="caption" th:value="${dtFotoLapangan.caption}" th:placeholder="${dtFotoLapangan.caption}">
+                        <br/>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-outline-secondary" th:href="@{'Foto-Lapangan?id_lapangan='+${dtFotoLapangan.idLapangan}}">Kembali</a>&#32
+                        <button class="btn btn-outline-primary">Simpan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
+</body>
+</html>

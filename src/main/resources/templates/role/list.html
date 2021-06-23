@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Role</title>
+    <!--    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--    <link rel="stylesheet" href="../../static/css/bootstrap.css">-->
+
+</head>
+<body>
+<br/><br/>
+<div class="container">
+    <center>
+        <h1>DAFTAR ROLE</h1>
+        <hr/>
+    </center>
+    <div class="row">
+        <div class="col">
+            <a href="/Role-add" class="btn btn-outline-primary">Tambah</a>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col">
+            <table id="table" class="table table-striped">
+                <thead>
+                <tr>
+                    <td>No</td>
+                    <!--                    <td>Id Merchant</td>-->
+                    <td>Id Role</td>
+                    <td>Nama Role</td>
+                    <td>Aksi</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item, iter: ${listRole}">
+                    <!--                <td th:text="${Merchant.id_merchant}">ID</td>-->
+                    <td><span th:text="${iter.count}"></span></td>
+                    <td th:text="${item.idRole}"></td>
+                    <td th:text="${item.role}"></td>
+                    <td >
+                        <div class="row">
+                            <div class="col">
+                                <a th:href="@{'Role-edit?id_role='+${item.idRole}}" class="btn btn-info form-control">Edit</a>
+                            </div>
+<!--                            <div class="col">-->
+<!--                                <a th:href="@{'Merchant-detail?id_merchant='+${item.idRole}}" class="btn btn-success form-control">Detail</a>-->
+<!--                            </div>-->
+                            <div class="col">
+                                <a th:if="${item.status == 1}" th:href="@{'deleteRole?id_role='+${item.idRole}}" class="btn btn-danger form-control"  onclick="return confirm('Tekan OK untuk menghapus')">Hapus</a>
+                                <a th:if="${item.status == 0}" th:href="@{'deleteRole?id_role='+${item.idRole}}" class="btn btn-primary form-control">Muncul</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-outline-secondary">
+                Kembali
+            </button>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
+</body>
+</html>
