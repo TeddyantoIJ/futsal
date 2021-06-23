@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Akun</title>
+    <!--    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--    <link rel="stylesheet" href="../../static/css/bootstrap.css">-->
+
+</head>
+<body>
+<br/><br/>
+<div class="container">
+    <center>
+        <h1>DAFTAR AKUN</h1>
+        <hr/>
+    </center>
+    <div class="row">
+        <div class="col">
+            <a th:href="@{'/Akun-add?id_role='+${id_role}}" class="btn btn-outline-primary">Tambah Akun</a>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col">
+            <table id="table" class="table table-striped">
+                <thead>
+                <tr>
+                    <td>No</td>
+                    <td>ROle</td>
+                    <td>Username</td>
+                    <td>Password</td>
+                    <td>Aksi</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item, iter: ${listAkun}">
+                    <!--                <td th:text="${Merchant.id_merchant}">ID</td>-->
+                    <td><span th:text="${iter.count}"></span></td>
+                    <td th:text="${item.idRole}"></td>
+                    <td th:text="${item.username}"></td>
+                    <td th:text="${item.password}"></td>
+                    <td>
+                        <div class="row">
+                            <div class="col">
+                                <a th:href="@{'Akun-edit?id_akun='+${item.idAkun}}" class="btn btn-info form-control">Edit</a>
+                            </div>
+                            <div class="col">
+                                <a th:href="@{'Akun-detail?id_Akun='+${item.idAkun}}" class="btn btn-success form-control">Detail</a>
+                            </div>
+                            <div class="col">
+                                <a th:if="${item.status == 1}" th:href="@{'deleteAkun?id_akun='+${item.idAkun}}" class="btn btn-danger form-control">Hapus</a>
+                                <a th:if="${item.status == 0}" th:href="@{'undoAkun?id_akun='+${item.idAkun}}" class="btn btn-primary form-control">Aktifkan</a>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add TIM</title>
+    <!--    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<br/><br/>
+<div class="container">
+    <center>
+        <h1>TAMBAH DATA TIM</h1>
+        <hr/>
+    </center>
+    <br/>
+    <div class="row">
+        <div class="col">
+            <form th:action="@{addTim}" th:object="${timObj}" method="post" enctype="multipart/form-data" >
+                <div class="row">
+                    <div class="col">
+                        <label for="nama">Nama Tim <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="nama" id="nama"  required>
+                        <br/>
+
+                        <label for="tgl_Berdiri">Tanggal Berdiri <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="tgl_Berdiri" id="tgl_Berdiri" required>
+                        <br/>
+
+                        <label for="privat">Privat <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="privat" id="privat"  required>
+                        <br/>
+
+                        <label for="tipePemain">Tipe Pemain <span style="color: red">*</span> </label>
+                        <input class="form form-control" type="text" name="tipePemain" id="tipePemain" required>
+                        <br/>
+
+                        <label>Logo <span style="color: red">*</span> </label>
+                        <br/>
+                        <input type="file" name="file" id="file"  accept="image/png, image/jpeg" required>
+
+                        <br/><br/>
+
+                        <label>Banner <span style="color: red">*</span> </label>
+                        <br/>
+                        <input type="file" name="file1" id="file1"  accept="image/png, image/jpeg" required>
+                        <br/><br/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-outline-secondary" href="/Tim">Kembali</a>&#32
+                        <button class="btn btn-outline-primary">Simpan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
+</body>
+</html>

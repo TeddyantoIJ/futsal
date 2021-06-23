@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tim</title>
+    <!--    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--    <link rel="stylesheet" href="../../static/css/bootstrap.css">-->
+
+</head>
+<body>
+<br/><br/>
+<div class="container">
+    <center>
+        <h1>DAFTAR TIM</h1>
+        <hr/>
+    </center>
+    <div class="row">
+        <div class="col">
+            <a href="/Tim-add" class="btn btn-outline-primary">Tambah</a>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col">
+            <table id="table" class="table table-striped">
+                <thead>
+                <tr>
+                    <td>No</td>
+                    <!--                    <td>Id Merchant</td>-->
+                    <td>Nama Tim</td>
+                    <td>Tanggal Berdiri</td>
+                    <td>Logo</td>
+                    <td>Aksi</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="Tim, iter: ${listTim}">
+                    <!--                <td th:text="${Merchant.id_merchant}">ID</td>-->
+                    <td><span th:text="${iter.count}"></span></td>
+                    <td th:text="${Tim.nama}"></td>
+                    <td th:text="${Tim.tglBerdiri}"></td>
+                    <td>
+                        <img style="height: 100px; width: auto" class="card-img" th:src="@{'images/merchant/foto/'+${Tim.logo}}">
+                    </td>
+                    <td >
+                        <div class="row">
+                            <div class="col">
+                                <a th:href="@{'Tim-edit?id_tim='+${Tim.idTim}}" class="btn btn-info form-control">Edit</a>
+                            </div>
+                            <div class="col">
+                                <a th:href="@{'Tim-detail?id_tim='+${Tim.idUser}}" class="btn btn-success form-control">Detail</a>
+                            </div>
+                            <div class="col">
+                                <a th:href="@{'deleteTim?id_tim='+${Tim.idTim}}" class="btn btn-danger form-control"  onclick="return confirm('Tekan OK untuk menghapus')">Hapus</a>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col">
+                                <a th:if="${Tim.status == 0}" class="btn btn-outline-success col">Aktifkan</a>
+                                <a th:if="${Tim.status == 1}" class="btn btn-outline-danger col">Nonaktifkan</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-outline-secondary">
+                Kembali
+            </button>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
+</body>
+</html>
