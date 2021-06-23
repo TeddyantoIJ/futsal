@@ -25,7 +25,8 @@
                         <label>Fasilitas <span style="color: red">*</span> </label>
                         <select  name="id_fasilitas" id="id_fasilitas" required class="form-control">
                             <div  th:each="item, iter: ${listFasilitas}">
-                                <option th:value="${item.idFasilitas}" th:text="${item.fasilitas}"><i th:class="${item.icon}"></i> </option>
+                                <option th:value="${item.idFasilitas}" th:text="${item.fasilitas}">
+                                </option>
                             </div>
 
                         </select>
