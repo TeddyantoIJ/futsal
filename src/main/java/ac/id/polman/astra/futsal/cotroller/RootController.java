@@ -9,6 +9,7 @@ public class RootController {
 
     @GetMapping("/")
     public String getIndex(){
-        return "Index";
+        return "page/Index";
     }
+
 }
