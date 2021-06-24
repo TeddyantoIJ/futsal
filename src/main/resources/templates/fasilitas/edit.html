@@ -1,50 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/template/admines">
 <head>
-    <meta charset="UTF-8">
-    <title>Edit Role</title>
-    <!--    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Fasilitas</title>
 </head>
-<body>
-<br/><br/>
-<div class="container">
-    <center>
-        <h1>EDIT DATA FASILITAS</h1>
-        <hr/>
-    </center>
-    <br/>
-    <div class="row">
-        <div class="col">
-            <form th:action="@{editFasilitas}" th:object="${msFasilitas}" method="post" enctype="multipart/form-data" >
-                <div class="row">
-                    <div class="col">
-                        <input type="hidden" name="idFasilitas" th:value="${msFasilitas.idFasilitas}">
-                        <label for="fasilitas">Fasilitas <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="text" name="fasilitas" id="fasilitas" th:value="${msFasilitas.fasilitas}" th:placeholder="${msFasilitas.fasilitas}" required>
-                    </div>
+
+<div layout:fragment="content">
+    <main>
+        <header>
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item">Fasilitas</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Ubah Data</li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+        </header>
+        <!-- Main page content-->
+        <div class="container mt-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Form Fasilitas
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col">
-                        <label>Foto Fasilitas <span style="color: red">*</span> </label>
-                        <br/>
-                        <input type="file" name="file" id="file"  accept="image/png, image/jpeg" required>
-                        <br/>
-                        <br/>
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="col">
+                <div class="card-body">
+                    <form th:action="@{editFasilitas}" th:object="${msFasilitas}" method="post" enctype="multipart/form-data" >
+                        <div class="form-group">
+                            <input type="hidden" name="idFasilitas" th:value="${msFasilitas.idFasilitas}">
+                            <label for="fasilitas">Fasilitas <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="fasilitas" id="fasilitas" th:value="${msFasilitas.fasilitas}" th:placeholder="${msFasilitas.fasilitas}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="icon">Icon <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="icon" id="icon" placeholder="Icon" th:value="${msFasilitas.icon}" th:placeholder="${msFasilitas.icon}" required>
+                        </div>
+
                         <a class="btn btn-outline-secondary" href="/Fasilitas">Kembali</a>&#32
                         <button class="btn btn-outline-primary">Simpan</button>
-                    </div>
+
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </main>
 </div>
-<br/><br/><br/>
-</body>
+
 </html>

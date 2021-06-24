@@ -1,40 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/template/admines">
 <head>
-    <meta charset="UTF-8">
-    <title>Edit Role</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <title>Role</title>
 </head>
-<body>
-<br/><br/>
-<div class="container">
-    <center>
-        <h1>EDIT DATA ROLE</h1>
-        <hr/>
-    </center>
-    <br/>
-    <div class="row">
-        <div class="col">
-            <form th:action="@{editRole}" th:object="${msRole}" method="post" enctype="multipart/form-data" >
-                <div class="row">
-                    <div class="col">
-                        <input type="hidden" name="idRole" th:value="${msRole.idRole}">
 
-                        <label for="role">Nama Role <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="text" name="role" id="role" th:value="${msRole.role}" th:placeholder="${msRole.role}" required>
-                    </div>
+<div layout:fragment="content">
+    <main>
+        <header>
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item">Role</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Ubah Data</li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+        </header>
+        <!-- Main page content-->
+        <div class="container mt-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Form Role
                 </div>
-                <br/>
-                <div class="row">
-                    <div class="col">
+                <div class="card-body">
+                    <form th:action="@{editRole}" th:object="${msRole}" method="post" enctype="multipart/form-data" >
+                        <div class="form-group">
+                            <input type="hidden" name="idRole" th:value="${msRole.idRole}">
+
+                            <label for="role">Nama Role <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="role" id="role" th:value="${msRole.role}" th:placeholder="${msRole.role}" required>
+                        </div>
+
                         <a class="btn btn-outline-secondary" href="/Role">Kembali</a>&#32
                         <button class="btn btn-outline-primary">Simpan</button>
-                    </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </main>
 </div>
-<br/><br/><br/>
-</body>
+
 </html>

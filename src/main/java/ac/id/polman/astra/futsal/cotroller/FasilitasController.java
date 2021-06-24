@@ -43,11 +43,7 @@ public class FasilitasController {
 
     //========================================
     @PostMapping("/addFasilitas")
-    public String addFasilitas(
-            @RequestParam("fasilitas") String fasilitas
-    ){
-        MsFasilitas msFasilitas = new MsFasilitas();
-        msFasilitas.setFasilitas(fasilitas);
+    public String addFasilitas(MsFasilitas msFasilitas){
         msFasilitas.setCreaby("Ivan(harusnya ambil nama yang bikin)");
         msFasilitas.setCreadate(LocalDateTime.now());
         msFasilitas.setModiby("");
@@ -61,11 +57,13 @@ public class FasilitasController {
     @PostMapping("/editFasilitas")
     public String editFasilitas(
             @RequestParam("idFasilitas") int idFasilitas,
-            @RequestParam("fasilitas") String fasilitas
+            @RequestParam("fasilitas") String fasilitas,
+            @RequestParam("icon") String icon
     ){
         MsFasilitas msFasilitas = fasilitasService.getFacilities(idFasilitas);
 
         msFasilitas.setFasilitas(fasilitas);
+        msFasilitas.setIcon(icon);
         msFasilitas.setModiby("yang login saat ini");
         msFasilitas.setModidate(LocalDateTime.now());
 
