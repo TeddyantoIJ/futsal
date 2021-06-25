@@ -76,3 +76,28 @@
     background-color: #5cc96d;
     color: white
 }
+.who-we-are{
+    font-family: 'Segoe UI';
+    font-weight: 200;
+}
+
+.who-we-are-img{
+    height: 512px;
+    width: auto;
+    object-fit: cover
+}
+
+.who-we-are-title{
+    font-size: 20px;
+    font-weight: 250;
+    color: white;
+    font-family: "Segoe UI";
+    padding-left: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.who-we-are-description{
+    font-size: 15px;
+    font-weight: 200;
+}
