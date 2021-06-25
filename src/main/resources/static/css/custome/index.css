@@ -1,0 +1,78 @@
+.wrapText {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: "...";
+    text-overflow: ellipsis;
+}
+
+.item-pertandingan{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    margin-top: 15px
+}
+
+.icon-tim-last-match{
+    height: 30px;
+    width: 30px;
+    object-position: center;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.icon-tim-practice{
+    height: 60px;
+    width: 60px;
+    object-position: center;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.bg-body{
+    background-image: url("/images/assets/background_index1.jpg");
+    background-attachment: fixed ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.banner-potrait{
+    height: 700px;
+    width: auto;
+    object-fit: cover
+}
+
+
+.text-last-match{
+    font-weight: 100;
+}
+
+.banner-landscape{
+    background-image: url("/images/assets/background_banner.jpg");
+        /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.text-header-schedule{
+    font-weight: 300;
+    font-size: 25px;
+}
+
+.btn{
+    border-radius: 0;
+}
+
+.tim-our-teams{
+    height: 200px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.name-team-our-teams{
+    font-family: 'Century Gothic';
+    background-color: #5cc96d;
+    color: white
+}
