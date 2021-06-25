@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.time.LocalDateTime;
 
 @Controller
@@ -33,7 +35,25 @@ public class PendaftaranController {
 
     @GetMapping("/Login")
     public String Login(Model model){
+        model.addAttribute("akunObj", new MsAkun());
         return "template/login";
+    }
+
+    @PostMapping("/Logincek")
+    public String Logincek(@RequestParam(name = "username") String username,
+                           @RequestParam(name = "password") String password) {
+
+        MsAkun msAkun = akunService.getUserByUsername(username);
+
+        if(msAkun == null){
+            return "redirect:/Login";
+        }
+
+        if (msAkun.getUsername().equals(username) && msAkun.getPassword().equals(password)){
+            return "redirect:/MenuAdmin";
+        }else{
+            return "redirect:/Login";
+        }
     }
 
     @PostMapping("/addDaftarUser")

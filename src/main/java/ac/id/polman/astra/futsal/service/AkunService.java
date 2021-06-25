@@ -27,6 +27,11 @@ public class AkunService {
         return msAkun;
     }
 
+    public MsAkun getUserByUsername(String username){
+        MsAkun msAkun = akunRepository.findByUsername(username);
+        return msAkun;
+    }
+
     public void update(MsAkun msAkun){
         akunRepository.save(msAkun);
     }

@@ -13,4 +13,7 @@ public interface AkunRepository extends CrudRepository<MsAkun, Integer> {
 
     @Query("select * from ms_akun where id_role =:id_role")
     List<MsAkun> findAllByIdRole(@Param("id_role") int id_role);
+
+    @Query("select * from ms_akun where username =:username")
+    MsAkun findByUsername(@Param("username") String username);
 }
