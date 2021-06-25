@@ -31,6 +31,11 @@ public class PendaftaranController {
         return "template/admines";
     }
 
+    @GetMapping("/Login")
+    public String Login(Model model){
+        return "template/login";
+    }
+
     @PostMapping("/addDaftarUser")
     public String addUser(MsUser msUser, MsAkun msAkun) {
         msUser.setIdAkun(1);
