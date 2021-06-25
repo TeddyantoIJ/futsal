@@ -1,76 +1,85 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/template/admines">
 <head>
-    <meta charset="UTF-8">
-    <title>Edit User</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <title>User</title>
 </head>
-<body>
-<br/><br/>
-<div class="container">
-    <center>
-        <h1>EDIT DATA USER</h1>
-        <hr/>
-    </center>
-    <br/>
-    <div class="row">
-        <div class="col">
-            <form th:action="@{editUser}" th:object="${userObj}" method="post" enctype="multipart/form-data" >
-                <div class="row">
-                    <div class="col">
-                        <input type="hidden" name="idUser" th:value="${userObj.idUser}">
-                        <label for="namaDepan">Nama Depan<span style="color: red">*</span> </label>
-                        <input class="form form-control" type="text" name="namaDepan" id="namaDepan" th:placeholder="${userObj.namaDepan}" th:value="${userObj.namaDepan}" required>
-                        <br/>
 
-                        <label for="namaBelakang">Nama Belakang<span style="color: red">*</span> </label>
-                        <input class="form form-control" type="text" name="namaBelakang" id="namaBelakang" th:placeholder="${userObj.namaBelakang}" th:value="${userObj.namaBelakang}" required>
-                        <br/>
-
-                        <label for="telephone">Telepon <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="text" name="telephone" id="telephone" th:placeholder="${userObj.telephone}" th:value="${userObj.telephone}" required>
-                        <br/>
-
-                        <label for="email">Email <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="text" name="email" id="email" th:placeholder="${userObj.email}" th:value="${userObj.email}" required>
-                        <br/>
-
-                        <label for="tanggal_Lahir">Tanggal Lahir <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="date" name="tanggalLahir" id="tanggal_Lahir" th:placeholder="${userObj.tanggalLahir}" th:value="${userObj.tanggalLahir}" required>
-                        <br/>
-
-                        <label>Jenis Kelamin <span style="color: red">*</span> </label>
-                        <br/>
-                        <input th:if="${userObj.jenisKelamin == 'LAKI-LAKI'}" type="radio" id="laki" name="jenisKelamin" value="LAKI-LAKI" checked>
-                        <input th:if="${userObj.jenisKelamin == 'PEREMPUAN'}" type="radio" id="laki1" name="jenisKelamin" value="LAKI-LAKI">
-                          <label for="laki">Laki - Laki</label><br>
-                        <input th:if="${userObj.jenisKelamin == 'PEREMPUAN'}" type="radio" id="perempuan" name="jenisKelamin" value="PEREMPUAN" checked>
-                        <input th:if="${userObj.jenisKelamin == 'LAKI-LAKI'}" type="radio" id="perempuan1" name="jenisKelamin" value="PEREMPUAN">
-                          <label for="perempuan">Perempuan</label><br>
-                        <br/>
-
-                        <div class="row">
-                            <div class="col">
-                                <label>Foto User <span style="color: red">*</span> </label>
-                                <br/>
-                                <img class="card card-body card-img" th:src="@{'images/merchant/foto/'+${userObj.foto}}">
-                                <br/><br/>
-                                <input type="file" name="file" id="file" th:value="${userObj.foto}">
-                            </div>
+<div layout:fragment="content">
+    <main>
+        <header>
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item">User</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Ubah Data</li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+        </header>
+        <!-- Main page content-->
+        <div class="container mt-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Form User
+                </div>
+                <div class="card-body">
+                    <form th:action="@{addUser}" th:object="${userObj}" method="post" enctype="multipart/form-data" >
+                        <div class="form-group">
+                            <input type="hidden" name="idUser" th:value="${userObj.idUser}">
+                            <label for="namaDepan">Nama Depan<span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="namaDepan" id="namaDepan" th:placeholder="${userObj.namaDepan}" th:value="${userObj.namaDepan}" required>
                         </div>
-                        <br/><br/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
+
+                        <div class="form-group">
+                            <label for="namaBelakang">Nama Belakang<span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="namaBelakang" id="namaBelakang" th:placeholder="${userObj.namaBelakang}" th:value="${userObj.namaBelakang}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telephone">Telepon <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="telephone" id="telephone" th:placeholder="${userObj.telephone}" th:value="${userObj.telephone}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="email" id="email" th:placeholder="${userObj.email}" th:value="${userObj.email}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tanggal_Lahir">Tanggal Lahir <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="date" name="tanggalLahir" id="tanggal_Lahir" th:placeholder="${userObj.tanggalLahir}" th:value="${userObj.tanggalLahir}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Jenis Kelamin <span style="color: red">*</span> </label>
+                            <br/>
+                            <input th:if="${userObj.jenisKelamin == 'LAKI-LAKI'}" type="radio" id="laki" name="jenisKelamin" value="LAKI-LAKI" checked>
+                            <input th:if="${userObj.jenisKelamin == 'PEREMPUAN'}" type="radio" id="laki1" name="jenisKelamin" value="LAKI-LAKI">
+                              <label for="laki">Laki - Laki</label><br>
+                            <input th:if="${userObj.jenisKelamin == 'PEREMPUAN'}" type="radio" id="perempuan" name="jenisKelamin" value="PEREMPUAN" checked>
+                            <input th:if="${userObj.jenisKelamin == 'LAKI-LAKI'}" type="radio" id="perempuan1" name="jenisKelamin" value="PEREMPUAN">
+                              <label for="perempuan">Perempuan</label><br>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Foto User <span style="color: red">*</span> </label>
+                            <br/>
+                            <img class="card card-body card-img" th:src="@{'images/merchant/foto/'+${userObj.foto}}">
+                            <br/>
+                            <input type="file" name="file" id="file" th:value="${userObj.foto}">
+                        </div>
+
                         <a class="btn btn-outline-secondary" href="/User">Kembali</a>&#32
-                        <button class="btn btn-outline-primary">Perbarui</button>
-                    </div>
+                        <button class="btn btn-outline-primary">Simpan</button>
+
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </main>
 </div>
-<br/><br/><br/>
-</body>
+
 </html>

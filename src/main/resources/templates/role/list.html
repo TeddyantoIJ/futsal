@@ -1,69 +1,69 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/template/admines">
 <head>
-    <meta charset="UTF-8">
     <title>Role</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-
 </head>
-<body>
-<br/><br/>
-<div class="container">
-    <center>
-        <h1>DAFTAR ROLE</h1>
-        <hr/>
-    </center>
-    <div class="row">
-        <div class="col">
-            <a href="/Role-add" class="btn btn-outline-primary">Tambah</a>
-        </div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="col">
-            <table id="table" class="table table-striped">
-                <thead>
-                <tr>
-                    <td>No</td>
-                    <!--                    <td>Id Merchant</td>-->
-                    <td>Id Role</td>
-                    <td>Nama Role</td>
-                    <td>Aksi</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="item, iter: ${listRole}">
-                    <!--                <td th:text="${Merchant.id_merchant}">ID</td>-->
-                    <td><span th:text="${iter.count}"></span></td>
-                    <td th:text="${item.idRole}"></td>
-                    <td th:text="${item.role}"></td>
-                    <td >
-                        <div class="row">
-                            <div class="col">
-                                <a th:href="@{'Role-edit?id_role='+${item.idRole}}" class="btn btn-info form-control">Edit</a>
-                            </div>
-<!--                            <div class="col">-->
-<!--                                <a th:href="@{'Merchant-detail?id_merchant='+${item.idRole}}" class="btn btn-success form-control">Detail</a>-->
-<!--                            </div>-->
-                            <div class="col">
-                                <a th:if="${item.status == 1}" th:href="@{'deleteRole?id_role='+${item.idRole}}" class="btn btn-danger form-control"  onclick="return confirm('Tekan OK untuk menghapus')">Hapus</a>
-                                <a th:if="${item.status == 0}" th:href="@{'deleteRole?id_role='+${item.idRole}}" class="btn btn-primary form-control">Muncul</a>
-                            </div>
+
+<div layout:fragment="content">
+    <main>
+        <header>
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Data Role</li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+        </header>
+        <!-- Main page content-->
+        <div class="container-fluid mt-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Data Role
+                </div>
+                <div class="card-body">
+                    <div class="row form-group">
+                        <div class="col-sm-12 col-md-6">
+                            <a class="btn btn-primary" href="/Role-add"><i class="fa fa-plus-circle"></i>&nbsp; Tambah</a>
                         </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                    </div>
+                    <div class="table-responsive pt-2">
+                        <div class="datatable">
+                            <table class="table table-bordered table-hover table-striped nowrap" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th class="text-center min-wd-50">No</th>
+                                    <th class="text-center">Role</th>
+                                    <th class="text-center min-wd-50">Aksi</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item, iter: ${listRole}">
+                                    <!--                <td th:text="${Merchant.id_merchant}">ID</td>-->
+                                    <td class="text-center min-wd-50" style="width:20px;"><span th:text="${iter.count}"></span></td>
+                                    <td th:text="${item.role}"></td>
+                                    <td class="text-center min-wd-50" style="width:250px;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <a th:href="@{'Role-edit?id_role='+${item.idRole}}" class="btn btn-info form-control"><i data-feather="edit"></i>  Ubah</a>
+                                            </div>
+                                            <div class="col">
+                                                <a th:if="${item.status == 1}" th:href="@{'deleteRole?id_role='+${item.idRole}}" class="btn btn-danger form-control"  onclick="return confirm('Tekan OK untuk menghapus')"><i data-feather="trash-2"></i> Hapus</a>
+                                                <a th:if="${item.status == 0}" th:href="@{'deleteRole?id_role='+${item.idRole}}" class="btn btn-primary form-control">Muncul</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <a class="btn btn-outline-secondary" href="/">
-                Kembali
-            </a>
-        </div>
-    </div>
+    </main>
 </div>
-<br/><br/><br/>
-</body>
 </html>

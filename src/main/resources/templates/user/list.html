@@ -1,76 +1,82 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/template/admines">
 <head>
-    <meta charset="UTF-8">
     <title>User</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-
 </head>
-<body>
-<br/><br/>
-<div class="container">
-    <center>
-        <h1>DAFTAR USER</h1>
-        <hr/>
-    </center>
-    <div class="row">
-        <div class="col">
-            <a href="/User-add" class="btn btn-outline-primary">Tambah</a>
-        </div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="col">
-            <table id="table" class="table table-striped">
-                <thead>
-                <tr>
-                    <td>No</td>
-                    <!--                    <td>Id Merchant</td>-->
-                    <td>Nama</td>
-                    <td>Telepon</td>
-                    <td>Email</td>
-                    <td>Tanggal Lahir</td>
-                    <td>Aksi</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="User, iter: ${listUser}">
-                    <!--                <td th:text="${Merchant.id_merchant}">ID</td>-->
-                    <td><span th:text="${iter.count}"></span></td>
-                    <td th:text="${User.namaDepan}"></td>
-                    <td th:text="${User.telephone}"></td>
-                    <td th:text="${User.email}"></td>
-                    <td th:text="${User.tanggalLahir}"></td>
-                    <td >
-                        <div class="row">
-                            <div class="col">
-                                <a th:href="@{'User-edit?id_user='+${User.idUser}}" class="btn btn-info form-control">Edit</a>
-                            </div>
-                            <div class="col">
-                                <a th:href="@{'deleteUser?id_user='+${User.idUser}}" class="btn btn-danger form-control"  onclick="return confirm('Tekan OK untuk menghapus')">Hapus</a>
-                            </div>
+
+<div layout:fragment="content">
+    <main>
+        <header>
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Data User</li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+        </header>
+        <!-- Main page content-->
+        <div class="container-fluid mt-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Data User
+                </div>
+                <div class="card-body">
+                    <div class="row form-group">
+<!--                        <div class="col-sm-12 col-md-6">-->
+<!--                            <a class="btn btn-primary" href="/User-add"><i class="fa fa-plus-circle"></i>&nbsp; Tambah</a>-->
+<!--                        </div>-->
+                    </div>
+                    <div class="table-responsive pt-2">
+                        <div class="datatable">
+                            <table class="table table-bordered table-hover table-striped nowrap" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th class="text-center min-wd-50">No</th>
+                                    <!--                                    <th class="text-center">ID Biaya</th>-->
+                                    <th class="text-center">Nama</th>
+                                    <th class="text-center">Telepon</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Tanggal Lahir</th>
+                                    <th class="text-center min-wd-50">Aksi</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="User, iter: ${listUser}">
+                                    <!--                <td th:text="${Merchant.id_merchant}">ID</td>-->
+                                    <td class="text-center min-wd-50" style="width:20px;"><span th:text="${iter.count}"></span></td>
+                                    <td th:text="${User.namaDepan}"></td>
+                                    <td th:text="${User.telephone}"></td>
+                                    <td th:text="${User.email}"></td>
+                                    <td th:text="${User.tanggalLahir}"></td>
+                                    <td class="text-center min-wd-50" style="width:150px;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <a th:href="@{'User-edit?id_user='+${User.idUser}}" class="btn btn-info form-control"><i data-feather="edit"></i> Ubah</a>
+                                            </div>
+                                            <div class="col">
+                                                <a th:href="@{'deleteUser?id_user='+${User.idUser}}" class="btn btn-danger form-control"  onclick="return confirm('Tekan OK untuk menghapus')"><i data-feather="trash-2"></i> Hapus</a>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col">
+                                                <a th:if="${User.status == 0}" class="btn btn-outline-success col">Aktifkan</a>
+                                                <a th:if="${User.status == 1}" class="btn btn-outline-danger col">Nonaktifkan</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col">
-                                <a th:if="${User.status == 0}" class="btn btn-outline-success col">Aktifkan</a>
-                                <a th:if="${User.status == 1}" class="btn btn-outline-danger col">Nonaktifkan</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <a class="btn btn-outline-secondary" href="/">
-                Kembali
-            </a>
-        </div>
-    </div>
+    </main>
 </div>
-<br/><br/><br/>
-</body>
 </html>

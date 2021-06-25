@@ -1,48 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/template/admines">
 <head>
-    <meta charset="UTF-8">
-    <title>Add Role</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <title>Fasilitas</title>
 </head>
-<body>
-<br/><br/>
-<div class="container">
-    <center>
-        <h1>TAMBAH DATA FASILTAS</h1>
-        <hr/>
-    </center>
-    <br/>
-    <div class="row">
-        <div class="col">
-            <form th:action="@{addFasilitas}" th:object="${msFasilitas}" method="post" enctype="multipart/form-data" >
-                <div class="row">
-                    <div class="col">
-                        <label for="fasilitas">Fasilitas <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="text" name="fasilitas" id="fasilitas"  required>
-                    </div>
+
+<div layout:fragment="content">
+    <main>
+        <header>
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item">Fasilitas</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Tambah Data</li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+        </header>
+        <!-- Main page content-->
+        <div class="container mt-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Form Fasilitas
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col">
-                        <label>Foto Fasilitas <span style="color: red">*</span> </label>
-                        <br/>
-                        <input type="file" name="file" id="file"  accept="image/png, image/jpeg" required>
-                        <br/>
-                        <br/>
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="col">
+                <div class="card-body">
+                    <form th:action="@{addFasilitas}" th:object="${msFasilitas}" method="post" enctype="multipart/form-data" >
+                        <div class="form-group">
+                            <label for="fasilitas">Fasilitas <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="fasilitas" id="fasilitas" placeholder="Fasilitas"  required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="icon">Icon <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="icon" id="icon" placeholder="Icon"  required>
+                        </div>
+
                         <a class="btn btn-outline-secondary" href="/Fasilitas">Kembali</a>&#32
                         <button class="btn btn-outline-primary">Simpan</button>
-                    </div>
+
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </main>
 </div>
-<br/><br/><br/>
-</body>
+
 </html>

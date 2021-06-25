@@ -86,8 +86,6 @@ public class UserController {
         UploadController uploadController = new UploadController();
         MsUser oldUser = userService.getUserById(msUser.getIdUser());
 
-        //msUser.setIdUser(oldUser.getIdUser());
-//        msUser.setTanggalLahir(LocalDateTime.now());
         msUser.setCreaby(oldUser.getCreaby());
         msUser.setCreadate(oldUser.getCreadate());
         msUser.setModiby("yang login sekarang");
