@@ -5,23 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Futsal Kuy</title>
-    <style>
-        .wrapText {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: "...";
-            text-overflow: ellipsis;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/custome/index.css">
 </head>
-<body>
+<body class="bg-body">
 <div layout:fragment="content">
-    <section id="banner"
-             style="background-image: url(images/assets/background_banner.jpg);
-            /* Center and scale the image nicely */
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;">
+    <section id="banner" class="banner-landscape">
         <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
             <a class="navbar-brand" href="#">ICON</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,23 +39,17 @@
                         <a class="nav-link disabled  font-weight-bold" href="#">Disabled</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
             </div>
         </nav>
         <div class="container">
-            <div  class="row align-items-center" style=" height: 550px">
+            <div  class="row align-items-center" style=" height: 768px">
                 <div class="col-sm">
                     <div class="row">
-                        <div class="col"></div>
-                        <div class="col-sm-4">
-                            <h3 style="color: white; text-align: center">WELCOME TO IVTE <br/>
-                                FIND YOUR FIELD <br/>
+                        <div class="col text-center">
+                            <h3 style="color: white; text-align: center; text-transform: uppercase">WELCOME TO IVTE <br/>
+                                find your best futsal court here <br/>
                             </h3>
                         </div>
-                        <div class="col"></div>
                     </div>
 <!--                    <div class="row">-->
 <!--                        <div class="col"></div>-->
@@ -83,8 +65,8 @@
 
             <hr/>
             <div class="row">
-                <div class="col-sm"></div>
-                <div class="col-sm-2 d-inline-flex">
+                <div class="col-lg"></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 d-sm-inline-flex">
                     <a href="/#our-merchant">
                         <i style="color:#5cc96d " class="fa fa-home fa-3x"></i>
                     </a>
@@ -94,14 +76,14 @@
                     </div>
 
                 </div>
-                <div class="col-sm-2 d-inline-flex">
+                <div class="col-lg-2 col-md-3 col-sm-4 d-sm-inline-flex">
                     <i style="color:#5cc96d " class="fa fa-map fa-3x"></i>
                     <div style="padding-left: 5px; margin-left: 5px">
                         <h5 style="color: white;">50+</h5>
                         <h6 style="color: white">LAPANGAN</h6>
                     </div>
                 </div>
-                <div class="col-sm-2 d-inline-flex">
+                <div class="col-lg-2 col-md-3 col-sm-4 d-sm-inline-flex">
                     <a href="#our-teams">
                         <i style="color:#5cc96d " class="fa fa-users fa-3x"></i>
                     </a>
@@ -110,20 +92,20 @@
                         <h6 style="color: white">TIM</h6>
                     </div>
                 </div>
-                <div class="col-sm-2 d-inline-flex">
+                <div class="col-lg-2 col-md-3 col-sm-4 d-sm-inline-flex">
                     <i style="color:#5cc96d " class="fa fa-user fa-3x"></i>
                     <div style="padding-left: 5px; margin-left: 5px">
                         <h5 style="color: white;">200+</h5>
                         <h6 style="color: white">PENGGUNA</h6>
                     </div>
                 </div>
-                <div class="col-sm"></div>
+                <div class="col-lg"></div>
             </div>
         </div>
         <br/>
     </section>
-    <br/>
-    <section id="our-merchant">
+
+    <section id="our-merchant" class="bg-light">
         <div class="container">
             <div class="row">
                 <div class="col-sm text-center">
@@ -292,375 +274,824 @@
                         <br/>
                         <div class="row">
                             <div class="col text-center">
-                                <a href="" class="btn btn-outline-danger" style="border-radius: 0px;">Show All Merchant</a>
+                                <a href="" class="btn btn-outline-danger">Show All Merchant</a>
+                                <a href="" class="btn btn-outline-success">Create Your Own Merchant</a>
+                                <a href="" class="btn btn-outline-primary">Go To My Merchant</a>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
+        <br/>
     </section>
-    <br/>
-    <section id="our-teams"
-            style="background-image: url(images/assets/background_banner.jpg);
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover">
+
+    <section id="our-teams" style="background-color: transparent">
         <br/>
         <div class="container" style="background-color: rgba(92,201,109, 0.2)">
             <div class="row">
                 <div class="col-sm text-center">
                     <br/>
-                    <h3 class="font-weight-bold" style="color: #5cc96d; font-family: 'Century Gothic'">OUR TEAMS</h3>
+                    <h3 class="font-weight-bold" style="background-color: #5cc96d; color: white; font-family: 'Century Gothic'">OUR TEAMS</h3>
                     <hr style="border-color: #5cc96d"/>
                 </div>
             </div>
             <div class="row">
-<!--                <div class="col-sm-3">-->
-<!--                    <a class="btn btn-success form-control active" style="border-radius: 0px; border-color: transparent; margin-top: 5px">Child</a>-->
-<!--                    <a class="btn btn-success form-control" style="border-radius: 0px; border-color: transparent">Adult</a>-->
-<!--                    <a class="btn btn-success form-control" style="border-radius: 0px; border-color: transparent">Girl</a>-->
-<!--                    <a class="btn btn-success form-control" style="border-radius: 0px; border-color: transparent">Mix</a>-->
-<!--                </div>-->
-                <div class="col-sm-12">
+                <div class="col-3">
+                    <button class="btn btn-success form-control" data-toggle="collapse" data-target=".Child" type="button">Child</button>
+                    <button class="btn btn-success form-control" data-toggle="collapse" data-target=".Adult" type="button">Adult</button>
+                    <button class="btn btn-success form-control" data-toggle="collapse" data-target=".Girl" type="button">Girl</button>
+                    <button class="btn btn-success form-control" data-toggle="collapse" data-target=".Mix" type="button">Mix</button>
+                    <br/><br/>
+                    <a href="" class="btn btn-info form-control">Show All Team</a>
+                    <a href="" class="btn btn-primary form-control" style="margin-top: 10px;">Create Your Own Team</a>
+                    <a href="" class="btn btn-danger form-control" style="margin-top: 10px;">Go To My Team</a>
+                </div>
+<!--                DATA TIM TIM -->
+                <div class="col-9">
                     <div class="row">
-                        <div class="col-sm-4 text-center" style="margin-top: 5px">
-                            <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 200px; object-fit: cover; object-position: center"/>
-                            <p style="font-family: 'Century Gothic'">Tim A</p>
+                        <div class="col-sm-4 Child collapse" style="margin-top: 5px">
+                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
+                                <p class="font-weight-bold text-center name-team-our-teams">Tim A</p>
+                                <a class="btn btn-primary text-light" style="bottom: 0px; position: absolute">Ask To Join</a>
+                            </div>
                         </div>
-                        <div class="col-sm-4 text-center" style="margin-top: 5px">
-                            <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 200px; object-fit: cover; object-position: center"/>
-                            <p style="font-family: 'Century Gothic'">Tim A</p>
+                        <div class="col-sm-4 Adult collapse" style="margin-top: 5px">
+                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
+                                <p class="font-weight-bold text-center name-team-our-teams">Tim B</p>
+                                <a class="btn btn-secondary" style="bottom: 0px; position: absolute; cursor: not-allowed;">Ask To Join</a>
+                            </div>
                         </div>
-                        <div class="col-sm-4 text-center" style="margin-top: 5px">
-                            <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 200px; object-fit: cover; object-position: center"/>
-                            <p style="font-family: 'Century Gothic'">Tim A</p>
+                        <div class="col-sm-4 Child collapse" style="margin-top: 5px">
+                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
+                                <p class="font-weight-bold text-center name-team-our-teams">Tim C</p>
+                                <a class="btn btn-primary text-light" style="bottom: 0px; position: absolute">Ask To Join</a>
+                            </div>
                         </div>
-                        <div class="col-sm-4 text-center" style="margin-top: 5px">
-                            <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 200px; object-fit: cover; object-position: center"/>
-                            <p style="font-family: 'Century Gothic'">Tim A</p>
+                        <div class="col-sm-4 Girl collapse" style="margin-top: 5px">
+                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
+                                <p class="font-weight-bold text-center name-team-our-teams">Tim D</p>
+                                <a class="btn btn-secondary" style="bottom: 0px; position: absolute; cursor: not-allowed;">Ask To Join</a>
+                            </div>
                         </div>
-                        <div class="col-sm-4 text-center" style="margin-top: 5px">
-                            <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 200px; object-fit: cover; object-position: center"/>
-                            <p style="font-family: 'Century Gothic'">Tim A</p>
+                        <div class="col-sm-4 Mix collapse" style="margin-top: 5px">
+                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
+                                <p class="font-weight-bold text-center name-team-our-teams">Tim E</p>
+                                <a class="btn btn-primary text-light" style="bottom: 0px; position: absolute">Ask To Join</a>
+                            </div>
                         </div>
-                        <div class="col-sm-4 text-center" style="margin-top: 5px">
-                            <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 200px; object-fit: cover; object-position: center"/>
-                            <p style="font-family: 'Century Gothic'">Tim A</p>
+                        <div class="col-sm-4 Adult collapse" style="margin-top: 5px">
+                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
+                                <p class="font-weight-bold text-center name-team-our-teams">Tim F</p>
+                                <a class="btn btn-primary text-light" style="bottom: 0px; position: absolute">Ask To Join</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 Child collapse" style="margin-top: 5px">
+                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
+                                <p class="font-weight-bold text-center name-team-our-teams">Tim G</p>
+                                <a class="btn btn-secondary" style="bottom: 0px; position: absolute; cursor: not-allowed;">Ask To Join</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 Mix collapse" style="margin-top: 5px">
+                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
+                                <p class="font-weight-bold text-center name-team-our-teams">Tim H</p>
+                                <a class="btn btn-primary text-light" style="bottom: 0px; position: absolute">Ask To Join</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 Girl collapse" style="margin-top: 5px">
+                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
+                                <p class="font-weight-bold text-center name-team-our-teams">Tim I</p>
+                                <a class="btn btn-secondary" style="bottom: 0px; position: absolute; cursor: not-allowed;">Ask To Join</a>
+                            </div>
                         </div>
                     </div>
-                    <br/>
-                    <div class="row align-items-center"  style="background-color: white; height: 50px">
-                        <div class="col-sm text-center">
-                            <a href="" class="btn btn-outline-info" style="border-radius: 0px">Show All Team</a>
-                            <a href="" class="btn btn-outline-success" style="border-radius: 0px">Create Your Own Team</a>
-                        </div>
-                    </div>
-                    <br/>
                 </div>
             </div>
+<!--            <br/>-->
+<!--            <div class="row">-->
+<!--                <div class="col-sm text-center">-->
+<!--                    <a href="" class="btn btn-info">Show All Team</a>-->
+<!--                    <a href="" class="btn btn-success">Create Your Own Team</a>-->
+<!--                    <a href="" class="btn btn-primary">Go To My Team</a>-->
+<!--                </div>-->
+<!--            </div>-->
+            <br/>
         </div>
         <br/>
     </section>
-    <br/>
-    <section id="last-match">
+
+    <section id="last-match" class="bg-light">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm text-center">
                     <br/>
-                    <h3 class="font-weight-bold" style="color: red; font-family: 'Century Gothic'">LAST 6 MATCHES</h3>
+                    <h3 class="font-weight-bold text-dark" style="font-family: 'Segoe UI'">LAST MATCHES</h3>
                     <hr style="border-color: #5cc96d"/>
                 </div>
             </div>
+            <!--   DATA DATA PERTANDINGAN -->
+            <div class="row align-items-center">
+                <div class="col-sm text-center">
+                    <img title="Turnamen Futsal" src="/images/assets/potrait_banner_1.jpg" class="card-img banner-potrait"/></div>
+                <div class="col-sm-4  text-center" style="background-color: transparent">
+                    <!--   DATA DATA PERTANDINGAN -->
+                    <div class="card shadow item-pertandingan">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="row align-items-center">
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left">
+                                                        Tim A
+                                                    </div>
+                                                    <div class="col-sm text-right">
+                                                        3
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
+                                            <div class="col-sm-2">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left">
+                                                        Tim B
+                                                    </div>
+                                                    <div class="col-sm text-right">
+                                                        1
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 text-center">
+                                        <a href="">SPORT EA</a>
+                                        <br/>
+                                        <span class="text-muted">
+                                            2021-06-24 (17.00)
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow item-pertandingan">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="row align-items-center">
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left">
+                                                        Tim A
+                                                    </div>
+                                                    <div class="col-sm text-right">
+                                                        3
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
+                                            <div class="col-sm-2">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left">
+                                                        Tim B
+                                                    </div>
+                                                    <div class="col-sm text-right">
+                                                        1
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 text-center">
+                                        <a href="">SPORT EA</a>
+                                        <br/>
+                                        <span class="text-muted">
+                                            2021-06-24 (17.00)
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow item-pertandingan">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="row align-items-center">
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left">
+                                                        Tim A
+                                                    </div>
+                                                    <div class="col-sm text-right">
+                                                        3
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
+                                            <div class="col-sm-2">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left">
+                                                        Tim B
+                                                    </div>
+                                                    <div class="col-sm text-right">
+                                                        1
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 text-center">
+                                        <a href="">SPORT EA</a>
+                                        <br/>
+                                        <span class="text-muted">
+                                            2021-06-24 (17.00)
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow item-pertandingan">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="row align-items-center">
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left">
+                                                        Tim A
+                                                    </div>
+                                                    <div class="col-sm text-right">
+                                                        3
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
+                                            <div class="col-sm-2">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left">
+                                                        Tim B
+                                                    </div>
+                                                    <div class="col-sm text-right">
+                                                        1
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 text-center">
+                                        <a href="">SPORT EA</a>
+                                        <br/>
+                                        <span class="text-muted">
+                                            2021-06-24 (17.00)
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow item-pertandingan">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="row align-items-center">
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left">
+                                                        Tim A
+                                                    </div>
+                                                    <div class="col-sm text-right">
+                                                        3
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
+                                            <div class="col-sm-2">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left">
+                                                        Tim B
+                                                    </div>
+                                                    <div class="col-sm text-right">
+                                                        1
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 text-center">
+                                        <a href="">SPORT EA</a>
+                                        <br/>
+                                        <span class="text-muted">
+                                            2021-06-24 (17.00)
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow item-pertandingan">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="row align-items-center">
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left">
+                                                        Tim A
+                                                    </div>
+                                                    <div class="col-sm text-right">
+                                                        3
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
+                                            <div class="col-sm-2">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left">
+                                                        Tim B
+                                                    </div>
+                                                    <div class="col-sm text-right">
+                                                        1
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 text-center">
+                                        <a href="">SPORT EA</a>
+                                        <br/>
+                                        <span class="text-muted">
+                                            2021-06-24 (17.00)
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm  text-center">
+                    <img title="Turnamen Futsal" src="/images/assets/potrait_banner_2.jpg" class="card-img banner-potrait"/></div>
+            </div>
+            <br/>
             <div class="row">
-                <div class="col">
+                        <div class="col text-center">
+                            <a href="" class="btn btn-outline-info">Show All Match</a>
+                        </div>
+                    </div>
+        </div>
+        <br/>
+    </section>
+
+    <section id="nearest-schedule">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col col-sm">
+                    <br/>
+                    <h3 class="font-weight-bold text-light" style="font-family: 'Century Gothic'">NEAREST SCHEDULE</h3>
+                    <hr class="bg-light"/>
+                </div>
+            </div>
+            <div class="row text-light">
+                <div class="col-12 col-md-6">
+                    <p class="text-header-schedule">Friendly Match</p>
+                    <div class="card card-body bg-danger"></div>
                     <div class="row">
-<!--                        DATA DATA PERTANDINGAN -->
-                        <div class="col-sm-4">
-                            <div class="card shadow" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; margin-top: 15px">
-                                <div class="row text-center align-items-center">
-                                    <div class="col-sm">
-                                        <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
-                                        <br/>
-                                        Tim A
-                                    </div>
-                                    <div class="col-sm-3 d-inline">
+                        <div class="col">
+<!--                            ITEM FRIENDLY MATCH -->
+                            <div class="card shadow item-pertandingan" style="height: 91px">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
                                         <div class="row">
-                                            <div class="col-sm">
-                                                <h2 style="font-family: Arial;color: green">3</h2>
+                                            <div class="col-4">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
                                             </div>
-                                            <div class="col-sm">
-                                                <h3 style="font-family: Arial;">VS</h3>
+                                            <div class="col-8">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left text-dark">
+                                                        Tim A
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-sm">
-                                                <h2 style="font-family: Arial;color: red">1</h2>
+                                        </div>
+                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
+                                            <div class="col-4">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left  text-dark">
+                                                        Tim B
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm">
-                                        <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
+                                    <div class="col-6 text-center">
+                                        <a href="">SPORT EA</a>
                                         <br/>
-                                        Tim B
+                                        <span class="text-muted">
+                                                    2021-06-24 (17.00)
+                                                </span>
                                     </div>
                                 </div>
-                                <hr/>
-                                <div class="row text-center">
-                                    <div class="col-sm-3">
-                                        Date : 2021-06-24
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Time : 17.00
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Place : <a href="">SPORT EA</a>
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Winner : <a href="">Tim A</a>
-                                    </div>
-                                </div>
-                                <hr/>
                             </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="card shadow" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; margin-top: 15px">
-                                <div class="row text-center align-items-center">
-                                    <div class="col-sm">
-                                        <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
-                                        <br/>
-                                        Tim A
-                                    </div>
-                                    <div class="col-sm-3 d-inline">
+                            <div class="card shadow item-pertandingan" style="height: 91px" >
+                                <div class="row align-items-center">
+                                    <div class="col-6">
                                         <div class="row">
-                                            <div class="col-sm">
-                                                <h2 style="font-family: Arial;color: green">3</h2>
+                                            <div class="col-4">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
                                             </div>
-                                            <div class="col-sm">
-                                                <h3 style="font-family: Arial;">VS</h3>
+                                            <div class="col-8">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left text-dark">
+                                                        Tim A
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-sm">
-                                                <h2 style="font-family: Arial;color: red">1</h2>
+                                        </div>
+                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
+                                            <div class="col-4">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left  text-dark">
+                                                        Tim B
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm">
-                                        <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
+                                    <div class="col-6 text-center">
+                                        <a href="">SPORT EA</a>
                                         <br/>
-                                        Tim B
+                                        <span class="text-muted">
+                                                    2021-06-24 (17.00)
+                                                </span>
                                     </div>
                                 </div>
-                                <hr/>
-                                <div class="row text-center">
-                                    <div class="col-sm-3">
-                                        Date : 2021-06-24
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Time : 17.00
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Place : <a href="">SPORT EA</a>
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Winner : <a href="">Tim A</a>
-                                    </div>
-                                </div>
-                                <hr/>
                             </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="card shadow" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; margin-top: 15px">
-                                <div class="row text-center align-items-center">
-                                    <div class="col-sm">
-                                        <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
-                                        <br/>
-                                        Tim A
-                                    </div>
-                                    <div class="col-sm-3 d-inline">
+                            <div class="card shadow item-pertandingan" style="height: 91px">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
                                         <div class="row">
-                                            <div class="col-sm">
-                                                <h2 style="font-family: Arial;color: green">3</h2>
+                                            <div class="col-4">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
                                             </div>
-                                            <div class="col-sm">
-                                                <h3 style="font-family: Arial;">VS</h3>
+                                            <div class="col-8">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left text-dark">
+                                                        Tim A
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-sm">
-                                                <h2 style="font-family: Arial;color: red">1</h2>
+                                        </div>
+                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
+                                            <div class="col-4">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left  text-dark">
+                                                        Tim B
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm">
-                                        <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
+                                    <div class="col-6 text-center">
+                                        <a href="">SPORT EA</a>
                                         <br/>
-                                        Tim B
+                                        <span class="text-muted">
+                                                    2021-06-24 (17.00)
+                                                </span>
                                     </div>
                                 </div>
-                                <hr/>
-                                <div class="row text-center">
-                                    <div class="col-sm-3">
-                                        Date : 2021-06-24
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Time : 17.00
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Place : <a href="">SPORT EA</a>
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Winner : <a href="">Tim A</a>
-                                    </div>
-                                </div>
-                                <hr/>
                             </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="card shadow" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; margin-top: 15px">
-                                <div class="row text-center align-items-center">
-                                    <div class="col-sm">
-                                        <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
-                                        <br/>
-                                        Tim A
-                                    </div>
-                                    <div class="col-sm-3 d-inline">
+                            <div class="card shadow item-pertandingan" style="height: 91px">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
                                         <div class="row">
-                                            <div class="col-sm">
-                                                <h2 style="font-family: Arial;color: green">3</h2>
+                                            <div class="col-4">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
                                             </div>
-                                            <div class="col-sm">
-                                                <h3 style="font-family: Arial;">VS</h3>
+                                            <div class="col-8">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left text-dark">
+                                                        Tim A
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-sm">
-                                                <h2 style="font-family: Arial;color: red">1</h2>
+                                        </div>
+                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
+                                            <div class="col-4">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left  text-dark">
+                                                        Tim B
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm">
-                                        <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
+                                    <div class="col-6 text-center">
+                                        <a href="">SPORT EA</a>
                                         <br/>
-                                        Tim B
+                                        <span class="text-muted">
+                                                    2021-06-24 (17.00)
+                                                </span>
                                     </div>
                                 </div>
-                                <hr/>
-                                <div class="row text-center">
-                                    <div class="col-sm-3">
-                                        Date : 2021-06-24
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Time : 17.00
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Place : <a href="">SPORT EA</a>
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Winner : <a href="">Tim A</a>
-                                    </div>
-                                </div>
-                                <hr/>
                             </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="card shadow" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; margin-top: 15px">
-                                <div class="row text-center align-items-center">
-                                    <div class="col-sm">
-                                        <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
-                                        <br/>
-                                        Tim A
-                                    </div>
-                                    <div class="col-sm-3 d-inline">
+                            <div class="card shadow item-pertandingan" style="height: 91px">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
                                         <div class="row">
-                                            <div class="col-sm">
-                                                <h2 style="font-family: Arial;color: green">3</h2>
+                                            <div class="col-4">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
                                             </div>
-                                            <div class="col-sm">
-                                                <h3 style="font-family: Arial;">VS</h3>
+                                            <div class="col-8">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left text-dark">
+                                                        Tim A
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-sm">
-                                                <h2 style="font-family: Arial;color: red">1</h2>
+                                        </div>
+                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
+                                            <div class="col-4">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left  text-dark">
+                                                        Tim B
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm">
-                                        <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
+                                    <div class="col-6 text-center">
+                                        <a href="">SPORT EA</a>
                                         <br/>
-                                        Tim B
+                                        <span class="text-muted">
+                                                    2021-06-24 (17.00)
+                                                </span>
                                     </div>
                                 </div>
-                                <hr/>
-                                <div class="row text-center">
-                                    <div class="col-sm-3">
-                                        Date : 2021-06-24
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Time : 17.00
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Place : <a href="">SPORT EA</a>
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Winner : <a href="">Tim A</a>
-                                    </div>
-                                </div>
-                                <hr/>
                             </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="card shadow" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; margin-top: 15px">
-                                <div class="row text-center align-items-center">
-                                    <div class="col-sm">
-                                        <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
-                                        <br/>
-                                        Tim A
-                                    </div>
-                                    <div class="col-sm-3 d-inline">
+                            <div class="card shadow item-pertandingan" style="height: 91px">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
                                         <div class="row">
-                                            <div class="col-sm">
-                                                <h2 style="font-family: Arial;color: green">3</h2>
+                                            <div class="col-4">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
                                             </div>
-                                            <div class="col-sm">
-                                                <h3 style="font-family: Arial;">VS</h3>
+                                            <div class="col-8">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left text-dark">
+                                                        Tim A
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-sm">
-                                                <h2 style="font-family: Arial;color: red">1</h2>
+                                        </div>
+                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
+                                            <div class="col-4">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="row text-last-match">
+                                                    <div class="col-sm text-left  text-dark">
+                                                        Tim B
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm">
-                                        <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
+                                    <div class="col-6 text-center">
+                                        <a href="">SPORT EA</a>
                                         <br/>
-                                        Tim B
+                                        <span class="text-muted">
+                                                    2021-06-24 (17.00)
+                                                </span>
                                     </div>
                                 </div>
-                                <hr/>
-                                <div class="row text-center">
-                                    <div class="col-sm-3">
-                                        Date : 2021-06-24
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Time : 17.00
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Place : <a href="">SPORT EA</a>
-                                    </div>
-                                    <div class="col-sm-3 border-left">
-                                        Winner : <a href="">Tim A</a>
-                                    </div>
-                                </div>
-                                <hr/>
                             </div>
                         </div>
                     </div>
                     <br/>
                     <div class="row">
-                        <div class="col text-center">
-                            <a href="" class="btn btn-outline-info" style="border-radius: 0px">Show All Match</a>
-                            <a href="" class="btn btn-outline-primary" style="border-radius: 0px">Ask For A Match</a>
+                        <div class="col">
+                            <a href="" class="btn btn-danger">Show All Friendly Match</a>
+                            <a href="" class="btn btn-primary">Ask For A Match</a>
                         </div>
                     </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <p class="text-header-schedule">Practice</p>
+                    <div class="card card-body bg-warning"></div>
+                    <div class="row">
+                        <div class="col">
+<!--                           ITEM PRACTICE -->
+                            <div class="card shadow item-pertandingan" style="height: 91px">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="row align-items-center">
+                                            <div class="col-6 text-left">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-practice"  style="margin-top:4px; margin-bottom: 14px"/>
+                                            </div>
+                                            <div class="col-6 text-dark text-center" style="font-weight: 300; font-size: 20px">
+                                                Tim A
+                                                <a href="" class="btn text-primary" style="">Ask To Join Practice</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 text-center" style="margin-top: 10px">
+                                        <a href="" class="btn text-primary">SPORT EA</a>
+                                        <br/>
+                                        <span class="text-muted">
+                                            2021-06-24 (17.00)
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card shadow item-pertandingan" style="height: 91px">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="row align-items-center">
+                                            <div class="col-6 text-left">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-practice"  style="margin-top:4px; margin-bottom: 14px"/>
+                                            </div>
+                                            <div class="col-6 text-dark text-center" style="font-weight: 300; font-size: 20px">
+                                                Tim A
+                                                <p class="btn text-muted" style="cursor: not-allowed">Ask To Join Practice</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 text-center" style="margin-top: 10px">
+                                        <a href="" class="btn text-primary">SPORT EA</a>
+                                        <br/>
+                                        <span class="text-muted">
+                                            2021-06-24 (17.00)
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card shadow item-pertandingan" style="height: 91px">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="row align-items-center">
+                                            <div class="col-6 text-left">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-practice"  style="margin-top:4px; margin-bottom: 14px"/>
+                                            </div>
+                                            <div class="col-6 text-dark text-center" style="font-weight: 300; font-size: 20px">
+                                                Tim A
+                                                <a href="" class="btn text-primary" style="">Ask To Join Practice</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 text-center" style="margin-top: 10px">
+                                        <a href="" class="btn text-primary">SPORT EA</a>
+                                        <br/>
+                                        <span class="text-muted">
+                                            2021-06-24 (17.00)
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card shadow item-pertandingan" style="height: 91px">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="row align-items-center">
+                                            <div class="col-6 text-left">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-practice"  style="margin-top:4px; margin-bottom: 14px"/>
+                                            </div>
+                                            <div class="col-6 text-dark text-center" style="font-weight: 300; font-size: 20px">
+                                                Tim A
+                                                <p class="btn text-muted" style="cursor: not-allowed">Ask To Join Practice</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 text-center" style="margin-top: 10px">
+                                        <a href="" class="btn text-primary">SPORT EA</a>
+                                        <br/>
+                                        <span class="text-muted">
+                                            2021-06-24 (17.00)
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card shadow item-pertandingan" style="height: 91px">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="row align-items-center">
+                                            <div class="col-6 text-left">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-practice"  style="margin-top:4px; margin-bottom: 14px"/>
+                                            </div>
+                                            <div class="col-6 text-dark text-center" style="font-weight: 300; font-size: 20px">
+                                                Tim A
+                                                <a href="" class="btn text-primary" style="">Ask To Join Practice</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 text-center" style="margin-top: 10px">
+                                        <a href="" class="btn text-primary">SPORT EA</a>
+                                        <br/>
+                                        <span class="text-muted">
+                                            2021-06-24 (17.00)
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card shadow item-pertandingan" style="height: 91px">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="row align-items-center">
+                                            <div class="col-6 text-left">
+                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-practice"  style="margin-top:4px; margin-bottom: 14px"/>
+                                            </div>
+                                            <div class="col-6 text-dark text-center" style="font-weight: 300; font-size: 20px">
+                                                Tim A
+                                                <p class="btn text-muted" style="cursor: not-allowed">Ask To Join Practice</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 text-center" style="margin-top: 10px">
+                                        <a href="" class="btn text-primary">SPORT EA</a>
+                                        <br/>
+                                        <span class="text-muted">
+                                            2021-06-24 (17.00)
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col">
+                            <a href="" class="btn btn-warning">Show All Practice Match</a>
+                        </div>
+                    </div>
+                    <br/>
                 </div>
             </div>
         </div>
         <br/>
     </section>
+
     <div class="container">
         <center>
             <h1>FUTSAL KUY</h1>
