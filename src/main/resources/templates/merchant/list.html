@@ -1,88 +1,78 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org"
        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-       layout:decorate="/layout/_merchant">
+       layout:decorate="/template/admines">
 <head>
-    <meta charset="UTF-8">
     <title>Merchant</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-
 </head>
-<body>
+
 <div layout:fragment="content">
-
-    <!--Content of the page-->
-    <br/><br/>
-    <div class="container">
-        <center>
-            <h1>DAFTAR MERCHANT</h1>
-            <hr/>
-        </center>
-        <div class="row">
-            <div class="col">
-                <a href="/Merchant-add" class="btn btn-outline-primary">Tambah</a>
+    <main>
+        <header>
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Data Merchant</li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+        </header>
+        <!-- Main page content-->
+        <div class="container-fluid mt-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Data Merchant
+                </div>
+                <div class="card-body">
+                    <div class="row form-group">
+                    </div>
+                    <div class="table-responsive pt-2">
+                        <div class="datatable">
+                            <table class="table table-bordered table-hover table-striped nowrap" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th class="text-center min-wd-50">No</th>
+                                    <th class="text-center">Nama Merchant</th>
+                                    <th class="text-center">Telephone</th>
+                                    <th class="text-center">Alamat</th>
+                                    <th class="text-center min-wd-50">Aksi</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="Merchant, iter: ${listMerchant}">
+                                    <td class="text-center min-wd-50" style="width:20px;"><span th:text="${iter.count}"></span></td>
+                                    <td th:text="${Merchant.nama}"></td>
+                                    <td th:text="${Merchant.telephone}"></td>
+                                    <td th:text="${Merchant.alamat}"></td>
+                                    <td class="text-center min-wd-50" style="width:400px;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <a th:href="@{'Merchant-edit?id_merchant='+${Merchant.id_merchant}}" class="btn btn-info form-control"><i data-feather="check-circle"></i> Konfirmasi</a>
+                                            </div>
+                                            <div class="col">
+                                                <a th:href="@{'Merchant-detail?id_merchant='+${Merchant.id_merchant}}" class="btn btn-success form-control"><i data-feather="ellipsis-v"></i> Detail</a>
+                                            </div>
+                                            <div class="col">
+                                                <a th:href="@{'deleteMerchant?id_merchant='+${Merchant.id_merchant}}" class="btn btn-danger form-control"  onclick="return confirm('Tekan OK untuk menghapus')"><i data-feather="trash-2"></i> Hapus</a>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col">
+                                                <a th:if="${Merchant.status == 0}" class="btn btn-outline-success form-control">Aktifkan</a>
+                                                <a th:if="${Merchant.status == 1}" class="btn btn-outline-danger  form-control">Nonaktifkan</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <br/>
-        <div class="row">
-            <div class="col">
-                <table id="table" class="table table-striped">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th>No</th>
-                        <!--                    <td>Id Merchant</td>-->
-                        <th>Nama Merchant</th>
-                        <th>Telepon</th>
-                        <th>Alamat</th>
-                        <th>Foto</th>
-                        <th>Aksi</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="Merchant, iter: ${listMerchant}">
-                        <!--                <td th:text="${Merchant.id_merchant}">ID</td>-->
-                        <td><span th:text="${iter.count}"></span></td>
-                        <td th:text="${Merchant.nama}"></td>
-                        <td th:text="${Merchant.telephone}"></td>
-                        <td th:text="${Merchant.alamat}"></td>
-                        <td>
-                            <img style="height: 100px; width: auto" class="card-img" th:src="@{'images/merchant/foto/'+${Merchant.foto}}">
-                        </td>
-                        <td >
-                            <div class="row">
-                                <div class="col">
-                                    <a th:href="@{'Merchant-edit?id_merchant='+${Merchant.id_merchant}}" class="btn btn-info form-control">Edit</a>
-                                </div>
-                                <div class="col">
-                                    <a th:href="@{'Merchant-detail?id_merchant='+${Merchant.id_merchant}}" class="btn btn-success form-control">Detail</a>
-                                </div>
-                                <div class="col">
-                                    <a th:href="@{'deleteMerchant?id_merchant='+${Merchant.id_merchant}}" class="btn btn-danger form-control"  onclick="return confirm('Tekan OK untuk menghapus')">Hapus</a>
-                                </div>
-                            </div>
-                            <br/>
-                            <div class="row">
-                                <div class="col">
-                                    <a th:if="${Merchant.status == 0}" class="btn btn-outline-success form-control">Aktifkan</a>
-                                    <a th:if="${Merchant.status == 1}" class="btn btn-outline-danger  form-control">Nonaktifkan</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <a class="btn btn-outline-secondary" href="/">
-                    Kembali
-                </a>
-            </div>
-        </div>
-    </div>
-    <br/><br/><br/>
+    </main>
 </div>
-
-</body>
 </html>

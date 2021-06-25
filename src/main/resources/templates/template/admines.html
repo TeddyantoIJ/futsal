@@ -162,13 +162,25 @@
                         <div class="nav-link-icon"><i class="fas fa-fw fa-address-card"></i></div>
                         Role
                     </a>
+                    <a class="nav-link <?= ($this->uri->segment(1) == 'Status' ? 'active' : '') ?>" href="/Status">
+                        <div class="nav-link-icon"><i class="fas fa-fw fa-folder"></i></div>
+                        Status
+                    </a>
 
                     <!-- Sidenav Heading (UI Toolkit)-->
-                    <div class="sidenav-menu-heading">Transaksi</div>
+                    <div class="sidenav-menu-heading">Konfirmasi</div>
                     <!-- Sidenav Accordion (Layout)-->
-                    <a class="nav-link <?= ($this->uri->segment(1) == 'khas' ? 'active' : '') ?>" href="<?= base_url('khas/khas_bph'); ?>">
-                        <div class="nav-link-icon"><i class="fas fa-fw fa-credit-card"></i></div>
+                    <a class="nav-link <?= ($this->uri->segment(1) == 'Merchant' ? 'active' : '') ?>" href="/Merchant">
+                        <div class="nav-link-icon"><i class="fas fa-fw fa-university"></i></div>
                         Konfirmasi Merchant
+                    </a>
+                    <a class="nav-link <?= ($this->uri->segment(1) == 'Tim' ? 'active' : '') ?>" href="/Tim">
+                        <div class="nav-link-icon"><i class="fas fa-fw fa-users"></i></div>
+                        Konfirmasi Tim
+                    </a>
+                    <a class="nav-link <?= ($this->uri->segment(1) == 'Tim' ? 'active' : '') ?>" href="/Tim">
+                        <div class="nav-link-icon"><i class="fas fa-fw fa-credit-card"></i></div>
+                        Konfirmasi Pembayaran
                     </a>
                 </div>
             </div>

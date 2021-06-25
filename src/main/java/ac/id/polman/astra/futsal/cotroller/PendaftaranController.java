@@ -75,6 +75,6 @@ public class PendaftaranController {
         msAkun.setStatus(1);
         akunService.saveAkun(msAkun);
 
-        return "redirect:/User";
+        return "redirect:/Login";
     }
 }

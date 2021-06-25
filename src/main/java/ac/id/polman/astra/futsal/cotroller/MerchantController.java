@@ -1,6 +1,8 @@
 package ac.id.polman.astra.futsal.cotroller;
 
+import ac.id.polman.astra.futsal.model.DtMerchant;
 import ac.id.polman.astra.futsal.model.MsMerchant;
+import ac.id.polman.astra.futsal.service.DtMerchantService;
 import ac.id.polman.astra.futsal.service.MerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,6 +55,7 @@ public class MerchantController {
         MsMerchant msMerchant = new MsMerchant();
         msMerchant = merchantService.getMerchantById(id_merchant);
         model.addAttribute("merchantObj", msMerchant);
+
         return "merchant/detail";
     }
 

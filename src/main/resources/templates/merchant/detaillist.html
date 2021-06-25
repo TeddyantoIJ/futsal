@@ -3,7 +3,7 @@
        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
        layout:decorate="/template/admines">
 <head>
-    <title>Role</title>
+    <title>Detail Merchant</title>
 </head>
 
 <div layout:fragment="content">
@@ -13,7 +13,7 @@
             <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb bg-white">
                     <li class="breadcrumb-item">Dashboard</li>
-                    <li class="breadcrumb-item text-blue" aria-current="page">Data Role</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Data Detail Merchant</li>
                 </ol>
             </nav>
             <!-- /Breadcrumb -->
@@ -22,12 +22,12 @@
         <div class="container-fluid mt-4">
             <div class="card mb-4">
                 <div class="card-header">
-                    Data Role
+                    Data Detail Merchant
                 </div>
                 <div class="card-body">
                     <div class="row form-group">
                         <div class="col-sm-12 col-md-6">
-                            <a class="btn btn-primary" href="/Status-add"><i class="fa fa-plus-circle"></i>&nbsp; Tambah</a>
+                            <a th:href="@{'Merchant-detail?id_merchant='+${id_merchant}}" class="btn btn-outline-secondary">Kembali</a>
                         </div>
                     </div>
                     <div class="table-responsive pt-2">
@@ -36,26 +36,18 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center min-wd-50">No</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center min-wd-50">Aksi</th>
+                                    <th class="text-center">Fasilitas</th>
+                                    <th class="text-center">Jumlah</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="item, iter: ${listStatus}">
+                                <tr th:each="item, iter: ${listDtMerchant}">
                                     <!--                <td th:text="${Merchant.id_merchant}">ID</td>-->
-                                    <td class="text-center min-wd-50" style="width:20px;"><span th:text="${iter.count}"></span></td>
-                                    <td th:text="${item.keterangan}"></td>
-                                    <td class="text-center min-wd-50" style="width:250px;">
-                                        <div class="row">
-                                            <div class="col">
-                                                <a th:href="@{'Status-edit?id_status='+${item.idStatus}}" class="btn btn-info form-control"><i data-feather="edit"></i>  Ubah</a>
-                                            </div>
-                                            <div class="col">
-                                                <a th:if="${item.status == 1}" th:href="@{'deleteStatus?id_status='+${item.idStatus}}" class="btn btn-danger form-control"  onclick="return confirm('Tekan OK untuk menghapus')"><i data-feather="trash-2"></i> Hapus</a>
-                                                <a th:if="${item.status == 0}" th:href="@{'deleteStatus?id_status='+${item.idStatus}}" class="btn btn-primary form-control">Muncul</a>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <td><span th:text="${iter.count}"></span></td>
+                                    <div th:each="fas: ${listFasilitas}">
+                                        <td th:if="${item.id_fasilitas == fas.idFasilitas}"><span th:class="${fas.icon}" th:text="' | ' + ${fas.fasilitas}"></span></td>
+                                    </div>
+                                    <td th:text="${item.jumlah}"></td>
                                 </tr>
                                 </tbody>
                             </table>
