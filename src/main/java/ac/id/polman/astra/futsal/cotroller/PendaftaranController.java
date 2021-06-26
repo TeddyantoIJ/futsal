@@ -21,23 +21,14 @@ public class PendaftaranController {
     @Autowired
     AkunService akunService;
 
-    @GetMapping("/DaftarUser")
-    public String gotoAdd(Model model){
-        model.addAttribute("userObj", new MsUser());
-        model.addAttribute("akunObj", new MsAkun());
-        return "pendaftaran/adduser";
-    }
+
 
     @GetMapping("/MenuAdmin")
     public String Admin(Model model){
         return "template/admines";
     }
 
-    @GetMapping("/Login")
-    public String Login(Model model){
-        model.addAttribute("akunObj", new MsAkun());
-        return "template/login";
-    }
+
 
     @PostMapping("/Logincek")
     public String Logincek(@RequestParam(name = "username") String username,
