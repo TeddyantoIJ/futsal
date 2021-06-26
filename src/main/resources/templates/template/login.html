@@ -38,7 +38,7 @@
         <div class="wrap-login100">
             <form th:action="@{Logincek}" th:object="${akunObj}" method="post" class="login100-form validate-form">
 					<span class="login100-form-title p-b-43">
-						SELAMAT DATANG
+						WELCOME
 					</span>
 
                 <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
@@ -51,14 +51,14 @@
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
                     <input class="input100" type="password" name="password">
                     <span class="focus-input100"></span>
-                    <span class="label-input100">Kata Sandi</span>
+                    <span class="label-input100">Password</span>
                 </div>
 
                 <div class="flex-sb-m w-full p-t-3 p-b-32">
 
                     <div>
                         <a href="#" class="txt1">
-                            Lupa Sandi?
+                            Forget Password?
                         </a>
                     </div>
                 </div>
@@ -66,13 +66,17 @@
 
                 <div class="container-login100-form-btn">
                     <button class="login100-form-btn">
-                        Masuk
+                        Login
                     </button>
                 </div>
 
                 <div class="text-center p-t-46 p-b-20">
+<<<<<<< HEAD
                     Untuk mendaftar bisa  
 					<a href="/page-registration">KLIK</a>
+=======
+					<a href="/DaftarUser">REGISTER</a>
+>>>>>>> d28c234d2b236e139fb5e44b5d978b95042e53fc
                 </div>
             </form>
 

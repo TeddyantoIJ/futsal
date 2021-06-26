@@ -28,6 +28,17 @@ public class LapanganController {
         return "/lapangan/list";
     }
 
+    @GetMapping("/LapanganAdmin")
+    public String getLapanganAdmin(
+            @RequestParam("id_merchant") int id_merchant,
+            Model model
+    ){
+        List<MsLapangan> msLapanganList = lapanganService.getAllLapanganByIdMerchant(id_merchant);
+        model.addAttribute("listLapangan", msLapanganList);
+        model.addAttribute("id_merchant", id_merchant);
+        return "/merchant/listlapangan";
+    }
+
     @GetMapping("/Lapangan-add")
     public String gotoAdd(
             @RequestParam("id_merchant") int id_merchant,

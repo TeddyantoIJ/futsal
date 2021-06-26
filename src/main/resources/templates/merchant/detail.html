@@ -1,75 +1,105 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/template/admines">
 <head>
-    <meta charset="UTF-8">
-    <title>Detail Merchant</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <title>Merchant</title>
 </head>
-<body>
-<br/><br/>
-<div class="container">
-    <center>
-        <h1>DETAIL DATA MERCHANT</h1>
-        <hr/>
-    </center>
-    <br/>
-    <div class="row">
-        <div class="col">
-            <a th:href="@{'DtMerchant?id_merchant='+${merchantObj.id_merchant}}" class="btn btn-info">Detail Fasilitas</a>
-            <a th:href="@{'Lapangan?id_merchant='+${merchantObj.id_merchant}}" class="btn btn-success">Lihat Lapangan</a>
-        </div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="col">
+
+<div layout:fragment="content">
+    <main>
+        <header>
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">User</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+        </header>
+
+        <div class="container mt-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row form-group">
+                        <img class="card card-body card-img" th:src="@{'images/merchant/banner/'+${merchantObj.banner}}" width="300px" height="400px">
+                    </div>
+                </div>
+            </div>
             <div class="row">
-                <div class="col">
-                    <label for="nama">Nama Merchant </label>
-                    <input class="form form-control" type="text" name="nama" id="nama" th:placeholder="${merchantObj.nama}" th:value="${merchantObj.nama}" disabled>
-                    <br/>
+                <div class="col-lg-4">
+                    <!-- Change password card-->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img class="card card-body card-img" th:src="@{'images/merchant/foto/'+${merchantObj.foto}}">
+                            </div>
+                        </div><br>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <!-- Delete account card-->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Nama</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <label th:text="${merchantObj.nama}"></label>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Alamat</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <label th:text="${merchantObj.alamat}"></label>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Narahubung</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <label th:text="${merchantObj.narahubung}"></label>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Telepon</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <label th:text="${merchantObj.telephone}"></label>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Deskripsi</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <label th:text="${merchantObj.deskripsi}"></label>
+                                </div>
+                            </div>
+                            <hr>
 
-                    <label for="alamat">Alamat </label>
-                    <input class="form form-control" type="text" name="alamat" id="alamat" th:placeholder="${merchantObj.alamat}" th:value="${merchantObj.alamat}" disabled>
-                    <br/>
-
-                    <label for="narahubung">Narahubung </label>
-                    <input class="form form-control" type="text" name="narahubung" id="narahubung" th:placeholder="${merchantObj.narahubung}" th:value="${merchantObj.narahubung}" disabled>
-                    <br/>
-
-                    <label for="telephone">Telepon </label>
-                    <input class="form form-control" type="text" name="telephone" id="telephone" th:placeholder="${merchantObj.telephone}" th:value="${merchantObj.telephone}" disabled>
-                    <br/>
-
-                    <label for="deskripsi">Deskripsi </label>
-                    <input class="form form-control" type="text" name="deskripsi" id="deskripsi" th:placeholder="${merchantObj.deskripsi}" th:value="${merchantObj.deskripsi}" disabled>
-                    <br/>
-
-                    <div class="row">
-                        <div class="col">
-                            <label>Foto Merchant </label>
-                            <br/>
-                            <img class="card card-body card-img" th:src="@{'images/merchant/foto/'+${merchantObj.foto}}">
-
-                        </div>
-                        <div class="col">
-                            <label>Banner Merchant </label>
-                            <br/>
-                            <img class="card card-body card-img" th:src="@{'images/merchant/banner/'+${merchantObj.banner}}">
-
+                            <div class="col">
+                                <a th:href="@{'DtMerchantAdmin?id_merchant='+${merchantObj.id_merchant}}" class="btn btn-info">Detail Fasilitas</a>
+                                <a th:href="@{'LapanganAdmin?id_merchant='+${merchantObj.id_merchant}}" class="btn btn-success">Lihat Lapangan</a>
+                                <a href="/Merchant" class="btn btn-outline-secondary">Kembali</a>&#32
+                            </div>
                         </div>
                     </div>
-                    <br/><br/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <a href="/Merchant" class="btn btn-outline-secondary">Kembali</a>&#32
-                    <a th:href="@{'Merchant-edit?id_merchant='+${merchantObj.id_merchant}}" class="btn btn-outline-success">Edit</a>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
+
 </div>
-<br/><br/><br/>
-</body>
 </html>

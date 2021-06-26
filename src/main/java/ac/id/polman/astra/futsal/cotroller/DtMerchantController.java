@@ -43,6 +43,26 @@ public class DtMerchantController {
         return "dtmerchant/list";
     }
 
+    @GetMapping("/DtMerchantAdmin")
+    public String getDtMerchantAdmin(
+            @RequestParam("id_merchant") Integer id_merchant,
+            Model model){
+        List<DtMerchant> data = dtMerchantService.getAllDtMerchant();
+        List<DtMerchant> dtMerchantList = new ArrayList<>();
+        for ( DtMerchant dtMerchant : data )
+        {
+            if(dtMerchant.getId_merchant() == id_merchant){
+                dtMerchantList.add(dtMerchant);
+            }
+        }
+        List<MsFasilitas> msFasilitasList = msFasilitasService.getAllFacilities();
+
+        model.addAttribute("listDtMerchant", dtMerchantList);
+        model.addAttribute("id_merchant",id_merchant);
+        model.addAttribute("listFasilitas",msFasilitasList);
+        return "merchant/detaillist";
+    }
+
     @GetMapping("DtMerchant-add")
     public String gotoAdd(
             @RequestParam("id_merchant") Integer id_merchant,
