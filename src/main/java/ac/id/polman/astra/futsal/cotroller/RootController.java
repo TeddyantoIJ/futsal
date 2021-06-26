@@ -15,12 +15,12 @@ public class RootController {
         return "page/Index";
     }
 
-    @GetMapping("/IVTE-P")
+    @GetMapping("/IVTE")
     public String getIvte(){
         return "page/Index";
     }
 
-    @GetMapping("/IVTE-P/page-registration")
+    @GetMapping("/page-registration")
     public String gotoAdd(Model model){
         model.addAttribute("userObj", new MsUser());
         model.addAttribute("akunObj", new MsAkun());
@@ -28,83 +28,83 @@ public class RootController {
 //        return "template/login";
     }
 
-    @GetMapping("/IVTE-P/page-login")
+    @GetMapping("/page-login")
     public String Login(Model model){
         model.addAttribute("akunObj", new MsAkun());
         return "template/login";
     }
 
-    @GetMapping("/IVTE-P/Logout")
+    @GetMapping("/Logout")
     public String Logout(){
         return "page/Index";
     }
 
-    @GetMapping("/IVTE-P/about-ivte-p")
+    @GetMapping("/about-ivte-p")
     public String about_ivte_p(){
         return "";
     }
 
     // ======================================= Profil ======================================
-    @GetMapping("/IVTE-P/my-profil")
+    @GetMapping("/my-profil")
     public String goto_my_profil(){
         return "";
     }
 
     // ======================================= MERCHANT ======================================
-    @GetMapping("/IVTE-P/merchant-show-all")
+    @GetMapping("/merchant-show-all")
     public String goto_merchant_show_all(){
         return "";
     }
 
-    @GetMapping("/IVTE-P/merchant-create")
+    @GetMapping("/merchant-create")
     public String goto_merchant_create(){
         return "";
     }
 
-    @GetMapping("/IVTE-P/my-merchant")
+    @GetMapping("/my-merchant")
     public String goto_my_merchant(){
         return "";
     }
 
     // ======================================= TEAM ======================================
 
-    @GetMapping("/IVTE-P/team-show-all")
+    @GetMapping("/team-show-all")
     public String goto_team_show_all(){
         return "";
     }
 
-    @GetMapping("/IVTE-P/team-create")
+    @GetMapping("/team-create")
     public String goto_team_create(){
         return "";
     }
 
-    @GetMapping("/IVTE-P/my-team")
+    @GetMapping("/my-team")
     public String goto_my_team(){
         return "";
     }
 
     // ======================================= MATCH ======================================
 
-    @GetMapping("/IVTE-P/match-show-all")
+    @GetMapping("/match-show-all")
     public String goto_match_show_all(){
         return "";
     }
 
     // ======================================= FRIENDLY MATCH ======================================
 
-    @GetMapping("/IVTE-P/friendly-match-show-all")
+    @GetMapping("/friendly-match-show-all")
     public String goto_friendly_match_show_all(){
         return "";
     }
 
-    @GetMapping("/IVTE-P/ask-for-a-match")
+    @GetMapping("/ask-for-a-match")
     public String goto_ask_for_a_match(){
         return "";
     }
 
     // ======================================= PRACTICE ======================================
 
-    @GetMapping("/IVTE-P/practice-show-all")
+    @GetMapping("/practice-show-all")
     public String goto_practice_show_all(){
         return "";
     }
