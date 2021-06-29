@@ -63,7 +63,7 @@ public class RootController {
 
     @GetMapping("/my-merchant")
     public String goto_my_merchant(){
-        return "";
+        return "merchant/user/merchant_index";
     }
 
     // ======================================= TEAM ======================================
