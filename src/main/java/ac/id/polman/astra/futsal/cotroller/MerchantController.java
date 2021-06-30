@@ -68,6 +68,12 @@ public class MerchantController {
         return "merchant/detail";
     }
 
+    @GetMapping("/konfirmasi-merchant")
+    public String goto_konfirmasi(Model model){
+        List<TrPendaftaranMerchant> pendaftaranMerchantList = tr_pendaftaran_merchant_service.getAll();
+        model.addAttribute("list_pendaftaran", pendaftaranMerchantList);
+        return "/page/admin_konfirmasi_merchant";
+    }
     // ================================================================
     @PostMapping("/addMerchant")
     public String addMerchant(
@@ -83,7 +89,7 @@ public class MerchantController {
         String banner = uploadController.uploadBannerMerchant(file1, "none");
 
 
-        msMerchant.setId_user((Integer) session.getAttribute("user_id"));
+        msMerchant.setId_user((int) session.getAttribute("user_id"));
         msMerchant.setFoto(foto);
         msMerchant.setBanner(banner);
         msMerchant.setCreaby(user.getEmail());

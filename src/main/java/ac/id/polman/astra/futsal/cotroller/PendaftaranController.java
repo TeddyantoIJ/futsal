@@ -34,7 +34,8 @@ public class PendaftaranController {
 
     @PostMapping("/Logincek")
     public String Logincek(@RequestParam(name = "username") String username,
-                           @RequestParam(name = "password") String password, HttpSession session) {
+                           @RequestParam(name = "password") String password,
+                           HttpSession session) {
 
         MsAkun msAkun = akunService.getUserByUsername(username);
 
@@ -44,19 +45,26 @@ public class PendaftaranController {
 
         if (msAkun.getUsername().equals(username) && msAkun.getPassword().equals(password)){
             MsUser msUser = userService.getUserByIdAkun(msAkun.getIdAkun());
-            List<MsMerchant> msMerchant = merchantService.getAllMerchant();
-            session.setAttribute("hasMerchant", false);
-            for (MsMerchant a : msMerchant)
-            {
-                if(a.getId_user() == msUser.getIdUser()){
-                    session.setAttribute("hasMerchant", true);
-                    break;
-                }
-            }
-            session.setAttribute("login", true);
-            session.setAttribute("id_user", msUser.getIdUser());
 
-            return "/page/index";
+            if(msAkun.getIdRole() != 1){
+                List<MsMerchant> msMerchant = merchantService.getAllMerchant();
+                session.setAttribute("hasMerchant", false);
+                for (MsMerchant a : msMerchant)
+                {
+                    if(a.getId_user() == msUser.getIdUser()){
+                        session.setAttribute("hasMerchant", true);
+                        break;
+                    }
+                }
+                session.setAttribute("login", true);
+                session.setAttribute("id_user", msUser.getIdUser());
+
+                return "/page/index";
+            }else{
+                session.setAttribute("login", true);
+                session.setAttribute("id_user", msUser.getIdUser());
+                return "/template/admines";
+            }
         }else{
             return "Login";
         }
@@ -64,7 +72,16 @@ public class PendaftaranController {
 
     @PostMapping("/addDaftarUser")
     public String addUser(MsUser msUser, MsAkun msAkun) {
-        msUser.setIdAkun(1);
+        // Default 2 = User
+        msAkun.setIdRole(2);
+        msAkun.setCreaby("user");
+        msAkun.setCreadate(LocalDateTime.now());
+        msAkun.setModiby("");
+        msAkun.setModidate(LocalDateTime.now());
+        msAkun.setStatus(1);
+        akunService.saveAkun(msAkun);
+
+        msUser.setIdAkun(akunService.getAllAkun().get(akunService.getAllAkun().size()-1).getIdAkun());
         msUser.setFoto("");
         msUser.setCreaby("user");
         msUser.setCreadate(LocalDateTime.now());
@@ -73,14 +90,6 @@ public class PendaftaranController {
         msUser.setStatus(1);
         userService.saveUser(msUser);
 
-        msAkun.setIdRole(1);
-        msAkun.setCreaby("user");
-        msAkun.setCreadate(LocalDateTime.now());
-        msAkun.setModiby("");
-        msAkun.setModidate(LocalDateTime.now());
-        msAkun.setStatus(1);
-        akunService.saveAkun(msAkun);
-
-        return "redirect:/Login";
+        return "Login";
     }
 }

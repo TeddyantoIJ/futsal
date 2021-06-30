@@ -95,7 +95,12 @@ public class TrPendaftaranMerchant {
 
     public String getCreadate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        return creadate.format(formatter);
+        try{
+            return creadate.format(formatter);
+        }catch (Exception ex){
+            return "";
+        }
+
     }
 
     public void setCreadate(LocalDateTime creadate) {

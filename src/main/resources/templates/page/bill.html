@@ -22,7 +22,7 @@
                 <p th:text="${listBill.creadate}"></p>
                 <form th:action="@{bayar_pendaftaran}" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" th:value="${listBill.id}">
-                    <input type="file" name="bukti_transfer" class="form-control">
+                    <input type="file" name="bukti_transfer" class="form-control" required>
                     <br/>
                     <button class="btn btn-primary float-right">Send</button>
                 </form>

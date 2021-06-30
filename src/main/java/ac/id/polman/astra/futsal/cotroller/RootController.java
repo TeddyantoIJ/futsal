@@ -148,10 +148,14 @@ public class RootController {
 
     @GetMapping("/bill")
     public String goto_bill(Model model, HttpSession session){
-        TrPendaftaranMerchant pendaftaranMerchant = pendaftaran_merchant_service.getByIdUser((int) session.getAttribute("id_user"));
-        model.addAttribute("listBill", pendaftaranMerchant);
-        model.addAttribute("status", statusService.getStatus(pendaftaranMerchant.getId_status()).getKeterangan());
-        model.addAttribute("pembayaran", biayaService.getBiaya(pendaftaranMerchant.getId_biaya()).getKeterangan().split("/")[2].toUpperCase());
+        try{
+            TrPendaftaranMerchant pendaftaranMerchant = pendaftaran_merchant_service.getByIdUser((int) session.getAttribute("id_user"));
+            model.addAttribute("listBill", pendaftaranMerchant);
+            model.addAttribute("status", statusService.getStatus(pendaftaranMerchant.getId_status()).getKeterangan());
+            model.addAttribute("pembayaran", biayaService.getBiaya(pendaftaranMerchant.getId_biaya()).getKeterangan().split("/")[2].toUpperCase());
+        }catch (Exception ex){
+
+        }
         return "page/bill";
     }
 
