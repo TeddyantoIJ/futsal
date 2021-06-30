@@ -34,35 +34,27 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center min-wd-50">No</th>
-                                    <th class="text-center">Nama Merchant</th>
-                                    <th class="text-center">Telephone</th>
-                                    <th class="text-center">Alamat</th>
-                                    <th class="text-center min-wd-50">Aksi</th>
+                                    <th class="text-center">Merchant</th>
+                                    <th class="text-center">Amount of money</th>
+                                    <th class="text-center">Evidence of transfer</th>
+                                    <th class="text-center min-wd-50">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="Merchant, iter: ${list_pendaftaran}">
+                                <tr th:each="pendaftaran, iter: ${list_pendaftaran}">
                                     <td class="text-center min-wd-50" style="width:20px;"><span th:text="${iter.count}"></span></td>
-                                    <td th:text="${Merchant.nama}"></td>
-                                    <td th:text="${Merchant.telephone}"></td>
-                                    <td th:text="${Merchant.alamat}"></td>
+                                    <td th:each="mer : ${listMerchang}" th:text="${mer.nama}" th:if="${mer.id_merchant} == ${pendaftaran.id_merchant}"></td>
+                                    <td class="font-weight-bold" th:text="'Rp' + ${pendaftaran.nominal}"></td>
+                                    <td>
+                                        <a href="" th:text="${pendaftaran.bukti_transfer}"></a>
+                                    </td>
                                     <td class="text-center min-wd-50" style="width:400px;">
                                         <div class="row">
                                             <div class="col">
-                                                <a th:href="@{'Merchant-edit?id_merchant='+${Merchant.id_merchant}}" class="btn btn-info form-control"><i data-feather="check-circle"></i> Konfirmasi</a>
+                                                <a th:href="@{'konfirmasi-merchant/c?id='+${pendaftaran.id}}" class="btn btn-info form-control"><i data-feather="check-circle"></i> Confirm</a>
                                             </div>
                                             <div class="col">
-                                                <a th:href="@{'Merchant-detail?id_merchant='+${Merchant.id_merchant}}" class="btn btn-success form-control"><i data-feather="ellipsis-v"></i> Detail</a>
-                                            </div>
-                                            <div class="col">
-                                                <a th:href="@{'deleteMerchant?id_merchant='+${Merchant.id_merchant}}" class="btn btn-danger form-control"  onclick="return confirm('Tekan OK untuk menghapus')"><i data-feather="trash-2"></i> Hapus</a>
-                                            </div>
-                                        </div>
-                                        <br/>
-                                        <div class="row">
-                                            <div class="col">
-                                                <a th:if="${Merchant.status == 0}" class="btn btn-outline-success form-control">Aktifkan</a>
-                                                <a th:if="${Merchant.status == 1}" class="btn btn-outline-danger  form-control">Nonaktifkan</a>
+                                                <a th:href="@{'konfirmasi-merchant/r?id='+${pendaftaran.id}}" class="btn btn-danger form-control"  onclick="return confirm('Tekan OK untuk menghapus')"><i data-feather="trash-2"></i> Reject</a>
                                             </div>
                                         </div>
                                     </td>

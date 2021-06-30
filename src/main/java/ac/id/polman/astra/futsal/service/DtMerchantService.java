@@ -17,10 +17,17 @@ public class DtMerchantService {
         return dtMerchantList;
     }
 
+    public List<DtMerchant> getAllDtMerchantByIdMerchant(int id){
+        List<DtMerchant> dtMerchantList = dtMerchantRepository.findByIdMerchant(id);
+        return dtMerchantList;
+    }
+
     public DtMerchant getDtMerchantByIdDtMerchant(int id_dtmerchant){
         DtMerchant dtMerchant = dtMerchantRepository.findByIdDtmerchant(id_dtmerchant);
         return dtMerchant;
     }
+
+
     // =======================================================
     public void saveDtMerchant(DtMerchant dtMerchant){
         dtMerchantRepository.save(dtMerchant);

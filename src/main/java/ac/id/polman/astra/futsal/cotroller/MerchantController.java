@@ -71,7 +71,9 @@ public class MerchantController {
     @GetMapping("/konfirmasi-merchant")
     public String goto_konfirmasi(Model model){
         List<TrPendaftaranMerchant> pendaftaranMerchantList = tr_pendaftaran_merchant_service.getAll();
+        List<MsMerchant> listMsMerchant = merchantService.getAllMerchant();
         model.addAttribute("list_pendaftaran", pendaftaranMerchantList);
+        model.addAttribute("listMerchang", listMsMerchant);
         return "/page/admin_konfirmasi_merchant";
     }
     // ================================================================
@@ -164,5 +166,43 @@ public class MerchantController {
         msMerchant.setStatus(0);
         merchantService.update(msMerchant);
         return "redirect:/Merchant";
+    }
+
+    @GetMapping("/konfirmasi-merchant/c")
+    public String konfirmasi_merchant_c(
+            @RequestParam("id") int id,
+            HttpSession session
+    ){
+        TrPendaftaranMerchant a = tr_pendaftaran_merchant_service.getPendaftaran(id);
+        try{
+            a.setModiby(userService.getUserById((int) session.getAttribute("id_user")).getEmail());
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        a.setModiby(userService.getUserById((int) session.getAttribute("id_user")).getEmail());
+        a.setModidate(LocalDateTime.now());
+        a.setId_status(3);
+
+        tr_pendaftaran_merchant_service.save(a);
+
+        MsMerchant b = merchantService.getMerchantById(a.getId_merchant());
+        b.setStatus(1);
+        merchantService.saveMerchant(b);
+
+        return "redirect:/konfirmasi-merchant";
+    }
+    @GetMapping("/konfirmasi-merchant/r")
+    public String konfirmasi_merchant_r(
+            @RequestParam("id") int id,
+            HttpSession session
+    ){
+        TrPendaftaranMerchant a = tr_pendaftaran_merchant_service.getPendaftaran(id);
+        a.setModiby(userService.getUserById((int) session.getAttribute("id_user")).getEmail());
+        a.setModidate(LocalDateTime.now());
+        a.setStatus(4);
+
+        tr_pendaftaran_merchant_service.save(a);
+
+        return "redirect:/konfirmasi-merchant";
     }
 }

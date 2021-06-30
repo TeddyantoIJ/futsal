@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_merchant">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content" style="margin-left: 280px">
+    <div style="width: 100%; height: 600px;">
+        <img th:src="'/images/merchant/banner/'+${merchant.banner}" style="height: 100%; width: 100%; object-position: center">
+    </div>
+    <section>
+        <div class="container">
+            <input type="file" title="Change banner" class="form-control-file">
+            <br/>
+            <div class="row">
+                <div class="col-3">
+                    <img th:src="'/images/merchant/foto/' + ${merchant.foto}" style="height: 200px; width: 200px; object-fit: cover; object-position: center" class="card-img">
+                    <input type="file" title="Change pictures" class="form-control-file">
+                </div>
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-2">Name</div>
+                        <div class="col font-weight-light">
+                            <input type="text" class="form-control" th:value="${merchant.nama}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">Address</div>
+                        <div class="col font-weight-light">
+                            <input type="text" class="form-control" th:value="${merchant.alamat}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">Contact person</div>
+                        <div class="col font-weight-light">
+                            <input type="text" class="form-control" th:value="${merchant.narahubung}">
+                            <input type="text" class="form-control" th:value="${merchant.telephone}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">Description</div>
+                        <div class="col font-weight-light wrapText">
+                        <textarea class="form-control" th:text="${merchant.deskripsi}"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <i th:if="${merchant.rating >= 1}" class="fa fa-star" style="color: yellow"></i>
+                            <i th:if="${merchant.rating >= 2}" class="fa fa-star" style="color: yellow"></i>
+                            <i th:if="${merchant.rating >= 3}" class="fa fa-star" style="color: yellow"></i>
+                            <i th:if="${merchant.rating >= 4}" class="fa fa-star" style="color: yellow"></i>
+                            <i th:if="${merchant.rating >= 5}" class="fa fa-star" style="color: yellow"></i>
+                        </div>
+                        <div class="col">: <span th:text="${merchant.rating}"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary float-right">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br/>
+    <section id="Court" class="bg-light">
+        <div class="container">
+            <br/>
+            <h4 class="font-weight-bold text-dark text-center">Our Courts</h4>
+            <br/>
+            <div>
+                <div class="card" th:each="lapangan, iter : ${lap}">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-3" th:each="fot, foti : ${fotLap}" th:if="${iter.index} == ${foti.index}">
+                                <img class="card-img" th:src="'/images/lapangan/' + ${fot.foto}" style="margin-left:10px; height: 150px; width: 250px; object-fit: cover; object-position: center"/>
+                            </div>
+                            <div class="col">
+                                <h4 class="font-weight-light"><span th:text="${lapangan.nama}"></span></h4>
+                                <span th:text="'Rp' + ${lapangan.harga}"></span>
+                                <br/>
+                                <span th:text="'Rp' + ${lapangan.harga_penerangan}"></span> with lighting
+                                <br/>
+                                <span th:text="'Size : ' + ${lapangan.panjang_lapangan} + ' * ' + ${lapangan.lebar_lapangan} + ' m'"></span>
+                                <br/>
+                                <span th:text="${lapangan.tipe_lapangan}"></span>
+                                <br/>
+                                <div class="float-right">
+                                    <a href="" class="btn btn-warning">Edit</a>
+                                    <a href="" class="btn btn-success">Images</a>
+                                    <a href="" class="btn btn-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+            </div>
+            <div class="float-right">
+                <a href="" class="btn btn-primary">Add Court</a>
+            </div>
+        </div>
+        <br/>
+    </section>
+    <br/>
+    <br/>
+    <section id="Facilities" class="bg-light">
+        <br/>
+        <div class="container">
+            <h4 class="font-weight-bold text-dark">Facilities</h4>
+            <br/>
+            <div class="row">
+                <div class="col-3" th:each="fas : ${fasDit}">
+                    <i th:each="fasAll : ${fasList}" th:if="${fas.id_fasilitas} == ${fasAll.idFasilitas}"  th:class="${fasAll.icon}" aria-hidden="true">
+                        <span th:text="' ' + ${fasAll.fasilitas}"></span>
+                    </i>
+                </div>
+            </div>
+            <br/>
+            <a href="" class="btn btn-primary float-right">Add Facilities</a>
+        </div>
+        <br/>
+    </section>
+    <section id="Review" class="bg-light">
+        <br/>
+        <div class="container">
+            <h4 class="font-weight-bold text-dark text-center">Review</h4>
+        </div>
+        <br/>
+    </section>
+    <section ID="END">
+        <br/><br/><br/>
+    </section>
+</div>
+</body>
+</html>

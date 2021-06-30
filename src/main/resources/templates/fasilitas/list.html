@@ -38,6 +38,7 @@
                                     <th class="text-center min-wd-50">No</th>
                                     <!--                                    <th class="text-center">ID Biaya</th>-->
                                     <th class="text-center">Fasilitas</th>
+                                    <th class="text-center">Icon Text</th>
                                     <th class="text-center">Icon</th>
                                     <th class="text-center min-wd-50">Aksi</th>
                                 </tr>
@@ -48,6 +49,9 @@
                                     <td class="text-center min-wd-50" style="width:20px;"><span th:text="${iter.count}"></span></td>
                                     <td th:text="${item.fasilitas}"></td>
                                     <td th:text="${item.icon}"></td>
+                                    <td>
+                                        <span th:class="${item.icon}"></span>
+                                    </td>
                                     <td class="text-center min-wd-50" style="width:250px;">
                                         <div class="row">
                                             <div class="col">

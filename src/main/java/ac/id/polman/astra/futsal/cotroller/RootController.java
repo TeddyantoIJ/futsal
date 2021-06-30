@@ -1,12 +1,7 @@
 package ac.id.polman.astra.futsal.cotroller;
 
-import ac.id.polman.astra.futsal.model.MsAkun;
-import ac.id.polman.astra.futsal.model.MsBiaya;
-import ac.id.polman.astra.futsal.model.MsUser;
-import ac.id.polman.astra.futsal.model.TrPendaftaranMerchant;
-import ac.id.polman.astra.futsal.service.BiayaService;
-import ac.id.polman.astra.futsal.service.StatusService;
-import ac.id.polman.astra.futsal.service.Tr_Pendaftaran_Merchant_Service;
+import ac.id.polman.astra.futsal.model.*;
+import ac.id.polman.astra.futsal.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -29,6 +25,16 @@ public class RootController {
     Tr_Pendaftaran_Merchant_Service pendaftaran_merchant_service;
     @Autowired
     StatusService statusService;
+    @Autowired
+    MerchantService merchantService;
+    @Autowired
+    LapanganService lapanganService;
+    @Autowired
+    FasilitasService fasilitasService;
+    @Autowired
+    DtMerchantService dtMerchantService;
+    @Autowired
+    DtFotoLapanganService dtFotoLapanganService;
 
     UploadController uploadController = new UploadController();
 
@@ -97,8 +103,40 @@ public class RootController {
     }
 
     @GetMapping("/my-merchant")
-    public String goto_my_merchant(){
-        return "merchant/user/merchant_index";
+    public String goto_my_merchant(
+            Model model, HttpSession session
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+
+        List<MsMerchant> a = merchantService.getAllMerchant();
+        MsMerchant m = new MsMerchant();
+        for ( MsMerchant b: a) {
+            if(b.getId_user() == id){
+                m = b;
+                break;
+            }
+        }
+
+        List<MsLapangan> lap = lapanganService.getAllLapanganByIdMerchant(m.getId_merchant());
+        List<MsFasilitas> fasList = fasilitasService.getAllFacilities();
+        List<DtMerchant> fasDit = dtMerchantService.getAllDtMerchantByIdMerchant(m.getId_merchant());
+        List<DtFotolapangan> fotLap = new ArrayList<>();
+        for (MsLapangan x : lap) {
+            fotLap.add(dtFotoLapanganService.getAllDtFotoLapanganByIdLapangan(x.getIdLapangan()).get(0));
+        }
+
+        model.addAttribute("merchant", m);
+        model.addAttribute("lap",lap);
+        model.addAttribute("fasList",fasList);
+        model.addAttribute("fasDit",fasDit);
+        model.addAttribute("fotLap",fotLap);
+
+        return "page/merchant_index";
     }
 
     // ======================================= TEAM ======================================
@@ -167,6 +205,7 @@ public class RootController {
         TrPendaftaranMerchant a = pendaftaran_merchant_service.getPendaftaran(id);
         a.setModidate(LocalDateTime.now());
         a.setBukti_transfer(uploadController.upload_bukti_tf(file));
+        a.setId_status(2);
         pendaftaran_merchant_service.save(a);
         return "redirect:/bill";
     }

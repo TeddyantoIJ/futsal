@@ -43,7 +43,9 @@ public class Tr_Pendaftaran_Merchant_Service {
 
         for (int i = list.size()-1 ; i >= 0 ; i--)
         {
-            output.add(list.get(i));
+            if(list.get(i).getId_status() == 2){
+                output.add(list.get(i));
+            }
         }
 
         return output;

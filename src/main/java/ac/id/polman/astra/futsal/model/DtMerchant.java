@@ -13,7 +13,7 @@ public class DtMerchant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDtmerchant;
-    private Integer id_merchant;
+    private Integer idMerchant;
     private Integer id_fasilitas;
     private Integer jumlah;
     private String creaby;
@@ -40,11 +40,11 @@ public class DtMerchant {
     }
 
     public Integer getId_merchant() {
-        return id_merchant;
+        return idMerchant;
     }
 
     public void setId_merchant(Integer id_merchant) {
-        this.id_merchant = id_merchant;
+        this.idMerchant = id_merchant;
     }
 
     public Integer getId_fasilitas() {
