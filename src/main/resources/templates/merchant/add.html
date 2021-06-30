@@ -1,65 +1,128 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_userLayout">
 <head>
     <meta charset="UTF-8">
     <title>Add Merchant</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="script" href="/css/"
 </head>
 <body>
-<br/><br/>
-<div class="container">
-    <center>
-        <h1>TAMBAH DATA MERCHANT</h1>
-        <hr/>
-    </center>
-    <br/>
-    <div class="row">
-        <div class="col">
-            <form th:action="@{addMerchant}" th:object="${merchantObj}" method="post" enctype="multipart/form-data" >
-                <div class="row">
-                    <div class="col">
-                        <label for="nama">Nama Merchant <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="text" name="nama" id="nama"  required>
-                        <br/>
+<div layout:fragment="content" class="banner-landscape">
+    <br/><br/>
+    <div class="container">
+        <br/>
+        <h1 class="font-weight-bold text-light text-center" style="text-transform: uppercase">create merchant<span th:text="${id}"></span> </h1>
+        <p class="font-weight-light text-light text-center">Being one of us is an honor for us. Best regards, developers (Ivan & Teddy)</p>
+        <hr style="border-width: 4px;"/>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-5">
+                <form th:action="@{addMerchant}" th:object="${merchantObj}" method="post" enctype="multipart/form-data" >
+                    <div class="row">
+                        <div class="col">
+                            <label class="text-light" for="nama">Merchant Name <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="nama" id="nama"  required>
+                            <br/>
 
-                        <label for="alamat">Alamat <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="text" name="alamat" id="alamat" required>
-                        <br/>
+                            <label class="text-light">Address <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="alamat" id="alamat"  required>
+                            <br/>
 
-                        <label for="narahubung">Narahubung <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="text" name="narahubung" id="narahubung"  required>
-                        <br/>
+                            <label class="text-light" for="narahubung">Contact person <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="narahubung" id="narahubung"  required>
+                            <br/>
 
-                        <label for="telephone">Telepon <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="text" name="telephone" id="telephone" required>
-                        <br/>
+                            <label class="text-light" for="telephone">Phone <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="telephone" id="telephone" required>
+                            <br/>
 
-                        <label for="deskripsi">Deskripsi <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="text" name="deskripsi" id="deskripsi" required>
-                        <br/>
+                            <label class="text-light" for="deskripsi">Description <span style="color: red">*</span> </label>
+                            <textarea class="form form-control" name="deskripsi" id="deskripsi" required></textarea>
+                            <br/>
 
-                        <label>Foto Merchant <span style="color: red">*</span> </label>
-                        <br/>
-                        <input type="file" name="file" id="file"  accept="image/png, image/jpeg" required>
+                            <label class="text-light">Merchant's Photo <span style="color: red">*</span> </label>
+                            <br/>
+                            <input type="file" name="file" id="file"  accept="image/png, image/jpeg" required>
 
-                        <br/><br/>
+                            <br/><br/>
 
-                        <label>Banner Merchant <span style="color: red">*</span> </label>
-                        <br/>
-                        <input type="file" name="file1" id="file1"  accept="image/png, image/jpeg" required>
-                        <br/><br/>
+                            <label class="text-light">Merchant Banner<span style="color: red">*</span> </label>
+                            <br/>
+                            <input type="file" name="file1" id="file1"  accept="image/png, image/jpeg" required>
+                            <br/><br/>
+
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <a class="btn btn-outline-secondary" href="/Merchant">Kembali</a>&#32
-                        <button class="btn btn-outline-primary">Simpan</button>
+                    <hr/>
+                    <div class="row">
+                        <div th:each="biaya : ${biayaList}" class="col-6">
+                            <h3 class="font-weight-bold text-light" th:text="'Rp' + ${biaya.nominal} "></h3><span class="text-light" th:text="'/' + ${biaya.keterangan.split('/')[1]}"></span>
+                            <br/>
+                            <p class="text-light font-weight-bold" th:text="${biaya.keterangan.split('/')[2]}"></p>
+                        </div>
                     </div>
-                </div>
-            </form>
+                    <label class="text-light" for="nama">Choose Your Service <span style="color: red">*</span> </label>
+                    <select class="form-control" name="nominal" required>
+                        <option value="">- Select -</option>
+                        <option th:each="biaya : ${biayaList}" th:value="${biaya.idBiaya}" th:text="${biaya.keterangan.split('/')[2]}" style="text-transform: capitalize"></option>
+                    </select>
+                    <br/>
+                    <br/>
+                    <div class="text-center">
+                        <a class="btn btn-outline-secondary" href="/">Back</a>&#32
+                        <button class="btn btn-outline-primary">Create Merchant</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col"></div>
         </div>
     </div>
 </div>
-<br/><br/><br/>
 </body>
 </html>
+
+<script>
+    var getJSON = function(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+        xhr.onload = function() {
+            var status = xhr.status;
+            if (status === 200) {
+                callback(null, xhr.response);
+            } else {
+                callback(status, xhr.response);
+            }
+        };
+        xhr.send();
+    };
+
+    const url1 = 'https://dev.farizdotid.com/api/daerahindonesia/provinsi';
+    const url2 = 'https://dev.farizdotid.com/api/daerahindonesia/provinsi';
+    const url3 = 'https://dev.farizdotid.com/api/daerahindonesia/provinsi';
+    const url4 = 'https://dev.farizdotid.com/api/daerahindonesia/provinsi';
+    let provinsi = $('#provinsi');
+    let provinsi = $('#provinsi');
+    let provinsi = $('#provinsi');
+    let provinsi = $('#provinsi');
+
+    provinsi.empty();
+
+    provinsi.append('<option selected="true" disabled>Choose Province</option>');
+    provinsi.prop('selectedIndex', 0);
+    getJSON(url1,
+        function(err, data) {
+            if (err !== null) {
+                alert('Something went wrong: ' + err);
+            } else {
+                $.each(data.provinsi, function (key, a){
+                    provinsi.append($('<option></option>').attr('value', a.id).text(a.nama));
+                })
+            }
+        });
+
+</script>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="/layout/_userLayout">
 <head>
@@ -85,7 +85,6 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-
                             <div class="row">
                                 <div class="col-sm-3">
                                     <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
@@ -238,13 +237,12 @@
                                 </div>
                             </div>
                             <hr/>
-
                         <br/>
                         <div class="row">
                             <div class="col text-center">
                                 <a href="/merchant-show-all" class="btn btn-outline-danger">Show All Merchant</a>
-                                <a href="/merchant-create" class="btn btn-outline-success">Create Your Own Merchant</a>
-                                <a href="/my-merchant" class="btn btn-outline-primary">Go To My Merchant</a>
+                                <a th:if="${session.hasMerchant == false}" href="/merchant-create" class="btn btn-outline-success">Create Your Own Merchant</a>
+                                <a th:if="${session.hasMerchant == true}" href="/my-merchant" class="btn btn-outline-primary">Go To My Merchant</a>
                             </div>
                         </div>
                     </div>

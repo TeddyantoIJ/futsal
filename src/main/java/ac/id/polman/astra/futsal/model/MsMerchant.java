@@ -30,14 +30,14 @@ public class MsMerchant {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime modidate;
     private int status;
-    private Integer id_user;
+    private Integer idUser;
 
     public Integer getId_user() {
-        return id_user;
+        return idUser;
     }
 
     public void setId_user(Integer id_user) {
-        this.id_user = id_user;
+        this.idUser = id_user;
     }
 
     public Integer getId_merchant() {

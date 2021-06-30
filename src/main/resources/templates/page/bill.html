@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_userLayout">
+<head>
+    <meta charset="UTF-8">
+    <title>Bill</title>
+</head>
+<body>
+<div layout:fragment="content" class="bg-light">
+    <br/><br/>
+    <div class="container">
+        <br/>
+        <h1 class="font-weight-bold text-light text-center" style="text-transform: uppercase">my bill</h1>
+        <hr/>
+        <div th:if="${listBill.bukti_transfer == null}" class="card shadow">
+            <div class="card-body">
+                <h6 class="text-muted font-weight-light">send proof of transfer</h6>
+                <h3 class="font-weight-bold text-dark" th:text="${pembayaran}"></h3>
+                <h2 class="font-weight-bold text-dark" th:text="'Rp ' + ${listBill.nominal}"></h2>
+                <p th:text="${status}"></p><br/>
+                <p th:text="${listBill.creadate}"></p>
+                <form th:action="@{bayar_pendaftaran}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" th:value="${listBill.id}">
+                    <input type="file" name="bukti_transfer" class="form-control">
+                    <br/>
+                    <button class="btn btn-primary float-right">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

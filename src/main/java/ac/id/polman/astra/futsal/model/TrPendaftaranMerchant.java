@@ -6,15 +6,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
-public class MsBiaya {
+public class TrPendaftaranMerchant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idBiaya;
+    private int id;
+    private int idMerchant;
+    private int id_biaya;
+    private int id_status;
+    private int notifikasi;
     private int nominal;
-    private String keterangan;
+    private String bukti_transfer;
     private String creaby;
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime creadate;
@@ -23,12 +29,44 @@ public class MsBiaya {
     private LocalDateTime modidate;
     private int status;
 
-    public Integer getIdBiaya() {
-        return idBiaya;
+    public int getId() {
+        return id;
     }
 
-    public void setIdBiaya(Integer idBiaya) {
-        this.idBiaya = idBiaya;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId_merchant() {
+        return idMerchant;
+    }
+
+    public void setId_merchant(int id_merchant) {
+        this.idMerchant = id_merchant;
+    }
+
+    public int getId_biaya() {
+        return id_biaya;
+    }
+
+    public void setId_biaya(int id_biaya) {
+        this.id_biaya = id_biaya;
+    }
+
+    public int getId_status() {
+        return id_status;
+    }
+
+    public void setId_status(int id_status) {
+        this.id_status = id_status;
+    }
+
+    public int getNotifikasi() {
+        return notifikasi;
+    }
+
+    public void setNotifikasi(int notifikasi) {
+        this.notifikasi = notifikasi;
     }
 
     public int getNominal() {
@@ -39,12 +77,12 @@ public class MsBiaya {
         this.nominal = nominal;
     }
 
-    public String getKeterangan() {
-        return keterangan;
+    public String getBukti_transfer() {
+        return bukti_transfer;
     }
 
-    public void setKeterangan(String keterangan) {
-        this.keterangan = keterangan;
+    public void setBukti_transfer(String bukti_transfer) {
+        this.bukti_transfer = bukti_transfer;
     }
 
     public String getCreaby() {
@@ -55,8 +93,9 @@ public class MsBiaya {
         this.creaby = creaby;
     }
 
-    public LocalDateTime getCreadate() {
-        return creadate;
+    public String getCreadate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        return creadate.format(formatter);
     }
 
     public void setCreadate(LocalDateTime creadate) {

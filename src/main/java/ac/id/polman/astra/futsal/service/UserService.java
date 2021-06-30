@@ -22,6 +22,11 @@ public class UserService {
         return msUser;
     }
 
+    public MsUser getUserByIdAkun(int id_akun){
+        MsUser msUser = userRepository.findByIdAkun(id_akun);
+        return msUser;
+    }
+
     // ========================================================================
 
     public void saveUser(MsUser msUser){

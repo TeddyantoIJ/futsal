@@ -1,9 +1,9 @@
 package ac.id.polman.astra.futsal.cotroller;
 
-import ac.id.polman.astra.futsal.model.DtMerchant;
 import ac.id.polman.astra.futsal.model.MsMerchant;
-import ac.id.polman.astra.futsal.service.DtMerchantService;
-import ac.id.polman.astra.futsal.service.MerchantService;
+import ac.id.polman.astra.futsal.model.MsUser;
+import ac.id.polman.astra.futsal.model.TrPendaftaranMerchant;
+import ac.id.polman.astra.futsal.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,14 @@ import java.util.List;
 public class MerchantController {
     @Autowired
     MerchantService merchantService;
+    @Autowired
+    Tr_Pendaftaran_Merchant_Service tr_pendaftaran_merchant_service;
+    @Autowired
+    StatusService statusService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    BiayaService biayaService;
 
     @GetMapping("/Merchant")
     public String getMerchant(Model model){
@@ -62,28 +71,45 @@ public class MerchantController {
     // ================================================================
     @PostMapping("/addMerchant")
     public String addMerchant(
+            HttpSession session,
             MsMerchant msMerchant,
             @RequestParam("file") MultipartFile file,
-            @RequestParam("file1") MultipartFile file1){
+            @RequestParam("file1") MultipartFile file1,
+            @RequestParam("nominal") int nominal){
         UploadController uploadController = new UploadController();
+        MsUser user = userService.getUserById((Integer) session.getAttribute("id_user"));
 
         String foto = uploadController.uploadFotoMerchant(file, "none");
         String banner = uploadController.uploadBannerMerchant(file1, "none");
 
 
-        msMerchant.setId_user(1);
+        msMerchant.setId_user((Integer) session.getAttribute("user_id"));
         msMerchant.setFoto(foto);
         msMerchant.setBanner(banner);
-        msMerchant.setCreaby("Teddy(harusnya ambil nama yang bikin)");
+        msMerchant.setCreaby(user.getEmail());
         msMerchant.setCreadate(LocalDateTime.now());
         msMerchant.setModiby("");
         msMerchant.setModidate(LocalDateTime.now());
-        msMerchant.setStatus(1);
+        msMerchant.setStatus(0);
         msMerchant.setRating(0f);
 
 //        System.out.println(nama);
         merchantService.saveMerchant(msMerchant);
-        return "redirect:/Merchant";
+
+        TrPendaftaranMerchant pend = new TrPendaftaranMerchant();
+        pend.setCreaby(user.getEmail());
+        pend.setCreadate(LocalDateTime.now());
+        pend.setId_merchant(merchantService.getAllMerchant().get(merchantService.getAllMerchant().size()-1).getId_merchant());
+        pend.setModiby("");
+        pend.setModidate(LocalDateTime.now());
+        pend.setStatus(1);
+        pend.setId_status(1);
+        pend.setId_biaya(nominal);
+        pend.setNominal(biayaService.getBiaya(nominal).getNominal());
+        pend.setNotifikasi(0);
+
+        tr_pendaftaran_merchant_service.save(pend);
+        return "/page/index";
     }
 
     @PostMapping("/editMerchant")

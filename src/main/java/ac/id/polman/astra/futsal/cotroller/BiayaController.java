@@ -47,7 +47,7 @@ public class BiayaController {
     //============================
     @PostMapping("/addBiaya")
     public String addBiaya(
-            @RequestParam("nominal") String nominal,
+            @RequestParam("nominal") int nominal,
             @RequestParam("keterangan") String keterangan
     ){
         MsBiaya msBiaya = new MsBiaya();
@@ -65,7 +65,7 @@ public class BiayaController {
     @PostMapping("/editBiaya")
     public String editStatus(
             @RequestParam("id_biaya") int id_biaya,
-            @RequestParam("nominal") String nominal,
+            @RequestParam("nominal") int nominal,
             @RequestParam("keterangan") String keterangan
     ){
         MsBiaya msBiaya = biayaService.getBiaya(id_biaya);

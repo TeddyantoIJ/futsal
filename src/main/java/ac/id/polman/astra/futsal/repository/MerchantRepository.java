@@ -54,4 +54,7 @@ public interface MerchantRepository extends CrudRepository<MsMerchant, Integer> 
 //
     @Query("select * from ms_merchant where id_merchant =:id_merchant")
     MsMerchant findByIdMerchant(@Param("id_merchant") int id_merchant);
+
+    @Query("select * from ms_merchant where id_user =:id_user")
+    MsMerchant findByIdUser(@Param("id_user") int id_user);
 }
