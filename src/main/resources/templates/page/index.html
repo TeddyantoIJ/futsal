@@ -85,158 +85,45 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
+                        <div th:each="mer : ${merchantList}">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
+                                    <img th:src="'/images/merchant/foto/' + ${mer.foto}" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="row">
                                         <div class="col-sm-3">Name</div>
-                                        <div class="col-sm font-weight-light">:
-                                            <a href="">SPORT EA</a>
+                                        <div class="col-sm font-weight-light">
+                                            <a href="" th:text="': ' + ${mer.nama}"></a>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-3">Address</div>
-                                        <div class="col-sm font-weight-light">: RT.006/RW.005, Buaran Indah, Kec. Tangerang, Kota Tangerang, Banten, Indonesia</div>
+                                        <div class="col-sm font-weight-light" th:text="': ' + ${mer.alamat}"></div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-3">Contact person</div>
-                                        <div class="col-sm font-weight-light">: Ivam (0895 6064 25999)</div>
+                                        <div class="col-sm font-weight-light" th:text="': ' + ${mer.narahubung} + '(' + ${mer.telephone} + ')'">: Ivam (0895 6064 25999)</div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-3">Description</div>
-                                        <div class="col-sm font-weight-light wrapText">
-                                            : Tempat paling nyaman untuk anda bermain futsal Tempat paling nyaman untuk anda bermain futsal Tempat paling nyaman untuk anda bermain futsal
+                                        <div class="col-sm font-weight-light wrapText" th:text="': ' + ${mer.deskripsi}">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-3">
-                                            <i class="fa fa-star" style="color: yellow"></i>
-                                            <i class="fa fa-star" style="color: yellow"></i>
-                                            <i class="fa fa-star" style="color: yellow"></i>
-                                            <i class="fa fa-star" style="color: yellow"></i>
-                                            <i class="fa fa-star-half" style="color: yellow"></i>
+                                            <i th:if="${mer.rating >= 1}" class="fa fa-star" style="color: yellow"></i>
+                                            <i th:if="${mer.rating >= 2}" class="fa fa-star" style="color: yellow"></i>
+                                            <i th:if="${mer.rating >= 3}" class="fa fa-star" style="color: yellow"></i>
+                                            <i th:if="${mer.rating >= 4}" class="fa fa-star" style="color: yellow"></i>
+                                            <i th:if="${mer.rating >= 5}" class="fa fa-star" style="color: yellow"></i>
                                         </div>
-                                        <div class="col-sm">: 4.7</div>
+                                        <div class="col-sm" th:text="': ' + ${mer.rating}"></div>
                                     </div>
                                 </div>
                             </div>
                             <hr/>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="row">
-                                        <div class="col-sm-3">Name</div>
-                                        <div class="col-sm font-weight-light">:
-                                            <a href="">SPORT EA</a>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3">Address</div>
-                                        <div class="col-sm font-weight-light">: RT.006/RW.005, Buaran Indah, Kec. Tangerang, Kota Tangerang, Banten, Indonesia</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3">Contact person</div>
-                                        <div class="col-sm font-weight-light">: Ivam (0895 6064 25999)</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3">Description</div>
-                                        <div class="col-sm font-weight-light wrapText">
-                                            : Tempat paling nyaman untuk anda bermain futsal Tempat paling nyaman untuk anda bermain futsal Tempat paling nyaman untuk anda bermain futsal
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <i class="fa fa-star" style="color: yellow"></i>
-                                            <i class="fa fa-star" style="color: yellow"></i>
-                                            <i class="fa fa-star" style="color: yellow"></i>
-                                            <i class="fa fa-star" style="color: yellow"></i>
-                                            <i class="fa fa-star-half" style="color: yellow"></i>
-                                        </div>
-                                        <div class="col-sm">: 4.7</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="row">
-                                        <div class="col-sm-3">Name</div>
-                                        <div class="col-sm font-weight-light">:
-                                            <a href="">SPORT EA</a>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3">Address</div>
-                                        <div class="col-sm font-weight-light">: RT.006/RW.005, Buaran Indah, Kec. Tangerang, Kota Tangerang, Banten, Indonesia</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3">Contact person</div>
-                                        <div class="col-sm font-weight-light">: Ivam (0895 6064 25999)</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3">Description</div>
-                                        <div class="col-sm font-weight-light wrapText">
-                                            : Tempat paling nyaman untuk anda bermain futsal Tempat paling nyaman untuk anda bermain futsal Tempat paling nyaman untuk anda bermain futsal
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <i class="fa fa-star" style="color: yellow"></i>
-                                            <i class="fa fa-star" style="color: yellow"></i>
-                                            <i class="fa fa-star" style="color: yellow"></i>
-                                            <i class="fa fa-star" style="color: yellow"></i>
-                                            <i class="fa fa-star-half" style="color: yellow"></i>
-                                        </div>
-                                        <div class="col-sm">: 4.7</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="row">
-                                        <div class="col-sm-3">Name</div>
-                                        <div class="col-sm font-weight-light">:
-                                            <a href="">SPORT EA</a>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3">Address</div>
-                                        <div class="col-sm font-weight-light">: RT.006/RW.005, Buaran Indah, Kec. Tangerang, Kota Tangerang, Banten, Indonesia</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3">Contact person</div>
-                                        <div class="col-sm font-weight-light">: Ivam (0895 6064 25999)</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3">Description</div>
-                                        <div class="col-sm font-weight-light wrapText">
-                                            : Tempat paling nyaman untuk anda bermain futsal Tempat paling nyaman untuk anda bermain futsal Tempat paling nyaman untuk anda bermain futsal
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <i class="fa fa-star" style="color: yellow"></i>
-                                            <i class="fa fa-star" style="color: yellow"></i>
-                                            <i class="fa fa-star" style="color: yellow"></i>
-                                            <i class="fa fa-star" style="color: yellow"></i>
-                                            <i class="fa fa-star-half" style="color: yellow"></i>
-                                        </div>
-                                        <div class="col-sm">: 4.7</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr/>
+                        </div>
                         <br/>
                         <div class="row">
                             <div class="col text-center">
@@ -267,6 +154,7 @@
                     <button class="btn btn-success form-control" data-toggle="collapse" data-target=".Child" type="button">Child</button>
                     <button class="btn btn-success form-control" data-toggle="collapse" data-target=".Adult" type="button">Adult</button>
                     <button class="btn btn-success form-control" data-toggle="collapse" data-target=".Girl" type="button">Girl</button>
+                    <button class="btn btn-success form-control" data-toggle="collapse" data-target=".Mix" type="button">Male</button>
                     <button class="btn btn-success form-control" data-toggle="collapse" data-target=".Mix" type="button">Mix</button>
                     <br/><br/>
                     <a href="/team-show-all" class="btn btn-info form-control">Show All Team</a>

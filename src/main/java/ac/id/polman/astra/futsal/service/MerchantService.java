@@ -5,6 +5,7 @@ import ac.id.polman.astra.futsal.repository.MerchantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,6 +17,22 @@ public class MerchantService {
     public List<MsMerchant> getAllMerchant(){
         List<MsMerchant> msMerchantList = (List<MsMerchant>) msMerchantRepository.findAll();
         return msMerchantList;
+    }
+    public List<MsMerchant> get6MerchantActive(){
+        List<MsMerchant> msMerchantList = (List<MsMerchant>) msMerchantRepository.findAll();
+        List<MsMerchant> output = new ArrayList<>();
+        int i = 0;
+        for (MsMerchant a : msMerchantList)
+        {
+            if(a.getStatus() == 1){
+                output.add(a);
+                i++;
+            }
+            if(i == 6){
+                break;
+            }
+        }
+        return output;
     }
 
     public MsMerchant getMerchantById(int id_merchant){

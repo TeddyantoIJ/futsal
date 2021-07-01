@@ -39,7 +39,10 @@ public class RootController {
     UploadController uploadController = new UploadController();
 
     @GetMapping("/")
-    public String getIndex(HttpSession session){
+    public String getIndex(
+            HttpSession session,
+            Model model
+    ){
 
         try{
             if((boolean) session.getAttribute("login")){
@@ -48,7 +51,11 @@ public class RootController {
         }catch (Exception e){
             session.setAttribute("login", false);
         }
-        return "page/Index";
+        List<MsMerchant> merchantList = merchantService.get6MerchantActive();
+
+
+        model.addAttribute("merchantList", merchantList);
+        return "page/index";
     }
 
     @GetMapping("/IVTE")
@@ -125,7 +132,12 @@ public class RootController {
         List<DtMerchant> fasDit = dtMerchantService.getAllDtMerchantByIdMerchant(m.getId_merchant());
         List<DtFotolapangan> fotLap = new ArrayList<>();
         for (MsLapangan x : lap) {
-            fotLap.add(dtFotoLapanganService.getAllDtFotoLapanganByIdLapangan(x.getIdLapangan()).get(0));
+            try{
+                fotLap.add(dtFotoLapanganService.getAllDtFotoLapanganByIdLapangan(x.getIdLapangan()).get(0));
+            }catch (Exception e){
+                fotLap.add(new DtFotolapangan());
+            }
+
         }
 
         model.addAttribute("merchant", m);
@@ -134,6 +146,7 @@ public class RootController {
         model.addAttribute("fasDit",fasDit);
         model.addAttribute("fotLap",fotLap);
 
+        session.setAttribute("nama_merchant", m.getNama());
         return "page/merchant_index";
     }
 

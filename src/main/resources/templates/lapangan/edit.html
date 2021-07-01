@@ -1,65 +1,67 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_merchant">
 <head>
     <meta charset="UTF-8">
     <title>Edit Lapangan Merchant</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
-<br/><br/>
-<div class="container">
-    <center>
-        <h1>EDIT LAPANGAN MERCHANT</h1>
-        <hr/>
-    </center>
-    <br/>
-    <div class="row">
-        <div class="col">
-            <form th:action="@{editLapangan}" th:object="${MsLapangan}" method="post">
-                <div class="row">
-                    <div class="col">
-                        <input type="hidden" name="idLapangan" th:value="${MsLapangan.idLapangan}">
+<div layout:fragment="content" style="margin-left: 280px; background-image: url(/images/assets/merchant_bg.jpg); background-repeat: no-repeat; background-position: center">
 
-                        <label>Nama Lapangan <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="text" name="nama" id="nama" th:value="${MsLapangan.nama}" th:placeholder="${MsLapangan.nama}" required>
-                        <br/>
+    <br/><br/>
+    <div class="container" >
+        <h4 class="text-center" style="text-transform: capitalize">edit court</h4>
 
-                        <label>Tipe Lapangan <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="text" name="tipe_lapangan" id="tipe_lapangan" th:value="${MsLapangan.tipe_lapangan}" th:placeholder="${MsLapangan.tipe_lapangan}" required>
-                        <br/>
+        <br/>
+        <div class="row">
+            <div class="col">
+                <form action="/editLapangan" th:object="${MsLapangan}" method="post">
+                    <div class="row">
+                        <div class="col">
+                            <input type="hidden" name="idLapangan" th:value="${MsLapangan.idLapangan}">
 
-                        <label>Harga Biasa (Tanpa penerangan) <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="number" name="harga" id="harga" th:value="${MsLapangan.harga}" th:placeholder="${MsLapangan.harga}" required>
-                        <br/>
+                            <label>Name<span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="nama" id="nama" th:value="${MsLapangan.nama}" th:placeholder="${MsLapangan.nama}" required>
+                            <br/>
 
-                        <label>Harga Dengan Penerangan <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="text" name="harga_penerangan" id="harga_penerangan" th:value="${MsLapangan.harga_penerangan}" th:placeholder="${MsLapangan.harga_penerangan}" required>
-                        <br/>
+                            <label>Type<span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="tipe_lapangan" id="tipe_lapangan" th:value="${MsLapangan.tipe_lapangan}" th:placeholder="${MsLapangan.tipe_lapangan}" required>
+                            <br/>
 
-                        <label>Ukuran Lapangan <span style="color: red">*</span> </label>
-                        <div class="row">
-                            <div class="col">
-                                <label>Panjang Lapangan <span style="color: red">*</span> </label>
-                                <input class="form form-control" type="text" name="panjang_lapangan" id="panjang_lapangan" th:value="${MsLapangan.panjang_lapangan}" th:placeholder="${MsLapangan.panjang_lapangan}" required>
-                            </div>
-                            <div class="col">
-                                <label>Lebar Lapangan <span style="color: red">*</span> </label>
-                                <input class="form form-control" type="text" name="lebar_lapangan" id="lebar_lapangan" th:value="${MsLapangan.lebar_lapangan}" th:placeholder="${MsLapangan.lebar_lapangan}" required>
-                            </div>
+                            <label>Usual Price (Without lighting) <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="number" name="harga" id="harga" th:value="${MsLapangan.harga}" th:placeholder="${MsLapangan.harga}" required>
+                            <br/>
+
+                            <label>Price With lighting <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="harga_penerangan" id="harga_penerangan" th:value="${MsLapangan.harga_penerangan}" th:placeholder="${MsLapangan.harga_penerangan}" required>
+                            <br/>
+
+                            <label>Court Size <span style="color: red">*</span> </label>
+
+                            <label>Lenght <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="panjang_lapangan" id="panjang_lapangan" th:value="${MsLapangan.panjang_lapangan}" th:placeholder="${MsLapangan.panjang_lapangan}" required>
+
+                            <label>Width <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="lebar_lapangan" id="lebar_lapangan" th:value="${MsLapangan.lebar_lapangan}" th:placeholder="${MsLapangan.lebar_lapangan}" required>
+
+                            <br/>
                         </div>
-                        <br/>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <a class="btn btn-outline-secondary" th:href="@{'Lapangan?id_merchant='+${MsLapangan.id_merchant}}">Kembali</a>&#32
-                        <button class="btn btn-outline-primary">Simpan</button>
+                    <br/>
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-secondary" href="/my-merchant">Back</a>&#32
+                            <button class="btn btn-primary">Save</button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
+    <br/><br/><br/>
+
 </div>
-<br/><br/><br/>
+
 </body>
 </html>

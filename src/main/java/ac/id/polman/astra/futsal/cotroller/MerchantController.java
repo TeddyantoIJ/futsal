@@ -155,7 +155,7 @@ public class MerchantController {
         }
 
         merchantService.update(msMerchant);
-        return "redirect:/Merchant";
+        return "redirect:/my-merchant";
     }
 
     @GetMapping("/deleteMerchant")

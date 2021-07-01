@@ -1,14 +1,18 @@
 package ac.id.polman.astra.futsal.cotroller;
 
 import ac.id.polman.astra.futsal.model.MsLapangan;
+import ac.id.polman.astra.futsal.model.MsUser;
 import ac.id.polman.astra.futsal.service.LapanganService;
+import ac.id.polman.astra.futsal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,6 +20,8 @@ import java.util.List;
 public class LapanganController {
     @Autowired
     LapanganService lapanganService;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/Lapangan")
     public String getLapangan(
@@ -39,7 +45,7 @@ public class LapanganController {
         return "/merchant/listlapangan";
     }
 
-    @GetMapping("/Lapangan-add")
+    @PostMapping("/add-court")
     public String gotoAdd(
             @RequestParam("id_merchant") int id_merchant,
             Model model
@@ -49,9 +55,9 @@ public class LapanganController {
         return "/lapangan/add";
     }
 
-    @GetMapping("/Lapangan-edit")
+    @GetMapping("/edit-court/{id_lapangan}")
     public String gotoEdit(
-            @RequestParam("id_lapangan") int id_lapangan,
+            @PathVariable int id_lapangan,
             Model model
     ){
         MsLapangan msLapangan = lapanganService.getLapanganByIdLapangan(id_lapangan);
@@ -80,14 +86,21 @@ public class LapanganController {
         msLapangan.setStatus(1);
 
         lapanganService.saveLapangan(msLapangan);
-        return "redirect:/Lapangan?id_merchant="+msLapangan.getId_merchant();
+        return "redirect:/my-merchant";
     }
 
     @PostMapping("/editLapangan")
-    public String editLapangan(MsLapangan msLapangan){
+    public String editLapangan(MsLapangan msLapangan, HttpSession session){
         MsLapangan old = lapanganService.getLapanganByIdLapangan(msLapangan.getIdLapangan());
+        MsUser a = new MsUser();
+        try {
+            a = userService.getUserById((int) session.getAttribute("id_user"));
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
 
-        old.setModiby("Yang sekarang login");
+
+        old.setModiby(a.getEmail());
         old.setModidate(LocalDateTime.now());
 
         old.setNama(msLapangan.getNama());
@@ -99,37 +112,50 @@ public class LapanganController {
 
         lapanganService.saveLapangan(old);
 
-        return "redirect:/Lapangan?id_merchant="+old.getId_merchant();
+        return "redirect:/my-merchant";
     }
 
-    @GetMapping("/deleteLapangan")
+    @GetMapping("/delete-court/{id_lapangan}")
     public String deleteLapangan(
-            @RequestParam("id_lapangan") int id_lapangan
+            @PathVariable int id_lapangan,
+            HttpSession session
     ){
         MsLapangan old = lapanganService.getLapanganByIdLapangan(id_lapangan);
-
-        old.setModiby("Yang sekarang login");
+        MsUser a = new MsUser();
+        try {
+            a = userService.getUserById((int) session.getAttribute("id_user"));
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        old.setModiby(a.getEmail());
         old.setModidate(LocalDateTime.now());
 
         old.setStatus(0);
 
         lapanganService.saveLapangan(old);
 
-        return "redirect:/Lapangan?id_merchant="+old.getId_merchant();
+        return "redirect:/my-merchant";
     }
-    @GetMapping("/undoLapangan")
+    @GetMapping("/undo-court/{id_lapangan}")
     public String undoLapangan(
-            @RequestParam("id_lapangan") int id_lapangan
+            @PathVariable int id_lapangan,
+            HttpSession session
     ){
         MsLapangan old = lapanganService.getLapanganByIdLapangan(id_lapangan);
+        MsUser a = new MsUser();
+        try {
+            a = userService.getUserById((int) session.getAttribute("id_user"));
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
 
-        old.setModiby("Yang sekarang login");
+        old.setModiby(a.getEmail());
         old.setModidate(LocalDateTime.now());
 
         old.setStatus(1);
 
         lapanganService.saveLapangan(old);
 
-        return "redirect:/Lapangan?id_merchant="+old.getId_merchant();
+        return "redirect:/my-merchant";
     }
 }
