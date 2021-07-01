@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_userLayout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pendaftaran User</title>
+    <!--    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">-->
+</head>
+<body>
+<div layout:fragment="content" class="banner-landscape">
+    <br/><br/>
+    <div class="container">
+        <br/>
+        <h1 class="font-weight-bold text-light text-center" style="text-transform: uppercase">JOIN YOUR TIM</h1>
+        <p class="font-weight-light text-light text-center">Being one of us is an honor for us. Best regards, developers (Ivan & Teddy)</p>
+        <hr style="border-width: 4px;"/>
+        <br/>
+        <div class="row">
+            <div class="col">
+                <form th:action="@{addTim}" th:object="${timObj}" method="post" enctype="multipart/form-data" >
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col-5">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="iduser">Nama User<span style="color: red">*</span> </label>
+                                    <input class="form form-control" type="text" name="iduser" id="iduser" th:placeholder="${userObj.namaDepan}" th:value="${userObj.namaDepan}" required>
+                                    <br/>
+                                    <label for="idtim">Nama Tim <span style="color: red">*</span> </label>
+                                    <input class="form form-control" type="text" name="idtim" id="idtim" th:placeholder="${teamObj.nama}" th:value="${teamObj.nama}" required>
+                                    <br/>
+                                    <label class="font-weight-bold text-light" for="alasan">Reason<span style="color: red">*</span> </label>
+                                    <input class="form form-control" placeholder="Reason" type="text" name="alasan" id="alasan"  required>
+                                    <br/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <a class="btn btn-outline-secondary" href="/Tim">Back</a>&#32
+                                    <button class="btn btn-outline-primary">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br/><br/>
+</div>
+
+</body>
+</html>

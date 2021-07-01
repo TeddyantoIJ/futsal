@@ -1,72 +1,88 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_userLayout"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add TIM</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <title>Pendaftaran User</title>
+    <!--    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">-->
 </head>
 <body>
-<br/><br/>
-<div class="container">
-    <center>
-        <h1>TAMBAH DATA TIM</h1>
-        <hr/>
-    </center>
-    <br/>
-    <div class="row">
-        <div class="col">
-            <form th:action="@{addTim}" th:object="${timObj}" method="post" enctype="multipart/form-data" >
-                <div class="row">
-                    <div class="col">
-                        <label for="nama">Nama Tim <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="text" name="nama" id="nama"  required>
-                        <br/>
+<div layout:fragment="content" class="banner-landscape">
+    <br/><br/>
+    <div class="container">
+        <br/>
+        <h1 class="font-weight-bold text-light text-center" style="text-transform: uppercase">CREATE YOUR TIM</h1>
+        <p class="font-weight-light text-light text-center">Being one of us is an honor for us. Best regards, developers (Ivan & Teddy)</p>
+        <hr style="border-width: 4px;"/>
+        <br/>
+        <div class="row">
+            <div class="col">
+                <form th:action="@{addTim}" th:object="${timObj}" method="post" enctype="multipart/form-data" >
+                    <div class="row">
+                        <div class="col"></div>
+                            <div class="col-5">
+                                <div class="row">
+                                    <div class="col">
+                                        <label class="font-weight-bold text-light" for="nama">Team Name<span style="color: red">*</span> </label>
+                                        <input class="form form-control" placeholder="Team Name" type="text" name="nama" id="nama"  required>
+                                        <br/>
 
-                        <label for="tgl_Berdiri">Tanggal Berdiri <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="date" name="tglBerdiri" id="tgl_Berdiri" required>
-                        <br/>
+                                        <label class="font-weight-bold text-light" for="tgl_Berdiri">Date Formed <span style="color: red">*</span> </label>
+                                        <input class="form form-control" type="date" name="tglBerdiri" id="tgl_Berdiri" required>
+                                        <br/>
 
-                        <label>Privat <span style="color: red">*</span> </label>
-                        <br/>
-                        <input type="radio" id="Ya" name="privat" value="1">
-                          <label for="Ya">Ya</label><br>
-                        <input type="radio" id="Tidak" name="privat" value="0">
-                          <label for="Tidak">Tidak</label><br>
-                        <br/>
+                                        <label class="font-weight-bold text-light">Privat <span style="color: red">*</span> </label>
+                                        <br/>
+                                        <input type="radio" id="Ya" name="privat" value="1">
+                                          <label for="Ya">Ya</label><br>
+                                        <input type="radio" id="Tidak" name="privat" value="0">
+                                          <label for="Tidak">Tidak</label><br>
+                                        <br/>
 
 
-                        <label>Tipe Pemain <span style="color: red">*</span> </label>
-                        <br/>
-                        <input type="radio" id="z" name="tipePemain" value="1">
-                          <label for="z">Anak - anak</label><br>
-                        <input type="radio" id="c" name="tipePemain" value="2">
-                          <label for="c">Dewasa</label><br>
-                        <input type="radio" id="x" name="tipePemain" value="3">
-                          <label for="x">Bebas</label><br>
-                        <br/>
+                                        <label class="font-weight-bold text-light">Player Type <span style="color: red">*</span> </label>
+                                        <br/>
+                                        <input type="radio" id="z" name="tipePemain" value="1">
+                                          <label for="z">Anak - anak</label><br>
+                                        <input type="radio" id="c" name="tipePemain" value="2">
+                                          <label for="c">Dewasa</label><br>
+                                        <input type="radio" id="d" name="tipePemain" value="3">
+                                          <label for="x">Laki - Laki</label><br>
+                                        <input type="radio" id="e" name="tipePemain" value="4">
+                                          <label for="x">Perempuan</label><br>
+                                        <input type="radio" id="x" name="tipePemain" value="5">
+                                          <label for="x">Bebas</label><br>
+                                        <br/>
 
-                        <label>Logo <span style="color: red">*</span> </label>
-                        <br/>
-                        <input type="file" name="file" id="file"  accept="image/png, image/jpeg" required>
+                                        <label class="font-weight-bold text-light">Logo <span style="color: red">*</span> </label>
+                                        <br/>
+                                        <input type="file" name="file" id="file"  accept="image/png, image/jpeg" required>
 
-                        <br/><br/>
+                                        <br/><br/>
 
-                        <label>Banner <span style="color: red">*</span> </label>
-                        <br/>
-                        <input type="file" name="file1" id="file1"  accept="image/png, image/jpeg" required>
-                        <br/><br/>
+                                        <label class="font-weight-bold text-light">Banner <span style="color: red">*</span> </label>
+                                        <br/>
+                                        <input type="file" name="file1" id="file1"  accept="image/png, image/jpeg" required>
+                                        <br/><br/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <a class="btn btn-outline-secondary" href="/Tim">Back</a>&#32
+                                        <button class="btn btn-outline-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="col"></div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <a class="btn btn-outline-secondary" href="/Tim">Kembali</a>&#32
-                        <button class="btn btn-outline-primary">Simpan</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
+    <br/><br/>
 </div>
-<br/><br/><br/>
+
 </body>
 </html>

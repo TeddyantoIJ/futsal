@@ -1,11 +1,7 @@
 package ac.id.polman.astra.futsal.cotroller;
 
-import ac.id.polman.astra.futsal.model.MsAkun;
-import ac.id.polman.astra.futsal.model.MsMerchant;
-import ac.id.polman.astra.futsal.model.MsUser;
-import ac.id.polman.astra.futsal.service.AkunService;
-import ac.id.polman.astra.futsal.service.MerchantService;
-import ac.id.polman.astra.futsal.service.UserService;
+import ac.id.polman.astra.futsal.model.*;
+import ac.id.polman.astra.futsal.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +21,12 @@ public class PendaftaranController {
     AkunService akunService;
     @Autowired
     MerchantService merchantService;
-
+    @Autowired
+    DaftarTimService daftarTimService;
+    @Autowired
+    StatusService statusService;
+    @Autowired
+    TimService timService;
 
     @GetMapping("/MenuAdmin")
     public String Admin(Model model){
@@ -40,7 +41,7 @@ public class PendaftaranController {
         MsAkun msAkun = akunService.getUserByUsername(username);
 
         if(msAkun == null){
-            return "/Login";
+            return "redirect:/page-login";
         }
 
         if (msAkun.getUsername().equals(username) && msAkun.getPassword().equals(password)){
@@ -66,7 +67,7 @@ public class PendaftaranController {
                 return "/template/admines";
             }
         }else{
-            return "Login";
+            return "redirect:/page-login";
         }
     }
 
@@ -91,5 +92,50 @@ public class PendaftaranController {
         userService.saveUser(msUser);
 
         return "Login";
+    }
+
+    //Pendaftaran TIM
+    @GetMapping("/Daftar-Tim")
+    public String getDaftarTim(Model model, TrDaftarTim trDaftartim){
+        List<TrDaftarTim> daftarList = daftarTimService.getAllIdTim(1);
+        model.addAttribute("listTim", daftarList);
+
+        MsUser msUser = new MsUser();
+        msUser = userService.getUserById(1);
+        model.addAttribute("userObj", msUser);
+
+        MsStatus msStatus = statusService.getStatus(1);
+        model.addAttribute("msStatus", msStatus);
+
+        return "page/konfirmasi_tim";
+    }
+
+    @GetMapping("/konfirmasi-Anggota")
+    public String konfirmasiAnggota(@RequestParam("id") Integer id, HttpSession session){
+        int idus = -1;
+        try{
+            idus = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+
+        TrDaftarTim trDaftartim = daftarTimService.getTimById(id);
+        trDaftartim.setIdStatus(2);
+        daftarTimService.saveTrDaftarTim(trDaftartim);
+        return "redirect:/Daftar-Tim";
+    }
+
+    //=========================DAFTAR ANGGOTA TIM
+    @GetMapping("/AnggotaTim-add")
+    public String gotoAdd(Model model){
+        model.addAttribute("timObj", new TrDaftarTim());
+
+        MsTim msTim = timService.getTimById(1);
+        model.addAttribute("teamObj", msTim);
+
+        MsUser msUser = new MsUser();
+        msUser = userService.getUserById(1);
+        model.addAttribute("userObj", msUser);
+        return "pendaftaran/daftar_anggota_tim";
     }
 }

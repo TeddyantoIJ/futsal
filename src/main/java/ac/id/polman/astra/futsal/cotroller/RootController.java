@@ -103,9 +103,7 @@ public class RootController {
     }
 
     @GetMapping("/my-merchant")
-    public String goto_my_merchant(
-            Model model, HttpSession session
-    ){
+    public String goto_my_merchant(Model model, HttpSession session){
         int id = -1;
         try{
             id = (int) session.getAttribute("id_user");
@@ -137,6 +135,43 @@ public class RootController {
         model.addAttribute("fotLap",fotLap);
 
         return "page/merchant_index";
+    }
+
+    // ===================================MANAGER TIM ====================================
+
+    @GetMapping("/my-tim")
+    public String goto_my_timm(Model model, HttpSession session){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+
+        List<MsMerchant> a = merchantService.getAllMerchant();
+        MsMerchant m = new MsMerchant();
+        for ( MsMerchant b: a) {
+            if(b.getId_user() == id){
+                m = b;
+                break;
+            }
+        }
+
+        List<MsLapangan> lap = lapanganService.getAllLapanganByIdMerchant(m.getId_merchant());
+        List<MsFasilitas> fasList = fasilitasService.getAllFacilities();
+        List<DtMerchant> fasDit = dtMerchantService.getAllDtMerchantByIdMerchant(m.getId_merchant());
+        List<DtFotolapangan> fotLap = new ArrayList<>();
+        for (MsLapangan x : lap) {
+            fotLap.add(dtFotoLapanganService.getAllDtFotoLapanganByIdLapangan(x.getIdLapangan()).get(0));
+        }
+
+        model.addAttribute("merchant", m);
+        model.addAttribute("lap",lap);
+        model.addAttribute("fasList",fasList);
+        model.addAttribute("fasDit",fasDit);
+        model.addAttribute("fotLap",fotLap);
+
+        return "page/manager_tim";
     }
 
     // ======================================= TEAM ======================================

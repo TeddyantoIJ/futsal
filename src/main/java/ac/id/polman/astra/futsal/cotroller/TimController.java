@@ -78,7 +78,7 @@ public class TimController {
         msTim.setStatus(1);
 
         timService.saveTim(msTim);
-        return "redirect:/Tim";
+        return "redirect:/page-login";
     }
 
     @PostMapping("/editTim")
