@@ -10,8 +10,7 @@
 <div layout:fragment="content" style="margin-left: 280px">
     <div style="width: 100%; height: 600px;">
         <img th:src="'/images/merchant/banner/'+${merchant.banner}" style="height: 100%; width: 100%; object-position: center">
-        <div class="fixed-top text-center" style="margin-left: 280px">
-            <br/>
+        <div class="fixed-top text-right" style="margin-left: 280px; padding-top: 5px; padding-right: 5px;">
             <button class="btn btn-danger" onclick="hilangkan()"><span class="fa fa-eye"></span> Visitor View</button>
             <button class="btn btn-success" onclick="munculkan()"><span class="fa fa-eye"></span> Owner View</button>
             <script>
@@ -48,7 +47,7 @@
     </div>
     <section>
         <div id="owner" class="merchant container">
-            <form th:action="@{editMerchant}" method="post" enctype="multipart/form-data" >
+            <form action="/editMerchant" method="post" enctype="multipart/form-data" >
                 <input type="hidden" name="id_merchant" th:value="${merchant.id_merchant}">
                 <input type="file" title="Change banner" class="form-control-file" name="file1" accept="image/png, image/jpeg">
                 <br/>
@@ -112,25 +111,25 @@
                     <div class="row">
                         <div class="col-2">Name</div>
                         <div class="col font-weight-light">
-                            <label th:text="': ' + ${merchant.nama}"></label>
+                            <label th:text="': ' + ${merchant.nama}" style="border-bottom: 1px solid deepskyblue"></label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-2">Address</div>
                         <div class="col font-weight-light">
-                            <label th:text="': ' + ${merchant.alamat}"></label>
+                            <label th:text="': ' + ${merchant.alamat}" style="border-bottom: 1px solid deepskyblue"></label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-2">Contact person</div>
                         <div class="col font-weight-light">
-                            <label th:text="': ' + ${merchant.narahubung} + '(' +  ${merchant.telephone} + ')'"></label>
+                            <label th:text="': ' + ${merchant.narahubung} + '(' +  ${merchant.telephone} + ')'" style="border-bottom: 1px solid deepskyblue"></label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-2">Description</div>
                         <div class="col font-weight-light wrapText">
-                            <label th:text="': ' + ${merchant.deskripsi}"></label>
+                            <label th:text="': ' + ${merchant.deskripsi}" style="border-bottom: 1px solid deepskyblue"></label>
                         </div>
                     </div>
                     <div class="row">
@@ -141,7 +140,9 @@
                             <i th:if="${merchant.rating >= 4}" class="fa fa-star" style="color: yellow"></i>
                             <i th:if="${merchant.rating >= 5}" class="fa fa-star" style="color: yellow"></i>
                         </div>
-                        <div class="col">: <span th:text="${merchant.rating}"></span></div>
+                        <div class="col">
+                            <label th:text="': ' + ${merchant.rating}" style="border-bottom: 1px solid deepskyblue"></label>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -124,15 +124,21 @@ public class MerchantController {
     public String editMerchant(
         MsMerchant msMerchant,
         @RequestParam("file") MultipartFile file,
-        @RequestParam("file1") MultipartFile file1
+        @RequestParam("file1") MultipartFile file1,
+        HttpSession session
     ){
         UploadController uploadController = new UploadController();
         MsMerchant oldMerchant = merchantService.getMerchantById(msMerchant.getId_merchant());
-
+        MsUser a = new MsUser();
+        try {
+            a = userService.getUserById((int) session.getAttribute("id_user"));
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
         msMerchant.setId_user(oldMerchant.getId_user());
         msMerchant.setCreaby(oldMerchant.getCreaby());
         msMerchant.setCreadate(oldMerchant.getCreadate());
-        msMerchant.setModiby("yang login sekarang");
+        msMerchant.setModiby(a.getEmail());
         msMerchant.setModidate(LocalDateTime.now());
         msMerchant.setStatus(oldMerchant.getStatus());
         msMerchant.setRating(oldMerchant.getRating());
