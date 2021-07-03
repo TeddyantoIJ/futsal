@@ -2,16 +2,20 @@ package ac.id.polman.astra.futsal.cotroller;
 
 import ac.id.polman.astra.futsal.model.DtFotolapangan;
 import ac.id.polman.astra.futsal.model.MsLapangan;
+import ac.id.polman.astra.futsal.model.MsUser;
 import ac.id.polman.astra.futsal.service.DtFotoLapanganService;
 import ac.id.polman.astra.futsal.service.LapanganService;
+import ac.id.polman.astra.futsal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,10 +25,12 @@ import java.util.List;
 public class DtLapanganController {
     @Autowired
     DtFotoLapanganService dtFotoLapanganService;
+    @Autowired
+    UserService userService;
 
-    @GetMapping("/Foto-Lapangan")
+    @GetMapping("/images-court/{id_lapangan}")
     public String getFotoLapangan(
-            @RequestParam("id_lapangan") int id_lapangan,
+            @PathVariable int id_lapangan,
             Model model
     ){
 
@@ -43,9 +49,9 @@ public class DtLapanganController {
         return "/dtfotolapangan/add";
     }
 
-    @GetMapping("/Foto-Lapangan-edit")
+    @GetMapping("/edit-images-court/{id_foto}")
     public String gotoEdit(
-            @RequestParam("id_foto") int id_foto,
+            @PathVariable int id_foto,
             Model model
     ){
         DtFotolapangan dtFotolapangan = dtFotoLapanganService.getDtFotoLapanganById(id_foto);
@@ -58,10 +64,16 @@ public class DtLapanganController {
     public String addFotoLapangan(
             @RequestParam("id_lapangan") int id_lapangan,
             @RequestParam("caption") String caption,
-            @RequestParam("file") MultipartFile file
+            @RequestParam("file") MultipartFile file,
+            HttpSession session
     ){
         UploadController uploadController = new UploadController();
-
+        MsUser a = new MsUser();
+        try {
+            a = userService.getUserById((int) session.getAttribute("id_user"));
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
         String foto = uploadController.uploadFotoLapangan(file);
 
         DtFotolapangan dtFotolapangan = new DtFotolapangan();
@@ -73,7 +85,7 @@ public class DtLapanganController {
             dtFotolapangan.setCaption(caption);
         }
 
-        dtFotolapangan.setCreaby("Teddy(harusnya ambil nama yang bikin)");
+        dtFotolapangan.setCreaby(a.getEmail());
         dtFotolapangan.setCreadate(LocalDateTime.now());
         dtFotolapangan.setModiby("");
         dtFotolapangan.setModidate(LocalDateTime.now());
@@ -81,7 +93,7 @@ public class DtLapanganController {
 
         dtFotoLapanganService.saveFotoLapangan(dtFotolapangan);
 
-        return "redirect:/Foto-Lapangan?id_lapangan="+id_lapangan;
+        return "redirect:/images-court/"+id_lapangan;
     }
 
     @PostMapping("/editFotoLapangan")
@@ -96,7 +108,7 @@ public class DtLapanganController {
         dtFotolapangan.setCaption(caption);
 
         dtFotoLapanganService.saveFotoLapangan(dtFotolapangan);
-        return "redirect:/Foto-Lapangan?id_lapangan="+dtFotolapangan.getIdLapangan();
+        return "redirect:/images-court/"+dtFotolapangan.getIdLapangan();
     }
 
     @GetMapping("/deletePotoLapangan")

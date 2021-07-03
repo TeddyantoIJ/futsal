@@ -10,9 +10,44 @@
 <div layout:fragment="content" style="margin-left: 280px">
     <div style="width: 100%; height: 600px;">
         <img th:src="'/images/merchant/banner/'+${merchant.banner}" style="height: 100%; width: 100%; object-position: center">
+        <div class="fixed-top text-center" style="margin-left: 280px">
+            <br/>
+            <button class="btn btn-danger" onclick="hilangkan()"><span class="fa fa-eye"></span> Visitor View</button>
+            <button class="btn btn-success" onclick="munculkan()"><span class="fa fa-eye"></span> Owner View</button>
+            <script>
+                function hilangkan() {
+                    var a = document.getElementsByClassName('merchant');
+                    var b = document.getElementsByClassName('merchant1');
+
+                    for (var i = 0; i < a.length; i++) {
+                        a[i].style.display = 'none';;
+                    }
+                    for (var i = 0; i < b.length; i ++) {
+                        b[i].style.display = 'block';
+                    }
+
+                    document.getElementById("visitor").style.display = 'block';
+                    document.getElementById("owner").style.display = 'none';
+                }
+                 function munculkan(){
+                     var a = document.getElementsByClassName('merchant');
+                     var b = document.getElementsByClassName('merchant1');
+
+                     for (var i = 0; i < a.length; i++) {
+                         a[i].style.display = 'block';;
+                     }
+                     for (var i = 0; i < b.length; i ++) {
+                         b[i].style.display = 'none';
+                     }
+
+                     document.getElementById("visitor").style.display = 'none';
+                     document.getElementById("owner").style.display = 'block';
+                }
+            </script>
+        </div>
     </div>
     <section>
-        <div class="container">
+        <div id="owner" class="merchant container">
             <form th:action="@{editMerchant}" method="post" enctype="multipart/form-data" >
                 <input type="hidden" name="id_merchant" th:value="${merchant.id_merchant}">
                 <input type="file" title="Change banner" class="form-control-file" name="file1" accept="image/png, image/jpeg">
@@ -67,10 +102,54 @@
             </div>
             </form>
         </div>
+        <div id="visitor"  class="container" style="display: none">
+            <br/>
+            <div class="row">
+                <div class="col-3">
+                    <img th:src="'/images/merchant/foto/' + ${merchant.foto}" style="height: 200px; width: 200px; object-fit: cover; object-position: center" class="card-img">
+                </div>
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-2">Name</div>
+                        <div class="col font-weight-light">
+                            <label th:text="': ' + ${merchant.nama}"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">Address</div>
+                        <div class="col font-weight-light">
+                            <label th:text="': ' + ${merchant.alamat}"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">Contact person</div>
+                        <div class="col font-weight-light">
+                            <label th:text="': ' + ${merchant.narahubung} + '(' +  ${merchant.telephone} + ')'"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">Description</div>
+                        <div class="col font-weight-light wrapText">
+                            <label th:text="': ' + ${merchant.deskripsi}"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <i th:if="${merchant.rating >= 1}" class="fa fa-star" style="color: yellow"></i>
+                            <i th:if="${merchant.rating >= 2}" class="fa fa-star" style="color: yellow"></i>
+                            <i th:if="${merchant.rating >= 3}" class="fa fa-star" style="color: yellow"></i>
+                            <i th:if="${merchant.rating >= 4}" class="fa fa-star" style="color: yellow"></i>
+                            <i th:if="${merchant.rating >= 5}" class="fa fa-star" style="color: yellow"></i>
+                        </div>
+                        <div class="col">: <span th:text="${merchant.rating}"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <br/>
     <div style="background-image: url(/images/assets/merchant_bg.jpg); background-repeat: no-repeat; background-position: center" id="Court" class="bg-light">
-        <div class="container">
+        <div class="merchant container">
             <br/>
             <h4 class="font-weight-bold text-dark text-center">Our Courts</h4>
             <br/>
@@ -93,7 +172,7 @@
                                 <br/>
                                 <div class="float-right d-inline">
                                     <a th:href="'/edit-court/' + ${lapangan.idLapangan}" class="btn btn-warning">Edit</a>
-                                    <a href="" class="btn btn-success">Images</a>
+                                    <a th:href="'/images-court/' + ${lapangan.idLapangan}" class="btn btn-success">Images</a>
                                     <a th:if="${lapangan.status} == 1" th:href="'/delete-court/' + ${lapangan.idLapangan}" class="btn btn-danger">Delete</a>
                                     <a th:if="${lapangan.status} == 0" th:href="'/undo-court/' + ${lapangan.idLapangan}" class="btn btn-info">Appear</a>
                                 </div>
@@ -106,7 +185,44 @@
             <div class="float-right">
                 <form action="/add-court" method="post">
                     <input type="hidden" name="id_merchant" th:value="${merchant.id_merchant}">
-                    <button class="btn btn-primary">Add Court</button>
+                    <button class="merchant btn btn-primary">Add Court</button>
+                </form>
+            </div>
+        </div>
+        <div class="merchant1 container" style="display: none;">
+            <br/>
+            <h4 class="font-weight-bold text-dark text-center">Our Courts</h4>
+            <br/>
+            <div th:each="lapangan, iter : ${lap}">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-3" th:each="fot, foti : ${fotLap}" th:if="${iter.index} == ${foti.index}">
+                                <img class="card-img" th:src="'/images/lapangan/' + ${fot.foto}" style="margin-left:10px; height: 150px; width: 250px; object-fit: cover; object-position: center"/>
+                            </div>
+                            <div class="col">
+                                <h4 class="font-weight-light"><span th:text="${lapangan.nama}"></span></h4>
+                                <span th:text="'Rp' + ${lapangan.harga}"></span>
+                                <br/>
+                                <span th:text="'Rp' + ${lapangan.harga_penerangan}"></span> with lighting
+                                <br/>
+                                <span th:text="'Size : ' + ${lapangan.panjang_lapangan} + ' * ' + ${lapangan.lebar_lapangan} + ' m'"></span>
+                                <br/>
+                                <span th:text="${lapangan.tipe_lapangan}"></span>
+                                <br/>
+                                <div class="float-right d-inline">
+                                    <a href="#" class="btn btn-success" aria-hidden="true">Detail / Booking</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+            </div>
+            <div class="float-right">
+                <form action="/add-court" method="post">
+                    <input type="hidden" name="id_merchant" th:value="${merchant.id_merchant}">
+                    <button class="merchant btn btn-primary">Add Court</button>
                 </form>
             </div>
         </div>
@@ -121,13 +237,13 @@
             <br/>
             <div class="row">
                 <div class="col-3" th:each="fas : ${fasDit}">
-                    <i th:each="fasAll : ${fasList}" th:if="${fas.id_fasilitas} == ${fasAll.idFasilitas}"  th:class="${fasAll.icon}" aria-hidden="true">
-                        <span th:text="' ' + ${fasAll.fasilitas}"></span>
+                    <i th:each="fasAll : ${fasList}" th:if="${fas.id_fasilitas} == ${fasAll.idFasilitas}"  th:class="${fasAll.icon}" aria-hidden="true" style="color:blue">
+                        <span th:text="' (x ' + ${fas.jumlah} + ') ' + ${fasAll.fasilitas} "></span>
                     </i>
                 </div>
             </div>
             <br/>
-            <a href="" class="btn btn-primary float-right">Add Facilities</a>
+            <a th:href="'/facilities/' + ${merchant.id_merchant}" class="merchant btn btn-primary float-right">Add Facilities</a>
         </div>
         <br/>
     </section>
@@ -135,6 +251,110 @@
         <br/>
         <div class="container">
             <h4 class="font-weight-bold text-dark text-center">Review</h4>
+
+            <div class="row">
+                <div class="col-6" style="margin-top: 10px">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="card-title font-weight-normal">
+                                Teddyanto
+                                <span>(5)</span>
+
+                                <div class="d-inline float-right">
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                </div>
+
+                            </div>
+
+
+                            <div class=" font-weight-light">
+                                Sangat bagus saya suka, pelayanannya memuaskan
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6" style="margin-top: 10px">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="card-title font-weight-normal">
+                                Teddyanto
+                                <span>(5)</span>
+
+                                <div class="d-inline float-right">
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                </div>
+
+                            </div>
+
+
+                            <div class=" font-weight-light">
+                                Sangat bagus saya suka, pelayanannya memuaskan
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6" style="margin-top: 10px">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="card-title font-weight-normal">
+                                Teddyanto
+                                <span>(5)</span>
+
+                                <div class="d-inline float-right">
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                </div>
+
+                            </div>
+
+
+                            <div class=" font-weight-light">
+                                Sangat bagus saya suka, pelayanannya memuaskan
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6" style="margin-top: 10px">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="card-title font-weight-normal">
+                                Teddyanto
+                                <span>(5)</span>
+
+                                <div class="d-inline float-right">
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                    <i class="fa fa-star" style="color: yellow;"></i>
+                                </div>
+
+                            </div>
+
+
+                            <div class=" font-weight-light">
+                                Sangat bagus saya suka, pelayanannya memuaskan
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <br/>
     </section>

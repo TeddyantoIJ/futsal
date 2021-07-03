@@ -2,15 +2,19 @@ package ac.id.polman.astra.futsal.cotroller;
 
 import ac.id.polman.astra.futsal.model.DtMerchant;
 import ac.id.polman.astra.futsal.model.MsFasilitas;
+import ac.id.polman.astra.futsal.model.MsUser;
 import ac.id.polman.astra.futsal.service.DtMerchantService;
 import ac.id.polman.astra.futsal.service.FasilitasService;
+import ac.id.polman.astra.futsal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +23,10 @@ import java.util.List;
 public class DtMerchantController {
     @Autowired
     DtMerchantService dtMerchantService;
-
     @Autowired
     FasilitasService msFasilitasService;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/DtMerchant")
     public String getDtMerchant(
@@ -63,9 +68,9 @@ public class DtMerchantController {
         return "merchant/detaillist";
     }
 
-    @GetMapping("DtMerchant-add")
+    @GetMapping("/facilities/{id_merchant}")
     public String gotoAdd(
-            @RequestParam("id_merchant") Integer id_merchant,
+            @PathVariable Integer id_merchant,
             Model model){
 
         List<MsFasilitas> msFasilitasList = msFasilitasService.getAllFacilities();
@@ -91,16 +96,37 @@ public class DtMerchantController {
     @PostMapping("/addDtMerchant")
     public String addDtMerchant(
             @RequestParam("id_merchant") Integer id_merchant,
-            DtMerchant dtMerchant){
-
+            DtMerchant dtMerchant,
+            HttpSession session){
+        MsUser a = new MsUser();
+        try {
+            a = userService.getUserById((int) session.getAttribute("id_user"));
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        List<DtMerchant> b = dtMerchantService.getAllDtMerchantByIdMerchant(id_merchant);
+        boolean baru = true;
+        for (DtMerchant c : b)
+        {
+            if(c.getId_fasilitas() == dtMerchant.getId_fasilitas()){
+                dtMerchant.setId_dtmerchant(c.getId_dtmerchant());
+                baru = false;
+            }
+        }
         dtMerchant.setId_merchant(id_merchant);
-        dtMerchant.setCreaby("Teddy yang login");
-        dtMerchant.setCreadate(LocalDateTime.now());
-        dtMerchant.setModiby("");
-        dtMerchant.setModidate(LocalDateTime.now());
+
+        if(!baru){
+            dtMerchant.setModiby(a.getEmail());
+            dtMerchant.setModidate(LocalDateTime.now());
+        }else{
+            dtMerchant.setCreaby(a.getEmail());
+            dtMerchant.setCreadate(LocalDateTime.now());
+            dtMerchant.setModiby("");
+            dtMerchant.setModidate(LocalDateTime.now());
+        }
         dtMerchant.setStatus(1);
         dtMerchantService.saveDtMerchant(dtMerchant);
-        return "redirect:/DtMerchant?id_merchant="+id_merchant;
+        return "redirect:/my-merchant";
     }
 
     @PostMapping("/editDtMerchant")

@@ -1,51 +1,52 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_merchant">
 <head>
     <meta charset="UTF-8">
-    <title>Add Fasilitas Merchant</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Add Facilities Merchant</title>
 </head>
 <body>
-<br/><br/>
-<div class="container">
-    <center>
-        <h1>TAMBAH DATA FASILITAS MERCHANT</h1>
-        <hr/>
-    </center>
-    <br/>
-    <div class="row">
-        <div class="col">
-            <form th:action="@{addDtMerchant}" th:object="${dtMerchant}" method="post">
-                <div class="row">
-                    <div class="col">
-                        <input type="hidden" name="id_merchant" th:value="${id_merchant}">
+<div layout:fragment="content" style="margin-left: 280px">
+    <div class="fixed-bottom" style="margin-left: 280px; background-image: url(/images/assets/merchant_bg.jpg); background-repeat: no-repeat; background-position: center; height: 30px"></div>
+    <br/><br/>
+    <div class="container">
+        <h4 class="text-center" style="text-transform: capitalize">Add Facilities</h4>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col">
+                <form action="/addDtMerchant" th:object="${dtMerchant}" method="post">
+                    <div class="row">
+                        <div class="col">
+                            <input type="hidden" name="id_merchant" th:value="${id_merchant}">
 
-                        <label>Fasilitas <span style="color: red">*</span> </label>
-                        <select  name="id_fasilitas" id="id_fasilitas" required class="form-control">
-                            <div  th:each="item, iter: ${listFasilitas}">
-                                <option th:value="${item.idFasilitas}" th:text="${item.fasilitas}">
-                                </option>
-                            </div>
+                            <label>Facilities <span style="color: red">*</span> </label>
+                            <select  name="id_fasilitas" id="id_fasilitas" required class="form-control">
+                                <div  th:each="item, iter: ${listFasilitas}">
+                                    <option th:value="${item.idFasilitas}" th:text="${item.fasilitas}">
+                                    </option>
+                                </div>
 
-                        </select>
-                        <br/>
+                            </select>
+                            <br/>
 
-                        <label>Jumlah <span style="color: red">*</span> </label>
-                        <input class="form form-control" type="number" name="jumlah" id="jumlah" required>
-                        <br/>
+                            <label>Amount <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="number" name="jumlah" id="jumlah" required>
+                            <br/>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <a class="btn btn-outline-secondary" th:href="@{'DtMerchant?id_merchant='+${id_merchant}}">Kembali</a>&#32
-                        <button class="btn btn-outline-primary">Simpan</button>
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-secondary" href="/my-merchant">Back</a>&#32
+                            <button class="btn btn-primary">Save</button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
+    <br/><br/><br/>
 </div>
-<br/><br/><br/>
 </body>
 </html>

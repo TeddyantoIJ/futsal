@@ -60,7 +60,7 @@ public class PendaftaranController {
                 session.setAttribute("login", true);
                 session.setAttribute("id_user", msUser.getIdUser());
 
-                return "/page/index";
+                return "redirect:/";
             }else{
                 session.setAttribute("login", true);
                 session.setAttribute("id_user", msUser.getIdUser());

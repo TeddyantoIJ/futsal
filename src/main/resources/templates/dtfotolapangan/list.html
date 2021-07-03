@@ -1,56 +1,58 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/layout/_merchant">
 <head>
     <meta charset="UTF-8">
-    <title>Foto Lapangan</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Images Court</title>
 </head>
 <body>
-<br/><br/>
-<div class="container">
-    <center>
-        <h1>FOTO-FOTO LAPANGAN MERCHANT</h1>
-        <hr/>
-    </center>
-    <div class="row">
-        <div class="col">
-            <a th:href="@{'/Foto-Lapangan-add?id_lapangan='+${id_lapangan}}" class="btn btn-outline-primary">Tambah Foto Lapangan</a>
-        </div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="col-4" style="align-items: center; justify-content: center" th:each="item, iter: ${listDtFotoLapangan}">
+<div layout:fragment="content" style="margin-left: 280px">
+    <br/><br/>
+    <div class="container">
+        <div class="fixed-bottom" style="margin-left: 280px; background-image: url(/images/assets/merchant_bg.jpg); background-repeat: no-repeat; background-position: center; height: 30px"></div>
+        <h4 class="text-center" style="text-transform: capitalize">Images Court</h4>
+        <br/>
+        <div class="row">
+            <div class="col">
+                <form action="/addFotoLapangan" method="post" enctype="multipart/form-data" class="card">
+                    <div class="card-header text-center">
+                        New Images
+                    </div>
+                    <div class=" card-body">
+                        <input name="id_lapangan" type="hidden" th:value="${id_lapangan}">
 
-            <img class="card-img" style="margin-top: 10px; height: auto; width: 100%" th:src="@{'images/lapangan/'+${item.foto}}">
-            <br/>
-            <center>
+                        <label>Images <span style="color: red">*</span> </label>
+                        <input type="file" name="file" id="file" class="form-control-file" accept="image/png, image/jpeg" required>
+                        <br/>
+                        <label>Caption</label>
+                        <input class="form-control" type="text" name="caption" id="caption">
+                        <br/>
+                        <button class="btn btn-primary float-right">Add Court Image</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-4 text-center" style="align-items: center; justify-content: center" th:each="item, iter: ${listDtFotoLapangan}">
+
+                <img class="card-img" style="margin-top: 10px; height: 225px; width: 100%" th:src="'/images/lapangan/' + ${item.foto}">
+                <br/>
+
                 <label style="font-family: 'Segoe UI'"><b th:text="${item.caption}"></b></label>
-                <a th:href="@{'Foto-Lapangan-edit?id_foto='+${item.idFoto}}" class="float-end" title="Perbarui caption"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                <a th:href="@{'deletePotoLapangan?id_foto='+${item.idFoto}}" class="float-end" title="Hapus foto"><i  style="color: red" class="fa fa-trash" aria-hidden="true"></i></a>
-            </center>
-<!--                <div class="row">-->
-<!--                    <div class="col">-->
-<!--                        <a th:href="@{'Lapangan-edit?id_lapangan='+${item.idLapangan}}" class="btn btn-info form-control">Edit</a>-->
-<!--                    </div>-->
-<!--                    <div class="col">-->
-<!--                        <a th:href="@{'Lapangan-detail?id_lapangan='+${item.idLapangan}}" class="btn btn-success form-control">Detail</a>-->
-<!--                    </div>-->
-<!--                    <div class="col">-->
-<!--                        <a th:if="${item.status == 1}" th:href="@{'deleteLapangan?id_lapangan='+${item.idLapangan}}" class="btn btn-danger form-control">Hapus</a>-->
-<!--                        <a th:if="${item.status == 0}" th:href="@{'undoLapangan?id_lapangan='+${item.idLapangan}}" class="btn btn-primary form-control">Aktifkan</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-
+                <a th:href="'/edit-images-court/' + ${item.idFoto}" class="float-end" title="Perbarui caption"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                <a th:href="'/deletePotoLapangan?id_foto=' + ${item.idFoto}" class="float-end" title="Hapus foto"><i  style="color: red" class="fa fa-trash" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col">
+                <a href="/my-merchant" class="btn btn-secondary">Back</a>
+            </div>
         </div>
     </div>
-    <br/>
-    <div class="row">
-        <div class="col">
-            <a th:href="@{'Lapangan-detail?id_lapangan='+${id_lapangan}}" class="btn btn-outline-secondary">Kembali</a>
-        </div>
-    </div>
+    <br/><br/><br/>
 </div>
-<br/><br/><br/>
 </body>
 </html>

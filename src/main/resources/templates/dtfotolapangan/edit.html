@@ -1,44 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_merchant">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Foto Lapangan</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <title>Edit Images Court</title>
 </head>
 <body>
-<br/><br/>
-<div class="container">
-    <center>
-        <h1>EDIT FOTO LAPANGAN</h1>
-        <hr/>
-    </center>
-    <br/>
-    <div class="row">
-        <div class="col">
-            <form th:action="@{editFotoLapangan}" method="post" enctype="multipart/form-data" >
-                <div class="row">
-                    <div class="col">
-                        <input name="id_foto" type="hidden" th:value="${dtFotoLapangan.idFoto}">
-                        <br/>
-                        <center>
-                            <img class="card-img" th:src="@{'images/lapangan/'+${dtFotoLapangan.foto}}">
-                        </center>
-                        <label>Caption Foto</label>
-                        <input class="form-control" type="text" name="caption" id="caption" th:value="${dtFotoLapangan.caption}" th:placeholder="${dtFotoLapangan.caption}">
-                        <br/>
-
-                    </div>
+<div layout:fragment="content" style="margin-left: 280px">
+    <div class="fixed-bottom" style="margin-left: 280px; background-image: url(/images/assets/merchant_bg.jpg); background-repeat: no-repeat; background-position: center; height: 30px"></div>
+    <br/><br/>
+    <div class="container">
+        <h4 class="text-center" style="text-transform: capitalize">Edit Images Court</h4>
+        <br/>
+        <br/>
+        <form action="/editFotoLapangan" method="post" enctype="multipart/form-data" >
+            <div class="row">
+                <div class="col">
+                    <input name="id_foto" type="hidden" th:value="${dtFotoLapangan.idFoto}">
+                    <br/>
+                    <center>
+                        <img class="card-img" th:src="'/images/lapangan/'+${dtFotoLapangan.foto}">
+                    </center>
+                    <label>Caption</label>
+                    <input class="form-control" type="text" name="caption" id="caption" th:value="${dtFotoLapangan.caption}" th:placeholder="${dtFotoLapangan.caption}">
+                    <br/>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <a class="btn btn-outline-secondary" th:href="@{'Foto-Lapangan?id_lapangan='+${dtFotoLapangan.idLapangan}}">Kembali</a>&#32
-                        <button class="btn btn-outline-primary">Simpan</button>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-secondary" th:href="'/images-court/' + ${dtFotoLapangan.idLapangan}">Back</a>&#32
+                    <button class="btn btn-primary">Save</button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
+    <br/><br/><br/>
 </div>
-<br/><br/><br/>
+
 </body>
 </html>
