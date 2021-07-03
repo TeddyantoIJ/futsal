@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -148,6 +149,35 @@ public class RootController {
 
         session.setAttribute("nama_merchant", m.getNama());
         return "page/merchant_index";
+    }
+
+    @GetMapping("/merchant-search/{id}")
+    public String goto_merchant_id(
+            @PathVariable int id,
+            Model model
+    ){
+        MsMerchant msMerchant = merchantService.getMerchantById(id);
+
+        List<MsLapangan> lap = lapanganService.getAllLapanganByIdMerchant(msMerchant.getId_merchant());
+        List<MsFasilitas> fasList = fasilitasService.getAllFacilities();
+        List<DtMerchant> fasDit = dtMerchantService.getAllDtMerchantByIdMerchant(msMerchant.getId_merchant());
+        List<DtFotolapangan> fotLap = new ArrayList<>();
+        for (MsLapangan x : lap) {
+            try{
+                fotLap.add(dtFotoLapanganService.getAllDtFotoLapanganByIdLapangan(x.getIdLapangan()).get(0));
+            }catch (Exception e){
+                fotLap.add(new DtFotolapangan());
+            }
+
+        }
+
+        model.addAttribute("lap",lap);
+        model.addAttribute("fasList",fasList);
+        model.addAttribute("fasDit",fasDit);
+        model.addAttribute("fotLap",fotLap);
+
+        model.addAttribute("merchant", msMerchant);
+        return "page/user_merchant_idx";
     }
 
     // ===================================MANAGER TIM ====================================
