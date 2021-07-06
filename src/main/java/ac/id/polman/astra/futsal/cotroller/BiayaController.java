@@ -1,6 +1,8 @@
 package ac.id.polman.astra.futsal.cotroller;
 
+import ac.id.polman.astra.futsal.model.DtMerchant;
 import ac.id.polman.astra.futsal.model.MsBiaya;
+import ac.id.polman.astra.futsal.model.MsFasilitas;
 import ac.id.polman.astra.futsal.service.BiayaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,10 +21,8 @@ public class BiayaController {
     BiayaService biayaService;
 
     @GetMapping("/Biaya")
-    public String getBiaya(
-            Model model
-    ){
-        List<MsBiaya> msBiayaList = biayaService.getAllBiaya();
+    public String getBiaya(Model model){
+        List<MsBiaya> msBiayaList = biayaService.findAllByStatus(1);
         model.addAttribute("listBiaya", msBiayaList);
         return "biaya/list";
     }

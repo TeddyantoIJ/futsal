@@ -22,7 +22,7 @@ public class StatusController {
     public String getStatus(
             Model model
     ){
-        List<MsStatus> msStatusList = statusService.getAllStatus();
+        List<MsStatus> msStatusList = statusService.findAllByStatus(1);
         model.addAttribute("listStatus", msStatusList);
         return "status/list";
     }

@@ -21,7 +21,7 @@ public class UserController {
 
     @GetMapping("/User")
     public String getUser(Model model){
-        List<MsUser> data = userService.getAllUser();
+        List<MsUser> data = userService.findAllByStatus(1);
         List<MsUser> msUserList = new ArrayList<>();
         for ( MsUser msUser : data )
         {

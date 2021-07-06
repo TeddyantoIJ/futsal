@@ -5,6 +5,7 @@ import ac.id.polman.astra.futsal.repository.FasilitasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,6 +17,12 @@ public class FasilitasService {
     public List<MsFasilitas> getAllFacilities(){
         List<MsFasilitas> msFasilitasList = (List<MsFasilitas>) fasilitasRepository.findAll();
         return msFasilitasList;
+    }
+
+    public List<MsFasilitas> findAllByStatus(int status){
+        List<MsFasilitas> fasilitaslist = new ArrayList<>();
+        fasilitaslist = fasilitasRepository.findAllByStatus(status);
+        return fasilitaslist;
     }
 
     public MsFasilitas getFacilities(int id_fasilitas){

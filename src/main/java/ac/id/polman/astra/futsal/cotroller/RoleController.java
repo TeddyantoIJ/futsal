@@ -20,7 +20,7 @@ public class RoleController {
     @GetMapping("/Role")
     public String getRole(Model model)
     {
-        List<MsRole> msRoleList = roleService.getAllRole();
+        List<MsRole> msRoleList = roleService.findAllByStatus(1);
         model.addAttribute("listRole", msRoleList);
         return "role/list";
     }

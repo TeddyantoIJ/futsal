@@ -5,6 +5,7 @@ import ac.id.polman.astra.futsal.repository.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,6 +16,12 @@ public class StatusService {
     public List<MsStatus> getAllStatus(){
         List<MsStatus> msStatusList = (List<MsStatus>) statusRepository.findAll();
         return msStatusList;
+    }
+
+    public List<MsStatus> findAllByStatus(int status){
+        List<MsStatus> statuslist = new ArrayList<>();
+        statuslist = statusRepository.findAllByStatus(status);
+        return statuslist;
     }
 
     public MsStatus getStatus(int id_status){

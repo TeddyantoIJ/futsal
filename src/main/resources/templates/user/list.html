@@ -52,22 +52,23 @@
                                     <td th:text="${User.telephone}"></td>
                                     <td th:text="${User.email}"></td>
                                     <td th:text="${User.tanggalLahir}"></td>
-                                    <td class="text-center min-wd-50" style="width:250px;">
-                                        <div class="row">
-                                            <div class="col">
-                                                <a th:href="@{'User-edit?id_user='+${User.idUser}}" class="btn btn-info form-control"><i data-feather="edit"></i> Ubah</a>
-                                            </div>
-                                            <div class="col">
-                                                <a th:href="@{'deleteUser?id_user='+${User.idUser}}" class="btn btn-danger form-control"  onclick="return confirm('Tekan OK untuk menghapus')"><i data-feather="trash-2"></i> Hapus</a>
-                                            </div>
-                                        </div>
-                                        <br/>
-                                        <div class="row">
-                                            <div class="col">
-                                                <a th:if="${User.status == 0}" class="btn btn-outline-success col">Aktifkan</a>
-                                                <a th:if="${User.status == 1}" class="btn btn-outline-danger col">Nonaktifkan</a>
-                                            </div>
-                                        </div>
+                                    <td class="text-center min-wd-20" style="width:150px;">
+<!--                                        <div class="row">-->
+<!--                                            <div class="col">-->
+<!--                                                <a th:href="@{'User-edit?id_user='+${User.idUser}}" class="btn btn-info form-control"><i data-feather="edit"></i> Ubah</a>-->
+<!--                                            </div>-->
+<!--                                            <div class="col">-->
+                                                <a th:href="@{'User-edit?id_user='+${User.idUser}}" class="btn btn-warning"><i data-feather="edit"></i> Detail</a>
+                                                <a th:href="@{'deleteUser?id_user='+${User.idUser}}" class="btn btn-danger"  onclick="return confirm('Tekan OK untuk menghapus')"><i data-feather="trash-2"></i> Hapus</a>
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <br/>-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="col">-->
+<!--                                                <a th:if="${User.status == 0}" class="btn btn-outline-success col">Aktifkan</a>-->
+<!--                                                <a th:if="${User.status == 1}" class="btn btn-outline-danger col">Nonaktifkan</a>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                     </td>
                                 </tr>
                                 </tbody>

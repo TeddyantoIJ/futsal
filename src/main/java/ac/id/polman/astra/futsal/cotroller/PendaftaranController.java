@@ -30,7 +30,7 @@ public class PendaftaranController {
 
     @GetMapping("/MenuAdmin")
     public String Admin(Model model){
-        return "template/admines";
+        return "template/dashboard_admin";
     }
 
     @PostMapping("/Logincek")
@@ -64,7 +64,7 @@ public class PendaftaranController {
             }else{
                 session.setAttribute("login", true);
                 session.setAttribute("id_user", msUser.getIdUser());
-                return "/template/admines";
+                return "/template/dashboard_admin";
             }
         }else{
             return "redirect:/page-login";
