@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class MerchantService {
@@ -34,7 +35,31 @@ public class MerchantService {
         }
         return output;
     }
-
+    public List<MsMerchant> getAllActive(){
+        List<MsMerchant> msMerchantList = (List<MsMerchant>) msMerchantRepository.findAll();
+        List<MsMerchant> output = new ArrayList<>();
+        for (MsMerchant a : msMerchantList)
+        {
+            if(a.getStatus() == 1){
+                output.add(a);
+            }
+        }
+        return output;
+    }
+    public List<MsMerchant> getMerchantByName(String cari){
+        List<MsMerchant> a = getAllActive();
+        List<MsMerchant> output = new ArrayList<>();
+        for (MsMerchant b : a)
+        {
+            if(b.getNama().toLowerCase().contains(cari.toLowerCase())
+                    || b.getAlamat().toLowerCase().contains(cari.toLowerCase())
+                    || b.getDeskripsi().toLowerCase().contains(cari.toLowerCase())
+                    || b.getNarahubung().toLowerCase().contains(cari.toLowerCase())){
+                output.add(b);
+            }
+        }
+        return output;
+    }
     public MsMerchant getMerchantById(int id_merchant){
         MsMerchant msMerchant = msMerchantRepository.findByIdMerchant(id_merchant);
         return msMerchant;

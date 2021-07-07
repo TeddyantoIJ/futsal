@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface MerchantRepository extends CrudRepository<MsMerchant, Integer> {
 
@@ -57,4 +58,7 @@ public interface MerchantRepository extends CrudRepository<MsMerchant, Integer> 
 
     @Query("select * from ms_merchant where id_user =:id_user")
     MsMerchant findByIdUser(@Param("id_user") int id_user);
+
+    @Query("select * from ms_Merchant where nama like'%:cari%' and status = 1")
+    List<MsMerchant> findAllByNama(@Param("cari") String cari);
 }

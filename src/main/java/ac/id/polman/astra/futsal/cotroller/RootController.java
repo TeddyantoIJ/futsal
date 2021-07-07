@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class RootController {
@@ -36,6 +37,10 @@ public class RootController {
     DtMerchantService dtMerchantService;
     @Autowired
     DtFotoLapanganService dtFotoLapanganService;
+    @Autowired
+    ReviewService reviewService;
+    @Autowired
+    UserService userService;
 
     UploadController uploadController = new UploadController();
 
@@ -98,9 +103,31 @@ public class RootController {
 
     // ======================================= MERCHANT ======================================
     @GetMapping("/merchant-show-all")
-    public String goto_merchant_show_all(){
-        return "";
+    public String goto_merchant_show_all(
+            Model model,
+            HttpSession session,
+            @RequestParam("search") Optional<String> search
+    )
+    {
+        try{
+            if((boolean) session.getAttribute("login")){
+
+            }
+        }catch (Exception e){
+            session.setAttribute("login", false);
+        }
+
+        List<MsMerchant> a = new ArrayList<>();
+        if(!search.isPresent() || search.get().equals("")){
+            a = merchantService.getAllActive();
+        }else{
+            a = merchantService.getMerchantByName(search.get());
+        }
+
+        model.addAttribute("merchantList", a);
+        return "page/all_merchant";
     }
+
 
     @GetMapping("/merchant-create")
     public String goto_merchant_create(Model model)
@@ -140,12 +167,16 @@ public class RootController {
             }
 
         }
+        List<TrReview> reviews = reviewService.getAllByIdMerchant(m.getId_merchant());
+        List<MsUser> users = userService.getAllUser();
 
         model.addAttribute("merchant", m);
         model.addAttribute("lap",lap);
         model.addAttribute("fasList",fasList);
         model.addAttribute("fasDit",fasDit);
         model.addAttribute("fotLap",fotLap);
+        model.addAttribute("reviews", reviews);
+        model.addAttribute("users", users);
 
         session.setAttribute("nama_merchant", m.getNama());
         return "page/merchant_index";
@@ -170,6 +201,8 @@ public class RootController {
             }
 
         }
+        List<TrReview> reviews = reviewService.getAllByIdMerchant(id);
+        List<MsUser> users = userService.getAllUser();
 
         model.addAttribute("lap",lap);
         model.addAttribute("fasList",fasList);
@@ -177,6 +210,9 @@ public class RootController {
         model.addAttribute("fotLap",fotLap);
 
         model.addAttribute("merchant", msMerchant);
+        model.addAttribute("reviews", reviews);
+        model.addAttribute("users", users);
+
         return "page/user_merchant_idx";
     }
 
