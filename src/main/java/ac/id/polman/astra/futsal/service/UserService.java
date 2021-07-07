@@ -5,6 +5,7 @@ import ac.id.polman.astra.futsal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,6 +16,12 @@ public class UserService {
     public List<MsUser> getAllUser(){
         List<MsUser> msUserList = (List<MsUser>) userRepository.findAll();
         return msUserList;
+    }
+
+    public List<MsUser> findAllByStatus(int status){
+        List<MsUser> userlist = new ArrayList<>();
+        userlist = userRepository.findAllByStatus(status);
+        return userlist;
     }
 
     public MsUser getUserById(int id_user){

@@ -20,7 +20,7 @@ public class FasilitasController {
     @GetMapping("/Fasilitas")
     public String getFasilitas(Model model)
     {
-        List<MsFasilitas> msFasilitasList = fasilitasService.getAllFacilities();
+        List<MsFasilitas> msFasilitasList = fasilitasService.findAllByStatus(1);
         model.addAttribute("listFasilitas", msFasilitasList);
         return "fasilitas/list";
     }

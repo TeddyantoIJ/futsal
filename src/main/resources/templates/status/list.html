@@ -48,11 +48,10 @@
                                     <td class="text-center min-wd-50" style="width:250px;">
                                         <div class="row">
                                             <div class="col">
-                                                <a th:href="@{'Status-edit?id_status='+${item.idStatus}}" class="btn btn-info form-control"><i data-feather="edit"></i>  Ubah</a>
+                                                <a th:href="@{'Status-edit?id_status='+${item.idStatus}}" class="btn btn-warning form-control"><i data-feather="edit"></i>  Ubah</a>
                                             </div>
                                             <div class="col">
                                                 <a th:if="${item.status == 1}" th:href="@{'deleteStatus?id_status='+${item.idStatus}}" class="btn btn-danger form-control"  onclick="return confirm('Tekan OK untuk menghapus')"><i data-feather="trash-2"></i> Hapus</a>
-                                                <a th:if="${item.status == 0}" th:href="@{'deleteStatus?id_status='+${item.idStatus}}" class="btn btn-primary form-control">Muncul</a>
                                             </div>
                                         </div>
                                     </td>
