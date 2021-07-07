@@ -22,6 +22,18 @@ public class TimService {
         return msTim;
     }
 
+    public List<MsTim> getAllActive(){
+        List<MsTim> a = getAllTim();
+        for ( MsTim b : a )
+        {
+            if(b.getStatus() != 1){
+                a.remove(b);
+            }
+        }
+        return a;
+    }
+//   =================================================
+
     public void saveTim(MsTim msTim){
         timRepository.save(msTim);
     }

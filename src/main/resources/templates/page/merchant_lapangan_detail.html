@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_userLayout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${merchant.nama}"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div style="width: 100%; height: 75px;">
+        <img th:src="'/images/merchant/banner/'+${merchant.banner}" style="height: 100%; width: 100%; object-position: center; object-fit: cover">
+    </div>
+    <div class="container-fluid">
+        <br/>
+        <div class="row">
+            <div class="col">
+                <h6 class="font-weight-bold text-muted">
+                    <a th:href="'/merchant-search/' + ${merchant.id_merchant}">
+                        <span class="fa fa-arrow-left"></span>
+                        <span th:text="${merchant.nama}"></span>
+                    </a>
+                </h6>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body shadow">
+                        <h6 class="font-weight-bold text-muted" th:text="${lapangan.nama}"></h6>
+                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div th:each="a, iter : ${fotLap}" th:class="${iter.index == 0} ? 'carousel-item active' : 'carousel-item'">
+                                    <img class="card-img w-100" th:src="'/images/lapangan/'+${a.foto}" th:alt="${a.caption}">
+                                    <p class="text-muted text-center" th:text="${a.caption}">
+                                    </p>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="jadwal" class="col" style="margin-right: 10px">
+                <div class=" bg-dark">
+                    <p class="font-weight-light text-center text-light">
+                        Schedule on this court
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <form class="d-inline-flex float-right">
+                            <input type="date" class="form-control" name="a">
+                            <button class="btn btn-success"><span class="fa fa-search"></span> Search</button>
+                        </form>
+                    </div>
+                </div>
+                <br/>
+                <div class="row" style="height: 500px; overflow-y: scroll;">
+                    <div class="col-2"></div>
+                    <div class="col">
+                        <div class="card border-left-dark">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <h3 class="text-center text-light" style="background-color: dimgrey">
+                                            07
+                                        </h3>
+                                        <h4 class="text-center text-dark">
+                                            JUL
+                                        </h4>
+                                    </div>
+                                    <div class="col">
+                                        <h3 class="font-weight-normal">
+                                            <a href="" class="text-dark">
+                                                TIM A
+                                            </a>
+                                        </h3>
+                                        <p class="text-muted font-weight-light">
+                                            <span class="fa fa-calendar" aria-hidden="true" style="color: lightgrey"></span><span> Wednesday</span>
+                                            <span class="fa fa-clock" aria-hidden="true" style="color: lightgrey"></span><span> 20.00 - 21.00 WIB</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-left-dark">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <h3 class="text-center text-light" style="background-color: dimgrey">
+                                            07
+                                        </h3>
+                                        <h4 class="text-center text-dark">
+                                            JUL
+                                        </h4>
+                                    </div>
+                                    <div class="col">
+                                        <h3 class="font-weight-normal">
+                                            <a href="" class="text-dark">
+                                                TIM A
+                                            </a>
+                                        </h3>
+                                        <p class="text-muted font-weight-light">
+                                            <span class="fa fa-calendar" aria-hidden="true" style="color: lightgrey"></span><span> Wednesday</span>
+                                            <span class="fa fa-clock" aria-hidden="true" style="color: lightgrey"></span><span> 20.00 - 21.00 WIB</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-left-dark">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <h3 class="text-center text-light" style="background-color: dimgrey">
+                                            07
+                                        </h3>
+                                        <h4 class="text-center text-dark">
+                                            JUL
+                                        </h4>
+                                    </div>
+                                    <div class="col">
+                                        <h3 class="font-weight-normal">
+                                            <a href="" class="text-dark">
+                                                TIM A
+                                            </a>
+                                        </h3>
+                                        <p class="text-muted font-weight-light">
+                                            <span class="fa fa-calendar" aria-hidden="true" style="color: lightgrey"></span><span> Wednesday</span>
+                                            <span class="fa fa-clock" aria-hidden="true" style="color: lightgrey"></span><span> 20.00 - 21.00 WIB</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-left-dark">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <h3 class="text-center text-light" style="background-color: dimgrey">
+                                            07
+                                        </h3>
+                                        <h4 class="text-center text-dark">
+                                            JUL
+                                        </h4>
+                                    </div>
+                                    <div class="col">
+                                        <h3 class="font-weight-normal">
+                                            <a href="" class="text-dark">
+                                                TIM A
+                                            </a>
+                                        </h3>
+                                        <p class="text-muted font-weight-light">
+                                            <span class="fa fa-calendar" aria-hidden="true" style="color: lightgrey"></span><span> Wednesday</span>
+                                            <span class="fa fa-clock" aria-hidden="true" style="color: lightgrey"></span><span> 20.00 - 21.00 WIB</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-left-dark">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <h3 class="text-center text-light" style="background-color: dimgrey">
+                                            07
+                                        </h3>
+                                        <h4 class="text-center text-dark">
+                                            JUL
+                                        </h4>
+                                    </div>
+                                    <div class="col">
+                                        <h3 class="font-weight-normal">
+                                            <a href="" class="text-dark">
+                                                TIM A
+                                            </a>
+                                        </h3>
+                                        <p class="text-muted font-weight-light">
+                                            <span class="fa fa-calendar" aria-hidden="true" style="color: lightgrey"></span><span> Wednesday</span>
+                                            <span class="fa fa-clock" aria-hidden="true" style="color: lightgrey"></span><span> 20.00 - 21.00 WIB</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+                <hr/>
+                <button onclick="bookiing()" class="btn btn-outline-primary float-right">Book now</button>
+                <script>
+                    function bookiing(){
+                        var a = document.getElementById("booking");
+                        var b = document.getElementById("jadwal");
+
+                        a.style.display = 'block';
+                        b.style.display = 'none';
+                    }
+                </script>
+            </div>
+            <div id="booking" class="col" style="margin-right: 10px; display: none">
+                <div class="bg-success">
+                    <p class="font-weight-light text-center text-light">
+                        Booking data
+                    </p>
+                </div>
+                <br/>
+                <div class="container">
+                    <div class="card">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs">
+                                <li class="nav-item">
+                                    <a style="cursor: pointer" id="bfm" onclick="change(1)" class="nav-link active">Friendly Match</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="cursor: pointer" id="bp" onclick="change(0)" class="nav-link">Practice</a>
+                                </li>
+                            </ul>
+                            <script>
+                                function change(i){
+                                    var btn1 = document.getElementById("bfm");
+                                    var btn2 = document.getElementById("bp");
+                                    var form1 = document.getElementById("fm");
+                                    var form2 = document.getElementById("p");
+                                    if(i == 1){
+                                        btn1.className = 'nav-link active';
+                                        btn2.className = 'nav-link'
+                                        form1.style.display = 'block';
+                                        form2.style.display = 'none';
+                                    }else{
+                                        btn1.className = 'nav-link';
+                                        btn2.className = 'nav-link active';
+                                        form1.style.display = 'none';
+                                        form2.style.display = 'block';
+                                    }
+                                }
+                            </script>
+                        </div>
+                        <div class="card-body">
+                            <form id="fm">
+                                <label>Challenger <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="tim_2" list="teams">
+                                <datalist id="teams">
+                                    <option th:each="a : ${tim}" th:value="${a.nama}">
+                                </datalist>
+                                <br/>
+
+                                <label>Date <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" name="tanggal">
+                                <br/>
+
+                                <label>Time <span class="text-danger">*</span></label>
+                                <input type="time" class="form-control" name="jam">
+                                <br/>
+
+                                <button onclick="back()" class="btn btn-outline-secondary">Back</button>
+                                <button class="btn btn-outline-success">Book with this data</button>
+                            </form>
+                            <form id="p" style="display: none">
+                                <label>Date <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" name="tanggal">
+                                <br/>
+
+                                <label>Time <span class="text-danger">*</span></label>
+                                <input type="time" class="form-control" name="jam">
+                                <br/>
+
+                                <button onclick="back()" class="btn btn-outline-secondary">Back</button>
+                                <button class="btn btn-outline-success">Book with this data</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <script>
+                    function back(){
+                        var a = document.getElementById("booking");
+                        var b = document.getElementById("jadwal");
+
+                        a.style.display = 'none';
+                        b.style.display = 'block';
+                    }
+                </script>
+            </div>
+        </div>
+        <br/>
+        <div class="text-center">
+            <p class="text-muted font-weight-light" th:text="${merchant.deskripsi}"></p>
+            <p class="text-muted font-weight-light" th:text="${merchant.alamat}"></p>
+        </div>
+    </div>
+    <br/><br/>
+</div>
+</body>
+</html>

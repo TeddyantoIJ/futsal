@@ -83,7 +83,7 @@
                                 <span th:text="${lapangan.tipe_lapangan}"></span>
                                 <br/>
                                 <div class="float-right d-inline">
-                                    <a href="#" class="btn btn-success" aria-hidden="true">Detail / Booking</a>
+                                    <a th:href="'/detail-lapangan/' + ${lapangan.idLapangan}" class="btn btn-success" aria-hidden="true">Detail / Booking</a>
                                 </div>
                             </div>
                         </div>

@@ -41,6 +41,8 @@ public class RootController {
     ReviewService reviewService;
     @Autowired
     UserService userService;
+    @Autowired
+    TimService timService;
 
     UploadController uploadController = new UploadController();
 
@@ -214,6 +216,23 @@ public class RootController {
         model.addAttribute("users", users);
 
         return "page/user_merchant_idx";
+    }
+
+    @GetMapping("/detail-lapangan/{id}")
+    public String goto_detail_lapangan(
+            @PathVariable int id,
+            Model model
+    ){
+        MsLapangan msLapangan = lapanganService.getLapanganByIdLapangan(id);
+        MsMerchant msMerchant = merchantService.getMerchantById(msLapangan.getId_merchant());
+        List<DtFotolapangan> a = dtFotoLapanganService.getAllDtFotoLapanganByIdLapangan(id);
+        List<MsTim> t = timService.getAllActive();
+
+        model.addAttribute("merchant", msMerchant);
+        model.addAttribute("lapangan", msLapangan);
+        model.addAttribute("fotLap", a);
+        model.addAttribute("tim", t);
+        return "page/merchant_lapangan_detail";
     }
 
     // ===================================MANAGER TIM ====================================
