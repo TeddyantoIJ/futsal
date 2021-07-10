@@ -43,6 +43,8 @@ public class RootController {
     UserService userService;
     @Autowired
     TimService timService;
+    @Autowired
+    Tr_jadwal_lapangan_service trJadwalLapanganService;
 
     UploadController uploadController = new UploadController();
 
@@ -89,7 +91,7 @@ public class RootController {
     public String Logout(HttpSession session){
         session.setAttribute("login", false);
         session.removeAttribute("id_user");
-        return "page/Index";
+        return "redirect:/";
     }
 
     @GetMapping("/about-ivte-p")
@@ -221,17 +223,27 @@ public class RootController {
     @GetMapping("/detail-lapangan/{id}")
     public String goto_detail_lapangan(
             @PathVariable int id,
-            Model model
+            Model model,
+            @RequestParam("tanggal") Optional<String> tanggal
     ){
         MsLapangan msLapangan = lapanganService.getLapanganByIdLapangan(id);
         MsMerchant msMerchant = merchantService.getMerchantById(msLapangan.getId_merchant());
         List<DtFotolapangan> a = dtFotoLapanganService.getAllDtFotoLapanganByIdLapangan(id);
         List<MsTim> t = timService.getAllActive();
+        List<TrJadwalLapangan> j = new ArrayList<>();
+        if(!tanggal.isPresent() || tanggal.get().equals("")){
+            j = trJadwalLapanganService.getAllNextByIdLapangan(id);
+        }else{
+            j = trJadwalLapanganService.getAllByIdAndByDate(id, tanggal.get());
+        }
 
         model.addAttribute("merchant", msMerchant);
         model.addAttribute("lapangan", msLapangan);
         model.addAttribute("fotLap", a);
         model.addAttribute("tim", t);
+        model.addAttribute("jadwal", j);
+
+        model.addAttribute("tanggal", tanggal.get());
         return "page/merchant_lapangan_detail";
     }
 

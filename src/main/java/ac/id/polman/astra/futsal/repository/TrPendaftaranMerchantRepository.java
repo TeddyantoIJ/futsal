@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface Tr_Pendaftaran_Merchant_Repository extends CrudRepository<TrPendaftaranMerchant, Integer> {
+public interface TrPendaftaranMerchantRepository extends CrudRepository<TrPendaftaranMerchant, Integer> {
     @Query("select * from tr_pendaftaran_merchant where id_merchant =:id_merchant")
     TrPendaftaranMerchant findByIdMerchant(@Param("id_merchant") int id_merchant);
 

@@ -3,7 +3,7 @@ package ac.id.polman.astra.futsal.service;
 import ac.id.polman.astra.futsal.model.MsMerchant;
 import ac.id.polman.astra.futsal.model.TrPendaftaranMerchant;
 import ac.id.polman.astra.futsal.repository.MerchantRepository;
-import ac.id.polman.astra.futsal.repository.Tr_Pendaftaran_Merchant_Repository;
+import ac.id.polman.astra.futsal.repository.TrPendaftaranMerchantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class Tr_Pendaftaran_Merchant_Service {
     @Autowired
-    Tr_Pendaftaran_Merchant_Repository trPendaftaranMerchantRepository;
+    TrPendaftaranMerchantRepository trPendaftaranMerchantRepository;
     @Autowired
     MerchantRepository merchantRepository;
 

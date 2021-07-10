@@ -57,8 +57,8 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <form class="d-inline-flex float-right">
-                            <input type="date" class="form-control" name="a">
+                        <form class="d-inline-flex float-right" th:action="'/detail-lapangan/'+${lapangan.idLapangan}" method="get">
+                            <input type="date" class="form-control" name="tanggal" th:value="${tanggal}">
                             <button class="btn btn-success"><span class="fa fa-search"></span> Search</button>
                         </form>
                     </div>
@@ -67,126 +67,42 @@
                 <div class="row" style="height: 500px; overflow-y: scroll;">
                     <div class="col-2"></div>
                     <div class="col">
-                        <div class="card border-left-dark">
+                        <div class="card" th:each="a : ${jadwal}">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-2">
-                                        <h3 class="text-center text-light" style="background-color: dimgrey">
-                                            07
+                                        <h3 class="text-center text-light" style="background-color: dimgrey" th:text="${#dates.format(a.tanggal, 'dd')}">
+<!--                                            07-->
                                         </h3>
-                                        <h4 class="text-center text-dark">
-                                            JUL
+                                        <h4 class="text-center text-dark" th:text="${#dates.format(a.tanggal, 'MMM')}" style="text-transform: uppercase">
+<!--                                            JUL-->
                                         </h4>
                                     </div>
                                     <div class="col">
-                                        <h3 class="font-weight-normal">
-                                            <a href="" class="text-dark">
-                                                TIM A
+                                        <h3 class="font-weight-normal" th:each="t : ${tim}">
+                                            <a href="" class="text-dark" th:if="${t.idTim == a.id_tim1 and a.id_tim1 == a.id_tim2 }" th:text="${t.nama}">
                                             </a>
+                                            <div class="row text-center" th:if="${t.idTim == a.id_tim1 and a.id_tim1 != a.id_tim2 }" >
+                                                <div class="col">
+                                                    <a href="" class="text-dark">
+                                                        <h5 th:text="${t.nama}"></h5>
+                                                    </a>
+                                                </div>
+                                                <div class="col">
+                                                    <h5>VS</h5>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="" class="text-dark" th:each="t2 : ${tim} " th:if="${t2.idTim == a.id_tim2}">
+                                                        <h5 th:text="${t2.nama}"></h5>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </h3>
                                         <p class="text-muted font-weight-light">
-                                            <span class="fa fa-calendar" aria-hidden="true" style="color: lightgrey"></span><span> Wednesday</span>
-                                            <span class="fa fa-clock" aria-hidden="true" style="color: lightgrey"></span><span> 20.00 - 21.00 WIB</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-left-dark">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <h3 class="text-center text-light" style="background-color: dimgrey">
-                                            07
-                                        </h3>
-                                        <h4 class="text-center text-dark">
-                                            JUL
-                                        </h4>
-                                    </div>
-                                    <div class="col">
-                                        <h3 class="font-weight-normal">
-                                            <a href="" class="text-dark">
-                                                TIM A
-                                            </a>
-                                        </h3>
-                                        <p class="text-muted font-weight-light">
-                                            <span class="fa fa-calendar" aria-hidden="true" style="color: lightgrey"></span><span> Wednesday</span>
-                                            <span class="fa fa-clock" aria-hidden="true" style="color: lightgrey"></span><span> 20.00 - 21.00 WIB</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-left-dark">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <h3 class="text-center text-light" style="background-color: dimgrey">
-                                            07
-                                        </h3>
-                                        <h4 class="text-center text-dark">
-                                            JUL
-                                        </h4>
-                                    </div>
-                                    <div class="col">
-                                        <h3 class="font-weight-normal">
-                                            <a href="" class="text-dark">
-                                                TIM A
-                                            </a>
-                                        </h3>
-                                        <p class="text-muted font-weight-light">
-                                            <span class="fa fa-calendar" aria-hidden="true" style="color: lightgrey"></span><span> Wednesday</span>
-                                            <span class="fa fa-clock" aria-hidden="true" style="color: lightgrey"></span><span> 20.00 - 21.00 WIB</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-left-dark">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <h3 class="text-center text-light" style="background-color: dimgrey">
-                                            07
-                                        </h3>
-                                        <h4 class="text-center text-dark">
-                                            JUL
-                                        </h4>
-                                    </div>
-                                    <div class="col">
-                                        <h3 class="font-weight-normal">
-                                            <a href="" class="text-dark">
-                                                TIM A
-                                            </a>
-                                        </h3>
-                                        <p class="text-muted font-weight-light">
-                                            <span class="fa fa-calendar" aria-hidden="true" style="color: lightgrey"></span><span> Wednesday</span>
-                                            <span class="fa fa-clock" aria-hidden="true" style="color: lightgrey"></span><span> 20.00 - 21.00 WIB</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-left-dark">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <h3 class="text-center text-light" style="background-color: dimgrey">
-                                            07
-                                        </h3>
-                                        <h4 class="text-center text-dark">
-                                            JUL
-                                        </h4>
-                                    </div>
-                                    <div class="col">
-                                        <h3 class="font-weight-normal">
-                                            <a href="" class="text-dark">
-                                                TIM A
-                                            </a>
-                                        </h3>
-                                        <p class="text-muted font-weight-light">
-                                            <span class="fa fa-calendar" aria-hidden="true" style="color: lightgrey"></span><span> Wednesday</span>
-                                            <span class="fa fa-clock" aria-hidden="true" style="color: lightgrey"></span><span> 20.00 - 21.00 WIB</span>
+                                            <span class="fa fa-calendar" aria-hidden="true" style="color: lightgrey"></span>
+                                            <span th:text="${#dates.dayOfWeekName(a.tanggal)}"></span>
+                                            <span class="fa fa-clock" aria-hidden="true" style="color: lightgrey"></span>
+                                            <span th:text="${#dates.format(a.jam, 'HH:mm')} + ' - ' +${#dates.format(a.durasi, 'HH:mm')}"></span> WIB
                                         </p>
                                     </div>
                                 </div>
