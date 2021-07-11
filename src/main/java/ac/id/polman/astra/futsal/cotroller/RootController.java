@@ -45,6 +45,8 @@ public class RootController {
     TimService timService;
     @Autowired
     Tr_jadwal_lapangan_service trJadwalLapanganService;
+    @Autowired
+    AkunService akunService;
 
     UploadController uploadController = new UploadController();
 
@@ -100,9 +102,23 @@ public class RootController {
     }
 
     // ======================================= Profil ======================================
-    @GetMapping("/my-profil")
-    public String goto_my_profil(){
-        return "";
+    @GetMapping("/my-profile")
+    public String goto_my_profile(
+            HttpSession session,
+            Model model
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        MsUser a = userService.getUserById(id);
+        MsAkun b = akunService.getAkunByIdAkun(a.getIdAkun());
+
+        model.addAttribute("user", a);
+        model.addAttribute("akun", b);
+        return "/page/profile";
     }
 
     // ======================================= MERCHANT ======================================
@@ -142,7 +158,9 @@ public class RootController {
     }
 
     @GetMapping("/my-merchant")
-    public String goto_my_merchant(Model model, HttpSession session){
+    public String goto_my_merchant(
+            Model model,
+            HttpSession session){
         int id = -1;
         try{
             id = (int) session.getAttribute("id_user");

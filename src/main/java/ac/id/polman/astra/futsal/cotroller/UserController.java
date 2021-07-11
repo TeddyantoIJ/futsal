@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -103,6 +104,41 @@ public class UserController {
 
         userService.update(msUser);
         return "redirect:/User";
+    }
+
+    @PostMapping("/edit-user-1")
+    public String editUser1(
+            HttpSession session,
+            MsUser msUser,
+            @RequestParam("file") MultipartFile file
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        MsUser a = userService.getUserById(id);
+        UploadController uploadController = new UploadController();
+        MsUser oldUser = userService.getUserById(msUser.getIdUser());
+        System.out.println(oldUser.getEmail());
+        msUser.setCreaby(oldUser.getCreaby());
+        msUser.setCreadate(oldUser.getCreadate());
+        msUser.setModiby(a.getEmail());
+        msUser.setModidate(LocalDateTime.now());
+        msUser.setStatus(oldUser.getStatus());
+        msUser.setIdAkun(oldUser.getIdAkun());
+        String foto;
+
+        if(!file.isEmpty()){
+            foto = uploadController.uploadFotoProfile(file, oldUser.getFoto());
+            msUser.setFoto(foto);
+        }else{
+            msUser.setFoto(oldUser.getFoto());
+        }
+
+        userService.update(msUser);
+        return "redirect:/my-profile";
     }
 
     @GetMapping("/deleteUser")

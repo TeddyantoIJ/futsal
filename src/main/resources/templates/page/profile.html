@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_userLayout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Profile ' + ${user.namaDepan}"></title>
+</head>
+<body>
+<div layout:fragment="content" class="bg-dark">
+    <br/><br/><br/>
+    <div class="container">
+        <br/>
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header text-dark font-weight-bold text-center">
+                        Personal data
+                    </div>
+                    <div class="card-body">
+                        <form id="view">
+                            <div class="text-center">
+                                <img th:src="'images/user/' + ${user.foto}" class="card-img col-8"/>
+                            </div>
+                            <br/><br/>
+                            <label class="text-muted"><i class="fa fa-user-tag text-muted" aria-hidden="true"></i> Name</label>
+                            <input type="text" th:value="${user.namaDepan} + ' ' + ${user.namaBelakang}" class="form-control" disabled>
+                            <br/>
+
+                            <label class="text-muted"><i class="fa fa-phone" aria-hidden="true"></i> Phone Number</label>
+                            <input type="number" th:value="${user.telephone}" class="form-control" disabled>
+                            <br/>
+
+                            <label class="text-muted"><i class="fa fa-envelope" aria-hidden="true"></i> Email</label>
+                            <input type="email" th:value="${user.email}" class="form-control" disabled>
+                            <br/>
+
+                            <label class="text-muted"><i class="fa fa-calendar" aria-hidden="true"></i> Date of birth</label>
+                            <input type="date" th:value="${user.tanggalLahir}" class="form-control" disabled>
+                            <br/>
+
+                            <label class="text-muted"><i class="fa fa-male" aria-hidden="true"></i><i class="fa fa-female" aria-hidden="true"></i> Gender</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" th:checked="${user.jenisKelamin == 'L'}" disabled>
+                                <label class="form-check-label" for="gridRadios1">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2"  th:checked="${user.jenisKelamin == 'P'}" disabled>
+                                <label class="form-check-label" for="gridRadios2">
+                                    Female
+                                </label>
+                            </div>
+                            <br/>
+                            <button type="button" class="btn btn-outline-dark form-control font-weight-bold" onclick="edit()" style="border-radius: 4px">Edit personal data</button>
+                        </form>
+                        <form id="edit" style="display: none" method="post" action="/edit-user-1" enctype="multipart/form-data">
+                            <input type="hidden" name="idUser" th:value="${user.idUser}">
+                            <div class="text-center">
+                                <img th:src="'images/user/' + ${user.foto}" class="card-img col-8"/>
+                                <br/><br/>
+                                <!-- Button trigger modal -->
+                                <label class="text-muted" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-camera text-muted" aria-hidden="true"></i> Change Photo</label>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Select Photo</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="file" class="form-control-file float-right" name="file" accept="image/png, image/gif, image/jpeg" >
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/><br/>
+                            <label class="text-muted"><i class="fa fa-user-tag text-muted" aria-hidden="true"></i> Name</label>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" th:value="${user.namaDepan}" th:placeholder="${user.namaDepan}" class="form-control" required name="namaDepan">
+                                </div>
+                                <div class="col">
+                                    <input type="text" th:value="${user.namaBelakang}" th:placeholder="${user.namaBelakang}" class="form-control" required name="namaBelakang">
+                                </div>
+                            </div>
+                            <br/>
+
+                            <label class="text-muted"><i class="fa fa-phone" aria-hidden="true"></i> Phone Number</label>
+                            <input type="number" th:value="${user.telephone}" th:placeholder="${user.telephone}" class="form-control" name="telephone" required>
+                            <br/>
+
+                            <label class="text-muted"><i class="fa fa-envelope" aria-hidden="true"></i> Email</label>
+                            <input type="email" th:value="${user.email}" th:placeholder="${user.email}" class="form-control" required name="email">
+                            <br/>
+
+                            <label class="text-muted"><i class="fa fa-calendar" aria-hidden="true"></i> Date of birth</label>
+                            <input type="date" th:value="${user.tanggalLahir}" th:placeholder="${user.tanggalLahir}" class="form-control" required name="tanggalLahir">
+                            <br/>
+
+                            <label class="text-muted"><i class="fa fa-male" aria-hidden="true"></i><i class="fa fa-female" aria-hidden="true"></i> Gender</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="jenisKelamin" value="L" th:checked="${user.jenisKelamin == 'L'}">
+                                <label class="form-check-label" for="gridRadios1">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="jenisKelamin" value="P"  th:checked="${user.jenisKelamin == 'P'}">
+                                <label class="form-check-label" for="gridRadios2">
+                                    Female
+                                </label>
+                            </div>
+                            <br/>
+                            <button type="button" class="btn btn-outline-dark font-weight-bold" onclick="view()" style="border-radius: 4px">Back</button>
+                            <button class="btn btn-success font-weight-bold" style="border-radius: 4px">Save</button>
+                        </form>
+                        <script>
+                            function edit(){
+                                document.getElementById("view").style.display = 'none';
+                                document.getElementById("edit").style.display = 'block';
+                            }
+                            function view(){
+                                document.getElementById("view").style.display = 'block';
+                                document.getElementById("edit").style.display = 'none';
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header text-dark font-weight-bold text-center">
+                        Account data
+                    </div>
+                    <div class="card-body">
+                        <form id="view_akun">
+                            <label class="text-muted"><i class="fa fa-sign-in-alt text-muted" aria-hidden="true"></i> Username</label>
+                            <input type="text" th:value="${akun.username}" class="form-control" disabled>
+                            <br/>
+
+                            <label class="text-muted"><i class="fa fa-lock text-muted" aria-hidden="true"></i> Password</label>
+                            <input type="password" placeholder="••••••••••••" class="form-control" disabled>
+
+                            <br/>
+                            <button type="button" class="btn btn-outline-dark form-control font-weight-bold" onclick="edit_akun()" style="border-radius: 4px">Edit account</button>
+                        </form>
+                        <form id="edit_akun" style="display: none" method="post" action="/edit-akun-1">
+                            <input type="hidden" name="idAkun" th:value="${akun.idAkun}">
+                            <label class="text-muted"><i class="fa fa-sign-in-alt text-muted" aria-hidden="true"></i> Username</label>
+                            <input type="text" th:value="${akun.username}" class="form-control" name="username" disabled>
+                            <br/>
+
+                            <label class="text-muted"><i class="fa fa-lock text-muted" aria-hidden="true"></i> Password</label>
+                            <input type="password" placeholder="••••••••••••" class="form-control" name="password" id="password">
+                            <br/>
+                            <label class="text-muted"><i class="fa fa-key text-muted" aria-hidden="true"></i> Password verification</label>
+                            <input type="password" placeholder="••••••••••••" class="form-control" name="repassword" id="repassword">
+
+                            <br/>
+                            <button type="button" class="btn btn-outline-dark font-weight-bold" onclick="view_akun()" style="border-radius: 4px">Back</button>
+                            <button class="btn btn-success font-weight-bold" style="border-radius: 4px" id="btnSubmit">Save</button>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $("#btnSubmit").click(function () {
+                                        var password = $("#password").val();
+                                        var confirmPassword = $("#repassword").val();
+                                        if (password != confirmPassword) {
+                                            alert("Password does not match, please check again!");
+                                            return false;
+                                        }
+                                        return true;
+                                    });
+                                });
+                            </script>
+                        </form>
+                        <script>
+                            function edit_akun(){
+                                document.getElementById("view_akun").style.display = 'none';
+                                document.getElementById("edit_akun").style.display = 'block';
+                            }
+                            function view_akun(){
+                                document.getElementById("view_akun").style.display = 'block';
+                                document.getElementById("edit_akun").style.display = 'none';
+                            }
+                        </script>
+                    </div>
+                </div>
+                <br/>
+                <div class="card">
+                    <div class="card-header text-dark font-weight-bold text-center">
+                        Merchant data
+                    </div>
+                    <div class="card-body">
+
+                    </div>
+                </div>
+                <br/>
+                <div class="card">
+                    <div class="card-header text-dark font-weight-bold text-center">
+                        Team data
+                    </div>
+                    <div class="card-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/><br/>
+</div>
+</body>
+</html>

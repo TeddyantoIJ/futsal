@@ -56,42 +56,46 @@
             <li class="nav-item active">
                 <a class="nav-link font-weight-bold" href="/" style="text-transform: capitalize">home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link  font-weight-bold" href="/my-profil" style="text-transform: capitalize">my profil</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link  font-weight-bold" href="/my-merchant" style="text-transform: capitalize">my merchant</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link  font-weight-bold" href="/my-tim" style="text-transform: capitalize">my team</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link  font-weight-bold" href="/bill" style="text-transform: capitalize">bill</a>
-            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link  font-weight-bold" href="/my-profil" style="text-transform: capitalize">my profil</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link  font-weight-bold" href="/my-merchant" style="text-transform: capitalize">my merchant</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link  font-weight-bold" href="/my-tim" style="text-transform: capitalize">my team</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link  font-weight-bold" href="/bill" style="text-transform: capitalize">bill</a>-->
+<!--            </li>-->
             <li class="nav-item">
                 <a class="nav-link  font-weight-bold" href="/about-ivte-p" style="text-transform: capitalize">about ivte-p</a>
             </li>
-<!--            <li class="nav-item dropdown">-->
-<!--                <a class="nav-link dropdown-toggle  font-weight-bold" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--                    Dropdown-->
-<!--                </a>-->
-<!--                <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-<!--                    <a class="dropdown-item" href="#">Action</a>-->
-<!--                    <a class="dropdown-item" href="#">Another action</a>-->
-<!--                    <div class="dropdown-divider"></div>-->
-<!--                    <a class="dropdown-item" href="#">Something else here</a>-->
-<!--                </div>-->
-<!--            </li>-->
         </ul>
-        <div th:if="${session.login == false}" class="nav-item dropdown float-right">
-            <a class="nav-link font-weight-bold btn btn-outline-light" href="/page-login" >
-                SIGN UP / IN
+        <a class="btn btn-outline-light" href="/page-login" th:if="${session.login == false}">
+            SIGN IN / UP <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
+        </a>
+        <div class="btn-group dropleft" th:if="${session.login == true}" >
+            <a class="btn rounded-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-color: whitesmoke">
+                <i class="fa fa-user-alt" aria-hidden="true" style="color: whitesmoke"></i>
             </a>
-        </div>
-        <div th:if="${session.login == true}" class="nav-item dropdown float-right">
-            <a class="nav-link font-weight-bold btn btn-outline-light" href="/Logout" >
-                SIGN OUT
-            </a>
+            <div class="dropdown-menu">
+                <div class="dropdown-header">Signed in as <br/>
+                    <span class="font-weight-bold" th:text="${session.user.namaDepan} + ' ' + ${session.user.namaBelakang}"></span>
+                </div>
+
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/my-profile" style="font-size: 14px">Your profile</a>
+                <a class="dropdown-item" href="/my-merchant" style="font-size: 14px">Your merchant</a>
+                <a class="dropdown-item" href="/my-tim" style="font-size: 14px">Your team</a>
+                <a class="dropdown-item" href="/bill" style="font-size: 14px">Your bill</a>
+
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="" style="font-size: 14px"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>
+
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item " href="/Logout" style="font-size: 14px"><i class="fa fa-sign-out-alt" aria-hidden="true"></i> Sign Out</a>
+            </div>
         </div>
     </div>
 </nav>

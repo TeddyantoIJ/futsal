@@ -1,7 +1,9 @@
 package ac.id.polman.astra.futsal.cotroller;
 
 import ac.id.polman.astra.futsal.model.MsAkun;
+import ac.id.polman.astra.futsal.model.MsUser;
 import ac.id.polman.astra.futsal.service.AkunService;
+import ac.id.polman.astra.futsal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,8 @@ import java.util.List;
 public class AkunController {
     @Autowired
     AkunService akunService;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/Akun")
     public String getAkun(Model model){
@@ -92,6 +97,30 @@ public class AkunController {
         akunService.saveAkun(msAkun);
         return "redirect:/Akun";
     }
+
+    @PostMapping("/edit-akun-1")
+    public String editAkun1(
+            MsAkun akun,
+            HttpSession session
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        MsUser a = userService.getUserById(id);
+        MsAkun old = akunService.getAkunByIdAkun(akun.getIdAkun());
+        MsAkun msAkun = new MsAkun();
+
+        old.setPassword(akun.getPassword());
+        old.setModiby(a.getEmail());
+        old.setModidate(LocalDateTime.now());
+
+        akunService.saveAkun(msAkun);
+        return "redirect:/my-profile";
+    }
+
     @GetMapping("/undoAkun")
     public String undoAkun(
             @RequestParam("id_akun") int id_akun
