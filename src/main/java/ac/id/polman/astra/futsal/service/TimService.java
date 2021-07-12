@@ -32,6 +32,18 @@ public class TimService {
         }
         return a;
     }
+
+    public MsTim getTimByIdUser(int idUser){
+        List<MsTim> a = getAllTim();
+        MsTim c = null;
+        for(MsTim b : a){
+            if(b.getIdUser() == idUser){
+                c = b;
+                break;
+            }
+        }
+        return c;
+    }
 //   =================================================
 
     public void saveTim(MsTim msTim){

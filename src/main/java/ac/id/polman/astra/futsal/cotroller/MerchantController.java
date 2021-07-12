@@ -1,5 +1,6 @@
 package ac.id.polman.astra.futsal.cotroller;
 
+import ac.id.polman.astra.futsal.model.MsAkun;
 import ac.id.polman.astra.futsal.model.MsMerchant;
 import ac.id.polman.astra.futsal.model.MsUser;
 import ac.id.polman.astra.futsal.model.TrPendaftaranMerchant;
@@ -29,6 +30,8 @@ public class MerchantController {
     UserService userService;
     @Autowired
     BiayaService biayaService;
+    @Autowired
+    AkunService akunService;
 
     @GetMapping("/Merchant")
     public String getMerchant(Model model){
@@ -194,6 +197,10 @@ public class MerchantController {
         MsMerchant b = merchantService.getMerchantById(a.getId_merchant());
         b.setStatus(1);
         merchantService.saveMerchant(b);
+
+        MsAkun c = akunService.getAkunByIdAkun((userService.getUserById(b.getId_user())).getIdAkun());
+        c.setIdRole(3);
+        akunService.saveAkun(c);
 
         return "redirect:/konfirmasi-merchant";
     }

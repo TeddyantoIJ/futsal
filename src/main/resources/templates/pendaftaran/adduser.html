@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="col">
                                     <label class="font-weight-bold text-light" for="email">Email <span style="color: red">*</span> </label>
-                                    <input class="form form-control" type="text" name="email" id="email" placeholder="Email" required>
+                                    <input class="form form-control" type="email" name="email" id="email" placeholder="Email" required>
                                 </div>
                             </div>
                             <br/>
@@ -81,7 +81,7 @@
                             var password = $("#password").val();
                             var confirmPassword = $("#repassword").val();
                             if (password != confirmPassword) {
-                                alert("password is not the same");
+                                alert("Password does not match, please double check!");
                                 return false;
                             }
                             return true;

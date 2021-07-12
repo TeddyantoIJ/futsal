@@ -194,16 +194,34 @@
                     </div>
                 </div>
                 <br/>
-                <div class="card">
+                <div class="card" th:if="${merchant != null}">
                     <div class="card-header text-dark font-weight-bold text-center">
                         Merchant data
                     </div>
                     <div class="card-body">
+                        <label class="text-muted"><i class="fa fa-building text-muted" aria-hidden="true"></i> Name</label>
+                        <input type="text" th:value="${merchant.nama}" class="form-control" disabled>
+                        <br/>
 
+                        <label class="text-muted"><i class="fa fa-map-marked text-muted" aria-hidden="true"></i> Address</label>
+                        <input type="text" th:value="${merchant.alamat}" class="form-control" disabled>
+                        <br/>
+
+                        <label class="text-muted"><i class="fa fa-thumbs-up text-muted" aria-hidden="true"></i> Rating</label>
+                        <div class="form-control bg-secondary">
+                            <i th:if="${merchant.rating >= 1}" class="fa fa-star" style="color: yellow"></i>
+                            <i th:if="${merchant.rating >= 2}" class="fa fa-star" style="color: yellow"></i>
+                            <i th:if="${merchant.rating >= 3}" class="fa fa-star" style="color: yellow"></i>
+                            <i th:if="${merchant.rating >= 4}" class="fa fa-star" style="color: yellow"></i>
+                            <i th:if="${merchant.rating >= 5}" class="fa fa-star" style="color: yellow"></i>
+                            <span th:text="' ' + ${merchant.rating}" class="text-light"></span>
+                        </div>
+                        <br/>
+                        <a href="/my-merchant" class="btn btn-outline-success form-control" style="border-radius: 4px">Detail Merchant</a>
                     </div>
                 </div>
                 <br/>
-                <div class="card">
+                <div class="card"  th:if="${tim != null}">
                     <div class="card-header text-dark font-weight-bold text-center">
                         Team data
                     </div>

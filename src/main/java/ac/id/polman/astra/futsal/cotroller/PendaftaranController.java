@@ -76,7 +76,7 @@ public class PendaftaranController {
     public String addUser(MsUser msUser, MsAkun msAkun) {
         // Default 2 = User
         msAkun.setIdRole(2);
-        msAkun.setCreaby("user");
+        msAkun.setCreaby(msUser.getEmail());
         msAkun.setCreadate(LocalDateTime.now());
         msAkun.setModiby("");
         msAkun.setModidate(LocalDateTime.now());
@@ -85,14 +85,14 @@ public class PendaftaranController {
 
         msUser.setIdAkun(akunService.getAllAkun().get(akunService.getAllAkun().size()-1).getIdAkun());
         msUser.setFoto("");
-        msUser.setCreaby("user");
+        msUser.setCreaby(msUser.getEmail());
         msUser.setCreadate(LocalDateTime.now());
         msUser.setModiby("");
         msUser.setModidate(LocalDateTime.now());
         msUser.setStatus(1);
         userService.saveUser(msUser);
 
-        return "Login";
+        return "redirect:/page-login";
     }
 
     //Pendaftaran TIM

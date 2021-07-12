@@ -115,9 +115,13 @@ public class RootController {
         }
         MsUser a = userService.getUserById(id);
         MsAkun b = akunService.getAkunByIdAkun(a.getIdAkun());
+        MsMerchant c = merchantService.getMerchantByIdUser(id);
+        MsTim d = timService.getTimByIdUser(id);
 
         model.addAttribute("user", a);
         model.addAttribute("akun", b);
+        model.addAttribute("merchant", c);
+        model.addAttribute("tim", d);
         return "/page/profile";
     }
 

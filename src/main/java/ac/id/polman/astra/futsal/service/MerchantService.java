@@ -64,7 +64,17 @@ public class MerchantService {
         MsMerchant msMerchant = msMerchantRepository.findByIdMerchant(id_merchant);
         return msMerchant;
     }
-
+    public MsMerchant getMerchantByIdUser(int idUser){
+        List<MsMerchant> a = getAllActive();
+        MsMerchant o = null;
+        for(MsMerchant b : a){
+            if(b.getId_user() == idUser){
+                o = b;
+                break;
+            }
+        }
+        return o;
+    }
     // ========================================================================
 
     public void saveMerchant(MsMerchant msMerchant){
