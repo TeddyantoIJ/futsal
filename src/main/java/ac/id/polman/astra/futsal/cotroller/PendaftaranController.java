@@ -48,18 +48,14 @@ public class PendaftaranController {
             MsUser msUser = userService.getUserByIdAkun(msAkun.getIdAkun());
 
             if(msAkun.getIdRole() != 1){
-                List<MsMerchant> msMerchant = merchantService.getAllMerchant();
-                session.setAttribute("hasMerchant", false);
-                for (MsMerchant a : msMerchant)
-                {
-                    if(a.getId_user() == msUser.getIdUser()){
-                        session.setAttribute("hasMerchant", true);
-                        break;
-                    }
-                }
+                MsMerchant msMerchant = merchantService.getMerchantByIdUser(msUser.getIdUser());
+                MsTim msTim = timService.getTimByIdUser(msUser.getIdUser());
+
+                session.setAttribute("merchant", msMerchant);
                 session.setAttribute("login", true);
                 session.setAttribute("id_user", msUser.getIdUser());
                 session.setAttribute("user", msUser);
+                session.setAttribute("tim", msTim);
 
                 return "redirect:/";
             }else{

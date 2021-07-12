@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -91,8 +93,11 @@ public class RootController {
 
     @GetMapping("/Logout")
     public String Logout(HttpSession session){
-        session.setAttribute("login", false);
+        session.removeAttribute("login");
+        session.removeAttribute("merchant");
         session.removeAttribute("id_user");
+        session.removeAttribute("user");
+        session.removeAttribute("tim");
         return "redirect:/";
     }
 
@@ -154,8 +159,16 @@ public class RootController {
 
 
     @GetMapping("/merchant-create")
-    public String goto_merchant_create(Model model)
+    public String goto_merchant_create(
+            Model model,
+            HttpSession session)
     {
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
         List<MsBiaya> biayaList = biayaService.getAllBiaya();
         model.addAttribute("biayaList", biayaList);
         return "merchant/add";
@@ -211,7 +224,8 @@ public class RootController {
     @GetMapping("/merchant-search/{id}")
     public String goto_merchant_id(
             @PathVariable int id,
-            Model model
+            Model model,
+            HttpSession session
     ){
         MsMerchant msMerchant = merchantService.getMerchantById(id);
 
@@ -246,7 +260,8 @@ public class RootController {
     public String goto_detail_lapangan(
             @PathVariable int id,
             Model model,
-            @RequestParam("tanggal") Optional<String> tanggal
+            @RequestParam("tanggal") Optional<String> tanggal,
+            HttpSession session
     ){
         MsLapangan msLapangan = lapanganService.getLapanganByIdLapangan(id);
         MsMerchant msMerchant = merchantService.getMerchantById(msLapangan.getId_merchant());
@@ -265,7 +280,13 @@ public class RootController {
         model.addAttribute("tim", t);
         model.addAttribute("jadwal", j);
 
-        model.addAttribute("tanggal", tanggal.get());
+        try{
+            model.addAttribute("tanggal", tanggal.get());
+        }catch (Exception e){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            model.addAttribute("tanggal", sdf.format(new Date()));
+        }
+
         return "page/merchant_lapangan_detail";
     }
 

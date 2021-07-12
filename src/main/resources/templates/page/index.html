@@ -128,8 +128,8 @@
                         <div class="row">
                             <div class="col text-center">
                                 <a href="/merchant-show-all" class="btn btn-outline-danger">Show All Merchant</a>
-                                <a th:if="${session.hasMerchant == false}" href="/merchant-create" class="btn btn-outline-success">Create Your Own Merchant</a>
-                                <a th:if="${session.hasMerchant == true}" href="/my-merchant" class="btn btn-outline-primary">Go To My Merchant</a>
+                                <a th:if="${session.merchant == null && session.tim == null}" href="/merchant-create" class="btn btn-outline-success">Create Your Own Merchant</a>
+                                <a th:if="${session.merchant != null && session.tim == null}" href="/my-merchant" class="btn btn-outline-primary">Go To My Merchant</a>
                             </div>
                         </div>
                     </div>
