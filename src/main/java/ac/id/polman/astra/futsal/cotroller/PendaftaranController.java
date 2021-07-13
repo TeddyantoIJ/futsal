@@ -29,7 +29,9 @@ public class PendaftaranController {
     TimService timService;
 
     @GetMapping("/MenuAdmin")
-    public String Admin(Model model){
+    public String Admin(Model model, HttpSession session){
+        String nama = (String) session.getAttribute("nama_depan");
+        model.addAttribute("nama_depan", nama);
         return "template/dashboard_admin";
     }
 
@@ -61,6 +63,7 @@ public class PendaftaranController {
             }else{
                 session.setAttribute("login", true);
                 session.setAttribute("id_user", msUser.getIdUser());
+                session.setAttribute("nama_depan", msUser.getNamaDepan());
                 return "/template/dashboard_admin";
             }
         }else{

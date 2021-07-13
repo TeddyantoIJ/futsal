@@ -226,7 +226,20 @@
                         Team data
                     </div>
                     <div class="card-body">
-
+                        <label class="text-muted"><i class="fa fa-users text-muted" aria-hidden="true"></i> Name</label>
+                        <input type="text" th:value="${tim.nama}" class="form-control" disabled>
+                        <br/>
+                        <label class="text-muted"><i class="fa fa-users text-muted" aria-hidden="true"></i> Player Type</label>
+                        <input type="text" th:if="${tim.tipePemain == 1}" value="anak - anak" class="form-control" disabled>
+                        <input type="text" th:if="${tim.tipePemain == 2}" value="Dewasa" class="form-control" disabled>
+                        <input type="text" th:if="${tim.tipePemain == 3}" value="Laki - laki" class="form-control" disabled>
+                        <input type="text" th:if="${tim.tipePemain == 4}" value="Perempuan" class="form-control" disabled>
+                        <input type="text" th:if="${tim.tipePemain == 5}" value="Bebas" class="form-control" disabled>
+                        <br/>
+                        <label class="text-muted"><i class="fa fa-calendar text-muted" aria-hidden="true"></i> Date Established</label>
+                        <input type="text" th:value="${tim.tglBerdiri}" class="form-control" disabled>
+                        <br/>
+                        <a href="/my-tim" class="btn btn-outline-success form-control" style="border-radius: 4px">My team</a>
                     </div>
                 </div>
             </div>
