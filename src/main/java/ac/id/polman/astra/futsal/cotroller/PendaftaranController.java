@@ -39,33 +39,41 @@ public class PendaftaranController {
                            HttpSession session) {
 
         MsAkun msAkun = akunService.getUserByUsername(username);
-
         if(msAkun == null){
             return "redirect:/page-login";
         }
 
         if (msAkun.getUsername().equals(username) && msAkun.getPassword().equals(password)){
             MsUser msUser = userService.getUserByIdAkun(msAkun.getIdAkun());
+            MsMerchant msMerchant = merchantService.getMerchantByIdUser(msUser.getIdUser());
+            MsTim msTim = timService.getTimByIdUser(msUser.getIdUser());
 
+            session.setAttribute("merchant", msMerchant);
+            session.setAttribute("login", true);
+            session.setAttribute("id_user", msUser.getIdUser());
+            session.setAttribute("user", msUser);
+            session.setAttribute("tim", msTim);
             if(msAkun.getIdRole() != 1){
-                MsMerchant msMerchant = merchantService.getMerchantByIdUser(msUser.getIdUser());
-                MsTim msTim = timService.getTimByIdUser(msUser.getIdUser());
-
-                session.setAttribute("merchant", msMerchant);
-                session.setAttribute("login", true);
-                session.setAttribute("id_user", msUser.getIdUser());
-                session.setAttribute("user", msUser);
-                session.setAttribute("tim", msTim);
-
                 return "redirect:/";
             }else{
-                session.setAttribute("login", true);
-                session.setAttribute("id_user", msUser.getIdUser());
-                return "/template/dashboard_admin";
+                return "redirect:/Admin";
             }
         }else{
             return "redirect:/page-login";
         }
+    }
+
+    @GetMapping("/Admin")
+    public String goto_admin(
+            HttpSession session
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        return "/template/dashboard_admin";
     }
 
     @PostMapping("/addDaftarUser")

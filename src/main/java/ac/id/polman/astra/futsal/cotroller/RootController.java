@@ -185,15 +185,7 @@ public class RootController {
             return "redirect:/page-login";
         }
 
-        List<MsMerchant> a = merchantService.getAllMerchant();
-        MsMerchant m = new MsMerchant();
-        for ( MsMerchant b: a) {
-            if(b.getId_user() == id){
-                m = b;
-                break;
-            }
-        }
-
+        MsMerchant m = merchantService.getMerchantByIdUser(id);
         List<MsLapangan> lap = lapanganService.getAllLapanganByIdMerchant(m.getId_merchant());
         List<MsFasilitas> fasList = fasilitasService.getAllFacilities();
         List<DtMerchant> fasDit = dtMerchantService.getAllDtMerchantByIdMerchant(m.getId_merchant());
