@@ -15,7 +15,8 @@ public class UploadController {
     private final String UPLOAD_DIR_FOTO_MERCHANT            = "src/main/resources/static/images/merchant/foto/";
     private final String UPLOAD_DIR_BANNER          = "src/main/resources/static/images/merchant/banner/";
     private final String UPLOAD_DIR_FOTO_LAPANGAN   = "src/main/resources/static/images/lapangan/";
-    private final String UPLOAD_DIR_LOGO_TIM        = "src/main/resources/static/images/lapangan/";
+    private final String UPLOAD_DIR_LOGO_TIM        = "src/main/resources/static/images/tim/logo/";
+    private final String UPLOAD_DIR_BANNER_TIM        = "src/main/resources/static/images/tim/banner/";
     private final String UPLOAD_DIR_BUKTI_TF        = "src/main/resources/static/images/bukti_transfer/";
     private final String UPLOAD_DIR_FOTO_PROFILE    = "src/main/resources/static/images/user/";
 
@@ -159,8 +160,72 @@ public class UploadController {
         return fileName;
     }
 
-    public void uploadLogoTim(MultipartFile file, String old){
+    public String uploadLogoTim(MultipartFile file, String old){
+        if (file.isEmpty()) {
+            System.out.println("Please select a file to upload.");
+        }
 
+        // delete old
+        if(!old.equals("none")){
+            try{
+                Path path = Paths.get(UPLOAD_DIR_LOGO_TIM + old);
+                Files.delete(path);
+            }catch (Exception e){
+
+            }
+        }
+
+        // normalize the file path
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        //String fileName = formatter.format(LocalDateTime.now());
+
+        // save the file on the local file system
+        try {
+            String extension = fileName.split("\\.")[1];
+            fileName = "f"+formatter.format(LocalDateTime.now()) + "." + extension;
+            Path path = Paths.get(UPLOAD_DIR_LOGO_TIM + fileName);
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // return success response
+        System.out.println("You successfully uploaded " + fileName + '!');
+        return fileName;
+    }
+
+    public String uploadBannerTim(MultipartFile file, String old){
+        if (file.isEmpty()) {
+            System.out.println("Please select a file to upload.");
+        }
+
+        // delete old
+        if(!old.equals("none")){
+            try{
+                Path path = Paths.get(UPLOAD_DIR_BANNER_TIM + old);
+                Files.delete(path);
+            }catch (Exception e){
+
+            }
+        }
+
+        // normalize the file path
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        //String fileName = formatter.format(LocalDateTime.now());
+
+        // save the file on the local file system
+        try {
+            String extension = fileName.split("\\.")[1];
+            fileName = "f"+formatter.format(LocalDateTime.now()) + "." + extension;
+            Path path = Paths.get(UPLOAD_DIR_BANNER_TIM + fileName);
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // return success response
+        System.out.println("You successfully uploaded " + fileName + '!');
+        return fileName;
     }
 
     public String uploadFotoProfile(MultipartFile file, String old) {

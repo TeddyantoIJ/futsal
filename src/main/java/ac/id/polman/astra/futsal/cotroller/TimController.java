@@ -64,8 +64,8 @@ public class TimController {
             @RequestParam("file1") MultipartFile file1){
         UploadController uploadController = new UploadController();
 
-        String logo = uploadController.uploadFotoMerchant(file, "none");
-        String banner = uploadController.uploadBannerMerchant(file1, "none");
+        String logo = uploadController.uploadLogoTim(file, "none");
+        String banner = uploadController.uploadBannerTim(file1, "none");
 
         msTim.setIdUser(1);
 //        msTim.setTglBerdiri(LocalDateTime.now());

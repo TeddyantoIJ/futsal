@@ -29,7 +29,9 @@ public class PendaftaranController {
     TimService timService;
 
     @GetMapping("/MenuAdmin")
-    public String Admin(Model model){
+    public String Admin(Model model, HttpSession session){
+        String nama = (String) session.getAttribute("nama_depan");
+        model.addAttribute("nama_depan", nama);
         return "template/dashboard_admin";
     }
 
@@ -56,7 +58,7 @@ public class PendaftaranController {
             if(msAkun.getIdRole() != 1){
                 return "redirect:/";
             }else{
-                return "redirect:/Admin";
+            return "redirect:/Admin";
             }
         }else{
             return "redirect:/page-login";

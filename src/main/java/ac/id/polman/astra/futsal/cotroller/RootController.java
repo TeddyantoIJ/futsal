@@ -293,28 +293,16 @@ public class RootController {
             return "redirect:/page-login";
         }
 
-        List<MsMerchant> a = merchantService.getAllMerchant();
-        MsMerchant m = new MsMerchant();
-        for ( MsMerchant b: a) {
-            if(b.getId_user() == id){
+        List<MsTim> a = timService.getAllTim();
+        MsTim m = new MsTim();
+        for ( MsTim b: a) {
+            if(b.getIdUser() == id){
                 m = b;
                 break;
             }
         }
 
-        List<MsLapangan> lap = lapanganService.getAllLapanganByIdMerchant(m.getId_merchant());
-        List<MsFasilitas> fasList = fasilitasService.getAllFacilities();
-        List<DtMerchant> fasDit = dtMerchantService.getAllDtMerchantByIdMerchant(m.getId_merchant());
-        List<DtFotolapangan> fotLap = new ArrayList<>();
-        for (MsLapangan x : lap) {
-            fotLap.add(dtFotoLapanganService.getAllDtFotoLapanganByIdLapangan(x.getIdLapangan()).get(0));
-        }
-
-        model.addAttribute("merchant", m);
-        model.addAttribute("lap",lap);
-        model.addAttribute("fasList",fasList);
-        model.addAttribute("fasDit",fasDit);
-        model.addAttribute("fotLap",fotLap);
+        model.addAttribute("tim", m);
 
         return "page/manager_tim";
     }
