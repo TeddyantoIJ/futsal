@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 //@Controller
 public class UploadController {
-    private final String UPLOAD_DIR_FOTO_MERCHANT            = "src/main/resources/static/images/merchant/foto/";
+    private final String UPLOAD_DIR_FOTO_MERCHANT   = "src/main/resources/static/images/merchant/foto/";
     private final String UPLOAD_DIR_BANNER          = "src/main/resources/static/images/merchant/banner/";
     private final String UPLOAD_DIR_FOTO_LAPANGAN   = "src/main/resources/static/images/lapangan/";
     private final String UPLOAD_DIR_LOGO_TIM        = "src/main/resources/static/images/tim/logo/";
