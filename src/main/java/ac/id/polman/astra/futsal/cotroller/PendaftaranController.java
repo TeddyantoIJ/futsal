@@ -103,16 +103,31 @@ public class PendaftaranController {
 
     //Pendaftaran TIM
     @GetMapping("/Daftar-Tim")
-    public String getDaftarTim(Model model, TrDaftarTim trDaftartim){
-        List<TrDaftarTim> daftarList = daftarTimService.getAllIdTim(1);
+    public String getDaftarTim(Model model, TrDaftarTim trDaftartim, HttpSession session){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+
+        List<MsTim> a = timService.getAllTim();
+        MsTim m = new MsTim();
+        for ( MsTim b: a) {
+            if(b.getIdUser() == id){
+                m = b;
+                break;
+            }
+        }
+
+        List<TrDaftarTim> daftarList = daftarTimService.getAllIdTim(m.getIdTim());
         model.addAttribute("listTim", daftarList);
 
-        MsUser msUser = new MsUser();
-        msUser = userService.getUserById(1);
-        model.addAttribute("userObj", msUser);
+        List<MsUser> user = userService.getAllUser();
+        model.addAttribute("listUser", user);
 
-        MsStatus msStatus = statusService.getStatus(1);
-        model.addAttribute("msStatus", msStatus);
+        List<MsStatus> status = statusService.getAllStatus();
+        model.addAttribute("listStatus", status);
 
         return "page/konfirmasi_tim";
     }
@@ -127,8 +142,9 @@ public class PendaftaranController {
         }
 
         TrDaftarTim trDaftartim = daftarTimService.getTimById(id);
-        trDaftartim.setIdStatus(2);
+        trDaftartim.setIdStatus(3);
         daftarTimService.saveTrDaftarTim(trDaftartim);
+
         return "redirect:/Daftar-Tim";
     }
 

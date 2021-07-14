@@ -67,9 +67,19 @@ public class RootController {
         }catch (Exception e){
             session.setAttribute("login", false);
         }
+        //merchant
         List<MsMerchant> merchantList = merchantService.get6MerchantActive();
+        //tim
+        List<MsTim> data = timService.getAllTim();
+        List<MsTim> msTimList = new ArrayList<>();
+        for ( MsTim msTim : data )
+        {
+            if(msTim.getStatus() == 1){
+                msTimList.add(msTim);
+            }
+        }
 
-
+        model.addAttribute("Timlist", data);
         model.addAttribute("merchantList", merchantList);
         return "page/index";
     }

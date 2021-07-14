@@ -153,86 +153,92 @@
                 <div class="col-3">
                     <button class="btn btn-success form-control" data-toggle="collapse" data-target=".Child" type="button">Child</button>
                     <button class="btn btn-success form-control" data-toggle="collapse" data-target=".Adult" type="button">Adult</button>
-                    <button class="btn btn-success form-control" data-toggle="collapse" data-target=".Girl" type="button">Girl</button>
-                    <button class="btn btn-success form-control" data-toggle="collapse" data-target=".Mix" type="button">Male</button>
+                    <button class="btn btn-success form-control" data-toggle="collapse" data-target=".Man" type="button">Man</button>
+                    <button class="btn btn-success form-control" data-toggle="collapse" data-target=".Girl" type="button">Male</button>
                     <button class="btn btn-success form-control" data-toggle="collapse" data-target=".Mix" type="button">Mix</button>
                     <br/><br/>
                     <a href="/team-show-all" class="btn btn-info form-control">Show All Team</a>
-                    <a href="/team-create" class="btn btn-primary form-control" style="margin-top: 10px;">Create Your Own Team</a>
+                    <a href="/Tim-add" class="btn btn-primary form-control" style="margin-top: 10px;">Create Your Own Team</a>
                     <a href="/my-tim" class="btn btn-danger form-control" style="margin-top: 10px;">Go To My Team</a>
                 </div>
+<!--
 <!--                DATA TIM TIM -->
                 <div class="col-9">
                     <div class="row">
-                        <div class="col-sm-4 Child collapse" style="margin-top: 5px">
-                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
-                                <p class="font-weight-bold text-center name-team-our-teams">Tim A</p>
-                                <a class="btn btn-primary text-light" style="bottom: 0px; position: absolute">Ask To Join</a>
+                        <div class="col-sm-4 Child collapse" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain==1}" style="margin-top: 5px">
+                            <div class="card-img tim-our-teams">
+                                <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
+                                <img th:src="'/images/tim/logo/' + ${Tim.logo}" style="height: 200px; width: 250px; object-fit: cover; object-position: center" class="card-img"><br/>
+                                <a class="btn btn-primary text-light text-center name-team-our-teams" style="width: 250px;" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
                             </div>
                         </div>
-                        <div class="col-sm-4 Adult collapse" style="margin-top: 5px">
-                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
-                                <p class="font-weight-bold text-center name-team-our-teams">Tim B</p>
-                                <a class="btn btn-secondary" style="bottom: 0px; position: absolute; cursor: not-allowed;">Ask To Join</a>
+<!--                        </div>-->
+
+                        <div class="col-sm-4 Adult collapse" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain==2}" style="margin-top: 5px">
+                            <div class="card-img tim-our-teams">
+                                <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
+                                <img th:src="'/images/tim/logo/' + ${Tim.logo}" style="height: 200px; width: 250px; object-fit: cover; object-position: center" class="card-img"><br/>
+                                <a class="btn btn-primary text-light text-center name-team-our-teams" style="width: 250px;" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
                             </div>
                         </div>
-                        <div class="col-sm-4 Child collapse" style="margin-top: 5px">
-                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
-                                <p class="font-weight-bold text-center name-team-our-teams">Tim C</p>
-                                <a class="btn btn-primary text-light" style="bottom: 0px; position: absolute">Ask To Join</a>
+
+                        <div class="col-sm-4 Man collapse" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain==3}" style="margin-top: 5px">
+                            <div class="card-img tim-our-teams">
+                                <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
+                                <img th:src="'/images/tim/logo/' + ${Tim.logo}" style="height: 200px; width: 250px; object-fit: cover; object-position: center" class="card-img"><br/>
+                                <a class="btn btn-primary text-light text-center name-team-our-teams" style="width: 250px;" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
                             </div>
                         </div>
-                        <div class="col-sm-4 Girl collapse" style="margin-top: 5px">
-                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
-                                <p class="font-weight-bold text-center name-team-our-teams">Tim D</p>
-                                <a class="btn btn-secondary" style="bottom: 0px; position: absolute; cursor: not-allowed;">Ask To Join</a>
+
+                        <div class="col-sm-4 Girl collapse" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain==4}" style="margin-top: 5px">
+                            <div class="card-img tim-our-teams">
+                                <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
+                                <img th:src="'/images/tim/logo/' + ${Tim.logo}" style="height: 200px; width: 250px; object-fit: cover; object-position: center" class="card-img"><br/>
+                                <a class="btn btn-primary text-light text-center name-team-our-teams" style="width: 250px;" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
                             </div>
                         </div>
-                        <div class="col-sm-4 Mix collapse" style="margin-top: 5px">
-                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
-                                <p class="font-weight-bold text-center name-team-our-teams">Tim E</p>
-                                <a class="btn btn-primary text-light" style="bottom: 0px; position: absolute">Ask To Join</a>
+
+                        <div class="col-sm-4 Mix collapse" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain==5}" style="margin-top: 5px">
+                            <div class="card-img tim-our-teams">
+                                <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
+                                <img th:src="'/images/tim/logo/' + ${Tim.logo}" style="height: 200px; width: 250px; object-fit: cover; object-position: center" class="card-img"><br/>
+                                <a class="btn btn-primary text-light text-center name-team-our-teams" style="width: 250px;" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
                             </div>
                         </div>
-                        <div class="col-sm-4 Adult collapse" style="margin-top: 5px">
-                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
-                                <p class="font-weight-bold text-center name-team-our-teams">Tim F</p>
-                                <a class="btn btn-primary text-light" style="bottom: 0px; position: absolute">Ask To Join</a>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 Child collapse" style="margin-top: 5px">
-                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
-                                <p class="font-weight-bold text-center name-team-our-teams">Tim G</p>
-                                <a class="btn btn-secondary" style="bottom: 0px; position: absolute; cursor: not-allowed;">Ask To Join</a>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 Mix collapse" style="margin-top: 5px">
-                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
-                                <p class="font-weight-bold text-center name-team-our-teams">Tim H</p>
-                                <a class="btn btn-primary text-light" style="bottom: 0px; position: absolute">Ask To Join</a>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 Girl collapse" style="margin-top: 5px">
-                            <div style="background-image: url(/images/merchant/foto/f20210617221207.jpg)" class="card-img tim-our-teams">
-                                <p class="font-weight-bold text-center name-team-our-teams">Tim I</p>
-                                <a class="btn btn-secondary" style="bottom: 0px; position: absolute; cursor: not-allowed;">Ask To Join</a>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
-<!--            <br/>-->
-<!--            <div class="row">-->
-<!--                <div class="col-sm text-center">-->
-<!--                    <a href="" class="btn btn-info">Show All Team</a>-->
-<!--                    <a href="" class="btn btn-success">Create Your Own Team</a>-->
-<!--                    <a href="" class="btn btn-primary">Go To My Team</a>-->
-<!--                </div>-->
-<!--            </div>-->
             <br/>
         </div>
         <br/>
     </section>
+
+<!--    boostrap modal popup-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Join Team</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form th:action="@{addTim}" th:object="${timObj}" method="post" enctype="multipart/form-data" >
+                    <div class="modal-body">
+                        <label class="font-weight-bold text-black" for="alasan">Reason<span style="color: red">*</span> </label>
+                        <input class="form form-control" placeholder="Reason" type="text" name="alasan" id="alasan"  required>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
     <section id="last-match" class="bg-light">
         <div class="container-fluid">

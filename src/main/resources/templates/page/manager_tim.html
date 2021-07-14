@@ -9,7 +9,7 @@
 <body>
 <div layout:fragment="content" style="margin-left: 280px">
     <div style="width: 100%; height: 600px;">
-        <img th:src="'/images/merchant/banner/'+${tim.banner}" style="height: 100%; width: 100%; object-position: center">
+        <img th:src="'/images/tim/banner/'+${tim.banner}" style="height: 100%; width: 100%; object-position: center">
     </div>
     <section>
         <div class="container">
@@ -17,44 +17,38 @@
             <br/>
             <div class="row">
                 <div class="col-3">
-<!--                    <img th:src="'/images/merchant/foto/' + ${merchant.foto}" style="height: 200px; width: 200px; object-fit: cover; object-position: center" class="card-img">-->
-<!--                    <input type="file" title="Change pictures" class="form-control-file">-->
+                    <img th:src="'/images/tim/logo/' + ${tim.logo}" style="height: 200px; width: 200px; object-fit: cover; object-position: center" class="card-img">
+                    <input type="file" title="Change pictures" class="form-control-file">
                 </div>
                 <div class="col-9">
                     <div class="row">
                         <div class="col-2">Name</div>
-<!--                        <div class="col font-weight-light">-->
-<!--                            <input type="text" class="form-control" th:value="${merchant.nama}">-->
-<!--                        </div>-->
+                        <div class="col font-weight-light">
+                            <input type="text" class="form-control" th:value="${tim.nama}">
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-2">Address</div>
-<!--                        <div class="col font-weight-light">-->
-<!--                            <input type="text" class="form-control" th:value="${merchant.alamat}">-->
-<!--                        </div>-->
+                        <div class="col-2">date established</div>
+                        <div class="col font-weight-light">
+                            <input type="text" class="form-control" th:value="${tim.tglBerdiri}">
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-2">Contact person</div>
-<!--                        <div class="col font-weight-light">-->
-<!--                            <input type="text" class="form-control" th:value="${merchant.narahubung}">-->
-<!--                            <input type="text" class="form-control" th:value="${merchant.telephone}">-->
-<!--                        </div>-->
+                        <div class="col-2">Player Type</div>
+                        <div class="col font-weight-light">
+                            <input type="text" th:if="${tim.tipePemain == 1}" value="anak - anak" class="form-control">
+                            <input type="text" th:if="${tim.tipePemain == 2}" value="Dewasa" class="form-control">
+                            <input type="text" th:if="${tim.tipePemain == 3}" value="Laki - laki" class="form-control">
+                            <input type="text" th:if="${tim.tipePemain == 4}" value="Perempuan" class="form-control">
+                            <input type="text" th:if="${tim.tipePemain == 5}" value="Bebas" class="form-control">
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-2">Description</div>
-<!--                        <div class="col font-weight-light wrapText">-->
-<!--                            <textarea class="form-control" th:text="${merchant.deskripsi}"></textarea>-->
-<!--                        </div>-->
-                    </div>
-                    <div class="row">
-<!--                        <div class="col-2">-->
-<!--                            <i th:if="${merchant.rating >= 1}" class="fa fa-star" style="color: yellow"></i>-->
-<!--                            <i th:if="${merchant.rating >= 2}" class="fa fa-star" style="color: yellow"></i>-->
-<!--                            <i th:if="${merchant.rating >= 3}" class="fa fa-star" style="color: yellow"></i>-->
-<!--                            <i th:if="${merchant.rating >= 4}" class="fa fa-star" style="color: yellow"></i>-->
-<!--                            <i th:if="${merchant.rating >= 5}" class="fa fa-star" style="color: yellow"></i>-->
-<!--                        </div>-->
-<!--                        <div class="col">: <span th:text="${merchant.rating}"></span></div>-->
+                        <div class="col-2">Private</div>
+                        <div class="col font-weight-light wrapText">
+                            <input class="form-control"th:if="${tim.privat == 1}" value="Ya">
+                            <input class="form-control"th:if="${tim.privat == 0}" value="Tidak">
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,14 @@ public class TimController {
     }
 
     @GetMapping("/Tim-add")
-    public String gotoAdd(Model model){
+    public String gotoAdd(Model model, HttpSession session){
+        int idus = -1;
+        try{
+            idus = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+
         model.addAttribute("timObj", new MsTim());
         return "tim/add";
     }
@@ -61,14 +69,19 @@ public class TimController {
     public String addTim(
             MsTim msTim,
             @RequestParam("file") MultipartFile file,
-            @RequestParam("file1") MultipartFile file1){
-        UploadController uploadController = new UploadController();
+            @RequestParam("file1") MultipartFile file1, HttpSession session){
+        int idus = -1;
+        try{
+            idus = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
 
+        UploadController uploadController = new UploadController();
         String logo = uploadController.uploadLogoTim(file, "none");
         String banner = uploadController.uploadBannerTim(file1, "none");
 
-        msTim.setIdUser(1);
-//        msTim.setTglBerdiri(LocalDateTime.now());
+        msTim.setIdUser(idus);
         msTim.setLogo(logo);
         msTim.setBanner(banner);
         msTim.setCreaby("Teddy(harusnya ambil nama yang bikin)");

@@ -31,15 +31,11 @@
                         <tbody>
                         <tr th:each="item, iter: ${listTim}">
                             <td><span th:text="${iter.count}"></span></td>
-                            <td th:text="${userObj.namaDepan}"></td>
+                            <td th:each="itemuser:${listUser}" th:if="${itemuser.idUser ==item.idUser}" th:text="${itemuser.namaDepan}"></td>
                             <td th:text="${item.alasan}"></td>
-                            <td th:text="${msStatus.keterangan}"></td>
-                            <td>
-                                <div class="row">
-                                    <div class="col">
-                                        <a th:href="@{'konfirmasiAnggota?id='+${item.id}}" class="btn btn-danger form-control"  onclick="return confirm('Tekan OK untuk konfirmasi')"><i data-feather="check-circle"></i>  Konfirmasi</a>
-                                    </div>
-                                </div>
+                            <td th:each="itemstatus:${listStatus}" th:if="${itemstatus.idStatus==item.idStatus}" th:text="${itemstatus.keterangan}"></td>
+                            <td class="text-center">
+                                <a th:href="@{'konfirmasi-Anggota?id='+${item.id}}" class="btn btn-danger"  onclick="return confirm('Tekan OK untuk konfirmasi')"><i data-feather="check-circle"></i>  Konfirmasi</a>
                             </td>
                         </tr>
                         </tbody>
