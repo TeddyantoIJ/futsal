@@ -142,10 +142,7 @@
                         <div class="card-header">
                             <ul class="nav nav-tabs card-header-tabs">
                                 <li class="nav-item">
-                                    <a style="cursor: pointer" id="bfm" onclick="change(1)" class="nav-link active">Friendly Match</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a style="cursor: pointer" id="bp" onclick="change(0)" class="nav-link">Practice</a>
+                                    <a style="cursor: pointer" id="bfm" class="nav-link active">Booking</a>
                                 </li>
                             </ul>
                             <script>
@@ -169,9 +166,10 @@
                             </script>
                         </div>
                         <div class="card-body">
-                            <form id="fm">
+                            <form style="display: none" id="fm" action="">
                                 <label>Challenger <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="tim_2" list="teams">
+                                <input type="hidden" name="id_lapangan" th:value="${lapangan.idLapangan}">
+                                <input type="text" class="form-control" name="tim_lawan" list="teams">
                                 <datalist id="teams">
                                     <option th:each="a : ${tim}" th:value="${a.nama}">
                                 </datalist>
@@ -185,18 +183,44 @@
                                 <input type="time" class="form-control" name="jam">
                                 <br/>
 
+                                <label>Duration <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" name="durasi">
+                                <br/>
+
                                 <button onclick="back()" class="btn btn-outline-secondary">Back</button>
                                 <button class="btn btn-outline-success">Book with this data</button>
                             </form>
-                            <form id="p" style="display: none">
+                            <form id="p" action="/booking" method="post">
                                 <label>Date <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" name="tanggal">
+                                <input type="hidden" name="id_lapangan" th:value="${lapangan.idLapangan}">
+                                <input type="date" class="form-control" name="tanggal" required th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
                                 <br/>
 
-                                <label>Time <span class="text-danger">*</span></label>
-                                <input type="time" class="form-control" name="jam">
+                                <label>Time <span class="text-danger">*</span></label><br/>
+                                <label class="text-danger font-weight-bold">Orders after 5 PM will use the price with lighting</label>
+                                <input id="waktu" type="time" class="form-control" name="waktu" required th:value="${#dates.format(#dates.createNow(), 'HH:00')}">
                                 <br/>
 
+                                <label>Duration <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" name="durasi" required min="1" value="1">
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Price</label>
+                                        <input type="text" class="form-control" name="asd" disabled th:value="'Rp. ' + ${lapangan.harga} + ' /Hour'" id="price1">
+                                    </div>
+                                    <div class="col">
+                                        <label>Price with lighting</label>
+                                        <input type="text" class="form-control" name="asd" disabled th:value="'Rp. ' + ${lapangan.harga_penerangan} + ' /Hour'" id="price2">
+                                    </div>
+                                </div>
+                                <br/>
+                                <br/>
+                                <label class="text-danger font-weight-bold">
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                    If the data is not correct, the order will not be processed and the page will return to the previous page
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></label>
                                 <button onclick="back()" class="btn btn-outline-secondary">Back</button>
                                 <button class="btn btn-outline-success">Book with this data</button>
                             </form>
@@ -204,15 +228,6 @@
                     </div>
                 </div>
                 <hr/>
-                <script>
-                    function back(){
-                        var a = document.getElementById("booking");
-                        var b = document.getElementById("jadwal");
-
-                        a.style.display = 'none';
-                        b.style.display = 'block';
-                    }
-                </script>
             </div>
         </div>
         <br/>

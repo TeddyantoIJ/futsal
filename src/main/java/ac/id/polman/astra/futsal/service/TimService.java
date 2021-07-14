@@ -44,6 +44,18 @@ public class TimService {
         }
         return c;
     }
+
+    public MsTim getTimByNama(String nama){
+        List<MsTim> a = getAllActive();
+        for (MsTim b:a) {
+            if(b.getNama().equals(nama)){
+                return b;
+            }
+        }
+        MsTim c = new MsTim();
+        c.setIdTim(-1);
+        return c;
+    }
 //   =================================================
 
     public void saveTim(MsTim msTim){

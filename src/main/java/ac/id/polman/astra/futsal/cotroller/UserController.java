@@ -69,7 +69,7 @@ public class UserController {
 //        msUser.setTanggalLahir(LocalDateTime.now());
         msUser.setIdAkun(1);
         msUser.setFoto(foto);
-        msUser.setCreaby("Teddy(harusnya ambil nama yang bikin)");
+        msUser.setCreaby(msUser.getEmail());
         msUser.setCreadate(LocalDateTime.now());
         msUser.setModiby("");
         msUser.setModidate(LocalDateTime.now());
@@ -89,7 +89,7 @@ public class UserController {
 
         msUser.setCreaby(oldUser.getCreaby());
         msUser.setCreadate(oldUser.getCreadate());
-        msUser.setModiby("yang login sekarang");
+        msUser.setModiby(oldUser.getEmail());
         msUser.setModidate(LocalDateTime.now());
         msUser.setStatus(oldUser.getStatus());
 

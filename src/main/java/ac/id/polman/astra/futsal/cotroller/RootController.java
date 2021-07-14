@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,6 +49,8 @@ public class RootController {
     Tr_jadwal_lapangan_service trJadwalLapanganService;
     @Autowired
     AkunService akunService;
+    @Autowired
+    Tr_booking_lapangan_service trBookinglapanganservice;
 
     UploadController uploadController = new UploadController();
 
@@ -282,6 +284,40 @@ public class RootController {
         return "page/merchant_lapangan_detail";
     }
 
+    @PostMapping("/booking")
+    public String booking(
+            TrBookingLapangan a,
+            HttpSession session,
+            @RequestParam("waktu") String waktu
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        MsUser us = userService.getUserById(id);
+        MsLapangan la = lapanganService.getLapanganByIdLapangan(a.getId_lapangan());
+
+        a.setJam(new Time(Integer.parseInt(waktu.split(":")[0]),0,0));
+        a.setId_status(1);
+        a.setId_tim(us.getIdTim());
+        a.setNotifikasi(0);
+        a.setDp((int) (la.getHarga() * a.getDurasi()) / 2);
+        a.setSub_harga((int) (la.getHarga() * a.getDurasi()));
+        a.setBukti_transfer("");
+        a.setCreaby(us.getEmail());
+        a.setCreadate(us.getCreadate());
+        a.setModiby(us.getEmail());
+        a.setModidate(LocalDateTime.now());
+        a.setStatus(1);
+
+        if(trBookinglapanganservice.save(a)){
+            return "redirect:/";
+        }else{
+            return "redirect:/detail-lapangan/"+la.getIdLapangan();
+        }
+    }
     // ===================================MANAGER TIM ====================================
 
     @GetMapping("/my-tim")
