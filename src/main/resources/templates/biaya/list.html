@@ -47,7 +47,7 @@
                                     <!--                <td th:text="${Merchant.id_merchant}">ID</td>-->
                                     <td class="text-center min-wd-50" style="width:20px;"><span th:text="${iter.count}"></span></td>
 <!--                                    <td th:text="${item.idBiaya}"></td>-->
-                                    <td class="text-right min-wd-50" th:text="${item.nominal}"></td>
+                                    <td class="text-right min-wd-50" th:text="'Rp. '+ ${item.nominal} + ',00'"></td>
                                     <td th:text="${item.keterangan}"></td>
                                     <td class="text-center min-wd-50" style="width:250px;">
                                         <div class="row">
