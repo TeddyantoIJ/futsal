@@ -165,47 +165,11 @@
 <!--                DATA TIM TIM -->
                 <div class="col-9">
                     <div class="row">
-                        <div class="col-sm-4 Child collapse" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain==1}" style="margin-top: 5px">
-                            <div class="card-img tim-our-teams">
-                                <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
-                                <img th:src="'/images/tim/logo/' + ${Tim.logo}" style="height: 200px; width: 250px; object-fit: cover; object-position: center" class="card-img"><br/>
-                                <a class="btn btn-primary text-light text-center name-team-our-teams" style="width: 250px;" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
-                            </div>
+                        <div class="col-sm-4 Child collapse" th:each="Tim, iter: ${Timlist}"  style="margin-top: 5px">
+                            <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
+                            <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
+                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
                         </div>
-<!--                        </div>-->
-
-                        <div class="col-sm-4 Adult collapse" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain==2}" style="margin-top: 5px">
-                            <div class="card-img tim-our-teams">
-                                <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
-                                <img th:src="'/images/tim/logo/' + ${Tim.logo}" style="height: 200px; width: 250px; object-fit: cover; object-position: center" class="card-img"><br/>
-                                <a class="btn btn-primary text-light text-center name-team-our-teams" style="width: 250px;" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-4 Man collapse" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain==3}" style="margin-top: 5px">
-                            <div class="card-img tim-our-teams">
-                                <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
-                                <img th:src="'/images/tim/logo/' + ${Tim.logo}" style="height: 200px; width: 250px; object-fit: cover; object-position: center" class="card-img"><br/>
-                                <a class="btn btn-primary text-light text-center name-team-our-teams" style="width: 250px;" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-4 Girl collapse" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain==4}" style="margin-top: 5px">
-                            <div class="card-img tim-our-teams">
-                                <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
-                                <img th:src="'/images/tim/logo/' + ${Tim.logo}" style="height: 200px; width: 250px; object-fit: cover; object-position: center" class="card-img"><br/>
-                                <a class="btn btn-primary text-light text-center name-team-our-teams" style="width: 250px;" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-4 Mix collapse" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain==5}" style="margin-top: 5px">
-                            <div class="card-img tim-our-teams">
-                                <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
-                                <img th:src="'/images/tim/logo/' + ${Tim.logo}" style="height: 200px; width: 250px; object-fit: cover; object-position: center" class="card-img"><br/>
-                                <a class="btn btn-primary text-light text-center name-team-our-teams" style="width: 250px;" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>

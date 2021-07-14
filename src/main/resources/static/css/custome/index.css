@@ -65,10 +65,9 @@
 }
 
 .tim-our-teams{
-    height: 200px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    height: 230px;
+    object-position: center;
+    object-fit: cover;
 }
 
 .name-team-our-teams{
