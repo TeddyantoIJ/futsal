@@ -66,8 +66,14 @@ public class RootController {
 
                 id = (int) session.getAttribute("id_user");
                 int bill = get_notif_bill(id);
+                int merchant = get_notif_merchant(id);
+
+                int notif = bill + merchant;
+
                 session.setAttribute("bill", bill);
-                if(bill > 0){
+                session.setAttribute("notif_merchant", merchant);
+
+                if(notif > 0){
                     session.setAttribute("notif", true);
                 }else{
                     session .setAttribute("notif", false);
@@ -123,6 +129,9 @@ public class RootController {
         session.removeAttribute("tim");
         session.removeAttribute("bill");
         session.removeAttribute("notif");
+        session.removeAttribute("notif_merchant");
+        session.removeAttribute("booking_order");
+
         return "redirect:/";
     }
 
@@ -234,8 +243,33 @@ public class RootController {
         model.addAttribute("reviews", reviews);
         model.addAttribute("users", users);
 
-        session.setAttribute("nama_merchant", m.getNama());
+        session.setAttribute("booking_order", trBookinglapanganservice.getAllDiprosesByIdMerchant(m.getId_merchant()).size());
         return "page/merchant_index";
+    }
+
+    @GetMapping("/my-merchant-booking-order")
+    public String goto_my_merchant_booking_order(
+            Model model,
+            HttpSession session
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        int idMerchant = merchantService.getMerchantByIdUser(id).getId_merchant();
+        List<TrBookingLapangan> a = trBookinglapanganservice.getAllDiprosesByIdMerchant(idMerchant);
+        List<MsLapangan> b = lapanganService.getAllLapanganByIdMerchant(idMerchant);
+        List<MsTim> c = timService.getAllTim();
+
+        session.setAttribute("booking_order", a.size());
+
+        model.addAttribute("booking", a);
+        model.addAttribute("lapangan", b);
+        model.addAttribute("tim",c);
+        return "/page/merchant_booking_order";
     }
 
     @GetMapping("/merchant-search/{id}")
@@ -307,6 +341,7 @@ public class RootController {
         return "page/merchant_lapangan_detail";
     }
 
+
     @PostMapping("/booking")
     public String booking(
             TrBookingLapangan a,
@@ -345,6 +380,47 @@ public class RootController {
             return "redirect:/detail-lapangan/"+la.getIdLapangan();
         }
     }
+
+    @GetMapping("/konfirmasi-booking-valid/{id}")
+    public String konfirmasi_booking_valid(
+            @PathVariable int id,
+            HttpSession session
+    ){
+        int idUser = -1;
+        try{
+            idUser = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        MsUser us = userService.getUserById(idUser);
+        TrBookingLapangan a = trBookinglapanganservice.getById(id);
+        a.setModiby(us.getEmail());
+        a.setModidate(LocalDateTime.now());
+        trBookinglapanganservice.update_terkonfirmasi(a);
+
+        return "redirect:/my-merchant-booking-order";
+    }
+
+    @GetMapping("/konfirmasi-booking-invalid/{id}")
+    public String konfirmasi_booking_invalid(
+            @PathVariable int id,
+            HttpSession session
+    ){
+        int idUser = -1;
+        try{
+            idUser = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        MsUser us = userService.getUserById(idUser);
+        TrBookingLapangan a = trBookinglapanganservice.getById(id);
+        a.setModiby(us.getEmail());
+        a.setModidate(LocalDateTime.now());
+        trBookinglapanganservice.update_gagal(a);
+
+        return "redirect:/my-merchant-booking-order";
+    }
+
     // ===================================MANAGER TIM ====================================
 
     @GetMapping("/my-tim")
@@ -501,5 +577,14 @@ public class RootController {
         }
         out = bill_booking + pendaftaran;
         return out;
+    }
+
+    public int get_notif_merchant(int id){
+
+        try{
+            return trBookinglapanganservice.getAllDiprosesByIdMerchant(merchantService.getMerchantByIdUser(id).getId_merchant()).size();
+        }catch (Exception e){
+            return 0;
+        }
     }
 }

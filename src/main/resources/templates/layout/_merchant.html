@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="/css/fontawesome-free-5.15.3-web/css/all.css">
     <link rel="stylesheet" href="/css/custome/index.css">
     <link rel="icon" type="image/x-icon" href="/images/assets/bola.png" />
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+<!--    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">-->
+<!--    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">-->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -19,7 +20,7 @@
 </head>
 <body>
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-dark" style="width: 280px; height: 100%; position: fixed; z-index: 1;">
-    <h4 class="text-light" th:text="${session.nama_merchant}"></h4>
+    <h4 class="text-light" th:text="${session.merchant.nama}"></h4>
     <div style="border-bottom: 2px solid whitesmoke; margin-bottom: 10px"></div>
     <ul class="nav nav-pills flex-column mb-auto">
         <li>
@@ -30,15 +31,27 @@
         </li>
         <br/>
         <li>
-            <a href="#" class="nav-link link-dark">
+            <a href="/my-merchant-booking-order" class="nav-link link-dark">
                 <span class="fa fa-table"></span>
-                &nbsp&nbsp&nbsp Booking Order
+                &nbsp&nbsp&nbsp Booking Order  <span class="badge badge-danger badge-pill" th:if="${session.booking_order > 0}" th:text="${session.booking_order}"></span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-dark">
+                <span class="fa fa-clock"></span>
+                &nbsp&nbsp&nbsp Processed Order
             </a>
         </li>
         <li>
             <a href="#" class="nav-link link-dark">
                 <span class="fa fa-money-bill"></span>
                 &nbsp&nbsp&nbsp Finished Order
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-dark">
+                <span class="fa fa-times"></span>
+                &nbsp&nbsp&nbsp Invalid Order
             </a>
         </li>
         <br/>
@@ -71,7 +84,7 @@
     </a>
 
 </div>
-<div layout:fragment="content">
+<div layout:fragment="content" style="margin-left: 280px">
     <p>Changing contents</p>
 </div>
 </body>

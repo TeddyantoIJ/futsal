@@ -1,7 +1,9 @@
 package ac.id.polman.astra.futsal.service;
 
+import ac.id.polman.astra.futsal.model.MsLapangan;
 import ac.id.polman.astra.futsal.model.TrBookingLapangan;
 import ac.id.polman.astra.futsal.model.TrJadwalLapangan;
+import ac.id.polman.astra.futsal.repository.LapanganRepository;
 import ac.id.polman.astra.futsal.repository.TrBookingLapanganRepository;
 import ac.id.polman.astra.futsal.repository.TrJadwalLapanganRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ public class Tr_booking_lapangan_service {
     TrBookingLapanganRepository trBookingLapanganRepository;
     @Autowired
     TrJadwalLapanganRepository trJadwalLapanganRepository;
+    @Autowired
+    LapanganRepository lapanganRepository;
 
     public List<TrBookingLapangan> getAll(){
         List<TrBookingLapangan> a = trBookingLapanganRepository.findAllByOrderByTanggalAscJamAsc();
@@ -58,6 +62,27 @@ public class Tr_booking_lapangan_service {
                 c.add(b);
             }
         }
+        return c;
+    }
+
+    public List<TrBookingLapangan> getAllDiprosesByIdMerchant(int id){
+        System.out.println("getAllDiprosesByIdMerchant");
+        List<MsLapangan> lapangan = lapanganRepository.findAllByIdMerchant(id);
+        List<TrBookingLapangan> a = getAll();
+        List<TrBookingLapangan> c = new ArrayList<>();
+        for(TrBookingLapangan b : a){
+            System.out.println("getAllDiprosesByIdMerchant 1");
+            if(b.getId_status() == 2){
+                System.out.println("getAllDiprosesByIdMerchant 2");
+                for(MsLapangan d : lapangan){
+                    System.out.println("ID LAPANGAN BOOKING : " + b.getId_lapangan() + "\nID LAPANGAN MERCHANT : " + d.getIdLapangan());
+                    if(d.getIdLapangan() == b.getId_lapangan()){
+                        c.add(b);
+                    }
+                }
+            }
+        }
+        System.out.println(c.size());
         return c;
     }
 
@@ -197,6 +222,40 @@ public class Tr_booking_lapangan_service {
 
     public void update_batal(TrBookingLapangan a){
         a.setStatus(0);
+        trBookingLapanganRepository.save(a);
+    }
+
+    public void update_terkonfirmasi(TrBookingLapangan a){
+        a.setId_status(3);
+
+        List<TrBookingLapangan> tj = new ArrayList<>();
+        SimpleDateFormat fm = new SimpleDateFormat("HH:mm");
+        tj = getAllByIdLapangan(a.getId_lapangan());
+        for (TrBookingLapangan t : tj ) {
+            if(t.getTanggal().compareTo(a.getTanggal()) == 0 && t.getId_status() == 2){
+                int jadwal_lama_mulai = Integer.parseInt(t.getJam().toString().split(":")[0]);
+                int jadwal_lama_selesai = jadwal_lama_mulai + t.getDurasi1();
+                int jadwal_baru_mulai = Integer.parseInt(a.getJam().toString().split(":")[0]);
+                int jadwal_baru_selesai = jadwal_baru_mulai + a.getDurasi1();
+
+                if(jadwal_lama_mulai == jadwal_baru_mulai){
+                    System.out.println("update_terkonfirmasi JADWAL SAMA DENGAN JADWAL ID : " + t.getId());
+                    update_gagal(t);
+                }else if(jadwal_lama_mulai < jadwal_baru_mulai && jadwal_lama_selesai > jadwal_baru_mulai){
+                    System.out.println("update_terkonfirmasi JADWAL TABRAKAN 1 DENGAN JADWAL ID : " + t.getId());
+                    update_gagal(t);
+                }else if(jadwal_baru_mulai < jadwal_lama_mulai && jadwal_baru_mulai > jadwal_lama_mulai){
+                    System.out.println("update_terkonfirmasi JADWAL TABRAKAN 2 DENGAN JADWAL ID : " + t.getId());
+                    update_gagal(t);
+                }else if(jadwal_lama_mulai < jadwal_baru_mulai && jadwal_lama_selesai > jadwal_baru_selesai){
+                    System.out.println("update_terkonfirmasi JADWAL TABRAKAN 3 DENGAN JADWAL ID : " + t.getId());
+                    update_gagal(t);
+                }else if(jadwal_baru_mulai < jadwal_lama_mulai && jadwal_baru_selesai > jadwal_lama_selesai){
+                    System.out.println("update_terkonfirmasi JADWAL TABRAKAN 4 DENGAN JADWAL ID : " + t.getId());
+                    update_gagal(t);
+                }
+            }
+        }
         trBookingLapanganRepository.save(a);
     }
 }
