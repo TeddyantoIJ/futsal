@@ -23,13 +23,21 @@ public class UploadController {
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
-    public String upload_bukti_tf(MultipartFile file) {
+    public String upload_bukti_tf(MultipartFile file, String old) {
 
         // check if file is empty
         if (file.isEmpty()) {
             System.out.println("Please select a file to upload.");
         }
+// delete old
+        if(!old.equals("none")){
+            try{
+                Path path = Paths.get(UPLOAD_DIR_BUKTI_TF + old);
+                Files.delete(path);
+            }catch (Exception e){
 
+            }
+        }
 
         // normalize the file path
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -48,6 +56,15 @@ public class UploadController {
         // return success response
         System.out.println("You successfully uploaded " + fileName + '!');
         return fileName;
+    }
+
+    public void hapus_bukti_tf(String file){
+        try{
+            Path path = Paths.get(UPLOAD_DIR_BUKTI_TF + file);
+            Files.delete(path);
+        }catch (Exception e){
+
+        }
     }
 
     public String uploadFotoMerchant(MultipartFile file, String old) {

@@ -11,9 +11,9 @@
     <br/><br/>
     <div class="container">
         <br/><br/>
-        <h4 th:if="${bill_pendaftaran.id != -1}" class="font-weight-bold text-dark text-center" style="text-transform: uppercase">my registration bill</h4>
+        <h4 th:if="${bill_pendaftaran.id != -1 and bill_pendaftaran.id_status != 5}" class="font-weight-bold text-dark text-center" style="text-transform: uppercase">my registration bill</h4>
         <hr/>
-        <div th:if="${bill_pendaftaran.id != -1}" class="card shadow">
+        <div th:if="${bill_pendaftaran.id != -1 and bill_pendaftaran.id_status != 5}" class="card shadow">
             <div class="card-body">
                 <h6 class="text-danger font-weight-light">
                     <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
@@ -54,6 +54,14 @@
         </div>
         <br/>
         <h4 th:if="${bill_booking.size() > 0}" class="font-weight-bold text-dark text-center" style="text-transform: uppercase">my order bill</h4>
+        <p class="text-danger font-weight-bold">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Note<br/>
+            <span class="text-dark">
+                1. If there is another order process being processed, your order will still be accepted by us.<br/>
+                2. If another order turns out to be valid and first, we will refund your money.<br/>
+                3. 100% money back guarantee.
+            </span>
+        </p>
         <hr/>
         <div th:each="book : ${bill_booking}" class="card shadow" style="margin-top: 5px">
             <div class="card-body">
@@ -75,10 +83,14 @@
                 </p>
 
 
-                <form action="/bayar_pendaftaran" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="id" th:value="${bill_pendaftaran.id}">
+                <form action="/bayar_booking" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" th:value="${book.id}">
                     <!-- Button trigger modal -->
-                    <label style="cursor:pointer" class="text-muted" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-file-upload text-muted" aria-hidden="true"></i> Select File</label>
+                    <label style="cursor:pointer" class="text-muted" data-toggle="modal" data-target="#exampleModal">
+                        <i class="fa fa-file-upload text-muted" aria-hidden="true"></i>
+                        Select File
+                        <span class="text-danger font-weight-bold">make sure you have entered the file correctly to continue the ordering process!</span>
+                    </label>
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -99,11 +111,24 @@
                         </div>
                     </div>
                     <br/>
-                    <button class="btn btn-primary float-right">Send</button>
+                    <div class="row">
+                        <div class="col float-right">
+                            <a th:href="'/batal_booking/' + ${book.id}" class="btn btn-danger float-right font-weight-bold" style="margin-left: 5px"
+                            onclick="return confirm('By pressing YES/OK you will cancel this order, cancel order?')">
+                                Cancel Order
+                                <i class="fa fa-trash text-light" aria-hidden="true"></i>
+                            </a>
+                            <button class="btn btn-success float-right font-weight-bold">
+                                Send now
+                                <i class="fa fa-paper-plane text-light" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+    <br/><br/>
 </div>
 </body>
 </html>

@@ -67,6 +67,12 @@ public class RootController {
                 id = (int) session.getAttribute("id_user");
                 int bill = get_notif_bill(id);
                 session.setAttribute("bill", bill);
+                if(bill > 0){
+                    session.setAttribute("notif", true);
+                }else{
+                    session .setAttribute("notif", false);
+                }
+
             }
         }catch (Exception e){
 
@@ -116,7 +122,7 @@ public class RootController {
         session.removeAttribute("user");
         session.removeAttribute("tim");
         session.removeAttribute("bill");
-
+        session.removeAttribute("notif");
         return "redirect:/";
     }
 
@@ -438,17 +444,43 @@ public class RootController {
         return "page/bill";
     }
 
-    @PostMapping("bayar_pendaftaran")
+    @PostMapping("/bayar_pendaftaran")
     public String bayar_pendaftaran(
             @RequestParam("bukti_transfer") MultipartFile file,
             @RequestParam("id") int id){
 
         TrPendaftaranMerchant a = pendaftaran_merchant_service.getPendaftaran(id);
         a.setModidate(LocalDateTime.now());
-        a.setBukti_transfer(uploadController.upload_bukti_tf(file));
-        a.setId_status(2);
+        a.setBukti_transfer(uploadController.upload_bukti_tf(file, "none"));
+        a.setId_status(5);
         pendaftaran_merchant_service.save(a);
         return "redirect:/bill";
+    }
+
+    @PostMapping("/bayar_booking")
+    public String bayar_booking(
+            @RequestParam("bukti_transfer") MultipartFile file,
+            @RequestParam("id") int id){
+
+        TrBookingLapangan a = trBookinglapanganservice.getById(id);
+        a.setModidate(LocalDateTime.now());
+        a.setBukti_transfer(uploadController.upload_bukti_tf(file, "none"));
+        a.setId_status(2);
+        if(trBookinglapanganservice.save(a)){
+            return "redirect:/";
+        }else{
+            uploadController.hapus_bukti_tf(a.getBukti_transfer());
+            return "redirect:/bill";
+        }
+    }
+
+    @GetMapping("/batal_booking/{id}")
+    public String batal_booking(
+            @PathVariable int id)
+    {
+        TrBookingLapangan a = trBookinglapanganservice.getById(id);
+        trBookinglapanganservice.update_batal(a);
+        return "redirect:/";
     }
 
     public int get_notif_bill(int id){

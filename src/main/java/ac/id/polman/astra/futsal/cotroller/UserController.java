@@ -128,6 +128,7 @@ public class UserController {
         msUser.setModidate(LocalDateTime.now());
         msUser.setStatus(oldUser.getStatus());
         msUser.setIdAkun(oldUser.getIdAkun());
+        msUser.setIdTim(oldUser.getIdTim());
         String foto;
 
         if(!file.isEmpty()){
