@@ -14,7 +14,7 @@
                 <ol class="breadcrumb bg-white">
                     <li class="breadcrumb-item">Dashboard</li>
                     <li class="breadcrumb-item">Role</li>
-                    <li class="breadcrumb-item text-blue" aria-current="page">Tambah Data</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Add Data</li>
                 </ol>
             </nav>
             <!-- /Breadcrumb -->
@@ -28,12 +28,12 @@
                 <div class="card-body">
                     <form th:action="@{addRole}" th:object="${msRole}" method="post" enctype="multipart/form-data" >
                         <div class="form-group">
-                            <label for="role">Nama Role <span style="color: red">*</span> </label>
-                            <input class="form form-control" type="text" name="role" id="role" placeholder="Nama Role" required>
+                            <label for="role">Role Name<span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="role" id="role" placeholder="Role Name" required>
                         </div>
 
-                        <button class="btn btn-outline-primary">Simpan</button>
-                        <a class="btn btn-outline-secondary" href="/Role">Kembali</a>&#32
+                        <button class="btn btn-outline-primary">Save</button>
+                        <a class="btn btn-outline-secondary" href="/Role">Back</a>&#32
                     </form>
                 </div>
             </div>

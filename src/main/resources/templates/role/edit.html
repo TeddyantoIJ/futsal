@@ -14,7 +14,7 @@
                 <ol class="breadcrumb bg-white">
                     <li class="breadcrumb-item">Dashboard</li>
                     <li class="breadcrumb-item">Role</li>
-                    <li class="breadcrumb-item text-blue" aria-current="page">Ubah Data</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Edit Data</li>
                 </ol>
             </nav>
             <!-- /Breadcrumb -->
@@ -30,12 +30,12 @@
                         <div class="form-group">
                             <input type="hidden" name="idRole" th:value="${msRole.idRole}">
 
-                            <label for="role">Nama Role <span style="color: red">*</span> </label>
+                            <label for="role">Role Name<span style="color: red">*</span> </label>
                             <input class="form form-control" type="text" name="role" id="role" th:value="${msRole.role}" th:placeholder="${msRole.role}" required>
                         </div>
 
-                        <button class="btn btn-outline-primary">Simpan</button>
-                        <a class="btn btn-outline-secondary" href="/Role">Kembali</a>&#32
+                        <button class="btn btn-outline-primary">Save</button>
+                        <a class="btn btn-outline-secondary" href="/Role">Back</a>&#32
                     </form>
                 </div>
             </div>

@@ -3,7 +3,7 @@
        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
        layout:decorate="/template/admines">
 <head>
-    <title>Fasilitas</title>
+    <title>Facilities</title>
 </head>
 
 <div layout:fragment="content">
@@ -13,8 +13,8 @@
             <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb bg-white">
                     <li class="breadcrumb-item">Dashboard</li>
-                    <li class="breadcrumb-item">Fasilitas</li>
-                    <li class="breadcrumb-item text-blue" aria-current="page">Tambah Data</li>
+                    <li class="breadcrumb-item">Facilities</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Add Data</li>
                 </ol>
             </nav>
             <!-- /Breadcrumb -->
@@ -23,13 +23,13 @@
         <div class="container mt-4">
             <div class="card mb-4">
                 <div class="card-header">
-                    Form Fasilitas
+                    Form Facilities
                 </div>
                 <div class="card-body">
                     <form th:action="@{addFasilitas}" th:object="${msFasilitas}" method="post" enctype="multipart/form-data" >
                         <div class="form-group">
-                            <label for="fasilitas">Fasilitas <span style="color: red">*</span> </label>
-                            <input class="form form-control" type="text" name="fasilitas" id="fasilitas" placeholder="Fasilitas"  required>
+                            <label for="fasilitas">Facilities <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="fasilitas" id="fasilitas" placeholder="Facilities"  required>
                         </div>
 
                         <div class="form-group">
@@ -37,8 +37,8 @@
                             <input class="form form-control" onchange="see()" type="text" name="icon" id="icon" placeholder="Icon"  required>
                         </div>
 
-                        <button class="btn btn-outline-primary">Simpan</button>
-                        <a class="btn btn-outline-secondary" href="/Fasilitas">Kembali</a>&#32
+                        <button class="btn btn-outline-primary">Save</button>
+                        <a class="btn btn-outline-secondary" href="/Fasilitas">Back</a>
                     </form>
                 </div>
             </div>

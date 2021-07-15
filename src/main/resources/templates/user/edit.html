@@ -3,7 +3,7 @@
        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
        layout:decorate="/template/admines">
 <head>
-    <title>User</title>
+    <title>Users</title>
 </head>
 
 <div layout:fragment="content">
@@ -13,8 +13,8 @@
             <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb bg-white">
                     <li class="breadcrumb-item">Dashboard</li>
-                    <li class="breadcrumb-item">User</li>
-                    <li class="breadcrumb-item text-blue" aria-current="page">Ubah Data</li>
+                    <li class="breadcrumb-item">Users</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Edit Data</li>
                 </ol>
             </nav>
             <!-- /Breadcrumb -->
@@ -38,7 +38,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Nama</h6>
+                                    <h6 class="mb-0">Firstname</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <label th:text="${userObj.namaDepan}"></label>
@@ -47,7 +47,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Belakang</h6>
+                                    <h6 class="mb-0">Lastname</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <label th:text="${userObj.namaBelakang}"></label>
@@ -65,7 +65,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Telepon</h6>
+                                    <h6 class="mb-0">Telephon</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <label th:text="${userObj.telephone}"></label>
@@ -74,7 +74,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Tanggal Lahir</h6>
+                                    <h6 class="mb-0">Date Of Birth</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <label th:text="${userObj.tanggalLahir}"></label>
@@ -83,7 +83,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Jenis Kelamin</h6>
+                                    <h6 class="mb-0">Gender</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <label th:if="${userObj.jenisKelamin == 'L'}" >Laki - Laki</label>
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                             <br/>
-                            <a class="btn btn-outline-secondary" href="/User">Kembali</a>
+                            <a class="btn btn-outline-secondary" href="/User">Back</a>
                         </div>
                     </div>
                 </div>

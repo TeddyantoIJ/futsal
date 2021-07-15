@@ -3,7 +3,7 @@
        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
        layout:decorate="/template/admines">
 <head>
-    <title>Biaya</title>
+    <title>Cost</title>
 </head>
 
 <div layout:fragment="content">
@@ -13,8 +13,8 @@
             <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb bg-white">
                     <li class="breadcrumb-item">Dashboard</li>
-                    <li class="breadcrumb-item">Biaya</li>
-                    <li class="breadcrumb-item text-blue" aria-current="page">Tambah Data</li>
+                    <li class="breadcrumb-item">Cost</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Add Data</li>
                 </ol>
             </nav>
             <!-- /Breadcrumb -->
@@ -23,22 +23,22 @@
         <div class="container mt-4">
             <div class="card mb-4">
                 <div class="card-header">
-                    Form Biaya
+                    Form Cost
                 </div>
                 <div class="card-body">
                     <form th:action="@{addBiaya}" th:object="${msBiaya}" method="post" enctype="multipart/form-data" >
                         <div class="form-group">
-                            <label for="nominal">Nominal <span style="color: red">*</span> </label>
-                            <input class="form form-control" type="text" name="nominal" id="nominal" placeholder="Nominal" required>
+                            <label for="nominal">Cost <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="nominal" id="nominal" placeholder="Cost" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="keterangan">Keterangan <span style="color: red">*</span> </label>
-                            <input class="form form-control" type="text" name="keterangan" id="keterangan" placeholder="Keterangan" required>
+                            <label for="keterangan">Information <span style="color: red">*</span> </label>
+                            <input class="form form-control" type="text" name="keterangan" id="keterangan" placeholder="Information" required>
                         </div>
 
-                        <button class="btn btn-outline-primary">Simpan</button>
-                        <a class="btn btn-outline-secondary" href="/Biaya">Kembali</a>&#32
+                        <button class="btn btn-outline-primary">Save</button>
+                        <a class="btn btn-outline-secondary" href="/Biaya">Back</a>&#32
                     </form>
                 </div>
             </div>

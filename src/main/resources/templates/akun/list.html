@@ -10,7 +10,7 @@
 <br/><br/>
 <div class="container">
     <center>
-        <h1>DAFTAR AKUN</h1>
+        <h1>Account Registration</h1>
         <hr/>
     </center>
     <div class="row">
@@ -47,8 +47,7 @@
                                 <a th:href="@{'Akun-detail?id_Akun='+${item.idAkun}}" class="btn btn-success form-control">Detail</a>
                             </div>
                             <div class="col">
-                                <a th:if="${item.status == 1}" th:href="@{'deleteAkun?id_akun='+${item.idAkun}}" class="btn btn-danger form-control">Hapus</a>
-                                <a th:if="${item.status == 0}" th:href="@{'undoAkun?id_akun='+${item.idAkun}}" class="btn btn-primary form-control">Aktifkan</a>
+                                <a th:if="${item.status == 1}" th:href="@{'deleteAkun?id_akun='+${item.idAkun}}" class="btn btn-danger form-control">Delete</a>
                             </div>
                         </div>
 
@@ -61,7 +60,7 @@
     <div class="row">
         <div class="col">
             <a class="btn btn-outline-secondary" href="/">
-                Kembali
+                Back
             </a>
         </div>
     </div>
