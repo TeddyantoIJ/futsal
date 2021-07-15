@@ -14,6 +14,12 @@ public interface UserRepository extends CrudRepository<MsUser, Integer> {
     @Query("select * from ms_user where id_akun =:id_akun")
     MsUser findByIdAkun(@Param("id_akun") int id_akun);
 
+    @Query("select * from ms_user where id_tim =:id_tim")
+    List<MsUser> findByIdTim(@Param("id_tim") int id_tim);
+
+    @Query("select * from ms_user where id_tim =:null")
+    List<MsUser> findByIdTimNull();
+
     @Query("select * from ms_user where status =:status")
     List<MsUser> findAllByStatus(@Param("status") int status);
 }

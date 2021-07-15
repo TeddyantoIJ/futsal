@@ -11,6 +11,6 @@ public interface DaftarTimRepository extends CrudRepository<TrDaftarTim, Integer
     @Query("select * from tr_daftartim where id =:id")
     TrDaftarTim findAllById(@Param("id") int id);
 
-    @Query("select * from dt_daftartim where id_tim =:id_tim")
+    @Query("select * from dt_daftartim where id_tim =:id_tim ORDER BY id_status ASC")
     List<TrDaftarTim> findAllByIdTim(@Param("id_tim") int id_tim);
 }

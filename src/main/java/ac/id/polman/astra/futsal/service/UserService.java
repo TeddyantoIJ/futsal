@@ -18,6 +18,16 @@ public class UserService {
         return msUserList;
     }
 
+    public List<MsUser> getAllByTimNUll(){
+        List<MsUser> msUserList = (List<MsUser>) userRepository.findByIdTimNull();
+        return msUserList;
+    }
+
+    public List<MsUser> getAllByTim(Integer tim){
+        List<MsUser> msUserList = (List<MsUser>) userRepository.findByIdTim(tim);
+        return msUserList;
+    }
+
     public List<MsUser> findAllByStatus(int status){
         List<MsUser> userlist = new ArrayList<>();
         userlist = userRepository.findAllByStatus(status);

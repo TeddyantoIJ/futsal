@@ -1,10 +1,12 @@
 package ac.id.polman.astra.futsal.service;
 
+import ac.id.polman.astra.futsal.model.MsMerchant;
 import ac.id.polman.astra.futsal.model.MsTim;
 import ac.id.polman.astra.futsal.repository.TimRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,6 +45,21 @@ public class TimService {
             }
         }
         return c;
+    }
+
+    public List<MsTim> getTeamByName(String cari){
+        List<MsTim> a = getAllActive();
+        List<MsTim> output = new ArrayList<>();
+        for (MsTim b : a)
+        {
+            if(b.getNama().toLowerCase().contains(cari.toLowerCase())
+                    || b.getNama().toLowerCase().contains(cari.toLowerCase())
+                    || b.getPrivat().toString().toLowerCase().contains(cari.toLowerCase())
+                    || b.getTipePemain().toString().toLowerCase().contains(cari.toLowerCase())){
+                output.add(b);
+            }
+        }
+        return output;
     }
 
     public MsTim getTimByNama(String nama){

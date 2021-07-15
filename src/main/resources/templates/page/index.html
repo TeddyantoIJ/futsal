@@ -161,8 +161,7 @@
                     <a href="/Tim-add" class="btn btn-primary form-control" style="margin-top: 10px;">Create Your Own Team</a>
                     <a href="/my-tim" class="btn btn-danger form-control" style="margin-top: 10px;">Go To My Team</a>
                 </div>
-<!--
-<!--                DATA TIM TIM -->
+<!-- DATA TIM TIM -->
                 <div class="col-9">
                     <div class="row">
                         <div class="col-sm-4 Child collapse" style="margin-top: 5px" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain == 1}">
@@ -186,9 +185,9 @@
                             <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
                         </div>
                         <div class="col-sm-4 Mix collapse" style="margin-top: 5px" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain == 5}">
-                            <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
+                            <p th:id="nametim" class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
                             <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
-                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
+                            <a th:id="buttonjoin" class="btn btn-primary text-light text-center name-team-our-teams form-control" th:value="${Tim.idTim}" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
                         </div>
                     </div>
                 </div>
@@ -211,8 +210,7 @@
                 <form th:action="@{addTim}" th:object="${timObj}" method="post" enctype="multipart/form-data" >
                     <div class="modal-body">
                         <label class="font-weight-bold text-black" for="alasan">Reason<span style="color: red">*</span> </label>
-                        <input class="form form-control" placeholder="Reason" type="text" name="alasan" id="alasan"  required>
-
+                        <input class="form form-control"  placeholder="Reason" type="text" name="alasan" id="alasan"  required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1042,4 +1040,14 @@
 
 <br/><br/><br/>
 </body>
+
+<script type="text/javascript">
+    $("#buttonjoin").click(function () {
+        var name = $("#nametim").val();
+        var str = "You Have Entered "
+            + "Name: " + name;
+        $("#nametimmodal").html(str);
+    });
+</script>
+
 </html>

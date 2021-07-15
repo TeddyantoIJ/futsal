@@ -191,7 +191,6 @@ public class RootController {
         return "page/all_merchant";
     }
 
-
     @GetMapping("/merchant-create")
     public String goto_merchant_create(
             Model model,
@@ -449,8 +448,28 @@ public class RootController {
     // ======================================= TEAM ======================================
 
     @GetMapping("/team-show-all")
-    public String goto_team_show_all(){
-        return "";
+    public String goto_team_show_all(
+            Model model,
+            HttpSession session,
+            @RequestParam("search") Optional<String> search
+    ) {
+        try {
+            if ((boolean) session.getAttribute("login")) {
+
+            }
+        } catch (Exception e) {
+            session.setAttribute("login", false);
+        }
+
+        List<MsTim> a = new ArrayList<>();
+        if (!search.isPresent() || search.get().equals("")) {
+            a = timService.getAllActive();
+        } else {
+            a = timService.getTeamByName(search.get());
+        }
+
+        model.addAttribute("timList", a);
+        return "page/all_team";
     }
 
     @GetMapping("/team-create")

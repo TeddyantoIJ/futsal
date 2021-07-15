@@ -1,7 +1,11 @@
 package ac.id.polman.astra.futsal.cotroller;
 
+import ac.id.polman.astra.futsal.model.MsAkun;
 import ac.id.polman.astra.futsal.model.MsTim;
+import ac.id.polman.astra.futsal.model.MsUser;
+import ac.id.polman.astra.futsal.service.AkunService;
 import ac.id.polman.astra.futsal.service.TimService;
+import ac.id.polman.astra.futsal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +23,12 @@ import java.util.List;
 public class TimController {
     @Autowired
     TimService timService;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    AkunService akunService;
 
     @GetMapping("/Tim")
     public String getTim(Model model){
@@ -67,7 +77,7 @@ public class TimController {
     // ================================================================
     @PostMapping("/addTim")
     public String addTim(
-            MsTim msTim,
+            MsTim msTim, MsUser msUser, MsAkun msAkun,
             @RequestParam("file") MultipartFile file,
             @RequestParam("file1") MultipartFile file1, HttpSession session){
         int idus = -1;
@@ -89,8 +99,19 @@ public class TimController {
         msTim.setModiby("");
         msTim.setModidate(LocalDateTime.now());
         msTim.setStatus(1);
-
         timService.saveTim(msTim);
+
+        //update user terdapat idtim
+        MsUser a = userService.getUserById(idus);
+        a.setIdUser(idus);
+        a.setIdTim(msTim.getIdTim());
+        userService.update(a);
+
+        //update user punya akses manager tim
+        MsAkun b = akunService.getAkunByIdAkun(a.getIdAkun());
+        b.setIdAkun(a.getIdAkun());
+        b.setIdRole(4);
+        akunService.update(b);
         return "redirect:/page-login";
     }
 

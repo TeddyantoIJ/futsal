@@ -4,46 +4,63 @@
       layout:decorate="/layout/_team">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
 </head>
 <body>
-<div layout:fragment="content" style="margin-left: 280px">
-    <section></section>
-    <section>
-        <br/>
-        <br/>
-        <label><center>KONFIRMASI ANGGOTA</center></label>
-    </section>
-    <section>
-        <div class="container">
-            <div class="table-responsive pt-2">
-                <div class="datatable">
-                    <table class="table table-bordered table-hover table-striped nowrap" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th class="text-center min-wd-50">No</th>
-                            <th class="text-center">User</th>
-                            <th class="text-center">Alasan</th>
-                            <th class="text-center">Status</th>
-                            <th class="text-center min-wd-50">Aksi</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="item, iter: ${listTim}">
-                            <td><span th:text="${iter.count}"></span></td>
-                            <td th:each="itemuser:${listUser}" th:if="${itemuser.idUser ==item.idUser}" th:text="${itemuser.namaDepan}"></td>
-                            <td th:text="${item.alasan}"></td>
-                            <td th:each="itemstatus:${listStatus}" th:if="${itemstatus.idStatus==item.idStatus}" th:text="${itemstatus.keterangan}"></td>
-                            <td class="text-center">
-                                <a th:href="@{'konfirmasi-Anggota?id='+${item.id}}" class="btn btn-danger"  onclick="return confirm('Tekan OK untuk konfirmasi')"><i data-feather="check-circle"></i>  Konfirmasi</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+<div layout:fragment="content">
+    <main>
+        <header>
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Manager Tim</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Member Confirm</li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+        </header>
+
+        <div class="container-fluid mt-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Data Players
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive pt-2">
+                        <div class="datatable">
+                            <table class="table table-bordered table-hover table-striped nowrap" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th class="text-center min-wd-50">No</th>
+                                    <th class="text-center">User</th>
+                                    <th class="text-center">Reason</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center min-wd-50">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item, iter: ${listTim}">
+                                    <td><span th:text="${iter.count}"></span></td>
+                                    <td th:each="itemuser:${listUser}" th:if="${itemuser.idUser ==item.idUser}" th:text="${itemuser.namaDepan}"></td>
+                                    <td th:text="${item.alasan}"></td>
+                                    <td th:each="itemstatus:${listStatus}" th:if="${itemstatus.idStatus==item.idStatus}" th:text="${itemstatus.keterangan}"></td>
+                                    <td class="text-center" th:if="${item.idStatus==2}">
+                                        <a th:href="@{'konfirmasi-Anggota?id='+${item.id}}" class="btn btn-primary" style="width: 100px;" onclick="return confirm('Tekan OK untuk konfirmasi')">Confirm</a>
+                                        <a th:href="@{'Tolak-AnggotaTim?id='+${item.id}}" class="btn btn-danger" style="width: 100px;" onclick="return confirm('Tekan OK untuk menolak')">Reject</a>
+                                    </td>
+                                    <td class="text-center" th:if="${item.idStatus!=2}">
+                                        <label >-</label>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </main>
+
 </div>
 </body>
 </html>

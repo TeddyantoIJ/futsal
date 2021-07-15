@@ -37,7 +37,14 @@ public class AkunService {
     }
 
     //===================================
-    public void saveAkun(MsAkun msAkun){
+    public Boolean saveAkun(MsAkun msAkun){
+        List<MsAkun> akuns = getAllAkun();
+        for(MsAkun a:akuns){
+            if(a.getUsername()==a.getUsername()){
+                return false;
+            }
+        }
         akunRepository.save(msAkun);
+        return true;
     }
 }

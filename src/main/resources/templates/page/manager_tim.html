@@ -4,62 +4,152 @@
       layout:decorate="/layout/_team">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
 </head>
 <body>
-<div layout:fragment="content" style="margin-left: 280px">
-    <div style="width: 100%; height: 600px;">
-        <img th:src="'/images/tim/banner/'+${tim.banner}" style="height: 100%; width: 100%; object-position: center">
-    </div>
-    <section>
-        <div class="container">
-            <input type="file" title="Change banner" class="form-control-file">
-            <br/>
-            <div class="row">
-                <div class="col-3">
-                    <img th:src="'/images/tim/logo/' + ${tim.logo}" style="height: 200px; width: 200px; object-fit: cover; object-position: center" class="card-img">
-                    <input type="file" title="Change pictures" class="form-control-file">
+<div layout:fragment="content">
+    <main>
+        <header>
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Manager Tim</a></li>
+                    <li class="breadcrumb-item active" aria-current="page" th:text="${tim.nama}"></li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+        </header>
+
+        <div class="container mt-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row form-group">
+                        <img class="card card-body card-img" th:src="'/images/tim/banner/'+${tim.banner}" width="300px" height="400px">
+                    </div>
                 </div>
-                <div class="col-9">
-                    <div class="row">
-                        <div class="col-2">Name</div>
-                        <div class="col font-weight-light">
-                            <input type="text" class="form-control" th:value="${tim.nama}">
-                        </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <!-- Change password card-->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img class="card card-body card-img" th:src="'/images/tim/logo/' + ${tim.logo}" style="height: 300px;">
+                            </div>
+                        </div><br>
                     </div>
-                    <div class="row">
-                        <div class="col-2">date established</div>
-                        <div class="col font-weight-light">
-                            <input type="text" class="form-control" th:value="${tim.tglBerdiri}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2">Player Type</div>
-                        <div class="col font-weight-light">
-                            <input type="text" th:if="${tim.tipePemain == 1}" value="anak - anak" class="form-control">
-                            <input type="text" th:if="${tim.tipePemain == 2}" value="Dewasa" class="form-control">
-                            <input type="text" th:if="${tim.tipePemain == 3}" value="Laki - laki" class="form-control">
-                            <input type="text" th:if="${tim.tipePemain == 4}" value="Perempuan" class="form-control">
-                            <input type="text" th:if="${tim.tipePemain == 5}" value="Bebas" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2">Private</div>
-                        <div class="col font-weight-light wrapText">
-                            <input class="form-control"th:if="${tim.privat == 1}" value="Ya">
-                            <input class="form-control"th:if="${tim.privat == 0}" value="Tidak">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <button type="submit" class="btn btn-primary float-right">Save Changes</button>
+                </div>
+                <div class="col-lg-8">
+                    <!-- Delete account card-->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" th:value="${tim.nama}">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">date established</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" th:value="${tim.tglBerdiri}">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Private</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input class="form-control"th:if="${tim.privat == 1}" value="Ya">
+                                    <input class="form-control"th:if="${tim.privat == 0}" value="Tidak">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Player Type</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" th:if="${tim.tipePemain == 1}" value="anak - anak" class="form-control">
+                                    <input type="text" th:if="${tim.tipePemain == 2}" value="Dewasa" class="form-control">
+                                    <input type="text" th:if="${tim.tipePemain == 3}" value="Laki - laki" class="form-control">
+                                    <input type="text" th:if="${tim.tipePemain == 4}" value="Perempuan" class="form-control">
+                                    <input type="text" th:if="${tim.tipePemain == 5}" value="Bebas" class="form-control">
+                                </div>
+                            </div>
+
+                            <br/><br/>
+                            <div class="row">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-primary float-right">Save Changes</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <br/>
+    </main>
+
+<!--    <div style="width: 100%; height: 600px;">-->
+<!--        <img th:src="'/images/tim/banner/'+${tim.banner}" style="height: 100%; width: 100%; object-position: center">-->
+<!--    </div>-->
+<!--    <section>-->
+<!--        <div class="container">-->
+<!--            <input type="file" title="Change banner" class="form-control-file">-->
+<!--            <br/>-->
+<!--            <div class="row">-->
+<!--                <div class="col-3">-->
+<!--                    <img th:src="'/images/tim/logo/' + ${tim.logo}" style="height: 200px; width: 200px; object-fit: cover; object-position: center" class="card-img">-->
+<!--                    <input type="file" title="Change pictures" class="form-control-file">-->
+<!--                </div>-->
+<!--                <div class="col-9">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-2">Name</div>-->
+<!--                        <div class="col font-weight-light">-->
+<!--                            <input type="text" class="form-control" th:value="${tim.nama}">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-2">date established</div>-->
+<!--                        <div class="col font-weight-light">-->
+<!--                            <input type="text" class="form-control" th:value="${tim.tglBerdiri}">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-2">Player Type</div>-->
+<!--                        <div class="col font-weight-light">-->
+<!--                            <input type="text" th:if="${tim.tipePemain == 1}" value="anak - anak" class="form-control">-->
+<!--                            <input type="text" th:if="${tim.tipePemain == 2}" value="Dewasa" class="form-control">-->
+<!--                            <input type="text" th:if="${tim.tipePemain == 3}" value="Laki - laki" class="form-control">-->
+<!--                            <input type="text" th:if="${tim.tipePemain == 4}" value="Perempuan" class="form-control">-->
+<!--                            <input type="text" th:if="${tim.tipePemain == 5}" value="Bebas" class="form-control">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-2">Private</div>-->
+<!--                        <div class="col font-weight-light wrapText">-->
+<!--                            <input class="form-control"th:if="${tim.privat == 1}" value="Ya">-->
+<!--                            <input class="form-control"th:if="${tim.privat == 0}" value="Tidak">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col">-->
+<!--                            <button type="submit" class="btn btn-primary float-right">Save Changes</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+<!--    <br/>-->
 </div>
 </body>
 </html>
