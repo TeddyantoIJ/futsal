@@ -90,6 +90,9 @@ public class TrJadwalLapangan {
         calendar.add(Calendar.HOUR_OF_DAY, +durasi);
         return calendar.getTime();
     }
+    public int getDurasi1(){
+        return durasi;
+    }
 
     public void setDurasi(int durasi) {
         this.durasi = durasi;

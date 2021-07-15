@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -16,7 +17,7 @@ public class TrBookingLapangan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int id_tim;
+    private int idTim;
     private int id_lapangan;
     private int id_status;
     private int notifikasi;
@@ -44,12 +45,12 @@ public class TrBookingLapangan {
         this.id = id;
     }
 
-    public int getId_tim() {
-        return id_tim;
+    public int getIdTim() {
+        return idTim;
     }
 
-    public void setId_tim(int id_tim) {
-        this.id_tim = id_tim;
+    public void setIdTim(int idTim) {
+        this.idTim = idTim;
     }
 
     public int getId_lapangan() {
@@ -92,10 +93,18 @@ public class TrBookingLapangan {
         this.jam = jam;
     }
 
-    public int getDurasi() {
-        return durasi;
+    public Date getDurasi() {
+        String[] waktu = jam.toString().split(":");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(waktu[0]));
+        calendar.add(Calendar.HOUR_OF_DAY, +durasi);
+        return calendar.getTime();
     }
 
+    public int getDurasi1(){
+        return durasi;
+    }
     public void setDurasi(int durasi) {
         this.durasi = durasi;
     }

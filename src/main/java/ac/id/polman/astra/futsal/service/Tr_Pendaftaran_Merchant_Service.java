@@ -27,7 +27,7 @@ public class Tr_Pendaftaran_Merchant_Service {
         try{
             pendaftaranMerchant = trPendaftaranMerchantRepository.findByIdMerchant(msMerchant.getId_merchant());
         }catch (Exception ex){
-
+            pendaftaranMerchant.setId(-1);
         }
 
         return pendaftaranMerchant;

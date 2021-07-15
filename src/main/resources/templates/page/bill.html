@@ -10,19 +10,94 @@
 <div layout:fragment="content" class="bg-light">
     <br/><br/>
     <div class="container">
-        <br/>
-        <h1 class="font-weight-bold text-light text-center" style="text-transform: uppercase">my bill</h1>
+        <br/><br/>
+        <h4 th:if="${bill_pendaftaran.id != -1}" class="font-weight-bold text-dark text-center" style="text-transform: uppercase">my registration bill</h4>
         <hr/>
-        <div th:if="${listBill.bukti_transfer == null}" class="card shadow">
+        <div th:if="${bill_pendaftaran.id != -1}" class="card shadow">
             <div class="card-body">
-                <h6 class="text-muted font-weight-light">send proof of transfer</h6>
-                <h3 class="font-weight-bold text-dark" th:text="${pembayaran}"></h3>
-                <h2 class="font-weight-bold text-dark" th:text="'Rp ' + ${listBill.nominal}"></h2>
-                <p th:text="${status}"></p><br/>
-                <p th:text="${listBill.creadate}"></p>
-                <form th:action="@{bayar_pendaftaran}" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="id" th:value="${listBill.id}">
-                    <input type="file" name="bukti_transfer" class="form-control" required>
+                <h6 class="text-danger font-weight-light">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    send proof of transfer
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                </h6>
+                <h3 class="font-weight-bold text-dark" th:each="by : ${biaya}" th:if="${by.idBiaya == bill_pendaftaran.id_biaya}" th:text="${by.keterangan.split('/')[2]} + ' ' + ${by.keterangan.split('/')[1]}"></h3>
+                <h2 class="font-weight-bold text-dark"  th:each="by : ${biaya}" th:if="${by.idBiaya == bill_pendaftaran.id_biaya}" th:text="'Rp ' + ${by.nominal}"></h2>
+                <p th:each="st : ${status}" th:if="${st.idStatus == bill_pendaftaran.id_status}" th:text="${st.keterangan}"></p><br/>
+                <p th:text="${bill_pendaftaran.creadate}"></p>
+                <form action="/bayar_pendaftaran" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" th:value="${bill_pendaftaran.id}">
+                    <!-- Button trigger modal -->
+                    <label style="cursor:pointer" class="text-muted" data-toggle="modal" data-target="#exampleModal1"><i class="fa fa-file-upload text-muted" aria-hidden="true"></i> Select File</label>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Select Photo</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="file" name="bukti_transfer" class="form-control-file float-right" accept="image/png, image/gif, image/jpeg" required>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <button class="btn btn-primary float-right">Send</button>
+                </form>
+            </div>
+        </div>
+        <br/>
+        <h4 th:if="${bill_booking.size() > 0}" class="font-weight-bold text-dark text-center" style="text-transform: uppercase">my order bill</h4>
+        <hr/>
+        <div th:each="book : ${bill_booking}" class="card shadow" style="margin-top: 5px">
+            <div class="card-body">
+                <h6 class="font-weight-light text-danger">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    send proof of transfer
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                </h6>
+
+                <h3 class="font-weight-bold text-dark" th:each="lap : ${lapangan}" th:if="${lap.idLapangan == book.id_lapangan}" th:text="'Invoice of order : ' + ${lap.nama}"></h3>
+                <h2 class="font-weight-bold text-dark"  th:each="by : ${biaya}" th:if="${by.idBiaya == bill_pendaftaran.id_biaya}" th:text="'Rp ' + ${by.nominal}"></h2>
+                <p th:each="st : ${status}" th:if="${st.idStatus == book.id_status}" th:text="${st.keterangan}"></p><br/>
+
+                <p class="text-muted font-weight-light">
+                    <span class="fa fa-calendar" aria-hidden="true" style="color: lightgrey"></span>
+                    <span th:text="${#dates.format(book.tanggal, 'dd-MMM-yyyy')}"></span>
+                    <span class="fa fa-clock" aria-hidden="true" style="color: lightgrey"></span>
+                    <span th:text="${#dates.format(book.jam, 'HH:mm')} + ' - ' +${#dates.format(book.getDurasi(), 'HH:mm')}"></span> WIB
+                </p>
+
+
+                <form action="/bayar_pendaftaran" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" th:value="${bill_pendaftaran.id}">
+                    <!-- Button trigger modal -->
+                    <label style="cursor:pointer" class="text-muted" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-file-upload text-muted" aria-hidden="true"></i> Select File</label>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Select Photo</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="file" name="bukti_transfer" class="form-control-file float-right" accept="image/png, image/gif, image/jpeg" required>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <br/>
                     <button class="btn btn-primary float-right">Send</button>
                 </form>

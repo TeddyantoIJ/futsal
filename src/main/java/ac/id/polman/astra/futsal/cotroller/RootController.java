@@ -62,9 +62,14 @@ public class RootController {
 
         try{
             if((boolean) session.getAttribute("login")){
+                int id = -1;
 
+                id = (int) session.getAttribute("id_user");
+                int bill = get_notif_bill(id);
+                session.setAttribute("bill", bill);
             }
         }catch (Exception e){
+
             session.setAttribute("login", false);
         }
         //merchant
@@ -110,6 +115,8 @@ public class RootController {
         session.removeAttribute("id_user");
         session.removeAttribute("user");
         session.removeAttribute("tim");
+        session.removeAttribute("bill");
+
         return "redirect:/";
     }
 
@@ -311,10 +318,14 @@ public class RootController {
 
         a.setJam(new Time(Integer.parseInt(waktu.split(":")[0]),0,0));
         a.setId_status(1);
-        a.setId_tim(us.getIdTim());
+        a.setIdTim(us.getIdTim());
         a.setNotifikasi(0);
-        a.setDp((int) (la.getHarga() * a.getDurasi()) / 2);
-        a.setSub_harga((int) (la.getHarga() * a.getDurasi()));
+        if(Integer.parseInt(waktu.split(":")[0]) > 16){
+            a.setDp((int) (la.getHarga() * a.getDurasi1()) / 2);
+        }else{
+            a.setDp((int) (la.getHarga_penerangan() * a.getDurasi1()) / 2);
+        }
+        a.setSub_harga((int) (la.getHarga() * a.getDurasi1()));
         a.setBukti_transfer("");
         a.setCreaby(us.getEmail());
         a.setCreadate(us.getCreadate());
@@ -400,14 +411,30 @@ public class RootController {
 
     @GetMapping("/bill")
     public String goto_bill(Model model, HttpSession session){
+        int id = -1;
         try{
-            TrPendaftaranMerchant pendaftaranMerchant = pendaftaran_merchant_service.getByIdUser((int) session.getAttribute("id_user"));
-            model.addAttribute("listBill", pendaftaranMerchant);
-            model.addAttribute("status", statusService.getStatus(pendaftaranMerchant.getId_status()).getKeterangan());
-            model.addAttribute("pembayaran", biayaService.getBiaya(pendaftaranMerchant.getId_biaya()).getKeterangan().split("/")[2].toUpperCase());
-        }catch (Exception ex){
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        TrPendaftaranMerchant pendaftaranMerchant = pendaftaran_merchant_service.getByIdUser(id);
+        List<MsStatus> st = statusService.getAllStatus();
+        List<MsBiaya> by = biayaService.getAllBiaya();
+        List<TrBookingLapangan> tb = new ArrayList<>();
+        try{
+            tb = trBookinglapanganservice.getAllMenungguPembayaranByIdTim(userService.getUserById(id).getIdTim());
+        }catch (Exception e){
 
         }
+
+        List<MsLapangan> lp = lapanganService.getAllLapangan();
+
+        model.addAttribute("bill_pendaftaran", pendaftaranMerchant);
+        model.addAttribute("bill_booking", tb);
+        model.addAttribute("status", st);
+        model.addAttribute("biaya", by);
+        model.addAttribute("lapangan", lp);
+
         return "page/bill";
     }
 
@@ -422,5 +449,25 @@ public class RootController {
         a.setId_status(2);
         pendaftaran_merchant_service.save(a);
         return "redirect:/bill";
+    }
+
+    public int get_notif_bill(int id){
+        int out = 0;
+        int bill_booking = 0;
+        int pendaftaran = 0;
+        try {
+            bill_booking = trBookinglapanganservice.getAllMenungguPembayaranByIdTim(userService.getUserById(id).getIdTim()).size();
+        }catch (Exception e){
+        }
+        try{
+            TrPendaftaranMerchant a = pendaftaran_merchant_service.getByIdUser(id);
+            if(a.getId_status() == 1){
+                pendaftaran = 1;
+            }
+        }catch (Exception e){
+
+        }
+        out = bill_booking + pendaftaran;
+        return out;
     }
 }
