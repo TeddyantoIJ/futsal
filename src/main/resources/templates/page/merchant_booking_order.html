@@ -21,6 +21,7 @@
                     <th scope="col">Team</th>
                     <th scope="col">Payment</th>
                     <th scope="col">Evidence of transfer</th>
+                    <th scope="col">Transfer time</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -55,6 +56,9 @@
                             document.getElementById("download").setAttribute("href", ft);
                         }
                     </script>
+                </td>
+                <td th:text="${#temporals.format(book.creadate, 'dd-MM-yyyy HH:mm WIB')}" class="font-weight-bold">
+
                 </td>
                 <td>
                     <a th:href="'/konfirmasi-booking-valid/' + ${book.id}" onclick="return confirm('Press OK to confirm that this order is valid')" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Valid</a>
