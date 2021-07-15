@@ -5,6 +5,7 @@ import ac.id.polman.astra.futsal.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,9 +30,9 @@ public class PendaftaranController {
     TimService timService;
 
     @GetMapping("/MenuAdmin")
-    public String Admin(Model model, HttpSession session){
+    public String Admin(Model model, HttpSession session, ModelMap modelMap){
         String nama = (String) session.getAttribute("nama_depan");
-        model.addAttribute("nama_depan", nama);
+
         return "template/dashboard_admin";
     }
 
@@ -67,7 +68,7 @@ public class PendaftaranController {
 
     @GetMapping("/Admin")
     public String goto_admin(
-            HttpSession session
+            HttpSession session,ModelMap modelMap, Model model
     ){
         int id = -1;
         try{
@@ -75,6 +76,11 @@ public class PendaftaranController {
         }catch (Exception e){
             return "redirect:/page-login";
         }
+
+        model.addAttribute("jmluser", userService.count());
+        modelMap.addAttribute("jmltim", timService.getAllTim().size());
+        model.addAttribute("jmlmerchant", merchantService.getAllMerchant().size());
+
         return "/template/dashboard_admin";
     }
 

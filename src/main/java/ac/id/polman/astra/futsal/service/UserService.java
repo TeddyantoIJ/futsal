@@ -34,6 +34,10 @@ public class UserService {
         return msUser;
     }
 
+    public long count() {
+        return userRepository.count();
+    }
+
     // ========================================================================
 
     public void saveUser(MsUser msUser){
