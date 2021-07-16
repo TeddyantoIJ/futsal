@@ -59,4 +59,43 @@ public class Tr_jadwal_lapangan_service {
         }
         return a;
     }
+    public List<TrJadwalLapangan> getAllFutureByIdTim(int idTim1){
+        List<TrJadwalLapangan> a = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try{
+            Date comp = sdf.parse(sdf.format(new Date()));
+            for(TrJadwalLapangan b : trJadwalLapanganRepository.findAllByIdTim1OrderByTanggalAscJamAsc(idTim1)){
+                if(b.getTanggal().compareTo(comp) >= 0){
+                    a.add(b);
+                }
+            }
+        }catch (Exception e){
+
+        }
+        return a;
+    }
+    public List<TrJadwalLapangan> getAllByIdTim(int idTim){
+        List<TrJadwalLapangan> a = trJadwalLapanganRepository.findAllByIdTim1OrderByTanggalAscJamAsc(idTim);
+        return a;
+    }
+    public List<TrJadwalLapangan> getAllPastByIdTim(int idTim1){
+        List<TrJadwalLapangan> a = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try{
+            Date comp = sdf.parse(sdf.format(new Date()));
+            for(TrJadwalLapangan b : trJadwalLapanganRepository.findAllByIdTim1OrderByTanggalAscJamAsc(idTim1)){
+                if(b.getTanggal().compareTo(comp) < 0){
+                    a.add(b);
+                }
+            }
+        }catch (Exception e){
+
+        }
+        return a;
+    }
+
+//    ================================\\
+    public void save(TrJadwalLapangan a){
+        trJadwalLapanganRepository.save(a);
+    }
 }

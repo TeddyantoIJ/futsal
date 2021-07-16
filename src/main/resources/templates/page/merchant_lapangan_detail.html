@@ -87,9 +87,9 @@
                                     </div>
                                     <div class="col">
                                         <h3 class="font-weight-normal" th:each="t : ${tim}">
-                                            <a href="" class="text-dark" th:if="${t.idTim == a.id_tim1 and a.id_tim1 == a.id_tim2 }" th:text="${t.nama}">
+                                            <a href="" class="text-dark" th:if="${t.idTim == a.idTim1 and a.idTim1 == a.id_tim2 }" th:text="${t.nama}">
                                             </a>
-                                            <div class="row text-center" th:if="${t.idTim == a.id_tim1 and a.id_tim1 != a.id_tim2 }" >
+                                            <div class="row text-center" th:if="${t.idTim == a.idTim1 and a.idTim1 != a.id_tim2 }" >
                                                 <div class="col">
                                                     <a href="" class="text-dark">
                                                         <h5 th:text="${t.nama}"></h5>

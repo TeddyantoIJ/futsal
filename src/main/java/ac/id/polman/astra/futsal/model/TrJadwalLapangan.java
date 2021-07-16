@@ -19,7 +19,7 @@ public class TrJadwalLapangan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int idLapangan;
-    private int id_tim1;
+    private int idTim1;
     private int id_tim2;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date tanggal;
@@ -50,12 +50,12 @@ public class TrJadwalLapangan {
         this.idLapangan = idLapangan;
     }
 
-    public int getId_tim1() {
-        return id_tim1;
+    public int getIdTim1() {
+        return idTim1;
     }
 
-    public void setId_tim1(int id_tim1) {
-        this.id_tim1 = id_tim1;
+    public void setIdTim1(int idTim1) {
+        this.idTim1 = idTim1;
     }
 
     public int getId_tim2() {

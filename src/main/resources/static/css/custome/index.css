@@ -37,9 +37,8 @@
 }
 
 .banner-potrait{
-    height: 700px;
-    width: auto;
-    object-fit: cover
+    height: 550px;
+    object-fit: cover;
 }
 
 

@@ -3,9 +3,11 @@ package ac.id.polman.astra.futsal.service;
 import ac.id.polman.astra.futsal.model.MsLapangan;
 import ac.id.polman.astra.futsal.model.TrBookingLapangan;
 import ac.id.polman.astra.futsal.model.TrJadwalLapangan;
+import ac.id.polman.astra.futsal.model.TrPelunasan;
 import ac.id.polman.astra.futsal.repository.LapanganRepository;
 import ac.id.polman.astra.futsal.repository.TrBookingLapanganRepository;
 import ac.id.polman.astra.futsal.repository.TrJadwalLapanganRepository;
+import ac.id.polman.astra.futsal.repository.TrPelunasanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,8 @@ public class Tr_booking_lapangan_service {
     TrJadwalLapanganRepository trJadwalLapanganRepository;
     @Autowired
     LapanganRepository lapanganRepository;
+    @Autowired
+    TrPelunasanRepository trPelunasanRepository;
 
     public List<TrBookingLapangan> getAll(){
         List<TrBookingLapangan> a = trBookingLapanganRepository.findAllByOrderByTanggalAscJamAsc();
@@ -66,20 +70,82 @@ public class Tr_booking_lapangan_service {
     }
 
     public List<TrBookingLapangan> getAllDiprosesByIdMerchant(int id){
-        System.out.println("getAllDiprosesByIdMerchant");
         List<MsLapangan> lapangan = lapanganRepository.findAllByIdMerchant(id);
         List<TrBookingLapangan> a = getAll();
         List<TrBookingLapangan> c = new ArrayList<>();
         for(TrBookingLapangan b : a){
-            System.out.println("getAllDiprosesByIdMerchant 1");
             if(b.getId_status() == 2){
-                System.out.println("getAllDiprosesByIdMerchant 2");
                 for(MsLapangan d : lapangan){
-                    System.out.println("ID LAPANGAN BOOKING : " + b.getId_lapangan() + "\nID LAPANGAN MERCHANT : " + d.getIdLapangan());
                     if(d.getIdLapangan() == b.getId_lapangan()){
                         c.add(b);
                     }
                 }
+            }
+        }
+        System.out.println(c.size());
+        return c;
+    }
+
+    public List<TrBookingLapangan> getAllTerkonfirmasiByIdMerchant(int id){
+        List<MsLapangan> lapangan = lapanganRepository.findAllByIdMerchant(id);
+        List<TrBookingLapangan> a = getAll();
+        List<TrBookingLapangan> c = new ArrayList<>();
+        for(TrBookingLapangan b : a){
+            if(b.getId_status() == 3){
+                for(MsLapangan d : lapangan){
+                    if(d.getIdLapangan() == b.getId_lapangan()){
+                        c.add(b);
+                    }
+                }
+            }
+        }
+        System.out.println(c.size());
+        return c;
+    }
+
+    public List<TrBookingLapangan> getAllInvalidByIdMerchant(int id){
+        List<MsLapangan> lapangan = lapanganRepository.findAllByIdMerchant(id);
+        List<TrBookingLapangan> a = getAll();
+        List<TrBookingLapangan> c = new ArrayList<>();
+        for(TrBookingLapangan b : a){
+            if(b.getId_status() == 6){
+                for(MsLapangan d : lapangan){
+                    if(d.getIdLapangan() == b.getId_lapangan()){
+                        c.add(b);
+                    }
+                }
+            }
+        }
+        System.out.println(c.size());
+        return c;
+    }
+
+    public List<TrBookingLapangan> getAllFinishByIdMerchant(int id){
+        List<MsLapangan> lapangan = lapanganRepository.findAllByIdMerchant(id);
+
+        List<TrBookingLapangan> a = getAll();
+        List<TrBookingLapangan> c = new ArrayList<>();
+        for(TrBookingLapangan b : a){
+            if(b.getId_status() == 5){
+                for(MsLapangan d : lapangan){
+                    if(d.getIdLapangan() == b.getId_lapangan()){
+                        c.add(b);
+                    }
+                }
+            }
+        }
+        System.out.println(c.size());
+        return c;
+    }
+
+    public List<TrBookingLapangan> getAllDiprosesByIdTim(int id){
+        List<TrBookingLapangan> a = getAll();
+        List<TrBookingLapangan> c = new ArrayList<>();
+        for(TrBookingLapangan b : a){
+            System.out.println("getAllDiprosesByIdMerchant 1");
+            if(b.getId_status() == 2 && b.getIdTim() == id){
+                System.out.println("getAllDiprosesByIdMerchant 2");
+                c.add(b);
             }
         }
         System.out.println(c.size());
@@ -222,6 +288,11 @@ public class Tr_booking_lapangan_service {
 
     public void update_batal(TrBookingLapangan a){
         a.setStatus(0);
+        trBookingLapanganRepository.save(a);
+    }
+
+    public void update_tidak_selesai(TrBookingLapangan a){
+        a.setId_status(7);
         trBookingLapanganRepository.save(a);
     }
 

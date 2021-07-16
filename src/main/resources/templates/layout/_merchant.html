@@ -24,45 +24,54 @@
     <div style="border-bottom: 2px solid whitesmoke; margin-bottom: 10px"></div>
     <ul class="nav nav-pills flex-column mb-auto">
         <li>
-            <a href="/my-merchant" class="nav-link link-dark">
+            <a href="/my-merchant" class="nav-link  text-light">
                 <i class="fa fa-dashboard"></i>
                 &nbsp&nbsp&nbsp Dashboard
             </a>
         </li>
         <br/>
+        <div class="sidenav-menu-heading text-muted font-weight-bold">Payment confirmation</div>
         <li>
-            <a href="/my-merchant-booking-order" class="nav-link link-dark">
-                <span class="fa fa-table"></span>
-                &nbsp&nbsp&nbsp Booking Order  <span class="badge badge-danger badge-pill" th:if="${session.booking_order > 0}" th:text="${session.booking_order}"></span>
+            <a href="/my-merchant-booking-order" class="nav-link  text-light">
+                <span class="fa fa-check"></span>
+                &nbsp&nbsp&nbsp Booking Order (DP)  <span class="badge badge-danger badge-pill" th:if="${session.booking_order > 0}" th:text="${session.booking_order}"></span>
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link link-dark">
+            <a href="/my-merchant-booking-order" class="nav-link  text-light">
+                <span class="fa fa-usd"></span>
+                &nbsp&nbsp&nbsp Remaining payment
+            </a>
+        </li>
+        <br/>
+        <div class="sidenav-menu-heading text-muted font-weight-bold">Order</div>
+        <li>
+            <a href="/my-merchant-processed-order" class="nav-link text-light">
                 <span class="fa fa-clock"></span>
                 &nbsp&nbsp&nbsp Processed Order
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link link-dark">
+            <a href="/my-merchant-finished-order" class="nav-link  text-light">
                 <span class="fa fa-money-bill"></span>
                 &nbsp&nbsp&nbsp Finished Order
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link link-dark">
+            <a href="/my-merchant-invalid-order" class="nav-link  text-light">
                 <span class="fa fa-times"></span>
                 &nbsp&nbsp&nbsp Invalid Order
             </a>
         </li>
         <br/>
         <li>
-            <a href="#" class="nav-link link-dark">
+            <a href="#" class="nav-link  text-light">
                 <span class="fa fa-comment"></span>
                 &nbsp&nbsp&nbsp Review
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link link-dark">
+            <a href="#" class="nav-link  text-light">
                 <span class="fa fa-bar-chart"></span>
                 &nbsp&nbsp&nbsp Report
             </a>

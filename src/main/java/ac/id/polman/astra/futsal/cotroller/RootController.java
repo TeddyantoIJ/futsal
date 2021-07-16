@@ -268,7 +268,78 @@ public class RootController {
         model.addAttribute("booking", a);
         model.addAttribute("lapangan", b);
         model.addAttribute("tim",c);
-        return "/page/merchant_booking_order";
+        return "page/merchant_order_booking";
+    }
+
+    @GetMapping("/my-merchant-processed-order")
+    public String goto_my_merchant_processed_order(
+            Model model,
+            HttpSession session
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        int idMerchant = merchantService.getMerchantByIdUser(id).getId_merchant();
+        List<TrBookingLapangan> a = trBookinglapanganservice.getAllTerkonfirmasiByIdMerchant(idMerchant);
+        List<MsLapangan> b = lapanganService.getAllLapanganByIdMerchant(idMerchant);
+        List<MsTim> c = timService.getAllTim();
+
+        model.addAttribute("booking", a);
+        model.addAttribute("lapangan", b);
+        model.addAttribute("tim",c);
+        return "page/merchant_order_processed";
+    }
+
+    @GetMapping("/my-merchant-finished-order")
+    public String goto_my_merchant_finished_order(
+            Model model,
+            HttpSession session
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        int idMerchant = merchantService.getMerchantByIdUser(id).getId_merchant();
+        List<TrBookingLapangan> a = trBookinglapanganservice.getAllFinishByIdMerchant(idMerchant);
+        List<MsLapangan> b = lapanganService.getAllLapanganByIdMerchant(idMerchant);
+        List<MsTim> c = timService.getAllTim();
+
+
+        model.addAttribute("booking", a);
+        model.addAttribute("lapangan", b);
+        model.addAttribute("tim",c);
+        return "page/merchant_order_finish";
+    }
+
+    @GetMapping("/my-merchant-invalid-order")
+    public String goto_my_merchant_invalid_order(
+            Model model,
+            HttpSession session
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        int idMerchant = merchantService.getMerchantByIdUser(id).getId_merchant();
+        List<TrBookingLapangan> a = trBookinglapanganservice.getAllInvalidByIdMerchant(idMerchant);
+        List<MsLapangan> b = lapanganService.getAllLapanganByIdMerchant(idMerchant);
+        List<MsTim> c = timService.getAllTim();
+
+
+        model.addAttribute("booking", a);
+        model.addAttribute("lapangan", b);
+        model.addAttribute("tim",c);
+        return "page/merchant_order_invalid";
     }
 
     @GetMapping("/merchant-search/{id}")
@@ -397,6 +468,20 @@ public class RootController {
         a.setModidate(LocalDateTime.now());
         trBookinglapanganservice.update_terkonfirmasi(a);
 
+        TrJadwalLapangan jadwal = new TrJadwalLapangan();
+        jadwal.setIdTim1(a.getIdTim());
+        jadwal.setId_tim2(a.getIdTim());
+        jadwal.setTanggal(a.getTanggal());
+        jadwal.setJam(a.getJam());
+        jadwal.setDurasi(a.getDurasi1());
+        jadwal.setCreaby("System");
+        jadwal.setCreadate(LocalDateTime.now());
+        jadwal.setModiby("");
+        jadwal.setModidate(LocalDateTime.now());
+        jadwal.setIdLapangan(a.getId_lapangan());
+        jadwal.setStatus(1);
+        trJadwalLapanganService.save(jadwal);
+
         return "redirect:/my-merchant-booking-order";
     }
 
@@ -418,6 +503,26 @@ public class RootController {
         trBookinglapanganservice.update_gagal(a);
 
         return "redirect:/my-merchant-booking-order";
+    }
+
+    @GetMapping("/konfirmasi-booking-not-complete/{id}")
+    public String konfirmasi_booking_not_complete(
+            @PathVariable int id,
+            HttpSession session
+    ){
+        int idUser = -1;
+        try{
+            idUser = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        MsUser us = userService.getUserById(idUser);
+        TrBookingLapangan a = trBookinglapanganservice.getById(id);
+        a.setModiby(us.getEmail());
+        a.setModidate(LocalDateTime.now());
+        trBookinglapanganservice.update_tidak_selesai(a);
+
+        return "redirect:/my-merchant-processed-order";
     }
 
     // ===================================MANAGER TIM ====================================
@@ -445,6 +550,75 @@ public class RootController {
         return "page/manager_tim";
     }
 
+    @GetMapping("/my-tim-schedule-on-progress")
+    public String goto_my_team_schedule_on_progress(
+            Model model,
+            HttpSession session
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        int tim = userService.getUserById(id).getIdTim();
+        List<TrBookingLapangan> a = trBookinglapanganservice.getAllDiprosesByIdTim(tim);
+        List<MsLapangan> b = lapanganService.getAllLapangan();
+
+        model.addAttribute("booking", a);
+        model.addAttribute("lapangan", b);
+
+        return "page/tim_schedule_on_progress";
+    }
+
+    @GetMapping("/my-tim-upcoming-schedule")
+    public String goto_my_team_upcoming_schedule(
+            Model model,
+            HttpSession session
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        int tim = userService.getUserById(id).getIdTim();
+        List<TrJadwalLapangan> a = trJadwalLapanganService.getAllFutureByIdTim(tim);
+        List<MsLapangan> b = lapanganService.getAllLapangan();
+        List<MsTim> c = timService.getAllTim();
+
+        model.addAttribute("jadwal", a);
+        model.addAttribute("lapangan", b);
+        model.addAttribute("tim", c);
+
+        return "page/tim_schedule_upcoming";
+    }
+
+    @GetMapping("/my-tim-schedule-history")
+    public String goto_my_tim_schedule_history(
+            Model model,
+            HttpSession session
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        int tim = userService.getUserById(id).getIdTim();
+        List<TrJadwalLapangan> a = trJadwalLapanganService.getAllPastByIdTim(tim);
+        List<MsLapangan> b = lapanganService.getAllLapangan();
+        List<MsTim> c = timService.getAllTim();
+
+        model.addAttribute("jadwal", a);
+        model.addAttribute("lapangan", b);
+        model.addAttribute("tim", c);
+
+        return "page/tim_schedule_history";
+    }
     // ======================================= TEAM ======================================
 
     @GetMapping("/team-show-all")

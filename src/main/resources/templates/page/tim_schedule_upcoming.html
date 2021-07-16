@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_team">
+<head>
+    <meta charset="UTF-8">
+    <title>Upcoming Schedule</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <main>
+        <header>
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item">Schedule</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Upcoming</li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+        </header>
+        <!-- Main page content-->
+        <div class="container-fluid mt-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Upcoming Schedule
+                    <span class="float-right text-danger">
+                        If you don't go to the field when you order, you can't get your money back
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive pt-2">
+                        <div class="datatable">
+                            <table class="table table-striped">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Court</th>
+                                    <th scope="col">Play date</th>
+                                    <th scope="col">Play time</th>
+                                    <th scope="col">Schedule type</th>
+                                    <th scope="col">Opponent</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="jadwal, iter : ${jadwal}">
+                                    <th scope="row" th:text="${iter.count}"></th>
+                                    <td th:each="lap : ${lapangan}" th:if="${lap.idLapangan == jadwal.idLapangan}">
+                                        <a th:href="'/detail-lapangan/' + ${lap.idLapangan}" >
+                                            <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+                                            <span th:text="${lap.nama}"></span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        <span th:text="${#dates.dayOfWeekName(jadwal.tanggal)} + ' ' + ${#dates.format(jadwal.tanggal, 'dd-MM-yyyy')}"></span>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-clock" aria-hidden="true"></i>
+                                        <span th:text="${#dates.format(jadwal.jam, 'HH:mm')} + ' - ' +${#dates.format(jadwal.durasi, 'HH:mm')}"></span>
+                                    </td>
+                                    <td th:if="${jadwal.idTim1 == jadwal.id_tim2}" class="font-weight-bold">Practice</td>
+                                    <td th:if="${jadwal.idTim1 != jadwal.id_tim2}" class="font-weight-bold">Friendly Match</td>
+                                    <td th:if="${jadwal.idTim1 == jadwal.id_tim2}" class="font-weight-bold">-</td>
+                                    <td th:if="${jadwal.idTim1 != jadwal.id_tim2}" class="font-weight-bold">
+                                        <a th:each="t : ${tim}" th:if="${t.idTim == jadwal.id_tim2}" th:text="${t.nama}"></a>
+                                    </td>
+                                    <td>
+                                        No action available
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Evidence of transfer</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img id="div_foto" class="card-img" src="">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <a id="download" class="btn btn-primary" download>Download Image</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

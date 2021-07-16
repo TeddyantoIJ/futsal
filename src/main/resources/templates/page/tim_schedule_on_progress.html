@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_team">
+<head>
+    <meta charset="UTF-8">
+    <title>Schedule On Progress</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <main>
+        <header>
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item">Schedule</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">On progress</li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+        </header>
+        <!-- Main page content-->
+        <div class="container-fluid mt-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Schedule on progress
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive pt-2">
+                        <div class="datatable">
+                            <table class="table table-striped">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Court</th>
+                                    <th scope="col">Play date</th>
+                                    <th scope="col">Play time</th>
+                                    <th scope="col">Payment</th>
+                                    <th scope="col">Evidence of transfer</th>
+                                    <th scope="col">Transfer time</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="book, iter : ${booking}">
+                                    <th scope="row" th:text="${iter.count}"></th>
+                                    <td th:each="lap : ${lapangan}" th:if="${lap.idLapangan == book.id_lapangan}">
+                                        <a th:href="'/detail-lapangan/' + ${lap.idLapangan}" >
+                                            <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+                                            <span th:text="${lap.nama}"></span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        <span th:text="${#dates.dayOfWeekName(book.tanggal)} + ' ' + ${#dates.format(book.tanggal, 'dd-MM-yyyy')}"></span>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-clock" aria-hidden="true"></i>
+                                        <span th:text="${#dates.format(book.jam, 'HH:mm')} + ' - ' +${#dates.format(book.durasi, 'HH:mm')}"></span>
+                                    </td>
+                                    <td th:text="'Rp. ' + ${book.dp}" class="font-weight-bold"></td>
+                                    <td>
+                                        <a href="" data-toggle="modal" data-target="#exampleModal" th:attr="onclick=|showfoto('${book.bukti_transfer}')|">
+                                            <i class="fa fa-file-image" aria-hidden="true"></i>
+                                            <span th:text="${book.bukti_transfer}"></span>
+                                        </a>
+                                        <script>
+                                            function showfoto(foto){
+                                                var ft = "/images/bukti_transfer/" + foto;
+                                                document.getElementById("div_foto").setAttribute("src", ft);
+                                                document.getElementById("download").setAttribute("href", ft);
+                                            }
+                                        </script>
+                                    </td>
+                                    <td th:text="${#temporals.format(book.modidate, 'dd-MM-yyyy HH:mm')} + ' WIB'" class="font-weight-bold">
+
+                                    </td>
+                                    <td>
+                                        No action available
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Evidence of transfer</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img id="div_foto" class="card-img" src="">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <a id="download" class="btn btn-primary" download>Download Image</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

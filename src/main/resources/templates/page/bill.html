@@ -54,7 +54,7 @@
         </div>
         <br/>
         <h4 th:if="${bill_booking.size() > 0}" class="font-weight-bold text-dark text-center" style="text-transform: uppercase">my order bill</h4>
-        <p class="text-danger font-weight-bold">
+        <p class="text-danger font-weight-bold"  th:if="${bill_booking.size() > 0}">
             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Note<br/>
             <span class="text-dark">
                 1. If there is another order process being processed, your order will still be accepted by us.<br/>
