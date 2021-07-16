@@ -95,12 +95,11 @@ public class PendaftaranController {
         msAkun.setModiby("");
         msAkun.setModidate(LocalDateTime.now());
         msAkun.setStatus(1);
-
-        if (akunService.saveAkun(msAkun) == false) {
-            String referer = request.getHeader("Referer");
-            return "redirect:" + referer;
-        }
-
+        akunService.saveAkun(msAkun);
+//        if (akunService.saveAkun(ms/Akun) == false) {
+//            String referer = request.getHeader("Referer");
+//            return "redirect:" + referer;
+//        }
         msUser.setIdAkun(akunService.getAllAkun().get(akunService.getAllAkun().size() - 1).getIdAkun());
         msUser.setFoto("");
         msUser.setCreaby(msUser.getEmail());

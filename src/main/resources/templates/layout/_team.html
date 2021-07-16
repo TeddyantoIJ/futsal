@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content />
     <meta name="author" content />
-    <title>Admin</title>
+    <title>Manager Team</title>
     <link rel="icon" type="image/x-icon" href="/images/assets/bola.png" />
     <link rel="stylesheet" href="/menuadmin/css/styless.css">
     <link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
@@ -143,6 +143,10 @@
                         <div class="nav-link-icon"><i class="fas fa-fw fa-users"></i></div>
                         Add Players
                     </a>
+                    <a class="nav-link <?= ($this->uri->segment(1) == 'Ajak-Tanding' ? 'active' : '') ?>" href="/Ajak-Tanding">
+                        <div class="nav-link-icon"><i class="fas fa-fw fa-sign-language"></i></div>
+                        invite a match
+                    </a>
 
                     <!-- Sidenav Heading (UI Toolkit)-->
                     <div class="sidenav-menu-heading">Confirm</div>
@@ -150,6 +154,10 @@
                     <a class="nav-link <?= ($this->uri->segment(1) == 'Merchant' ? 'active' : '') ?>" href="/Daftar-Tim">
                         <div class="nav-link-icon"><i class="fas fa-fw fa-check-circle"></i></div>
                         Players Confirm
+                    </a>
+                    <a class="nav-link <?= ($this->uri->segment(1) == 'Merchant' ? 'active' : '') ?>" href="/Konfirm-Match">
+                        <div class="nav-link-icon"><i class="fas fa-fw fa-check-circle"></i></div>
+                        Match confirm
                     </a>
                 </div>
             </div>

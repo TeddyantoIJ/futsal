@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org"
        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-       layout:decorate="/template/admines">
+       layout:decorate="/layout/_team">
 <head>
-    <title>Tim</title>
 </head>
-
 <div layout:fragment="content">
     <main>
         <header>
@@ -13,7 +11,7 @@
             <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb bg-white">
                     <li class="breadcrumb-item">Dashboard</li>
-                    <li class="breadcrumb-item text-blue" aria-current="page">Data Tim</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">challenge the team</li>
                 </ol>
             </nav>
             <!-- /Breadcrumb -->
@@ -22,24 +20,18 @@
         <div class="container-fluid mt-4">
             <div class="card mb-4">
                 <div class="card-header">
-                    Data Tim
+                    Data Invite a Match
                 </div>
                 <div class="card-body">
-                    <div class="row form-group">
-<!--                        <div class="col-sm-12 col-md-6">-->
-<!--                            <a class="btn btn-primary" href="/Status-add"><i class="fa fa-plus-circle"></i>&nbsp; Tambah</a>-->
-<!--                        </div>-->
-                    </div>
                     <div class="table-responsive pt-2">
                         <div class="datatable">
                             <table class="table table-bordered table-hover table-striped nowrap" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th class="text-center min-wd-50">No</th>
-                                    <th class="text-center">Nama</th>
-                                    <th class="text-center">Tanggal Berdiri</th>
-                                    <th class="text-center">Logo</th>
-                                    <th class="text-center min-wd-50">Aksi</th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Date of establishment</th>
+                                    <th class="text-center min-wd-50">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -49,16 +41,15 @@
                                     <td th:text="${Tim.nama}"></td>
                                     <td th:text="${Tim.tglBerdiri}"></td>
                                     <td>
-                                        <img style="height: 100px; width: auto" class="card-img" th:src="@{'images/merchant/foto/'+${Tim.logo}}">
-                                    </td>
-                                    <td>
-                                        <a th:href="@{'Tim-edit?id_tim='+${Tim.idTim}}" class="btn btn-info form-control">Konfirmasi</a>
+                                        <a th:href="@{'Tim-AjakTanding?id_tim='+${Tim.idTim}}" class="btn btn-success form-control">Invite</a>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                    <br/>
+                    <a class="btn btn-warning" href="/Ajak-Tanding">Back</a>
                 </div>
             </div>
         </div>

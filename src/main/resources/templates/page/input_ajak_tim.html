@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/layout/_team">
+<head>
+</head>
+<div layout:fragment="content">
+    <main>
+        <header>
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">challenge the team</li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+        </header>
+        <!-- Main page content-->
+        <div class="container-fluid mt-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Data Invite a Match
+                </div>
+                <div class="card-body">
+                    <form th:action="@{addAjakTim}" th:object="${timObj}" method="post" enctype="multipart/form-data" >
+                        <div class="row">
+                            <div class="col">
+                                <input type="hidden" name="id_tim2" th:value="${timObj.idTim}">
+                                <label for="nama">Nama Tim <span style="color: red">*</span> </label>
+                                <input class="form form-control" type="text" name="nama" id="nama" th:placeholder="${timObj.nama}" th:value="${timObj.nama}" disabled>
+                                <br/>
+
+                                <label>Date <span style="color: red">*</span> </label>
+                                <input class="form form-control" type="date" name="tanggal" id="tanggal" required>
+                                <br/>
+
+                                <label>Hours <span style="color: red">*</span> </label>
+                                <input id="waktu" type="time" class="form-control" name="waktu" required th:value="${#dates.format(#dates.createNow(), 'HH:00')}">
+                                <br/>
+
+                                <label>Facilities <span style="color: red">*</span> </label>
+                                <select  name="id_lapangan" id="id_lapangan" required class="form-control">
+                                    <div  th:each="item, iter: ${listLap}">
+                                        <option th:value="${item.idLapangan}" th:text="${item.nama}">
+                                        </option>
+                                    </div>
+                                </select>
+                                <br/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-outline-primary">Save</button>
+                                <a class="btn btn-warning" href="/Add-AjakTim">Back</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</html>

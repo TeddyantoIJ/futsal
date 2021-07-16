@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/layout/_team">
+<head>
+</head>
+<div layout:fragment="content">
+    <main>
+        <header>
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">challenge the team</li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+        </header>
+        <!-- Main page content-->
+        <div class="container-fluid mt-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Data Invite a Match
+                </div>
+                <div class="card-body">
+                    <div class="row form-group">
+                        <div class="col-sm-12 col-md-6">
+                            <a class="btn btn-primary" href="/Add-AjakTim"><i class="fa fa-plus-circle"></i>&nbsp; Add</a>
+                        </div>
+                    </div>
+                    <div class="table-responsive pt-2">
+                        <div class="datatable">
+                            <table class="table table-bordered table-hover table-striped nowrap" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th class="text-center min-wd-50">No</th>
+                                    <!--                                    <th class="text-center">ID Biaya</th>-->
+                                    <th class="text-center">Team</th>
+                                    <th class="text-center">Date</th>
+                                    <th class="text-center">Hour</th>
+                                    <th class="text-center">Field</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center min-wd-50">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="tanding, iter: ${listAjak}">
+                                    <td class="text-center min-wd-50" style="width:20px;"><span th:text="${iter.count}"></span></td>
+                                    <td th:each="itemtim:${listTim}" th:if="${itemtim.idTim ==tanding.idTim2}" th:text="${itemtim.nama}"></td>
+                                    <td th:text="${tanding.tanggal}"></td>
+                                    <td th:text="${tanding.jam}"></td>
+                                    <td th:each="itemlap:${listLap}" th:if="${itemlap.idLapangan==tanding.id_lapangan}" th:text="${itemlap.nama}"></td>
+                                    <td th:each="itemstatus:${listStatus}" th:if="${itemstatus.idStatus ==tanding.id_status}" th:text="${itemstatus.keterangan}"></td>
+                                    <td class="text-center" th:if="${tanding.id_status==2}">
+                                        <a th:href="@{'AjakTim-Batal?id='+${tanding.id}}" class="btn btn-danger" style="width: 70px;" onclick="return confirm('Tekan OK untuk menghapus tim')">Cancel</a>
+                                    </td>
+                                    <td class="text-center" th:if="${tanding.id_status!=2}">
+                                        -
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</html>
