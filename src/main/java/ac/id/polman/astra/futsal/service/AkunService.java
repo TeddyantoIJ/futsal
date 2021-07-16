@@ -38,13 +38,11 @@ public class AkunService {
 
     //===================================
     public Boolean saveAkun(MsAkun msAkun){
-        List<MsAkun> akuns = getAllAkun();
-        for(MsAkun a:akuns){
-            if(a.getUsername()==a.getUsername()){
-                return false;
-            }
+        MsAkun a = getUserByUsername(msAkun.getUsername());
+        if(a == null){
+            akunRepository.save(msAkun);
+            return  true;
         }
-        akunRepository.save(msAkun);
-        return true;
+        return false;
     }
 }

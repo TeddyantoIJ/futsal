@@ -19,42 +19,49 @@
         <br/>
         <div class="row">
             <div class="col">
-                <form th:action="@{addDaftarUser}" method="post" enctype="multipart/form-data" >
+                <form action="/addDaftarUser" method="post" enctype="multipart/form-data" >
                     <div class="row">
                         <div class="col"></div>
                         <div class="col-5">
                             <div class="row">
                                 <div class="col">
                                     <label class="font-weight-bold text-light" for="namaDepan">First Name<span style="color: red"> *</span> </label>
-                                    <input class="form form-control" type="text" name="namaDepan" id="namaDepan" placeholder="First Name" required>
+                                    <input class="form form-control" type="text" name="namaDepan" id="namaDepan" placeholder="First Name" required th:value="${user.namaDepan}">
                                 </div>
                                 <div class="col">
                                     <label class="font-weight-bold text-light" for="namaBelakang">Last Name<span style="color: red">*</span> </label>
-                                    <input class="form form-control" type="text" name="namaBelakang" id="namaBelakang" placeholder="Last Name" required>
+                                    <input class="form form-control" type="text" name="namaBelakang" id="namaBelakang" placeholder="Last Name" required th:value="${user.namaBelakang}">
                                 </div>
                             </div>
                             <br/>
                             <div class="row">
                                 <div class="col">
                                     <label class="font-weight-bold text-light" for="telephone">Phone  <span style="color: red">*</span> </label>
-                                    <input class="form form-control" type="number" name="telephone" id="telephone" placeholder="Phone " required>
+                                    <input class="form form-control" type="number" name="telephone" id="telephone" placeholder="Phone " required th:value="${user.telephone}">
                                 </div>
                                 <div class="col">
                                     <label class="font-weight-bold text-light" for="email">Email <span style="color: red">*</span> </label>
-                                    <input class="form form-control" type="email" name="email" id="email" placeholder="Email" required>
+                                    <input class="form form-control" type="email" name="email" id="email" placeholder="Email" required th:value="${user.email}">
                                 </div>
                             </div>
                             <br/>
                             <label class="font-weight-bold text-light" for="tanggal_Lahir">Date of Birth <span style="color: red">*</span> </label>
-                            <input class="form form-control" type="date" name="tanggalLahir" id="tanggal_Lahir" required>
+                            <input class="form form-control" type="date" name="tanggalLahir" id="tanggal_Lahir" required th:value="${user.tanggalLahir}">
                             <br/>
                             <label class="font-weight-bold text-light" >Gender <span style="color: red">*</span> </label>
                             <br/>
-                            <input type="radio" id="laki" name="jenisKelamin" value="L">
+                            <input type="radio" id="laki" name="jenisKelamin" value="L" th:checked="${user.jenisKelamin == 'L'}">
                               <label class="font-weight-bold text-light" for="laki">Man</label><br>
-                            <input type="radio" id="perempuan" name="jenisKelamin" value="P">
+                            <input type="radio" id="perempuan" name="jenisKelamin" value="P" th:checked="${user.jenisKelamin == 'P'}">
                               <label class="font-weight-bold text-light" for="perempuan">Woman</label><br>
                             <hr/>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${notif == true}">
+                                <strong>Username already in use</strong> by another user!
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <br/>
                             <label class="font-weight-bold text-light" for="username">Username <span style="color: red">*</span> </label>
                             <input class="form form-control" type="text" name="username" placeholder="Username" id="username"  required>
                             <br/>

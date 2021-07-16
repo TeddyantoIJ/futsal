@@ -108,8 +108,9 @@ public class RootController {
 
     @GetMapping("/page-registration")
     public String gotoAdd(Model model){
-        model.addAttribute("userObj", new MsUser());
-        model.addAttribute("akunObj", new MsAkun());
+        MsUser a = new MsUser();
+        a.setTanggalLahir(new Date());
+        model.addAttribute("user", a);
         return "pendaftaran/adduser";
 //        return "template/login";
     }

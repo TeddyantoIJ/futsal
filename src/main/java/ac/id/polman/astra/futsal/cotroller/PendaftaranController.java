@@ -87,7 +87,7 @@ public class PendaftaranController {
     }
 
     @RequestMapping("/addDaftarUser")
-    public String addUser(MsUser msUser, MsAkun msAkun, HttpServletRequest request, HttpSession session) {
+    public String addUser(MsUser msUser, MsAkun msAkun, HttpServletRequest request, Model model) {
         // Default 2 = User
         msAkun.setIdRole(2);
         msAkun.setCreaby(msUser.getEmail());
@@ -95,11 +95,11 @@ public class PendaftaranController {
         msAkun.setModiby("");
         msAkun.setModidate(LocalDateTime.now());
         msAkun.setStatus(1);
-        akunService.saveAkun(msAkun);
-//        if (akunService.saveAkun(ms/Akun) == false) {
-//            String referer = request.getHeader("Referer");
-//            return "redirect:" + referer;
-//        }
+        if (!akunService.saveAkun(msAkun)) {
+            model.addAttribute("user", msUser);
+            model.addAttribute("notif", true);
+            return "pendaftaran/adduser";
+        }
         msUser.setIdAkun(akunService.getAllAkun().get(akunService.getAllAkun().size() - 1).getIdAkun());
         msUser.setFoto("");
         msUser.setCreaby(msUser.getEmail());
