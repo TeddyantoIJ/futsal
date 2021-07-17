@@ -30,7 +30,6 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center min-wd-50">No</th>
-                                    <!--                                    <th class="text-center">ID Biaya</th>-->
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Telephone</th>
                                     <th class="text-center">Email</th>
@@ -40,14 +39,13 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="user, iter: ${listUser}">
-                                    <!--                <td th:text="${Merchant.id_merchant}">ID</td>-->
                                     <td class="text-center min-wd-50" style="width:20px;"><span th:text="${iter.count}"></span></td>
                                     <td th:text="${user.namaDepan}"></td>
                                     <td th:text="${user.telephone}"></td>
                                     <td th:text="${user.email}"></td>
                                     <td th:text="${user.tanggalLahir}"></td>
                                     <td class="text-center">
-                                        <a th:href="@{'AnggotaTim-Tambah?id='+${user.idUser}}" class="btn btn-primary" style="width: 70px;" onclick="return confirm('Tekan OK untuk menambahkan tim')">Add</a>
+                                        <a th:href="@{'AnggotaTim-Tambah?id='+${user.idUser}}" class="btn btn-primary" style="width: 70px;" onclick="return confirm('are you sure you want to add this player')">Add</a>
                                     </td>
                                 </tr>
                                 </tbody>

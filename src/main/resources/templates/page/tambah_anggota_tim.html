@@ -52,7 +52,7 @@
                                     <td th:text="${user.email}"></td>
                                     <td th:text="${user.tanggalLahir}"></td>
                                     <td class="text-center">
-                                        <a th:href="@{'AnggotaTim-Hapus?id='+${user.idUser}}" class="btn btn-danger" style="width: 70px;" onclick="return confirm('Tekan OK untuk menghapus tim')">Delete</a>
+                                        <a th:href="@{'AnggotaTim-Hapus?id='+${user.idUser}}" class="btn btn-danger" style="width: 70px;" onclick="return confirm('Are you sure you want to get this player out?')">Delete</a>
                                     </td>
                                 </tr>
                                 </tbody>

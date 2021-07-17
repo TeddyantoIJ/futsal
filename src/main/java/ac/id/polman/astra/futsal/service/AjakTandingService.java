@@ -31,7 +31,12 @@ public class AjakTandingService {
         return tandingList;
     }
 
-    public void saveTim(TrAjakTanding trAjakTanding){
+    public List<TrAjakTanding> getAllByTim2(int id_tim){
+        List<TrAjakTanding> tandingList = ajakTandingRepository.findByIdTim2(id_tim);
+        return tandingList;
+    }
+
+    public void save(TrAjakTanding trAjakTanding){
         ajakTandingRepository.save(trAjakTanding);
     }
 }

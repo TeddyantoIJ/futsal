@@ -11,6 +11,9 @@ public interface AjakTandingRepository extends CrudRepository<TrAjakTanding, Int
     @Query("select * from tr_ajak_tanding where id_tim1 =:idTim1")
     List<TrAjakTanding> findByIdTim1(@Param("idTim1") int idTim1);
 
+    @Query("select * from tr_ajak_tanding where id_tim2 =:idTim2")
+    List<TrAjakTanding> findByIdTim2(@Param("idTim2") int idTim2);
+
     @Query("select * from tr_ajak_tanding where id=:id")
     TrAjakTanding findById(@Param("id") int id);
 }
