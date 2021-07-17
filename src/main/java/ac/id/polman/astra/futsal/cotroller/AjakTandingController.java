@@ -105,7 +105,8 @@ public class AjakTandingController {
 
     @PostMapping("/addAjakTim")
     public String addAjakTim(TrAjakTanding trAjakTanding, HttpSession session,
-                             @RequestParam("waktu") String waktu, @RequestParam("id_tim2") Integer id_tim2){
+                             @RequestParam("waktu") String waktu, @RequestParam("id_tim2") Integer id_tim2,
+                             @RequestParam("alasan") String alasan){
         int idus = -1;
         try{
             idus = (int) session.getAttribute("id_user");
@@ -115,6 +116,7 @@ public class AjakTandingController {
         MsUser a = userService.getUserById(idus);
         trAjakTanding.setIdTim1(a.getIdTim());
         trAjakTanding.setIdTim2(id_tim2);
+        trAjakTanding.setAlasann(alasan);
         trAjakTanding.setJam(new Time(Integer.parseInt(waktu.split(":")[0]),0,0));
         trAjakTanding.setCreaby(a.getNamaDepan());
         trAjakTanding.setId_status(2);
@@ -162,6 +164,47 @@ public class AjakTandingController {
         model.addAttribute("listTim", tim);
 
         return "page/detail_ajak_tanding";
+    }
+
+    @GetMapping("/Ubah-DetilAjakTanding")
+    public String UbahDetilAjakTim(@RequestParam("id") Integer id, HttpSession session, Model model) {
+        int idus = -1;
+        try {
+            idus = (int) session.getAttribute("id_user");
+        } catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        TrAjakTanding ajakList = ajakTandingService.getAllById(id);
+        model.addAttribute("listAjak", ajakList);
+
+        DtAjakTanding dtAjakTanding = dtAjakTandingService.getAllByAjakTandings(id);
+        model.addAttribute("listdetail", dtAjakTanding);
+
+        List<MsTim> tim = timService.getAllTim();
+        model.addAttribute("listTim", tim);
+
+        return "page/detail_ubah_ajak_tanding";
+    }
+
+    @PostMapping("/GetUbahDetailAjak")
+    public String getUbahDetilAjakTim(@RequestParam("id") Integer id, HttpSession session,
+                                      @RequestParam("skor") Integer skor, @RequestParam("skor2") Integer skor2,
+                                      @RequestParam("juara") Integer juara) {
+        int idus = -1;
+        try {
+            idus = (int) session.getAttribute("id_user");
+        } catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        DtAjakTanding dtAjakTanding = dtAjakTandingService.getAllById(id);
+        dtAjakTanding.setSkor(skor);
+        dtAjakTanding.setSkor2(skor2);
+        dtAjakTanding.setJuara(juara);
+        dtAjakTandingService.save(dtAjakTanding);
+
+        return "redirect:/AjakTim-Detail?id="+dtAjakTanding.getIdAjakTanding();
     }
 
     ///===================================Konfirmasi Ajak Tim=============================//

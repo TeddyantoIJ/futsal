@@ -39,8 +39,13 @@
                                 <input id="waktu" type="time" class="form-control" name="waktu" required th:value="${#dates.format(#dates.createNow(), 'HH:00')}">
                                 <br/>
 
+                                <label>Keterangan <span style="color: red">*</span></label>
+                                <textarea id="alasan" name="alasan" rows="4" cols="50" class="form form-control" required></textarea>
+                                <br/>
+
                                 <label>Field <span style="color: red">*</span> </label>
                                 <select  name="id_lapangan" id="id_lapangan" required class="form-control">
+                                    <option value="0" selected disabled hidden>Select Field</option>
                                     <div  th:each="item, iter: ${listLap}">
                                         <option th:value="${item.idLapangan}" th:text="${item.nama}">
                                         </option>

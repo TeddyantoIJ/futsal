@@ -23,23 +23,24 @@
                     Data Invite a Match
                 </div>
                 <div class="card-body">
-                    <form th:action="@{Update_DetailAjakTanding/{id}(id=${ajak.idAjakTanding})}"  th:each="ajak, test:${listTanding}"  th:if="${ajak.idAjakTanding==a}" method="post" enctype="multipart/form-data" >
+                    <form th:action="@{GetUbahDetailAjak}" method="post" enctype="multipart/form-data" >
                         <div class="row">
                             <div class="col">
-                                <input type="hidden" name="id" th:value="${ajak.id}">
-                                <input type="hidden" name="id_ajak" th:value="${ajak.idAjakTanding}">
-                                <label for="skor">Score Team <span style="color: red" th:each="tim1 ,cek1:${listTeam}" th:if="${tim1.idTim==listAjak.idTim1}" th:text="${tim1.nama}"></span> </label>
-                                <input class="form form-control" type="text" name="skor" id="skor" th:placeholder="${ajak.skor}" >
+                                <input type="hidden" name="id" th:value="${listdetail.id}">
+
+                                <label for="skor">Score Team <span style="color: red"  th:each="itemtim:${listTim}" th:if="${itemtim.idTim == listAjak.idTim1}" th:text="${itemtim.nama}"></span> </label>
+                                <input class="form form-control" type="text" name="skor" id="skor" th:placeholder="${listdetail.skor}" th:value="${listdetail.skor}" >
                                 <br/>
 
-                                <label for="skor2">Score Team <span style="color: red" th:each="tim2 ,cek2:${listTeam}" th:if="${tim2.idTim==listAjak.idTim2}" th:text="${tim2.nama}"></span> </label>
-                                <input class="form form-control" type="text" name="skor2" id="skor2" th:placeholder="${ajak.skor2}">
+                                <label for="skor2">Score Team <span style="color: red"  th:each="itemtim:${listTim}" th:if="${itemtim.idTim == listAjak.idTim2}" th:text="${itemtim.nama}"></span> </label>
+                                <input class="form form-control" type="text" name="skor2" id="skor2" th:placeholder="${listdetail.skor2}" th:value="${listdetail.skor2}">
                                 <br/>
 
                                 <label>Winner <span style="color: red">*</span> </label>
                                 <select  name="juara" id="juara" required class="form-control">
-                                    <option th:each="tim ,cek:${listTeam}" th:if="${tim.idTim==listAjak.idTim1}" th:value="${listAjak.idTim1}" th:text="${tim.nama}"></option>
-                                    <option th:each="tim ,cek:${listTeam}" th:if="${tim.idTim==listAjak.idTim2}" th:value="${listAjak.idTim2}" th:text="${tim.nama}"></option>
+                                    <option value="0" selected disabled hidden>Select the winning team</option>
+                                    <option th:each="tim ,cek:${listTim}" th:if="${tim.idTim==listAjak.idTim1}" th:value="${listAjak.idTim1}" th:text="${tim.nama}"></option>
+                                    <option th:each="tim ,cek:${listTim}" th:if="${tim.idTim==listAjak.idTim2}" th:value="${listAjak.idTim2}" th:text="${tim.nama}"></option>
                                 </select>
                                 <br/>
                             </div>
@@ -47,7 +48,7 @@
                         <div class="row">
                             <div class="col">
                                 <button class="btn btn-outline-primary">Save</button>
-                                <a class="btn btn-warning" href="/AjakTim-Detail">Back</a>
+                                <a class="btn btn-warning" th:href="@{'AjakTim-Detail?id='+${listAjak.id}}">Back</a>
                             </div>
                         </div>
                     </form>
