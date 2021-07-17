@@ -1005,7 +1005,7 @@
                     <br/>
                     <h3 class="font-weight-bold text-light" style="font-size: 15px">JOIN US</h3>
                     <p class="font-weight-normal text-muted">Being one of us is an honor for us. Best regards, developers (Ivan & Teddy)</p>
-                    <a class="btn btn-outline-light" href="/page-registration" style="width: 200px">Sign Up</a>
+                    <a class="btn btn-outline-light" href="/page-registration" style="width: 200px" th:if="${session.login == false}">Sign Up</a>
                 </div>
             </div>
             <br/><br/>

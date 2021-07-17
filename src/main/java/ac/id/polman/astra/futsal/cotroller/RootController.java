@@ -523,6 +523,9 @@ public class RootController {
         a.setModidate(LocalDateTime.now());
         trBookinglapanganservice.update_tidak_selesai(a);
 
+        TrJadwalLapangan j = trJadwalLapanganService.getByJadwalJamLapangan(a);
+        j.setStatus(0);
+        trJadwalLapanganService.save(j);
         return "redirect:/my-merchant-processed-order";
     }
 

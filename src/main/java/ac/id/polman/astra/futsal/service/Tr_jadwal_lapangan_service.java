@@ -1,11 +1,13 @@
 package ac.id.polman.astra.futsal.service;
 
+import ac.id.polman.astra.futsal.model.TrBookingLapangan;
 import ac.id.polman.astra.futsal.model.TrJadwalLapangan;
 import ac.id.polman.astra.futsal.model.TrPendaftaranMerchant;
 import ac.id.polman.astra.futsal.repository.TrJadwalLapanganRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,23 +24,13 @@ public class Tr_jadwal_lapangan_service {
         return a;
     }
 
-    public List<TrJadwalLapangan> getAllByIdLapangan(int id){
-        List<TrJadwalLapangan> a = trJadwalLapanganRepository.findAllByIdLapanganOrderByTanggalAscJamAsc(id);
+    public TrJadwalLapangan getById(int id){
+        TrJadwalLapangan a = trJadwalLapanganRepository.findById(id);
         return a;
     }
-    public List<TrJadwalLapangan> getAllNextByIdLapangan(int id){
-        List<TrJadwalLapangan> a = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try{
-            Date comp = sdf.parse(sdf.format(new Date()));
-            for(TrJadwalLapangan b : trJadwalLapanganRepository.findAllByIdLapanganOrderByTanggalAscJamAsc(id)){
-                if(b.getTanggal().compareTo(comp) >= 0){
-                    a.add(b);
-                }
-            }
-        }catch (Exception e){
 
-        }
+    public List<TrJadwalLapangan> getAllByIdLapangan(int id){
+        List<TrJadwalLapangan> a = trJadwalLapanganRepository.findAllByIdLapanganOrderByTanggalAscJamAsc(id);
         return a;
     }
     public List<TrJadwalLapangan> getAllByIdAndByDate(int id, String tanggal){
@@ -59,12 +51,29 @@ public class Tr_jadwal_lapangan_service {
         }
         return a;
     }
+
+    public List<TrJadwalLapangan> getAllNextByIdLapangan(int id){
+        List<TrJadwalLapangan> a = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try{
+            Date comp = sdf.parse(sdf.format(new Date()));
+            for(TrJadwalLapangan b : trJadwalLapanganRepository.findAllByIdLapanganOrderByTanggalAscJamAsc(id)){
+                if(b.getTanggal().compareTo(comp) >= 0){
+                    a.add(b);
+                }
+            }
+        }catch (Exception e){
+
+        }
+        return a;
+    }
+
     public List<TrJadwalLapangan> getAllFutureByIdTim(int idTim1){
         List<TrJadwalLapangan> a = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try{
             Date comp = sdf.parse(sdf.format(new Date()));
-            for(TrJadwalLapangan b : trJadwalLapanganRepository.findAllByIdTim1OrderByTanggalAscJamAsc(idTim1)){
+            for(TrJadwalLapangan b : getAllByIdTim(idTim1)){
                 if(b.getTanggal().compareTo(comp) >= 0){
                     a.add(b);
                 }
@@ -83,7 +92,7 @@ public class Tr_jadwal_lapangan_service {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try{
             Date comp = sdf.parse(sdf.format(new Date()));
-            for(TrJadwalLapangan b : trJadwalLapanganRepository.findAllByIdTim1OrderByTanggalAscJamAsc(idTim1)){
+            for(TrJadwalLapangan b : getAllByIdTim(idTim1)){
                 if(b.getTanggal().compareTo(comp) < 0){
                     a.add(b);
                 }
@@ -94,8 +103,30 @@ public class Tr_jadwal_lapangan_service {
         return a;
     }
 
+    public TrJadwalLapangan getByJadwalJamLapangan(TrBookingLapangan booking){
+        List<TrJadwalLapangan> a = getAllByIdTim(booking.getIdTim());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
+        for(TrJadwalLapangan jadwal : a){
+            try{
+                Date tanggal = sdf.parse(sdf.format(jadwal.getTanggal()));
+                if(tanggal.compareTo(booking.getTanggal()) == 0){
+                    Date jam = parser.parse(parser.format(booking.getJam()));
+                    Date jamLapangan = parser.parse(parser.format(jadwal.getJam()));
+                    if(jam.compareTo(jamLapangan) == 0){
+                        return jadwal;
+                    }
+                }
+            }catch (Exception e){
+
+            }
+        }
+        return new TrJadwalLapangan();
+    }
+
 //    ================================\\
     public void save(TrJadwalLapangan a){
         trJadwalLapanganRepository.save(a);
     }
+
 }

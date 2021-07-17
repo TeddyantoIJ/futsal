@@ -37,6 +37,7 @@
                                     <th scope="col">Play time</th>
                                     <th scope="col">Schedule type</th>
                                     <th scope="col">Opponent</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 </thead>
@@ -62,6 +63,10 @@
                                     <td th:if="${jadwal.idTim1 == jadwal.id_tim2}" class="font-weight-bold">-</td>
                                     <td th:if="${jadwal.idTim1 != jadwal.id_tim2}" class="font-weight-bold">
                                         <a th:each="t : ${tim}" th:if="${t.idTim == jadwal.id_tim2}" th:text="${t.nama}"></a>
+                                    </td>
+                                    <td>
+                                        <span th:if="${jadwal.status == 1}" class="text-success">Finished</span>
+                                        <span th:if="${jadwal.status == 0}" class="text-danger">Unfinished</span>
                                     </td>
                                     <td>
                                         No action available

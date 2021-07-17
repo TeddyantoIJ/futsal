@@ -56,18 +56,6 @@
             <li class="nav-item active">
                 <a class="nav-link font-weight-bold" href="/" style="text-transform: capitalize">home</a>
             </li>
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link  font-weight-bold" href="/my-profil" style="text-transform: capitalize">my profil</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link  font-weight-bold" href="/my-merchant" style="text-transform: capitalize">my merchant</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link  font-weight-bold" href="/my-tim" style="text-transform: capitalize">my team</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link  font-weight-bold" href="/bill" style="text-transform: capitalize">bill</a>-->
-<!--            </li>-->
             <li class="nav-item">
                 <a class="nav-link  font-weight-bold" href="/about-ivte-p" style="text-transform: capitalize">about ivte-p</a>
             </li>
@@ -75,7 +63,33 @@
         <a class="btn btn-outline-light" href="/page-login" th:if="${session.login == false}">
             SIGN IN / UP <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
         </a>
-        <div class="btn-group dropleft" th:if="${session.login == true}" >
+        <div class="btn-group dropleft button_menu_user1" th:if="${session.login == true}" >
+            <a class="btn rounded-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-color: whitesmoke">
+                <i class="fa fa-user-alt" aria-hidden="true" style="color: whitesmoke"></i>
+                <span class="notification bg-danger" th:if="${session.notif == true}">!</span>
+            </a>
+
+            <div class="dropdown-menu">
+                <div class="dropdown-header">Signed in as <br/>
+                    <span class="font-weight-bold" th:text="${session.user.namaDepan} + ' ' + ${session.user.namaBelakang}"></span>
+                </div>
+
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/my-profile" style="font-size: 14px">Your profile</a>
+                <a  class="dropdown-item" href="/my-merchant" style="font-size: 14px" th:if="${session.merchant != null}">Your merchant  <span class="badge badge-danger badge-pill" th:if="${session.notif_merchant > 0}">!</span></a>
+                <a  class="dropdown-item text-danger" href="/" style="font-size: 14px" th:if="${session.merchant == null}" >Your merchant</a>
+                <a class="dropdown-item" href="/my-tim" style="font-size: 14px" th:if="${session.tim != null}">Your team</a>
+                <a class="dropdown-item text-danger" href="/" style="font-size: 14px" th:if="${session.tim == null}" >Your team</a>
+                <a class="dropdown-item" href="/bill" style="font-size: 14px">Your bill  <span class="badge badge-danger badge-pill" th:if="${session.bill > 0}" th:text="${session.bill}"></span></a>
+
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="" style="font-size: 14px"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>
+
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item " href="/Logout" style="font-size: 14px"><i class="fa fa-sign-out-alt" aria-hidden="true"></i> Sign Out</a>
+            </div>
+        </div>
+        <div class="btn-group button_menu_user" th:if="${session.login == true}" >
             <a class="btn rounded-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-color: whitesmoke">
                 <i class="fa fa-user-alt" aria-hidden="true" style="color: whitesmoke"></i>
                 <span class="notification bg-danger" th:if="${session.notif == true}">!</span>
