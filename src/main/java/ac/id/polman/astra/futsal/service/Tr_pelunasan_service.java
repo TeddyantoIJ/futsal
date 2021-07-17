@@ -16,4 +16,8 @@ public class Tr_pelunasan_service {
         List<TrPelunasan> a = (List<TrPelunasan>) trPelunasanRepository.findAll();
         return a;
     }
+//    a========================
+    public void save(TrPelunasan a){
+        trPelunasanRepository.save(a);
+    }
 }

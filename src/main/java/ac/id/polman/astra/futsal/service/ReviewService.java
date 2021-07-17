@@ -27,4 +27,9 @@ public class ReviewService {
         }
         return a;
     }
+
+//    ====================================
+    public void save(TrReview a){
+        reviewRepository.save(a);
+    }
 }

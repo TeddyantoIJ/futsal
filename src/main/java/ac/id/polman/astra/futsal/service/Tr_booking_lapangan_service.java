@@ -329,4 +329,9 @@ public class Tr_booking_lapangan_service {
         }
         trBookingLapanganRepository.save(a);
     }
+
+    public void update_lunas(TrBookingLapangan a){
+        a.setId_status(5);
+        trBookingLapanganRepository.save(a);
+    }
 }

@@ -4,7 +4,9 @@
       layout:decorate="/layout/_merchant">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/custome/rating.css">
     <title>Processed order</title>
+    <link rel="stylesheet" href="../../static/css/custome/rating.css">
 </head>
 <body>
 <div layout:fragment="content">
@@ -42,7 +44,16 @@
                 </td>
                 <td th:each="t : ${tim}" th:if="${t.idTim == book.idTim}" th:text="${t.nama}"></td>
                 <td>
-                    <a th:href="'/konfirmasi-booking-finish/' + ${book.id}" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Done</a>
+                    <a th:href="'/konfirmasi-booking-finish/' + ${book.id}" class="btn btn-success"
+                       onclick="return confirm('Press OK to confirm that this order is complete')"><i class="fa fa-check" aria-hidden="true"></i> Done</a>
+<!--                    <a href="" data-toggle="modal" data-target="#done" th:attr="onclick=|done('${book.id}')|" class="btn btn-success">-->
+<!--                        <i class="fa fa-check" aria-hidden="true"></i> Done-->
+<!--                    </a>-->
+<!--                    <script>-->
+<!--                        function done(id){-->
+<!--                            document.getElementById("id").value = id;-->
+<!--                        }-->
+<!--                    </script>-->
                     <a th:href="'/konfirmasi-booking-not-complete/' + ${book.id}" onclick="return confirm('Press OK to confirm that this order is not complete')" class="btn btn-danger">
                         <i class="fa fa-times" aria-hidden="true"></i> Transaction not completey
                     </a>
@@ -71,6 +82,68 @@
             </div>
         </div>
     </div>
+<!--    <div class="modal fade" id="done" tabindex="-1" role="dialog" aria-labelledby="done" aria-hidden="true">-->
+<!--        <div class="modal-dialog modal-dialog-centered" role="document">-->
+<!--            <div class="modal-content">-->
+<!--                <form action="/konfirmasi-booking-finish" method="post">-->
+<!--                    <div class="modal-header">-->
+<!--                        <h5 class="modal-title">Confirmation complete</h5>-->
+<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                            <span aria-hidden="true">&times;</span>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        <input type="hidden" name="id" id="id">-->
+
+<!--                        <label class="font-weight-bold text-dark" for="review">Review</label>-->
+<!--                        <textarea class="form-control" type="text" name="review" id="review" placeholder="review">-->
+
+<!--                        </textarea>-->
+
+<!--                        <br/>-->
+<!--                        <label class="font-weight-bold text-dark">Rating <span style="color:red">*</span></label>-->
+<!--                        <br/>-->
+<!--                        <div class="rating">-->
+<!--                            <label>-->
+<!--                                <input type="radio" name="rating" value="1" />-->
+<!--                                <span class="icon">★</span>-->
+<!--                            </label>-->
+<!--                            <label>-->
+<!--                                <input type="radio" name="rating" value="2" />-->
+<!--                                <span class="icon">★</span>-->
+<!--                                <span class="icon">★</span>-->
+<!--                            </label>-->
+<!--                            <label>-->
+<!--                                <input type="radio" name="rating" value="3" />-->
+<!--                                <span class="icon">★</span>-->
+<!--                                <span class="icon">★</span>-->
+<!--                                <span class="icon">★</span>-->
+<!--                            </label>-->
+<!--                            <label>-->
+<!--                                <input type="radio" name="rating" value="4" />-->
+<!--                                <span class="icon">★</span>-->
+<!--                                <span class="icon">★</span>-->
+<!--                                <span class="icon">★</span>-->
+<!--                                <span class="icon">★</span>-->
+<!--                            </label>-->
+<!--                            <label>-->
+<!--                                <input type="radio" name="rating" value="5" />-->
+<!--                                <span class="icon">★</span>-->
+<!--                                <span class="icon">★</span>-->
+<!--                                <span class="icon">★</span>-->
+<!--                                <span class="icon">★</span>-->
+<!--                                <span class="icon">★</span>-->
+<!--                            </label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>-->
+<!--                        <button class="btn btn-success"><span class="fa fa-paper-plane"></span> Send</button>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>
 </body>
 </html>

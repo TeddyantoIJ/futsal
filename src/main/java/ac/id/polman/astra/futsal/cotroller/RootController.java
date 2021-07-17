@@ -2,6 +2,7 @@ package ac.id.polman.astra.futsal.cotroller;
 
 import ac.id.polman.astra.futsal.model.*;
 import ac.id.polman.astra.futsal.service.*;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,6 +52,9 @@ public class RootController {
     AkunService akunService;
     @Autowired
     Tr_booking_lapangan_service trBookinglapanganservice;
+    @Autowired
+    Tr_pelunasan_service trPelunasanService;
+
 
     UploadController uploadController = new UploadController();
 
@@ -434,10 +438,11 @@ public class RootController {
         a.setNotifikasi(0);
         if(Integer.parseInt(waktu.split(":")[0]) > 16){
             a.setDp((int) (la.getHarga() * a.getDurasi1()) / 2);
+            a.setSub_harga((int) (la.getHarga() * a.getDurasi1()));
         }else{
             a.setDp((int) (la.getHarga_penerangan() * a.getDurasi1()) / 2);
+            a.setSub_harga((int) (la.getHarga_penerangan() * a.getDurasi1()));
         }
-        a.setSub_harga((int) (la.getHarga() * a.getDurasi1()));
         a.setBukti_transfer("");
         a.setCreaby(us.getEmail());
         a.setCreadate(us.getCreadate());
@@ -526,6 +531,49 @@ public class RootController {
         TrJadwalLapangan j = trJadwalLapanganService.getByJadwalJamLapangan(a);
         j.setStatus(0);
         trJadwalLapanganService.save(j);
+        return "redirect:/my-merchant-processed-order";
+    }
+
+    @GetMapping("/konfirmasi-booking-finish/{id}")
+    public String konfirmasi_booking_finish(
+            Model model,
+            HttpSession session,
+            @PathVariable int id
+    ){
+        int idUser = -1;
+        try{
+            idUser = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        MsUser us = userService.getUserById(idUser);
+        TrBookingLapangan a = trBookinglapanganservice.getById(id);
+        a.setModiby(us.getEmail());
+        a.setModidate(LocalDateTime.now());
+        trBookinglapanganservice.update_lunas(a);
+
+        TrPelunasan pelunasan = new TrPelunasan();
+        pelunasan.setCreaby(us.getEmail());
+        pelunasan.setCreadate(LocalDateTime.now());
+        pelunasan.setStatus(1);
+        pelunasan.setModiby("");
+        pelunasan.setModidate(LocalDateTime.now());
+        pelunasan.setBukti_bayar("CASH");
+        pelunasan.setId_trbooking(a.getId());
+        pelunasan.setNominal(a.getSub_harga() - a.getDp());
+        trPelunasanService.save(pelunasan);
+
+        TrReview review = new TrReview();
+        review.setCreaby(us.getEmail());
+        review.setCreadate(LocalDateTime.now());
+        review.setStatus(0);
+        review.setModiby("");
+        review.setModidate(LocalDateTime.now());
+        review.setReview("");
+        review.setRating(0);
+        review.setIdMerchant(lapanganService.getLapanganByIdLapangan(a.getId_lapangan()).getIdMerchant());
+        review.setIdUser(us.getIdUser());
+        reviewService.save(review);
         return "redirect:/my-merchant-processed-order";
     }
 
