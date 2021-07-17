@@ -14,7 +14,7 @@
                 <ol class="breadcrumb bg-white">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item"><a href="#">Manager Tim</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Member Confirm</li>
+                    <li class="breadcrumb-item active" aria-current="page">Player Confirmation</li>
                 </ol>
             </nav>
             <!-- /Breadcrumb -->
@@ -45,8 +45,8 @@
                                     <td th:text="${item.alasan}"></td>
                                     <td th:each="itemstatus:${listStatus}" th:if="${itemstatus.idStatus==item.idStatus}" th:text="${itemstatus.keterangan}"></td>
                                     <td class="text-center" th:if="${item.idStatus==2}">
-                                        <a th:href="@{'konfirmasi-Anggota?id='+${item.id}}" class="btn btn-primary" style="width: 100px;" onclick="return confirm('Tekan OK untuk konfirmasi')">Confirm</a>
-                                        <a th:href="@{'Tolak-AnggotaTim?id='+${item.id}}" class="btn btn-danger" style="width: 100px;" onclick="return confirm('Tekan OK untuk menolak')">Reject</a>
+                                        <a th:href="@{'konfirmasi-Anggota?id='+${item.id}}" class="btn btn-primary" style="width: 100px;" onclick="return confirm('Are you sure you want to confirm this data?')">Confirm</a>
+                                        <a th:href="@{'Tolak-AnggotaTim?id='+${item.id}}" class="btn btn-danger" style="width: 100px;" onclick="return confirm('Are you sure you want to reject this data?')">Reject</a>
                                     </td>
                                     <td class="text-center" th:if="${item.idStatus!=2}">
                                         <label >-</label>

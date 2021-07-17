@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="/layout/_team">
+<head>
+</head>
+<div layout:fragment="content">
+    <main>
+        <header>
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Ask For a Match</li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+        </header>
+        <!-- Main page content-->
+        <div class="container-fluid mt-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Form Ask For a Match
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <form class="d-inline-flex float-right" action="/AjakTanding-Merchant" method="get">
+                                <input type="text" class="form-control" name="search">
+                                <button class="btn btn-primary"><span class="fa fa-search"></span> Search</button>
+                            </form>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col">
+                            <div th:each="mer : ${merchantList}">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <img th:src="'/images/merchant/foto/' + ${mer.foto}" class="card-img" style="height: 150px; object-fit: cover; object-position: center"/>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                            <div class="col-sm-3">Name</div>
+                                            <div class="col-sm font-weight-light">
+                                                <a th:href="'/Ajak-merchant-search/' + ${mer.id_merchant}" th:text="': ' + ${mer.nama}"></a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">Address</div>
+                                            <div class="col-sm font-weight-light" th:text="': ' + ${mer.alamat}"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">Contact person</div>
+                                            <div class="col-sm font-weight-light" th:text="': ' + ${mer.narahubung} + '(' + ${mer.telephone} + ')'">: Ivam (0895 6064 25999)</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">Description</div>
+                                            <div class="col-sm font-weight-light wrapText" th:text="': ' + ${mer.deskripsi}">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <i th:if="${mer.rating >= 1}" class="fa fa-star" style="color: yellow"></i>
+                                                <i th:if="${mer.rating >= 2}" class="fa fa-star" style="color: yellow"></i>
+                                                <i th:if="${mer.rating >= 3}" class="fa fa-star" style="color: yellow"></i>
+                                                <i th:if="${mer.rating >= 4}" class="fa fa-star" style="color: yellow"></i>
+                                                <i th:if="${mer.rating >= 5}" class="fa fa-star" style="color: yellow"></i>
+                                            </div>
+                                            <div class="col-sm" th:text="': ' + ${mer.rating}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</html>

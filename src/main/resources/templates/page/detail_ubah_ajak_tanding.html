@@ -11,7 +11,7 @@
             <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb bg-white">
                     <li class="breadcrumb-item">Dashboard</li>
-                    <li class="breadcrumb-item text-blue" aria-current="page">challenge the team</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Ask For a Match</li>
                 </ol>
             </nav>
             <!-- /Breadcrumb -->
@@ -20,7 +20,7 @@
         <div class="container-fluid mt-4">
             <div class="card mb-4">
                 <div class="card-header">
-                    Data Invite a Match
+                    Form Ask For a Match
                 </div>
                 <div class="card-body">
                     <form th:action="@{GetUbahDetailAjak}" method="post" enctype="multipart/form-data" >
@@ -37,10 +37,11 @@
                                 <br/>
 
                                 <label>Winner <span style="color: red">*</span> </label>
-                                <select  name="juara" id="juara" required class="form-control">
-                                    <option value="0" selected disabled hidden>Select the winning team</option>
+                                <select  name="juara" id="juara" class="form-control" required>
+                                    <option th:value="0" selected disabled hidden>Select the winning team</option>
                                     <option th:each="tim ,cek:${listTim}" th:if="${tim.idTim==listAjak.idTim1}" th:value="${listAjak.idTim1}" th:text="${tim.nama}"></option>
                                     <option th:each="tim ,cek:${listTim}" th:if="${tim.idTim==listAjak.idTim2}" th:value="${listAjak.idTim2}" th:text="${tim.nama}"></option>
+                                    <option th:value="0">Draw</option>
                                 </select>
                                 <br/>
                             </div>
