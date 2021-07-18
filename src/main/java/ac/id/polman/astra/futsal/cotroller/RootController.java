@@ -787,7 +787,6 @@ public class RootController {
 
         int tim = userService.getUserById(id).getIdTim();
         List<TrJadwalLapangan> a = trJadwalLapanganService.getAllFutureByIdTim(tim);
-        System.out.println(a.size());
         List<MsLapangan> b = lapanganService.getAllLapangan();
         List<MsTim> c = timService.getAllTim();
 
