@@ -67,7 +67,6 @@
                                     <td>
                                         <span th:if="${jad.status == 2}" class="text-success">Finished</span>
                                         <span th:if="${jad.status == 0}" class="text-danger">Unfinished</span>&nbsp;&nbsp;
-                                        <span th:each="book : ${booking}" th:if="${book.id == jad.id && rev.rating == 0}"
                                         <span  th:each="rev : ${review}" th:if="${rev.id_trbooking == jad.id && rev.rating == 0}">
                                             <a data-toggle="modal" data-target="#exampleModal" class="text-primary" style="cursor: pointer">
                                                 <span class="fa fa-comment" aria-hidden="true"></span> Review merchant
