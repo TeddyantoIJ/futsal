@@ -3,6 +3,9 @@ package ac.id.polman.astra.futsal.cotroller;
 import ac.id.polman.astra.futsal.model.*;
 import ac.id.polman.astra.futsal.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -11,8 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,12 +37,13 @@ public class PendaftaranController {
     @Autowired
     TimService timService;
 
-    @GetMapping("/MenuAdmin")
-    public String Admin(Model model, HttpSession session, ModelMap modelMap) {
-        String nama = (String) session.getAttribute("nama_depan");
+    @Autowired
+    private JavaMailSender javaMailSender;
 
-        return "template/dashboard_admin";
-    }
+    public Integer id_akun_lupa_password = 0;
+    public String email_lupa_password = "";
+
+    ///========================================Login=========================================//
 
     @PostMapping("/Logincek")
     public String Logincek(@RequestParam(name = "username") String username,
@@ -67,6 +74,78 @@ public class PendaftaranController {
             return "redirect:/page-login";
         }
     }
+
+
+    @GetMapping("/MenuAdmin")
+    public String Admin(Model model, HttpSession session, ModelMap modelMap) {
+        String nama = (String) session.getAttribute("nama_depan");
+
+        return "template/dashboard_admin";
+    }
+
+    @GetMapping("/Lupa-Password")
+    public String LupaPassword(Model model, HttpSession session) {
+
+        return "template/lupa_password";
+    }
+
+    @PostMapping("/Passwordcek")
+    public String Passwordcek(@RequestParam(name = "telephone") String telephone,
+                           @RequestParam(name = "email") String email,
+                           HttpSession session) {
+
+        MsUser user = userService.getUserByEmail(email);
+        if (user == null) {
+            return "redirect:/Lupa-Password";
+        }
+
+        if (user.getEmail().equals(email)&& user.getTelephone().equals(telephone)) {
+            try {
+                //sendEmail();
+                id_akun_lupa_password = user.getIdAkun();
+                email_lupa_password = user.getEmail();
+                sendEmailWithAttachment();
+
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return "redirect:/page-login";
+        } else {
+            return "redirect:/Lupa-Password";
+        }
+    }
+
+
+    void sendEmail() {
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo("fsyah8912@gmail.com");
+        msg.setSubject("Testing from Spring Boot");
+        msg.setText("Hello World \n Spring Boot Email");
+
+        javaMailSender.send(msg);
+    }
+
+    void sendEmailWithAttachment() throws MessagingException, IOException {
+
+        MimeMessage msg = javaMailSender.createMimeMessage();
+        MsAkun akun = akunService.getAkunByIdAkun(id_akun_lupa_password);
+        // true = multipart message
+        MimeMessageHelper helper = new MimeMessageHelper(msg, true);
+        helper.setTo(email_lupa_password);
+        helper.setSubject("Forget Password");
+        helper.setText("<h3>Salam Olahraga Pengguna Ivte Pemalang</h3>" +
+                "<p>Kami menanggapi mengenai lupa password anda, untuk data sebagai berikut</p>" +
+                "<p>Username : <b>" + akun.getUsername() + "</b></p>" +
+                "<p>Password : <b>" + akun.getPassword() + "</b></p>" +
+                "<p>Terimakasih telah menggunakan layanan kami", true);
+
+        javaMailSender.send(msg);
+
+    }
+
+    //======================================ADMIN============================================//
 
     @GetMapping("/Admin")
     public String goto_admin(
@@ -112,6 +191,9 @@ public class PendaftaranController {
 
         return "redirect:/page-login";
     }
+
+
+    //=================================MENAMBAH DAN MENGKONFIRMASI ANGGOTA TIM=====================//
 
     //Pendaftaran TIM
     @GetMapping("/Daftar-Tim")

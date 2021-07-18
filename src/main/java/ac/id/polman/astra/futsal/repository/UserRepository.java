@@ -22,4 +22,7 @@ public interface UserRepository extends CrudRepository<MsUser, Integer> {
 
     @Query("select * from ms_user where status =:status")
     List<MsUser> findAllByStatus(@Param("status") int status);
+
+    @Query("select * from ms_user where email =:email")
+    MsUser findByEmail(@Param("email") String email);
 }

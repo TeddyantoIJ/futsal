@@ -12,7 +12,7 @@
             <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb bg-white">
                     <li class="breadcrumb-item">Dashboard</li>
-                    <li class="breadcrumb-item text-blue" aria-current="page">Data Players</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Players Without Team</li>
                 </ol>
             </nav>
             <!-- /Breadcrumb -->
@@ -21,7 +21,7 @@
         <div class="container-fluid mt-4">
             <div class="card mb-4">
                 <div class="card-header">
-                    Data Players
+                    Data Players Without Team
                 </div>
                 <div class="card-body">
                     <div class="table-responsive pt-2">
@@ -45,7 +45,7 @@
                                     <td th:text="${user.email}"></td>
                                     <td th:text="${user.tanggalLahir}"></td>
                                     <td class="text-center">
-                                        <a th:href="@{'AnggotaTim-Tambah?id='+${user.idUser}}" class="btn btn-primary" style="width: 70px;" onclick="return confirm('are you sure you want to add this player')">Add</a>
+                                        <a th:href="@{'AnggotaTim-Tambah?id='+${user.idUser}}" class="btn btn-primary" style="width: 70px;" onclick="return confirm('Are you sure you want to add this player?')">Add</a>
                                     </td>
                                 </tr>
                                 </tbody>

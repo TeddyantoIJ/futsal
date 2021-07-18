@@ -16,4 +16,8 @@ public interface AjakTandingRepository extends CrudRepository<TrAjakTanding, Int
 
     @Query("select * from tr_ajak_tanding where id=:id")
     TrAjakTanding findById(@Param("id") int id);
+
+    //mencari data terakhir, method alasan suapaya bisa normal
+    @Query("SELECT TOP 1 * FROM tr_ajak_tanding ORDER BY id DESC")
+    TrAjakTanding findTopByOrderByIdDesc();
 }

@@ -26,6 +26,11 @@ public class AjakTandingService {
         return tandingList;
     }
 
+    public TrAjakTanding getLastId(){
+        TrAjakTanding tandingList = ajakTandingRepository.findTopByOrderByIdDesc();
+        return tandingList;
+    }
+
     public List<TrAjakTanding> getAllByTim(int id_tim){
         List<TrAjakTanding> tandingList = ajakTandingRepository.findByIdTim1(id_tim);
         return tandingList;

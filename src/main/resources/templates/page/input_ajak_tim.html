@@ -11,7 +11,7 @@
             <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb bg-white">
                     <li class="breadcrumb-item">Dashboard</li>
-                    <li class="breadcrumb-item text-blue" aria-current="page">challenge the team</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Ask For a Match</li>
                 </ol>
             </nav>
             <!-- /Breadcrumb -->
@@ -20,14 +20,14 @@
         <div class="container-fluid mt-4">
             <div class="card mb-4">
                 <div class="card-header">
-                    Data Invite a Match
+                    Form Ask For a Match
                 </div>
                 <div class="card-body">
                     <form th:action="@{addAjakTim}" th:object="${timObj}" method="post" enctype="multipart/form-data" >
                         <div class="row">
                             <div class="col">
                                 <input type="hidden" name="id_tim2" th:value="${timObj.idTim}">
-                                <label for="nama">Nama Tim <span style="color: red">*</span> </label>
+                                <label for="nama">Team Name<span style="color: red">*</span> </label>
                                 <input class="form form-control" type="text" name="nama" id="nama" th:placeholder="${timObj.nama}" th:value="${timObj.nama}" disabled>
                                 <br/>
 
@@ -43,21 +43,21 @@
                                 <textarea id="alasan" name="alasan" rows="4" cols="50" class="form form-control" required></textarea>
                                 <br/>
 
-                                <label>Field <span style="color: red">*</span> </label>
-                                <select  name="id_lapangan" id="id_lapangan" required class="form-control">
-                                    <option value="0" selected disabled hidden>Select Field</option>
-                                    <div  th:each="item, iter: ${listLap}">
-                                        <option th:value="${item.idLapangan}" th:text="${item.nama}">
-                                        </option>
-                                    </div>
-                                </select>
-                                <br/>
+<!--                                <label>Field <span style="color: red">*</span> </label>-->
+<!--                                <select  name="id_lapangan" id="id_lapangan" required class="form-control">-->
+<!--                                    <option value="0" selected disabled hidden>Select Field</option>-->
+<!--                                    <div  th:each="item, iter: ${listLap}">-->
+<!--                                        <option th:value="${item.idLapangan}" th:text="${item.nama}">-->
+<!--                                        </option>-->
+<!--                                    </div>-->
+<!--                                </select>-->
+<!--                                <br/>-->
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <button class="btn btn-outline-primary">Save</button>
-                                <a class="btn btn-warning" href="/Add-AjakTim">Back</a>
+                                <button class="btn btn-primary" style="float: right">Next</button>
+                                <a class="btn btn-warning" href="/Add-AjakTim" style="float: left">Back</a>
                             </div>
                         </div>
                     </form>

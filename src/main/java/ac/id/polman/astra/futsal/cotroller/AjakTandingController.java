@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,6 +15,7 @@ import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class AjakTandingController {
@@ -34,6 +36,18 @@ public class AjakTandingController {
 
     @Autowired
     DtAjakTandingService dtAjakTandingService;
+
+    @Autowired
+    MerchantService merchantService;
+
+    @Autowired
+    FasilitasService fasilitasService;
+
+    @Autowired
+    DtMerchantService dtMerchantService;
+
+    @Autowired
+    DtFotoLapanganService dtFotoLapanganService;
 
     ///=============================== AJak Anggota ===============================////
 
@@ -97,7 +111,9 @@ public class AjakTandingController {
         MsTim msTim = new MsTim();
         msTim = timService.getTimById(id_tim);
         List<MsLapangan> lapangan = lapanganService.getAllLapangan();
+        List<MsMerchant> merchants = merchantService.getAllMerchant();
 
+        model.addAttribute("listMerchant", merchants);
         model.addAttribute("listLap", lapangan);
         model.addAttribute("timObj", msTim);
         return "page/input_ajak_tim";
@@ -117,6 +133,7 @@ public class AjakTandingController {
         trAjakTanding.setIdTim1(a.getIdTim());
         trAjakTanding.setIdTim2(id_tim2);
         trAjakTanding.setAlasann(alasan);
+        trAjakTanding.setId_lapangan(1);
         trAjakTanding.setJam(new Time(Integer.parseInt(waktu.split(":")[0]),0,0));
         trAjakTanding.setCreaby(a.getNamaDepan());
         trAjakTanding.setId_status(2);
@@ -124,6 +141,89 @@ public class AjakTandingController {
         trAjakTanding.setModiby("");
         trAjakTanding.setModidate(LocalDateTime.now());
         trAjakTanding.setStatus(1);
+        ajakTandingService.save(trAjakTanding);
+
+//        return "redirect:/Ajak-Tanding";
+        return "redirect:/AjakTanding-Merchant";
+    }
+
+    @GetMapping("/AjakTanding-Merchant")
+    public String goto_merchant_show(
+            Model model,
+            HttpSession session,
+            @RequestParam("search") Optional<String> search
+    )
+    {
+        try{
+            if((boolean) session.getAttribute("login")){
+
+            }
+        }catch (Exception e){
+            session.setAttribute("login", false);
+        }
+
+        List<MsMerchant> a = new ArrayList<>();
+        if(!search.isPresent() || search.get().equals("")){
+            a = merchantService.getAllActive();
+        }else{
+            a = merchantService.getMerchantByName(search.get());
+        }
+
+        model.addAttribute("merchantList", a);
+        return "page/ajak_tanding_merchant";
+    }
+
+    @GetMapping("/Ajak-merchant-search/{id}")
+    public String goto_merchant_id(
+            @PathVariable int id,
+            Model model,
+            HttpSession session
+    ){
+        int idus = -1;
+        try{
+            idus = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+
+        MsMerchant msMerchant = merchantService.getMerchantById(id);
+
+        List<MsLapangan> lap = lapanganService.getAllLapanganByIdMerchant(msMerchant.getId_merchant());
+        List<MsFasilitas> fasList = fasilitasService.getAllFacilities();
+        List<DtMerchant> fasDit = dtMerchantService.getAllDtMerchantByIdMerchant(msMerchant.getId_merchant());
+        List<DtFotolapangan> fotLap = new ArrayList<>();
+        for (MsLapangan x : lap) {
+            try{
+                fotLap.add(dtFotoLapanganService.getAllDtFotoLapanganByIdLapangan(x.getIdLapangan()).get(0));
+            }catch (Exception e){
+                fotLap.add(new DtFotolapangan());
+            }
+
+        }
+        List<MsUser> users = userService.getAllUser();
+
+        model.addAttribute("lap",lap);
+        model.addAttribute("fasList",fasList);
+        model.addAttribute("fasDit",fasDit);
+        model.addAttribute("fotLap",fotLap);
+
+        model.addAttribute("merchant", msMerchant);
+        model.addAttribute("users", users);
+
+        return "page/ajak_tanding_lapangan";
+    }
+
+    @GetMapping("/AjakTim-Lapangan")
+    public String UbahLapanganAjakTim(@RequestParam("id") Integer id, HttpSession session) {
+        int idus = -1;
+        try {
+            idus = (int) session.getAttribute("id_user");
+        } catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        TrAjakTanding trAjakTanding = ajakTandingService.getLastId();
+        trAjakTanding.setId_lapangan(id);
         ajakTandingService.save(trAjakTanding);
 
         return "redirect:/Ajak-Tanding";
@@ -206,6 +306,9 @@ public class AjakTandingController {
 
         return "redirect:/AjakTim-Detail?id="+dtAjakTanding.getIdAjakTanding();
     }
+
+
+
 
     ///===================================Konfirmasi Ajak Tim=============================//
 

@@ -39,6 +39,11 @@ public class UserService {
         return msUser;
     }
 
+    public MsUser getUserByEmail(String email){
+        MsUser msUser = userRepository.findByEmail(email);
+        return msUser;
+    }
+
     public MsUser getUserByIdAkun(int id_akun){
         MsUser msUser = userRepository.findByIdAkun(id_akun);
         return msUser;
