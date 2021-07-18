@@ -55,7 +55,13 @@ public class Tr_booking_lapangan_service {
     }
 
     public TrBookingLapangan getById(int id){
-        return trBookingLapanganRepository.findAllById(id);
+        List<TrBookingLapangan> a = getAll();
+        for(TrBookingLapangan b : a){
+            if(b.getId() == id){
+                return b;
+            }
+        }
+        return null;
     }
 
     public TrBookingLapangan getByIdLapanganJadwalAndTerkonfirmasi(TrJadwalLapangan a){

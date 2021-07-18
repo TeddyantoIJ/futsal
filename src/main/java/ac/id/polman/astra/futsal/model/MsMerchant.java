@@ -89,6 +89,7 @@ public class MsMerchant {
     }
 
     public Float getRating() {
+
         return rating;
     }
 

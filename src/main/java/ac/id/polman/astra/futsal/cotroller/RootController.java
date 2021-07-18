@@ -693,8 +693,12 @@ public class RootController {
         review.setRating(0);
         review.setIdMerchant(lapanganService.getLapanganByIdLapangan(a.getId_lapangan()).getIdMerchant());
         review.setIdUser(us.getIdUser());
+        review.setId_trbooking(trJadwalLapanganService.getByJadwalJamLapangan(a).getId());
         reviewService.save(review);
 
+        TrJadwalLapangan jadwal = trJadwalLapanganService.getByJadwalJamLapangan(a);
+        jadwal.setStatus(2);
+        trJadwalLapanganService.save(jadwal);
         return "redirect:/my-merchant-processed-order";
     }
 
@@ -740,7 +744,7 @@ public class RootController {
         review.setRating(rev.getRating());
         review.setIdMerchant(lapanganService.getLapanganByIdLapangan(a.getId_lapangan()).getIdMerchant());
         review.setIdUser(us.getIdUser());
-        review.setId_trbooking(a.getId());
+        review.setId_trbooking(id);
         reviewService.save(review);
 
         TrJadwalLapangan jadwal = trJadwalLapanganService.getByJadwalJamLapangan(a);
@@ -836,12 +840,41 @@ public class RootController {
         List<TrJadwalLapangan> a = trJadwalLapanganService.getAllPastByIdTim(tim);
         List<MsLapangan> b = lapanganService.getAllLapangan();
         List<MsTim> c = timService.getAllTim();
+        List<TrReview> d = reviewService.getAll();
 
         model.addAttribute("jadwal", a);
         model.addAttribute("lapangan", b);
         model.addAttribute("tim", c);
+        model.addAttribute("review", d);
 
         return "page/tim_schedule_history";
+    }
+
+    @PostMapping("/tim-review-merchant")
+    public String tim_review_merchant(
+            HttpSession session,
+            TrReview review
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e) {
+            return "redirect:/page-login";
+        }
+        TrReview news = reviewService.getById(review.getId());
+        news.setReview(review.getReview());
+        news.setRating(review.getRating());
+        news.setStatus(1);
+        news.setModiby(userService.getUserById(id).getEmail());
+        news.setModidate(LocalDateTime.now());
+        reviewService.save(news);
+
+        MsMerchant merchant = merchantService.getMerchantByIdUser(news.getIdMerchant());
+        merchant.setRating(reviewService.getRatingByIdMerchant(merchant.getId_merchant()));
+        merchant.setModiby("System");
+        merchant.setModidate(LocalDateTime.now());
+        merchantService.saveMerchant(merchant);
+        return "redirect:/my-tim-schedule-history";
     }
     // ======================================= TEAM ======================================
 

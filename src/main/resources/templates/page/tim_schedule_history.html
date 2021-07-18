@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Schedule history</title>
+    <link rel="stylesheet" href="/css/custome/rating.css">
 </head>
 <body>
 <div layout:fragment="content">
@@ -37,7 +38,6 @@
                                     <th scope="col">Play time</th>
                                     <th scope="col">Schedule type</th>
                                     <th scope="col">Opponent</th>
-                                    <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 </thead>
@@ -65,35 +65,79 @@
                                         <a th:each="t : ${tim}" th:if="${t.idTim == jad.id_tim2}" th:text="${t.nama}"></a>
                                     </td>
                                     <td>
-                                        <span th:if="${jad.status == 1}" class="text-success">Finished</span>
-                                        <span th:if="${jad.status == 0}" class="text-danger">Unfinished</span>
-                                    </td>
-                                    <td>
-                                        No action available
+                                        <span th:if="${jad.status == 2}" class="text-success">Finished</span>
+                                        <span th:if="${jad.status == 0}" class="text-danger">Unfinished</span>&nbsp;&nbsp;
+                                        <span th:each="book : ${booking}" th:if="${book.id == jad.id && rev.rating == 0}"
+                                        <span  th:each="rev : ${review}" th:if="${rev.id_trbooking == jad.id && rev.rating == 0}">
+                                            <a data-toggle="modal" data-target="#exampleModal" class="text-primary" style="cursor: pointer">
+                                                <span class="fa fa-comment" aria-hidden="true"></span> Review merchant
+                                            </a>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <form action="/tim-review-merchant" method="post" enctype="multipart/form-data">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Confirmation complete</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <input type="hidden" name="id" th:value="${rev.id}">
+                                                                <label class="font-weight-bold text-dark" for="review">Review</label>
+                                                                <textarea class="form-control" type="text" name="review" id="review" placeholder="review"></textarea>
+
+                                                                <br/>
+                                                                <label class="font-weight-bold text-dark">Rating <span style="color:red">*</span></label>
+                                                                <br/>
+                                                                <div class="rating">
+                                                                    <label>
+                                                                        <input type="radio" name="rating" value="1" required/>
+                                                                        <span class="icon">★</span>
+                                                                    </label>
+                                                                    <label>
+                                                                        <input type="radio" name="rating" value="2" required/>
+                                                                        <span class="icon">★</span>
+                                                                        <span class="icon">★</span>
+                                                                    </label>
+                                                                    <label>
+                                                                        <input type="radio" name="rating" value="3" required/>
+                                                                        <span class="icon">★</span>
+                                                                        <span class="icon">★</span>
+                                                                        <span class="icon">★</span>
+                                                                    </label>
+                                                                    <label>
+                                                                        <input type="radio" name="rating" value="4" required/>
+                                                                        <span class="icon">★</span>
+                                                                        <span class="icon">★</span>
+                                                                        <span class="icon">★</span>
+                                                                        <span class="icon">★</span>
+                                                                    </label>
+                                                                    <label>
+                                                                        <input type="radio" name="rating" value="5" required/>
+                                                                        <span class="icon">★</span>
+                                                                        <span class="icon">★</span>
+                                                                        <span class="icon">★</span>
+                                                                        <span class="icon">★</span>
+                                                                        <span class="icon">★</span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                                <button class="btn btn-success"><span class="fa fa-paper-plane"></span>&nbsp;&nbsp; Send</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Evidence of transfer</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <img id="div_foto" class="card-img" src="">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <a id="download" class="btn btn-primary" download>Download Image</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                     <br/>

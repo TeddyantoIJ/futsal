@@ -22,6 +22,8 @@ public class ReviewService {
     @Autowired
     LapanganRepository lapanganRepository;
 
+    MerchantService merchantService;
+
     public List<TrReview> getAll(){
         List<TrReview> a = (List<TrReview>) reviewRepository.findAll();
         return a;
@@ -67,12 +69,24 @@ public class ReviewService {
     public float getRatingByIdMerchant(int id){
         List<TrReview> reviews = getAllByIdMerchant(id);
         float rating = 0;
+        int valid = 0;
         for(TrReview r : reviews){
             if(r.getStatus() == 1){
                 rating = rating + r.getRating();
+                valid++;
             }
         }
+        try{
+            rating = rating / valid;
+        }catch (Exception e){
+        }
+
         return  rating;
+    }
+
+    public TrReview getById(int id){
+        TrReview trReview = reviewRepository.findById(id);
+        return trReview;
     }
 //    ====================================
     public void save(TrReview a){
