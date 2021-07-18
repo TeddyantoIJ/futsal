@@ -3,6 +3,7 @@ package ac.id.polman.astra.futsal.cotroller;
 import ac.id.polman.astra.futsal.model.*;
 import ac.id.polman.astra.futsal.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,6 +55,12 @@ public class AjakTandingController {
 
     @Autowired
     Tr_booking_lapangan_service tr_booking_lapangan_service;
+
+    @Autowired
+    Tr_jadwal_lapangan_service tr_jadwal_lapangan_service;
+
+    @Autowired
+    TrMainBarengService trMainBarengService;
 
     ///=============================== AJak Anggota ===============================////
 
@@ -438,5 +445,113 @@ public class AjakTandingController {
         model.addAttribute("listTim", tim);
 
         return "page/detail_ajak_tanding2";
+    }
+
+    /////========================================Main Bareng=============================================//
+    @GetMapping("/Play-Together")
+    public String PlayTogether(HttpSession session, Model model) {
+        int idus = -1;
+        try {
+            idus = (int) session.getAttribute("id_user");
+        } catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        MsUser user = userService.getUserById(idus);
+
+        List<TrJadwalLapangan> trJadwalLapangan = tr_jadwal_lapangan_service.getAllIdTim1AndTim2(user.getIdTim(), user.getIdTim());
+//        List<TrJadwalLapangan> trJadwalLapangan = tr_jadwal_lapangan_service.getAll();
+        model.addAttribute("listJadwal", trJadwalLapangan);
+
+        List<MsLapangan> lapangans = lapanganService.getAllLapangan();
+        model.addAttribute("listLapangan", lapangans);
+
+        return "page/main_bareng";
+    }
+
+    @GetMapping("/Play-Together-On")
+    public String PlayTogetherOn(@Param("id") int id, HttpSession session, Model model) {
+        int idus = -1;
+        try {
+            idus = (int) session.getAttribute("id_user");
+        } catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        TrJadwalLapangan trJadwalLapangan = tr_jadwal_lapangan_service.getById(id);
+        trJadwalLapangan.setMainBareng(1);
+        tr_jadwal_lapangan_service.save(trJadwalLapangan);
+
+        return "redirect:/Play-Together";
+    }
+
+    @GetMapping("/Play-Together-Off")
+    public String PlayTogetherOff(@Param("id") int id, HttpSession session, Model model) {
+        int idus = -1;
+        try {
+            idus = (int) session.getAttribute("id_user");
+        } catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        TrJadwalLapangan trJadwalLapangan = tr_jadwal_lapangan_service.getById(id);
+        trJadwalLapangan.setMainBareng(0);
+        tr_jadwal_lapangan_service.save(trJadwalLapangan);
+
+        return "redirect:/Play-Together";
+    }
+
+    @GetMapping("/Play-Together-Detail")
+    public String PlayTogetherDetail(@Param("id") int id,HttpSession session, Model model) {
+        int idus = -1;
+        try {
+            idus = (int) session.getAttribute("id_user");
+        } catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        List<TrMainBareng> mainBarengs = trMainBarengService.getAllIdJadwalLapangan(id, 1);
+        model.addAttribute("listJadwak", mainBarengs);
+
+        List<MsUser> user = userService.getAllUser();
+        model.addAttribute("listUser", user);
+
+        List<MsStatus> statuses = statusService.getAllStatus();
+        model.addAttribute("listStatus", statuses);
+
+        return "page/main_bareng_detil";
+    }
+
+    @GetMapping("/Play-Together-Detail-Reject")
+    public String PlayTogetherDetailReject(@Param("id") int id, HttpSession session) {
+        int idus = -1;
+        try {
+            idus = (int) session.getAttribute("id_user");
+        } catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        TrMainBareng mainBareng = trMainBarengService.getById(id);
+        mainBareng.setIdStatus(4);
+        mainBareng.setStatus(0);
+        trMainBarengService.save(mainBareng);
+
+        return "redirect:/Play-Together-Detail?id="+mainBareng.getIdJadwalLapangan();
+    }
+
+    @GetMapping("/Play-Together-Detail-Confirm")
+    public String PlayTogetherDetailConfirm(@Param("id") int id, HttpSession session) {
+        int idus = -1;
+        try {
+            idus = (int) session.getAttribute("id_user");
+        } catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        TrMainBareng mainBareng = trMainBarengService.getById(id);
+        mainBareng.setIdStatus(3);
+        trMainBarengService.save(mainBareng);
+
+        return "redirect:/Play-Together-Detail?id="+mainBareng.getIdJadwalLapangan();
     }
 }

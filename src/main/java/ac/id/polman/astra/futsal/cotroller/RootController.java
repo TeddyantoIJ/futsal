@@ -521,11 +521,11 @@ public class RootController {
         TrJadwalLapangan jadwal = new TrJadwalLapangan();
         jadwal.setIdTim1(a.getIdTim());
         if(trAjakTanding==null){
-            jadwal.setId_tim2(a.getIdTim());
-            jadwal.setMainBareng(0);
-        }else{
-            jadwal.setId_tim2(trAjakTanding.getIdTim2());
+            jadwal.setIdTim2(a.getIdTim());
             jadwal.setMainBareng(1);
+        }else{
+            jadwal.setIdTim2(trAjakTanding.getIdTim2());
+            jadwal.setMainBareng(0);
         }
         jadwal.setTanggal(a.getTanggal());
         jadwal.setJam(a.getJam());

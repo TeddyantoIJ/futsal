@@ -40,6 +40,12 @@ public class Tr_jadwal_lapangan_service {
         List<TrJadwalLapangan> a = trJadwalLapanganRepository.findAllByIdLapanganOrderByTanggalAscJamAsc(id);
         return a;
     }
+
+    public List<TrJadwalLapangan> getAllIdTim1AndTim2(int id, int id2){
+        List<TrJadwalLapangan> a = trJadwalLapanganRepository.findByIdTim1AndIdTim2(id, id2);
+        return a;
+    }
+
     public List<TrJadwalLapangan> getAllByIdAndByDate(int id, String tanggal){
         List<TrJadwalLapangan> a = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

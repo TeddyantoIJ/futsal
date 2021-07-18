@@ -58,11 +58,11 @@
                                         <i class="fa fa-clock" aria-hidden="true"></i>
                                         <span th:text="${#dates.format(jad.jam, 'HH:mm')} + ' - ' +${#dates.format(jad.durasi, 'HH:mm')}"></span>
                                     </td>
-                                    <td th:if="${jad.idTim1 == jad.id_tim2}" class="font-weight-bold">Practice</td>
-                                    <td th:if="${jad.idTim1 != jad.id_tim2}" class="font-weight-bold">Friendly Match</td>
-                                    <td th:if="${jad.idTim1 == jad.id_tim2}" class="font-weight-bold">-</td>
-                                    <td th:if="${jad.idTim1 != jad.id_tim2}" class="font-weight-bold">
-                                        <a th:each="t : ${tim}" th:if="${t.idTim == jad.id_tim2}" th:text="${t.nama}"></a>
+                                    <td th:if="${jad.idTim1 == jad.idTim2}" class="font-weight-bold">Practice</td>
+                                    <td th:if="${jad.idTim1 != jad.idTim2}" class="font-weight-bold">Friendly Match</td>
+                                    <td th:if="${jad.idTim1 == jad.idTim2}" class="font-weight-bold">-</td>
+                                    <td th:if="${jad.idTim1 != jad.idTim2}" class="font-weight-bold">
+                                        <a th:each="t : ${tim}" th:if="${t.idTim == jad.idTim2}" th:text="${t.nama}"></a>
                                     </td>
                                     <td>
                                         <span th:if="${jad.status == 2}" class="text-success">Finished</span>

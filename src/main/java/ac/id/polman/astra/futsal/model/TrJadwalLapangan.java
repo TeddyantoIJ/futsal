@@ -20,7 +20,7 @@ public class TrJadwalLapangan {
     private int id;
     private int idLapangan;
     private int idTim1;
-    private int id_tim2;
+    private int idTim2;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date tanggal;
     @DateTimeFormat(pattern = "HH:mm")
@@ -41,6 +41,14 @@ public class TrJadwalLapangan {
 
     public void setMainBareng(int mainBareng) {
         this.mainBareng = mainBareng;
+    }
+
+    public int getIdTim2() {
+        return idTim2;
+    }
+
+    public void setIdTim2(int idTim2) {
+        this.idTim2 = idTim2;
     }
 
     public int getId() {
@@ -65,14 +73,6 @@ public class TrJadwalLapangan {
 
     public void setIdTim1(int idTim1) {
         this.idTim1 = idTim1;
-    }
-
-    public int getId_tim2() {
-        return id_tim2;
-    }
-
-    public void setId_tim2(int id_tim2) {
-        this.id_tim2 = id_tim2;
     }
 
     public Date getTanggal() {
