@@ -53,14 +53,6 @@ public class MsLapangan {
         this.creaby = creaby;
     }
 
-    public Integer getId_merchant() {
-        return idMerchant;
-    }
-
-    public void setId_merchant(Integer id_merchant) {
-        this.idMerchant = id_merchant;
-    }
-
     public String getNama() {
         return nama;
     }

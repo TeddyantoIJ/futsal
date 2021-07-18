@@ -19,7 +19,6 @@ public class TrReview {
 
     private String review;
     private float rating;
-
     private String creaby;
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime creadate;

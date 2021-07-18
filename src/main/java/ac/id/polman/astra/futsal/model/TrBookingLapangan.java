@@ -19,7 +19,7 @@ public class TrBookingLapangan {
     private int id;
     private int idTim;
     private int id_lapangan;
-    private int id_status;
+    private int idStatus;
     private int notifikasi;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date tanggal;
@@ -61,12 +61,12 @@ public class TrBookingLapangan {
         this.id_lapangan = id_lapangan;
     }
 
-    public int getId_status() {
-        return id_status;
+    public int getIdStatus() {
+        return idStatus;
     }
 
-    public void setId_status(int id_status) {
-        this.id_status = id_status;
+    public void setIdStatus(int idStatus) {
+        this.idStatus = idStatus;
     }
 
     public int getNotifikasi() {

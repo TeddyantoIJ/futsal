@@ -4,29 +4,30 @@
       layout:decorate="/layout/_merchant">
 <head>
     <meta charset="UTF-8">
-    <title>Processed order</title>
+    <title>Remaining payment</title>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="container-fluid">
         <br/>
-        <h6 class="text-muted font-weight-light">Processed order</h6>
+        <h6 class="text-muted font-weight-light">Remaining payment</h6>
         <table class="table table-striped">
             <thead class="thead-dark">
             <tr>
                 <th scope="col">No</th>
                 <th scope="col">Court</th>
-                <th scope="col"></th>
                 <th scope="col">Play date</th>
                 <th scope="col">Play time</th>
                 <th scope="col">Team</th>
+                <th scope="col">Payment</th>
+                <th scope="col">Evidence of transfer</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="book, iter : ${booking}">
                 <th scope="row" th:text="${iter.count}"></th>
-                <td colspan="2" th:each="lap : ${lapangan}" th:if="${lap.idLapangan == book.id_lapangan}">
+                <td th:each="lap : ${lapangan}" th:if="${lap.idLapangan == book.id_lapangan}">
                     <a th:href="'/detail-lapangan/' + ${lap.idLapangan}" >
                         <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
                         <span th:text="${lap.nama}"></span>
@@ -41,12 +42,23 @@
                     <span th:text="${#dates.format(book.jam, 'HH:mm')} + ' - ' +${#dates.format(book.durasi, 'HH:mm')}"></span>
                 </td>
                 <td th:each="t : ${tim}" th:if="${t.idTim == book.idTim}" th:text="${t.nama}"></td>
-                <td>
-                    <a th:href="'/konfirmasi-booking-finish/' + ${book.id}" class="btn btn-success"
-                       onclick="return confirm('Press OK to confirm that this order is complete')"><i class="fa fa-check" aria-hidden="true"></i> Done</a>
-                    <a th:href="'/konfirmasi-booking-not-complete/' + ${book.id}" onclick="return confirm('Press OK to confirm that this order is not complete')" class="btn btn-danger">
-                        <i class="fa fa-times" aria-hidden="true"></i> Transaction not completey
+                <td th:each="p : ${pelunasan}" th:if="${p.idTrbooking == book.id}" th:text="'Rp. ' + ${p.nominal}"></td>
+                <td th:each="p : ${pelunasan}" th:if="${p.idTrbooking == book.id}" >
+                    <a href="" data-toggle="modal" data-target="#exampleModal" th:attr="onclick=|showfoto('${book.bukti_transfer}')|">
+                        <i class="fa fa-file-image" aria-hidden="true"></i>
+                        <span th:text="${p.bukti_bayar}"></span>
                     </a>
+                    <script>
+                        function showfoto(foto){
+                            var ft = "/images/bukti_transfer/" + foto;
+                            document.getElementById("div_foto").setAttribute("src", ft);
+                            document.getElementById("download").setAttribute("href", ft);
+                        }
+                    </script>
+                </td>
+                <td>
+                    <a th:href="'/konfirmasi-booking-valid-payment/' + ${book.id}" onclick="return confirm('Press OK to confirm that this payment is valid')" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Valid</a>
+                    <a th:href="'/konfirmasi-booking-invalid-payment/' + ${book.id}" onclick="return confirm('Press OK to confirm that this order is invalid')" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> Invalid</a>
                 </td>
             </tr>
             </tbody>

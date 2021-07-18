@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Upcoming Schedule</title>
+    <link rel="stylesheet" href="/css/custome/rating.css">
 </head>
 <body>
 <div layout:fragment="content">
@@ -44,9 +45,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="jadwal, iter : ${jadwal}">
+                                <tr th:each="jad, iter : ${jadwal}">
                                     <th scope="row" th:text="${iter.count}"></th>
-                                    <td th:each="lap : ${lapangan}" th:if="${lap.idLapangan == jadwal.idLapangan}">
+                                    <td th:each="lap : ${lapangan}" th:if="${lap.idLapangan == jad.idLapangan}">
                                         <a th:href="'/detail-lapangan/' + ${lap.idLapangan}" >
                                             <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
                                             <span th:text="${lap.nama}"></span>
@@ -54,41 +55,99 @@
                                     </td>
                                     <td>
                                         <i class="fa fa-calendar" aria-hidden="true"></i>
-                                        <span th:text="${#dates.dayOfWeekName(jadwal.tanggal)} + ' ' + ${#dates.format(jadwal.tanggal, 'dd-MM-yyyy')}"></span>
+                                        <span th:text="${#dates.dayOfWeekName(jad.tanggal)} + ' ' + ${#dates.format(jad.tanggal, 'dd-MM-yyyy')}"></span>
                                     </td>
                                     <td>
                                         <i class="fa fa-clock" aria-hidden="true"></i>
-                                        <span th:text="${#dates.format(jadwal.jam, 'HH:mm')} + ' - ' +${#dates.format(jadwal.durasi, 'HH:mm')}"></span>
+                                        <span th:text="${#dates.format(jad.jam, 'HH:mm')} + ' - ' +${#dates.format(jad.durasi, 'HH:mm')}"></span>
                                     </td>
-                                    <td th:if="${jadwal.idTim1 == jadwal.id_tim2}" class="font-weight-bold">Practice</td>
-                                    <td th:if="${jadwal.idTim1 != jadwal.id_tim2}" class="font-weight-bold">Friendly Match</td>
-                                    <td th:if="${jadwal.idTim1 == jadwal.id_tim2}" class="font-weight-bold">-</td>
-                                    <td th:if="${jadwal.idTim1 != jadwal.id_tim2}" class="font-weight-bold">
-                                        <a th:each="t : ${tim}" th:if="${t.idTim == jadwal.id_tim2}" th:text="${t.nama}"></a>
+                                    <td th:if="${jad.idTim1 == jad.id_tim2}" class="font-weight-bold">Practice</td>
+                                    <td th:if="${jad.idTim1 != jad.id_tim2}" class="font-weight-bold">Friendly Match</td>
+                                    <td th:if="${jad.idTim1 == jad.id_tim2}" class="font-weight-bold">-</td>
+                                    <td th:if="${jad.idTim1 != jad.id_tim2}" class="font-weight-bold">
+                                        <a th:each="t : ${tim}" th:if="${t.idTim == jad.id_tim2}" th:text="${t.nama}"></a>
                                     </td>
                                     <td>
-                                        No action available
+                                        <span th:if="${jad.status == -1}">
+                                            Full payment process
+                                        </span>
+                                        <span th:if="${jad.status == 2}">
+                                            Full payment has been paid
+                                        </span>
+<!--                                        No action available-->
+                                        <a href="" data-toggle="modal" data-target="#done" th:attr="onclick=|done('${jad.id}')|" class="btn btn-success"  th:if="${jad.status == 1}">
+                                            <i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp; Done
+                                        </a>
+                                        <script>
+                                            function done(id){
+                                                document.getElementById("id").value = id;
+                                            }
+                                        </script>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                             <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
+                            <div class="modal fade" id="done" tabindex="-1" role="dialog" aria-labelledby="done" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Evidence of transfer</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <img id="div_foto" class="card-img" src="">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <a id="download" class="btn btn-primary" download>Download Image</a>
-                                        </div>
+                                        <form action="/konfirmasi-booking-finish" method="post" enctype="multipart/form-data">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Confirmation complete</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="hidden" name="id" id="id">
+
+                                                <label class="font-weight-bold text-dark" for="review">Review</label>
+                                                <textarea class="form-control" type="text" name="review" id="review" placeholder="review"></textarea>
+
+                                                <br/>
+                                                <label class="font-weight-bold text-dark">Rating <span style="color:red">*</span></label>
+                                                <br/>
+                                                <div class="rating">
+                                                    <label>
+                                                        <input type="radio" name="rating" value="1" />
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="rating" value="2" />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="rating" value="3" />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="rating" value="4" />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="rating" value="5" />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                </div>
+                                                <br/>
+                                                <label class="font-weight-bold text-dark">Evidence of transfer <span style="color:red">*</span></label>
+                                                <input type="file" name="bukti_transfer" class="form-control-file float-right" accept="image/png, image/gif, image/jpeg" required>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                <button class="btn btn-success"><span class="fa fa-paper-plane"></span>&nbsp;&nbsp; Send</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

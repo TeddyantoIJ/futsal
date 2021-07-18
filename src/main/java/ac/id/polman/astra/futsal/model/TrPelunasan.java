@@ -13,7 +13,7 @@ public class TrPelunasan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int id_trbooking;
+    private int idTrbooking;
     private int nominal;
     private String bukti_bayar;
     private String creaby;
@@ -32,12 +32,12 @@ public class TrPelunasan {
         this.id = id;
     }
 
-    public int getId_trbooking() {
-        return id_trbooking;
+    public int getIdTrbooking() {
+        return idTrbooking;
     }
 
-    public void setId_trbooking(int id_trbooking) {
-        this.id_trbooking = id_trbooking;
+    public void setIdTrbooking(int idTrbooking) {
+        this.idTrbooking = idTrbooking;
     }
 
     public int getNominal() {

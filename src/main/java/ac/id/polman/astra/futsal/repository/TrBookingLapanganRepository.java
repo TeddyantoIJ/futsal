@@ -8,5 +8,6 @@ import java.util.List;
 public interface TrBookingLapanganRepository extends CrudRepository<TrBookingLapangan, Integer> {
     List<TrBookingLapangan> findAllByIdTimOrderByTanggalAscJamAsc(int idTim);
     List<TrBookingLapangan> findAllByOrderByTanggalAscJamAsc();
+    List<TrBookingLapangan> findAllByIdStatusOrderByTanggalAscJamAsc(int idStatus);
     TrBookingLapangan findAllById(int id);
 }

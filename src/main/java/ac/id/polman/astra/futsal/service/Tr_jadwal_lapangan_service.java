@@ -2,8 +2,11 @@ package ac.id.polman.astra.futsal.service;
 
 import ac.id.polman.astra.futsal.model.TrBookingLapangan;
 import ac.id.polman.astra.futsal.model.TrJadwalLapangan;
+import ac.id.polman.astra.futsal.model.TrPelunasan;
 import ac.id.polman.astra.futsal.model.TrPendaftaranMerchant;
+import ac.id.polman.astra.futsal.repository.TrBookingLapanganRepository;
 import ac.id.polman.astra.futsal.repository.TrJadwalLapanganRepository;
+import ac.id.polman.astra.futsal.repository.TrPelunasanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,10 @@ import java.util.List;
 public class Tr_jadwal_lapangan_service {
     @Autowired
     TrJadwalLapanganRepository trJadwalLapanganRepository;
+    @Autowired
+    TrBookingLapanganRepository trBookingLapanganRepository;
+    @Autowired
+    TrPelunasanRepository trPelunasanRepository;
 
     public List<TrJadwalLapangan> getAll(){
         List<TrJadwalLapangan> a = (List<TrJadwalLapangan>) trJadwalLapanganRepository.findAll();
@@ -70,16 +77,28 @@ public class Tr_jadwal_lapangan_service {
 
     public List<TrJadwalLapangan> getAllFutureByIdTim(int idTim1){
         List<TrJadwalLapangan> a = new ArrayList<>();
+        List<TrBookingLapangan> booking = trBookingLapanganRepository.findAllByIdTimOrderByTanggalAscJamAsc(idTim1);
+        TrPelunasan pelunasan;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try{
             Date comp = sdf.parse(sdf.format(new Date()));
             for(TrJadwalLapangan b : getAllByIdTim(idTim1)){
-                if(b.getTanggal().compareTo(comp) >= 0){
-                    a.add(b);
+                for(TrBookingLapangan book : booking){
+                    if(book.getJam().compareTo(b.getJam()) == 0 && book.getTanggal().compareTo(b.getTanggal()) == 0){
+                        pelunasan = trPelunasanRepository.findByIdTrbooking(book.getId());
+                        if(pelunasan != null){
+                            if(pelunasan.getStatus() != -1) {
+                                if(b.getTanggal().compareTo(comp) >= 0){
+                                    a.add(b);
+                                }
+                            }
+                        }
+                    }
                 }
-            }
-        }catch (Exception e){
 
+
+            }
+        }catch (Exception e) {
         }
         return a;
     }

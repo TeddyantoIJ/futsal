@@ -47,7 +47,7 @@ public class Tr_booking_lapangan_service {
         List<TrBookingLapangan> a = getAllActiveByITim(id);
         List<TrBookingLapangan> c = getAllActiveByITim(id);
         for(TrBookingLapangan b : a){
-            if(b.getId_status() != 1){
+            if(b.getIdStatus() != 1){
                 c.remove(b);
             }
         }
@@ -56,6 +56,18 @@ public class Tr_booking_lapangan_service {
 
     public TrBookingLapangan getById(int id){
         return trBookingLapanganRepository.findAllById(id);
+    }
+
+    public TrBookingLapangan getByIdLapanganJadwalAndTerkonfirmasi(TrJadwalLapangan a){
+        List<TrBookingLapangan> booking = getAllByIdLapangan(a.getIdLapangan());
+        for(TrBookingLapangan book : booking){
+            if(book.getIdStatus() == 3){
+                if(book.getTanggal().compareTo(a.getTanggal()) == 0 && book.getJam().compareTo(a.getJam()) == 0){
+                    return book;
+                }
+            }
+        }
+        return null;
     }
 
     public List<TrBookingLapangan> getAllByIdLapangan(int id){
@@ -74,7 +86,7 @@ public class Tr_booking_lapangan_service {
         List<TrBookingLapangan> a = getAll();
         List<TrBookingLapangan> c = new ArrayList<>();
         for(TrBookingLapangan b : a){
-            if(b.getId_status() == 2){
+            if(b.getIdStatus() == 2){
                 for(MsLapangan d : lapangan){
                     if(d.getIdLapangan() == b.getId_lapangan()){
                         c.add(b);
@@ -91,7 +103,7 @@ public class Tr_booking_lapangan_service {
         List<TrBookingLapangan> a = getAll();
         List<TrBookingLapangan> c = new ArrayList<>();
         for(TrBookingLapangan b : a){
-            if(b.getId_status() == 3){
+            if(b.getIdStatus() == 3){
                 for(MsLapangan d : lapangan){
                     if(d.getIdLapangan() == b.getId_lapangan()){
                         c.add(b);
@@ -108,7 +120,7 @@ public class Tr_booking_lapangan_service {
         List<TrBookingLapangan> a = getAll();
         List<TrBookingLapangan> c = new ArrayList<>();
         for(TrBookingLapangan b : a){
-            if(b.getId_status() == 6){
+            if(b.getIdStatus() == 6){
                 for(MsLapangan d : lapangan){
                     if(d.getIdLapangan() == b.getId_lapangan()){
                         c.add(b);
@@ -126,7 +138,25 @@ public class Tr_booking_lapangan_service {
         List<TrBookingLapangan> a = getAll();
         List<TrBookingLapangan> c = new ArrayList<>();
         for(TrBookingLapangan b : a){
-            if(b.getId_status() == 5){
+            if(b.getIdStatus() == 5){
+                for(MsLapangan d : lapangan){
+                    if(d.getIdLapangan() == b.getId_lapangan()){
+                        c.add(b);
+                    }
+                }
+            }
+        }
+        System.out.println(c.size());
+        return c;
+    }
+
+    public List<TrBookingLapangan> getAllPelunasanByIdMerchant(int id){
+        List<MsLapangan> lapangan = lapanganRepository.findAllByIdMerchant(id);
+
+        List<TrBookingLapangan> a = getAll();
+        List<TrBookingLapangan> c = new ArrayList<>();
+        for(TrBookingLapangan b : a){
+            if(b.getIdStatus() == 8){
                 for(MsLapangan d : lapangan){
                     if(d.getIdLapangan() == b.getId_lapangan()){
                         c.add(b);
@@ -142,9 +172,7 @@ public class Tr_booking_lapangan_service {
         List<TrBookingLapangan> a = getAll();
         List<TrBookingLapangan> c = new ArrayList<>();
         for(TrBookingLapangan b : a){
-            System.out.println("getAllDiprosesByIdMerchant 1");
-            if(b.getId_status() == 2 && b.getIdTim() == id){
-                System.out.println("getAllDiprosesByIdMerchant 2");
+            if(b.getIdStatus() == 2 && b.getIdTim() == id){
                 c.add(b);
             }
         }
@@ -220,7 +248,7 @@ public class Tr_booking_lapangan_service {
 
         List<TrBookingLapangan> bk = getAllByIdLapangan(a.getId_lapangan());
         for (TrBookingLapangan t : bk ) {
-            if(t.getTanggal().compareTo(a.getTanggal()) == 0 && t.getId_status() == 2){
+            if(t.getTanggal().compareTo(a.getTanggal()) == 0 && t.getIdStatus() == 2){
                 int jadwal_lama_mulai = Integer.parseInt(t.getJam().toString().split(":")[0]);
                 int jadwal_lama_selesai = jadwal_lama_mulai + t.getDurasi1();
                 int jadwal_baru_mulai = Integer.parseInt(a.getJam().toString().split(":")[0]);
@@ -282,7 +310,7 @@ public class Tr_booking_lapangan_service {
     }
 
     public void update_gagal(TrBookingLapangan a){
-        a.setId_status(6);
+        a.setIdStatus(6);
         trBookingLapanganRepository.save(a);
     }
 
@@ -292,18 +320,18 @@ public class Tr_booking_lapangan_service {
     }
 
     public void update_tidak_selesai(TrBookingLapangan a){
-        a.setId_status(7);
+        a.setIdStatus(7);
         trBookingLapanganRepository.save(a);
     }
 
     public void update_terkonfirmasi(TrBookingLapangan a){
-        a.setId_status(3);
+        a.setIdStatus(3);
 
         List<TrBookingLapangan> tj = new ArrayList<>();
         SimpleDateFormat fm = new SimpleDateFormat("HH:mm");
         tj = getAllByIdLapangan(a.getId_lapangan());
         for (TrBookingLapangan t : tj ) {
-            if(t.getTanggal().compareTo(a.getTanggal()) == 0 && t.getId_status() == 2){
+            if(t.getTanggal().compareTo(a.getTanggal()) == 0 && t.getIdStatus() == 2){
                 int jadwal_lama_mulai = Integer.parseInt(t.getJam().toString().split(":")[0]);
                 int jadwal_lama_selesai = jadwal_lama_mulai + t.getDurasi1();
                 int jadwal_baru_mulai = Integer.parseInt(a.getJam().toString().split(":")[0]);
@@ -330,8 +358,18 @@ public class Tr_booking_lapangan_service {
         trBookingLapanganRepository.save(a);
     }
 
+    public void update_transaksi_selesai(TrBookingLapangan a){
+        a.setIdStatus(9);
+        trBookingLapanganRepository.save(a);
+    }
+
     public void update_lunas(TrBookingLapangan a){
-        a.setId_status(5);
+        a.setIdStatus(5);
+        trBookingLapanganRepository.save(a);
+    }
+
+    public void update_pelunasan_diproses(TrBookingLapangan a){
+        a.setIdStatus(8);
         trBookingLapanganRepository.save(a);
     }
 }

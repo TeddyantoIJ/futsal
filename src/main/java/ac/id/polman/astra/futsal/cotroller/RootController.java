@@ -347,6 +347,32 @@ public class RootController {
         return "page/merchant_order_invalid";
     }
 
+    @GetMapping("/my-merchant-booking-payment")
+    public String goto_my_merchant_booking_payment(
+            Model model,
+            HttpSession session
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        int idMerchant = merchantService.getMerchantByIdUser(id).getId_merchant();
+        List<TrBookingLapangan> a = trBookinglapanganservice.getAllPelunasanByIdMerchant(idMerchant);
+        List<MsLapangan> b = lapanganService.getAllLapanganByIdMerchant(idMerchant);
+        List<MsTim> c = timService.getAllTim();
+        List<TrPelunasan> d = trPelunasanService.getAllByIdMerchant(idMerchant);
+
+
+        model.addAttribute("booking", a);
+        model.addAttribute("lapangan", b);
+        model.addAttribute("tim",c);
+        model.addAttribute("pelunasan", d);
+        return "page/merchant_order_payment";
+    }
+
     @GetMapping("/merchant-search/{id}")
     public String goto_merchant_id(
             @PathVariable int id,
@@ -390,7 +416,7 @@ public class RootController {
             HttpSession session
     ){
         MsLapangan msLapangan = lapanganService.getLapanganByIdLapangan(id);
-        MsMerchant msMerchant = merchantService.getMerchantById(msLapangan.getId_merchant());
+        MsMerchant msMerchant = merchantService.getMerchantById(msLapangan.getIdMerchant());
         List<DtFotolapangan> a = dtFotoLapanganService.getAllDtFotoLapanganByIdLapangan(id);
         List<MsTim> t = timService.getAllActive();
         List<TrJadwalLapangan> j = new ArrayList<>();
@@ -433,7 +459,7 @@ public class RootController {
         MsLapangan la = lapanganService.getLapanganByIdLapangan(a.getId_lapangan());
 
         a.setJam(new Time(Integer.parseInt(waktu.split(":")[0]),0,0));
-        a.setId_status(1);
+        a.setIdStatus(1);
         a.setIdTim(us.getIdTim());
         a.setNotifikasi(0);
         if(Integer.parseInt(waktu.split(":")[0]) > 16){
@@ -445,7 +471,7 @@ public class RootController {
         }
         a.setBukti_transfer("");
         a.setCreaby(us.getEmail());
-        a.setCreadate(us.getCreadate());
+        a.setCreadate(LocalDateTime.now());
         a.setModiby(us.getEmail());
         a.setModidate(LocalDateTime.now());
         a.setStatus(1);
@@ -511,6 +537,38 @@ public class RootController {
         return "redirect:/my-merchant-booking-order";
     }
 
+    @GetMapping("/konfirmasi-booking-valid-payment/{id}")
+    public String konfirmasi_booking_valid_payment(
+            @PathVariable int id,
+            HttpSession session
+    ){
+        int idUser = -1;
+        try{
+            idUser = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        MsUser us = userService.getUserById(idUser);
+        TrBookingLapangan a = trBookinglapanganservice.getById(id);
+
+        TrReview review = reviewService.getByTanggalIdLapangan(a);
+        review.setStatus(1);
+        reviewService.save(review);
+
+        a.setModiby(us.getEmail());
+        a.setModidate(LocalDateTime.now());
+        trBookinglapanganservice.update_lunas(a);
+
+        TrPelunasan pelunasan = trPelunasanService.getByIdBooking(a.getId());
+        pelunasan.setStatus(1);
+        trPelunasanService.save(pelunasan);
+
+        TrJadwalLapangan jadwal = trJadwalLapanganService.getByJadwalJamLapangan(a);
+        jadwal.setStatus(2);
+        trJadwalLapanganService.save(jadwal);
+
+        return "redirect:/my-merchant-booking-payment";
+    }
     @GetMapping("/konfirmasi-booking-not-complete/{id}")
     public String konfirmasi_booking_not_complete(
             @PathVariable int id,
@@ -559,7 +617,7 @@ public class RootController {
         pelunasan.setModiby("");
         pelunasan.setModidate(LocalDateTime.now());
         pelunasan.setBukti_bayar("CASH");
-        pelunasan.setId_trbooking(a.getId());
+        pelunasan.setIdTrbooking(a.getId());
         pelunasan.setNominal(a.getSub_harga() - a.getDp());
         trPelunasanService.save(pelunasan);
 
@@ -575,6 +633,56 @@ public class RootController {
         review.setIdUser(us.getIdUser());
         reviewService.save(review);
         return "redirect:/my-merchant-processed-order";
+    }
+
+    @PostMapping("/konfirmasi-booking-finish")
+    public String konfirmasi_booking_finish_post(
+            Model model,
+            HttpSession session,
+            @RequestParam("id") int id,
+            @RequestParam("bukti_transfer") MultipartFile file,
+            TrReview rev
+    ){
+        int idUser = -1;
+        try{
+            idUser = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        MsUser us = userService.getUserById(idUser);
+        TrJadwalLapangan j = trJadwalLapanganService.getById(id);
+        TrBookingLapangan a = trBookinglapanganservice.getByIdLapanganJadwalAndTerkonfirmasi(j);
+        a.setModiby(us.getEmail());
+        a.setModidate(LocalDateTime.now());
+        trBookinglapanganservice.update_pelunasan_diproses(a);
+
+        TrPelunasan pelunasan = new TrPelunasan();
+        pelunasan.setCreaby(us.getEmail());
+        pelunasan.setCreadate(LocalDateTime.now());
+        pelunasan.setStatus(-1);
+        pelunasan.setModidate(LocalDateTime.now());
+        pelunasan.setModiby("");
+        pelunasan.setBukti_bayar(uploadController.upload_bukti_tf(file, "none"));
+        pelunasan.setIdTrbooking(a.getId());
+        pelunasan.setNominal(a.getSub_harga() - a.getDp());
+        trPelunasanService.save(pelunasan);
+
+        TrReview review = new TrReview();
+        review.setCreaby(us.getEmail());
+        review.setCreadate(LocalDateTime.now());
+        review.setStatus(0);
+        review.setModiby("");
+        review.setModidate(LocalDateTime.now());
+        review.setReview(rev.getReview());
+        review.setRating(rev.getRating());
+        review.setIdMerchant(lapanganService.getLapanganByIdLapangan(a.getId_lapangan()).getIdMerchant());
+        review.setIdUser(us.getIdUser());
+        reviewService.save(review);
+
+        TrJadwalLapangan jadwal = trJadwalLapanganService.getByJadwalJamLapangan(a);
+        jadwal.setStatus(-1);
+        trJadwalLapanganService.save(jadwal);
+        return "redirect:/my-tim-upcoming-schedule";
     }
 
     // ===================================MANAGER TIM ====================================
@@ -638,6 +746,7 @@ public class RootController {
 
         int tim = userService.getUserById(id).getIdTim();
         List<TrJadwalLapangan> a = trJadwalLapanganService.getAllFutureByIdTim(tim);
+        System.out.println(a.size());
         List<MsLapangan> b = lapanganService.getAllLapangan();
         List<MsTim> c = timService.getAllTim();
 
@@ -786,7 +895,7 @@ public class RootController {
         TrBookingLapangan a = trBookinglapanganservice.getById(id);
         a.setModidate(LocalDateTime.now());
         a.setBukti_transfer(uploadController.upload_bukti_tf(file, "none"));
-        a.setId_status(2);
+        a.setIdStatus(2);
         if(trBookinglapanganservice.save(a)){
             return "redirect:/";
         }else{
