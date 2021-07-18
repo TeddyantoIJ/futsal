@@ -236,6 +236,7 @@ public class RootController {
             }
 
         }
+
         List<TrReview> reviews = reviewService.getAllByIdMerchant(m.getId_merchant());
         List<MsUser> users = userService.getAllUser();
 
@@ -551,7 +552,7 @@ public class RootController {
         MsUser us = userService.getUserById(idUser);
         TrBookingLapangan a = trBookinglapanganservice.getById(id);
 
-        TrReview review = reviewService.getByTanggalIdLapangan(a);
+        TrReview review = reviewService.getByIdBooking(a.getId());
         review.setStatus(1);
         reviewService.save(review);
 
@@ -567,8 +568,46 @@ public class RootController {
         jadwal.setStatus(2);
         trJadwalLapanganService.save(jadwal);
 
+        MsMerchant merchant = merchantService.getMerchantByIdUser(idUser);
+        merchant.setRating(reviewService.getRatingByIdMerchant(merchant.getId_merchant()));
+        merchant.setModiby("System");
+        merchant.setModidate(LocalDateTime.now());
+        merchantService.saveMerchant(merchant);
         return "redirect:/my-merchant-booking-payment";
     }
+
+    @GetMapping("/konfirmasi-booking-invalid-payment/{id}")
+    public String konfirmasi_booking_invalid_payment(
+            @PathVariable int id,
+            HttpSession session
+    ){
+        int idUser = -1;
+        try{
+            idUser = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        MsUser us = userService.getUserById(idUser);
+        TrBookingLapangan a = trBookinglapanganservice.getById(id);
+
+        TrReview review = reviewService.getByIdBooking(a.getId());
+        reviewService.remove(review);
+
+        a.setModiby(us.getEmail());
+        a.setModidate(LocalDateTime.now());
+        trBookinglapanganservice.back_to_konfirmasi(a);
+
+        TrPelunasan pelunasan = trPelunasanService.getByIdBooking(a.getId());
+        uploadController.hapus_bukti_tf(pelunasan.getBukti_bayar());
+        trPelunasanService.save(pelunasan);
+
+        TrJadwalLapangan jadwal = trJadwalLapanganService.getByJadwalJamLapangan(a);
+        jadwal.setStatus(1);
+        trJadwalLapanganService.save(jadwal);
+
+        return "redirect:/my-merchant-booking-payment";
+    }
+
     @GetMapping("/konfirmasi-booking-not-complete/{id}")
     public String konfirmasi_booking_not_complete(
             @PathVariable int id,
@@ -632,6 +671,7 @@ public class RootController {
         review.setIdMerchant(lapanganService.getLapanganByIdLapangan(a.getId_lapangan()).getIdMerchant());
         review.setIdUser(us.getIdUser());
         reviewService.save(review);
+
         return "redirect:/my-merchant-processed-order";
     }
 
@@ -677,6 +717,7 @@ public class RootController {
         review.setRating(rev.getRating());
         review.setIdMerchant(lapanganService.getLapanganByIdLapangan(a.getId_lapangan()).getIdMerchant());
         review.setIdUser(us.getIdUser());
+        review.setId_trbooking(a.getId());
         reviewService.save(review);
 
         TrJadwalLapangan jadwal = trJadwalLapanganService.getByJadwalJamLapangan(a);

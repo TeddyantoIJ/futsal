@@ -26,6 +26,15 @@ public class TrReview {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime modidate;
     private int status;
+    private int id_trbooking;
+
+    public int getId_trbooking() {
+        return id_trbooking;
+    }
+
+    public void setId_trbooking(int id_trbooking) {
+        this.id_trbooking = id_trbooking;
+    }
 
     public int getId() {
         return id;
@@ -106,4 +115,5 @@ public class TrReview {
     public void setStatus(int status) {
         this.status = status;
     }
+
 }

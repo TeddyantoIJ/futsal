@@ -73,7 +73,7 @@
 
                 <h3 class="font-weight-bold text-dark" th:each="lap : ${lapangan}" th:if="${lap.idLapangan == book.id_lapangan}" th:text="'Invoice of order : ' + ${lap.nama}"></h3>
                 <h2 class="font-weight-bold text-dark"  th:each="by : ${biaya}" th:if="${by.idBiaya == bill_pendaftaran.id_biaya}" th:text="'Rp ' + ${by.nominal}"></h2>
-                <p th:each="st : ${status}" th:if="${st.idStatus == book.id_status}" th:text="${st.keterangan}"></p><br/>
+                <p th:each="st : ${status}" th:if="${st.idStatus == book.idStatus}" th:text="${st.keterangan}"></p><br/>
 
                 <p class="text-muted font-weight-light">
                     <span class="fa fa-calendar" aria-hidden="true" style="color: lightgrey"></span>

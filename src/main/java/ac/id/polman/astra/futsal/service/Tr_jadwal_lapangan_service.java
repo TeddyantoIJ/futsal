@@ -78,20 +78,14 @@ public class Tr_jadwal_lapangan_service {
     public List<TrJadwalLapangan> getAllFutureByIdTim(int idTim1){
         List<TrJadwalLapangan> a = new ArrayList<>();
         List<TrBookingLapangan> booking = trBookingLapanganRepository.findAllByIdTimOrderByTanggalAscJamAsc(idTim1);
-        TrPelunasan pelunasan;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try{
             Date comp = sdf.parse(sdf.format(new Date()));
             for(TrJadwalLapangan b : getAllByIdTim(idTim1)){
                 for(TrBookingLapangan book : booking){
                     if(book.getJam().compareTo(b.getJam()) == 0 && book.getTanggal().compareTo(b.getTanggal()) == 0){
-                        pelunasan = trPelunasanRepository.findByIdTrbooking(book.getId());
-                        if(pelunasan != null){
-                            if(pelunasan.getStatus() != -1) {
-                                if(b.getTanggal().compareTo(comp) >= 0){
-                                    a.add(b);
-                                }
-                            }
+                        if(b.getTanggal().compareTo(comp) >= 0){
+                            a.add(b);
                         }
                     }
                 }
@@ -99,6 +93,7 @@ public class Tr_jadwal_lapangan_service {
 
             }
         }catch (Exception e) {
+            System.out.println("Masuk error");
         }
         return a;
     }

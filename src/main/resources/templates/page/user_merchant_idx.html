@@ -118,9 +118,9 @@
             <h4 class="font-weight-bold text-dark text-center">Review</h4>
 
             <div class="row">
-                <div class="col-6" style="margin-top: 10px" th:each="a : ${reviews}">
-                    <div class="card" th:each="b : ${users}">
-                        <div class="card-body" th:if="${a.idUser} == ${b.idUser}">
+                <div class="col-6" style="margin-top: 10px" th:each="a : ${reviews}" th:if="${a.status == 1}">
+                    <div class="card" th:each="b : ${users}" th:if="${a.idUser} == ${b.idUser}">
+                        <div class="card-body">
                             <div class="card-title font-weight-normal">
                                 <span th:text="${b.namaDepan} + ' ' + ${b.namaBelakang}"></span>
                                 <span th:text="'(' + ${a.rating} + ')'"></span>

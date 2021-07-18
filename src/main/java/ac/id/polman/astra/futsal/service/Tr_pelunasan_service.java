@@ -1,5 +1,6 @@
 package ac.id.polman.astra.futsal.service;
 
+import ac.id.polman.astra.futsal.cotroller.UploadController;
 import ac.id.polman.astra.futsal.model.MsLapangan;
 import ac.id.polman.astra.futsal.model.TrBookingLapangan;
 import ac.id.polman.astra.futsal.model.TrPelunasan;
@@ -46,5 +47,10 @@ public class Tr_pelunasan_service {
 //    a========================
     public void save(TrPelunasan a){
         trPelunasanRepository.save(a);
+    }
+
+    public void remove(TrPelunasan a){
+
+        trPelunasanRepository.delete(a);
     }
 }

@@ -42,9 +42,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="jadwal, iter : ${jadwal}">
+                                <tr th:each="jad, iter : ${jadwal}">
                                     <th scope="row" th:text="${iter.count}"></th>
-                                    <td th:each="lap : ${lapangan}" th:if="${lap.idLapangan == jadwal.idLapangan}">
+                                    <td th:each="lap : ${lapangan}" th:if="${lap.idLapangan == jad.idLapangan}">
                                         <a th:href="'/detail-lapangan/' + ${lap.idLapangan}" >
                                             <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
                                             <span th:text="${lap.nama}"></span>
@@ -52,21 +52,21 @@
                                     </td>
                                     <td>
                                         <i class="fa fa-calendar" aria-hidden="true"></i>
-                                        <span th:text="${#dates.dayOfWeekName(jadwal.tanggal)} + ' ' + ${#dates.format(jadwal.tanggal, 'dd-MM-yyyy')}"></span>
+                                        <span th:text="${#dates.dayOfWeekName(jad.tanggal)} + ' ' + ${#dates.format(jad.tanggal, 'dd-MM-yyyy')}"></span>
                                     </td>
                                     <td>
                                         <i class="fa fa-clock" aria-hidden="true"></i>
-                                        <span th:text="${#dates.format(jadwal.jam, 'HH:mm')} + ' - ' +${#dates.format(jadwal.durasi, 'HH:mm')}"></span>
+                                        <span th:text="${#dates.format(jad.jam, 'HH:mm')} + ' - ' +${#dates.format(jad.durasi, 'HH:mm')}"></span>
                                     </td>
-                                    <td th:if="${jadwal.idTim1 == jadwal.id_tim2}" class="font-weight-bold">Practice</td>
-                                    <td th:if="${jadwal.idTim1 != jadwal.id_tim2}" class="font-weight-bold">Friendly Match</td>
-                                    <td th:if="${jadwal.idTim1 == jadwal.id_tim2}" class="font-weight-bold">-</td>
-                                    <td th:if="${jadwal.idTim1 != jadwal.id_tim2}" class="font-weight-bold">
-                                        <a th:each="t : ${tim}" th:if="${t.idTim == jadwal.id_tim2}" th:text="${t.nama}"></a>
+                                    <td th:if="${jad.idTim1 == jad.id_tim2}" class="font-weight-bold">Practice</td>
+                                    <td th:if="${jad.idTim1 != jad.id_tim2}" class="font-weight-bold">Friendly Match</td>
+                                    <td th:if="${jad.idTim1 == jad.id_tim2}" class="font-weight-bold">-</td>
+                                    <td th:if="${jad.idTim1 != jad.id_tim2}" class="font-weight-bold">
+                                        <a th:each="t : ${tim}" th:if="${t.idTim == jad.id_tim2}" th:text="${t.nama}"></a>
                                     </td>
                                     <td>
-                                        <span th:if="${jadwal.status == 1}" class="text-success">Finished</span>
-                                        <span th:if="${jadwal.status == 0}" class="text-danger">Unfinished</span>
+                                        <span th:if="${jad.status == 1}" class="text-success">Finished</span>
+                                        <span th:if="${jad.status == 0}" class="text-danger">Unfinished</span>
                                     </td>
                                     <td>
                                         No action available

@@ -372,4 +372,9 @@ public class Tr_booking_lapangan_service {
         a.setIdStatus(8);
         trBookingLapanganRepository.save(a);
     }
+
+    public void back_to_konfirmasi(TrBookingLapangan a){
+        a.setIdStatus(5);
+        trBookingLapanganRepository.save(a);
+    }
 }

@@ -9,6 +9,7 @@ import ac.id.polman.astra.futsal.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.PublicKey;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -42,24 +43,43 @@ public class ReviewService {
         SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         for(TrReview review : reviews){
             try {
-                System.out.println("Tanggal review : " + review.getCreadate());
-                System.out.println("Tanggal booking : " + a.getModidate());
-
-
-
                 if(review.getCreadate().compareTo(a.getModidate()) == 0){
                     return review;
                 }
             }catch (Exception e){
-                System.out.println("ERROR : " + e.getMessage());
+                System.out.println("ERROR getByTanggalIdLapangan : " + e.getMessage());
             }
 
         }
         return null;
     }
 
+    public TrReview getByIdBooking(int idBooking){
+        List<TrReview> a = getAll();
+        for(TrReview r : a){
+            if(r.getId_trbooking() == idBooking){
+                return r;
+            }
+        }
+        return null;
+    }
+
+    public float getRatingByIdMerchant(int id){
+        List<TrReview> reviews = getAllByIdMerchant(id);
+        float rating = 0;
+        for(TrReview r : reviews){
+            if(r.getStatus() == 1){
+                rating = rating + r.getRating();
+            }
+        }
+        return  rating;
+    }
 //    ====================================
     public void save(TrReview a){
         reviewRepository.save(a);
+    }
+
+    public void remove(TrReview a){
+        reviewRepository.delete(a);
     }
 }
