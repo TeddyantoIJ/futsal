@@ -1,10 +1,15 @@
 package ac.id.polman.astra.futsal.repository;
 
 import ac.id.polman.astra.futsal.model.TrAjakTanding;
+import ac.id.polman.astra.futsal.model.TrBookingLapangan;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Time;
+import java.time.DateTimeException;
+import java.util.Date;
 import java.util.List;
 
 public interface AjakTandingRepository extends CrudRepository<TrAjakTanding, Integer> {
@@ -20,4 +25,7 @@ public interface AjakTandingRepository extends CrudRepository<TrAjakTanding, Int
     //mencari data terakhir, method alasan suapaya bisa normal
     @Query("SELECT TOP 1 * FROM tr_ajak_tanding ORDER BY id DESC")
     TrAjakTanding findTopByOrderByIdDesc();
+
+    @Query("select * from tr_ajak_tanding where id_tim1=idtim and tanggal=tanggal and jam=jam")
+    TrAjakTanding findByIdTim1AndTanggalAndJam(@Param("idtim") int idtim, @Param("tanggal") Date tanggal, @Param("jam") Time jam);
 }

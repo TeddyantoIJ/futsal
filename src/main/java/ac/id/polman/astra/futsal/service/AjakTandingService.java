@@ -6,9 +6,13 @@ import ac.id.polman.astra.futsal.model.TrAjakTanding;
 import ac.id.polman.astra.futsal.model.TrDaftarTim;
 import ac.id.polman.astra.futsal.repository.AjakTandingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
+import java.time.DateTimeException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,6 +32,11 @@ public class AjakTandingService {
 
     public TrAjakTanding getLastId(){
         TrAjakTanding tandingList = ajakTandingRepository.findTopByOrderByIdDesc();
+        return tandingList;
+    }
+
+    public TrAjakTanding getByIdandTanggalandJam(int id, Date tanggal, Time jam){
+        TrAjakTanding tandingList = ajakTandingRepository.findByIdTim1AndTanggalAndJam(id, tanggal, jam);
         return tandingList;
     }
 

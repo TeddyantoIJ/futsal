@@ -80,6 +80,8 @@
                     <span th:text="${#dates.format(book.tanggal, 'dd-MMM-yyyy')}"></span>
                     <span class="fa fa-clock" aria-hidden="true" style="color: lightgrey"></span>
                     <span th:text="${#dates.format(book.jam, 'HH:mm')} + ' - ' +${#dates.format(book.getDurasi(), 'HH:mm')}"></span> WIB
+                    <span class="fa fa-credit-card " aria-hidden="true" style="color: lightgrey"></span>
+                    <span class="priceformat" th:text="${book.sub_harga}"></span>
                 </p>
 
 

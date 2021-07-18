@@ -123,4 +123,12 @@
     <p>Changing contents</p>
 </div>
 </body>
+<script src="/menuadmin/js/jquery.priceformat.min.js"></script>
+<script>
+    $('.priceformat').priceFormat({
+        prefix: 'Rp',
+        centsLimit: 0,
+        thousandsSeparator: '.'
+    });
+</script>
 </html>

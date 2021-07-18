@@ -2,8 +2,8 @@ package ac.id.polman.astra.futsal.cotroller;
 
 import ac.id.polman.astra.futsal.model.*;
 import ac.id.polman.astra.futsal.service.*;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Time;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -54,6 +55,8 @@ public class RootController {
     Tr_booking_lapangan_service trBookinglapanganservice;
     @Autowired
     Tr_pelunasan_service trPelunasanService;
+    @Autowired
+    AjakTandingService ajakTandingService;
 
 
     UploadController uploadController = new UploadController();
@@ -484,6 +487,18 @@ public class RootController {
         }
     }
 
+    public String tanggal(Date dt) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String dateToString = df.format(dt);
+        return dateToString;
+    }
+
+    public String jam(Date dt) {
+        DateFormat df = new SimpleDateFormat("HH:mm:ss");
+        String dateToString = df.format(dt);
+        return dateToString;
+    }
+
     @GetMapping("/konfirmasi-booking-valid/{id}")
     public String konfirmasi_booking_valid(
             @PathVariable int id,
@@ -501,9 +516,17 @@ public class RootController {
         a.setModidate(LocalDateTime.now());
         trBookinglapanganservice.update_terkonfirmasi(a);
 
+        TrAjakTanding trAjakTanding = ajakTandingService.getByIdandTanggalandJam(a.getIdTim(), a.getTanggal(), a.getJam());
+
         TrJadwalLapangan jadwal = new TrJadwalLapangan();
         jadwal.setIdTim1(a.getIdTim());
-        jadwal.setId_tim2(a.getIdTim());
+        if(trAjakTanding==null){
+            jadwal.setId_tim2(a.getIdTim());
+            jadwal.setMainBareng(0);
+        }else{
+            jadwal.setId_tim2(trAjakTanding.getIdTim2());
+            jadwal.setMainBareng(1);
+        }
         jadwal.setTanggal(a.getTanggal());
         jadwal.setJam(a.getJam());
         jadwal.setDurasi(a.getDurasi1());

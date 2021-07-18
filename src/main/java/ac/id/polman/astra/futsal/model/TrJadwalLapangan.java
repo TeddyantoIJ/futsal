@@ -33,6 +33,15 @@ public class TrJadwalLapangan {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime modidate;
     private int status;
+    private int mainBareng;
+
+    public int getMainBareng() {
+        return mainBareng;
+    }
+
+    public void setMainBareng(int mainBareng) {
+        this.mainBareng = mainBareng;
+    }
 
     public int getId() {
         return id;

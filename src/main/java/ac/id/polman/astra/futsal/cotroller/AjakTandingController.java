@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,6 +51,9 @@ public class AjakTandingController {
 
     @Autowired
     DtFotoLapanganService dtFotoLapanganService;
+
+    @Autowired
+    Tr_booking_lapangan_service tr_booking_lapangan_service;
 
     ///=============================== AJak Anggota ===============================////
 
@@ -338,6 +344,12 @@ public class AjakTandingController {
         return "page/konfirmasi_ajak_tanding";
     }
 
+    public String convertDateToString(Date dt) {
+        DateFormat df = new SimpleDateFormat("HH:mm:ss");
+        String dateToString = df.format(dt);
+        return dateToString;
+    }
+
     @GetMapping("/Konfirmasi-AjakTim")
     public String KonfirmAjakTim(@RequestParam("id") Integer id, HttpSession session) {
         int idus = -1;
@@ -363,6 +375,30 @@ public class AjakTandingController {
         dtAjakTanding.setModidate(LocalDateTime.now());
         dtAjakTanding.setStatus(1);
         dtAjakTandingService.save(dtAjakTanding);
+
+        MsLapangan lapangan = lapanganService.getLapanganByIdLapangan(trAjakTanding.getId_lapangan());
+
+        TrBookingLapangan trBookingLapangan = new TrBookingLapangan();
+        trBookingLapangan.setIdTim(trAjakTanding.getIdTim1());
+        trBookingLapangan.setId_lapangan(trAjakTanding.getId_lapangan());
+        trBookingLapangan.setIdStatus(1);
+        trBookingLapangan.setNotifikasi(0);
+        trBookingLapangan.setTanggal(trAjakTanding.getTanggal());
+        trBookingLapangan.setJam(trAjakTanding.getJam());
+        trBookingLapangan.setDurasi(1);
+
+        if(Integer.parseInt(convertDateToString(trAjakTanding.getJam()).split(":")[0]) > 16){
+            trBookingLapangan.setDp((int) (lapangan.getHarga() * 1) / 2);
+        }else{
+            trBookingLapangan.setDp((int) (lapangan.getHarga_penerangan() * 1 / 2));
+        }
+        trBookingLapangan.setSub_harga((int) (lapangan.getHarga() * 1));
+        trBookingLapangan.setCreaby(user.getEmail());
+        trBookingLapangan.setCreadate(LocalDateTime.now());
+        trBookingLapangan.setModiby(user.getEmail());
+        trBookingLapangan.setModidate(LocalDateTime.now());
+        trBookingLapangan.setStatus(1);
+        tr_booking_lapangan_service.save(trBookingLapangan);
 
         return "redirect:/Konfirmasi-Ajak-Tanding";
     }
