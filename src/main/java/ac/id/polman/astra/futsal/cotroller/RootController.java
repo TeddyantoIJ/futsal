@@ -575,9 +575,6 @@ public class RootController {
         MsUser us = userService.getUserById(idUser);
         TrBookingLapangan a = trBookinglapanganservice.getById(id);
 
-        TrReview review = reviewService.getByIdBooking(a.getId());
-        review.setStatus(1);
-        reviewService.save(review);
 
         a.setModiby(us.getEmail());
         a.setModidate(LocalDateTime.now());
@@ -590,6 +587,10 @@ public class RootController {
         TrJadwalLapangan jadwal = trJadwalLapanganService.getByJadwalJamLapangan(a);
         jadwal.setStatus(2);
         trJadwalLapanganService.save(jadwal);
+
+        TrReview review = reviewService.getByIdBooking(jadwal.getId());
+        review.setStatus(1);
+        reviewService.save(review);
 
         MsMerchant merchant = merchantService.getMerchantByIdUser(idUser);
         merchant.setRating(reviewService.getRatingByIdMerchant(merchant.getId_merchant()));
@@ -613,9 +614,6 @@ public class RootController {
         MsUser us = userService.getUserById(idUser);
         TrBookingLapangan a = trBookinglapanganservice.getById(id);
 
-        TrReview review = reviewService.getByIdBooking(a.getId());
-        reviewService.remove(review);
-
         a.setModiby(us.getEmail());
         a.setModidate(LocalDateTime.now());
         trBookinglapanganservice.back_to_konfirmasi(a);
@@ -627,6 +625,9 @@ public class RootController {
         TrJadwalLapangan jadwal = trJadwalLapanganService.getByJadwalJamLapangan(a);
         jadwal.setStatus(1);
         trJadwalLapanganService.save(jadwal);
+
+        TrReview review = reviewService.getByIdBooking(jadwal.getId());
+        reviewService.remove(review);
 
         return "redirect:/my-merchant-booking-payment";
     }
