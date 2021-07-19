@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.security.PublicKey;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,11 +31,11 @@ public class ReviewService {
     }
 
     public List<TrReview> getAllByIdMerchant(int id){
-        List<TrReview> a = getAll();
-        for ( TrReview b:a)
+        List<TrReview> a = new ArrayList<>();
+        for ( TrReview b : getAll())
         {
-            if(id != b.getIdMerchant()){
-                a.remove(b);
+            if(id == b.getIdMerchant()){
+                a.add(b);
             }
         }
         return a;

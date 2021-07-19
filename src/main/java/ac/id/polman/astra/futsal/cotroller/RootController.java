@@ -93,18 +93,21 @@ public class RootController {
         }
         //merchant
         List<MsMerchant> merchantList = merchantService.get6MerchantActive();
+        List<MsMerchant> merchants = merchantService.getAllMerchant();
         //tim
-        List<MsTim> data = timService.getAllTim();
-        List<MsTim> msTimList = new ArrayList<>();
-        for ( MsTim msTim : data )
-        {
-            if(msTim.getStatus() == 1){
-                msTimList.add(msTim);
-            }
-        }
+        List<MsTim> msTimList = timService.getAllActive();
+//        Jadwal
+        List<TrJadwalLapangan> practice = trJadwalLapanganService.get6AscendingPractice();
+        List<TrJadwalLapangan> friendly = trJadwalLapanganService.get6AscendingFriendly();
+//      Lpanagan
+        List<MsLapangan> lapangan = lapanganService.getAllLapangan();
 
-        model.addAttribute("Timlist", data);
+        model.addAttribute("Timlist", msTimList);
         model.addAttribute("merchantList", merchantList);
+        model.addAttribute("practice", practice);
+        model.addAttribute("friendly", friendly);
+        model.addAttribute("lapangan", lapangan);
+        model.addAttribute("merchant", merchants);
         return "page/index";
     }
 
@@ -522,11 +525,10 @@ public class RootController {
         jadwal.setIdTim1(a.getIdTim());
         if(trAjakTanding==null){
             jadwal.setIdTim2(a.getIdTim());
-            jadwal.setMainBareng(1);
         }else{
             jadwal.setIdTim2(trAjakTanding.getIdTim2());
-            jadwal.setMainBareng(0);
         }
+        jadwal.setMainBareng(0);
         jadwal.setTanggal(a.getTanggal());
         jadwal.setJam(a.getJam());
         jadwal.setDurasi(a.getDurasi1());

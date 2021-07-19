@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface TrJadwalLapanganRepository extends CrudRepository<TrJadwalLapangan, Integer> {
+    List<TrJadwalLapangan> findAllByOrderByTanggalAscJamAsc();
     @Query("select * from tr_jadwal_lapangan where id_lapangan =:id_lapangan order by tanggal asc, jam asc")
     List<TrJadwalLapangan> findAllByIdLapanganOrderByTanggalAscJamAsc(@Param("id_lapangan") int id_lapangan);
     List<TrJadwalLapangan> findAllByIdTim1OrderByTanggalAscJamAsc(@Param("idTim1") int idTim1);

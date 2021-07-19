@@ -31,6 +31,70 @@ public class Tr_jadwal_lapangan_service {
         return a;
     }
 
+    public List<TrJadwalLapangan> getAllFutureAscending(){
+        List<TrJadwalLapangan> a = new ArrayList<>();
+        List<TrJadwalLapangan> booking = trJadwalLapanganRepository.findAllByOrderByTanggalAscJamAsc();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        try{
+            Date comp = sdf.parse(sdf.format(new Date()));
+            for(TrJadwalLapangan lapangan : booking){
+                if(lapangan.getTanggal().compareTo(comp) > 0){
+                    System.out.println("ID TIM 1 : " + lapangan.getIdTim1() + "\tID TIM 2 : " + lapangan.getIdTim2() + "\tID : " + lapangan.getId());
+                    a.add(lapangan);
+                }else if(lapangan.getTanggal().compareTo(comp) == 0 && lapangan.getJam().compareTo(comp) >= 0){
+                    System.out.println("ID TIM 1 : " + lapangan.getIdTim1() + "ID TIM 2 : " + lapangan.getIdTim2());
+                    a.add(lapangan);
+                }
+            }
+        }catch (Exception e) {
+            System.out.println("Masuk error");
+        }
+        return a;
+    }
+
+    public List<TrJadwalLapangan> get6AscendingPractice(){
+        List<TrJadwalLapangan> a = new ArrayList<>();
+        int limit = 0;
+        for(TrJadwalLapangan jadwal : getAllAscendingPractice()){
+            a.add(jadwal);
+            limit++;
+            if(limit == 6){
+                break;
+            }
+        }
+        return a;
+    }
+    public List<TrJadwalLapangan> get6AscendingFriendly(){
+        List<TrJadwalLapangan> a = new ArrayList<>();
+        int limit = 0;
+        for(TrJadwalLapangan jadwal : getAllAscendingFriendly()){
+            a.add(jadwal);
+            limit++;
+            if(limit == 6){
+                break;
+            }
+        }
+        return a;
+    }
+    public List<TrJadwalLapangan> getAllAscendingPractice(){
+        List<TrJadwalLapangan> a = new ArrayList<>();
+        for(TrJadwalLapangan jadwal : getAllFutureAscending()){
+            if(jadwal.getIdTim1() == jadwal.getIdTim2()){
+                a.add(jadwal);
+            }
+        }
+        return a;
+    }
+    public List<TrJadwalLapangan> getAllAscendingFriendly(){
+        List<TrJadwalLapangan> a = new ArrayList<>();
+        for(TrJadwalLapangan jadwal : getAllFutureAscending()){
+            if(jadwal.getIdTim1() != jadwal.getIdTim2()){
+                a.add(jadwal);
+            }
+        }
+        return a;
+    }
+
     public TrJadwalLapangan getById(int id){
         TrJadwalLapangan a = trJadwalLapanganRepository.findById(id);
         return a;

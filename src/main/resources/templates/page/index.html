@@ -167,28 +167,40 @@
                         <div class="col-sm-4 Child collapse" style="margin-top: 5px" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain == 1}">
                             <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
                             <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
-                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
+                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0}" th:attr="onclick=|showfoto('${book.bukti_transfer}')|">Ask To Join</a>
+                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 1}" disabled="">Ask To Join</a>
                         </div>
                         <div class="col-sm-4 Adult collapse" style="margin-top: 5px" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain == 2}">
                             <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
                             <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
-                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
+                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0}">Ask To Join</a>
+                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 1}" disabled="">Ask To Join</a>
                         </div>
                         <div class="col-sm-4 Man collapse" style="margin-top: 5px" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain == 3}">
                             <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
                             <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
-                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
+                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0}">Ask To Join</a>
+                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 1}" disabled="">Ask To Join</a>
                         </div>
                         <div class="col-sm-4 Girl collapse" style="margin-top: 5px" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain == 4}">
                             <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
                             <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
-                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
+                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0}">Ask To Join</a>
+                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 1}" disabled="">Ask To Join</a>
                         </div>
                         <div class="col-sm-4 Mix collapse" style="margin-top: 5px" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain == 5}">
                             <p th:id="nametim" class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
                             <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
-                            <a th:id="buttonjoin" class="btn btn-primary text-light text-center name-team-our-teams form-control" th:value="${Tim.idTim}" data-toggle="modal" data-target="#exampleModal">Ask To Join</a>
+                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0}">Ask To Join</a>
+                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 1}" disabled="">Ask To Join</a>
                         </div>
+                        <script>
+                            function showfoto(foto){
+                                var ft = "/images/bukti_transfer/" + foto;
+                                document.getElementById("div_foto").setAttribute("src", ft);
+                                document.getElementById("download").setAttribute("href", ft);
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
@@ -531,225 +543,38 @@
                     <div class="row">
                         <div class="col">
 <!--                            ITEM FRIENDLY MATCH -->
-                            <div class="card shadow item-pertandingan" style="height: 91px">
+                            <div class="card shadow item-pertandingan" th:each="fr : ${friendly}">
                                 <div class="row align-items-center">
                                     <div class="col-6">
                                         <div class="row">
                                             <div class="col-4">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                                <img th:each="tim : ${Timlist}" th:if="${tim.idTim == fr.idTim1}" th:src="'/images/tim/logo/' + ${tim.logo}" class="card-img icon-tim-last-match"/>
                                             </div>
                                             <div class="col-8">
                                                 <div class="row text-last-match">
-                                                    <div class="col-sm text-left text-dark">
-                                                        Tim A
-                                                    </div>
+                                                    <p class="col-sm text-left text-dark" th:each="tim : ${Timlist}" th:if="${tim.idTim == fr.idTim1}" th:text="${tim.nama}">
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row" style="margin-top:10px; margin-bottom: 10px">
                                             <div class="col-4">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
+                                                <img th:each="tim : ${Timlist}" th:if="${tim.idTim == fr.idTim2}" th:src="'/images/tim/logo/' + ${tim.logo}" class="card-img icon-tim-last-match"/>
                                             </div>
                                             <div class="col-8">
                                                 <div class="row text-last-match">
-                                                    <div class="col-sm text-left  text-dark">
-                                                        Tim B
-                                                    </div>
+                                                    <p class="col-sm text-left  text-dark" th:each="tim : ${Timlist}" th:if="${tim.idTim == fr.idTim2}" th:text="${tim.nama}">
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-6 text-center">
-                                        <a href="">SPORT EA</a>
+                                    <div class="col-6 text-center justify-content-center">
+                                        <div th:each="lap : ${lapangan}" th:if="${lap.idLapangan == fr.idLapangan}">
+                                            <a th:each="mer : ${merchant}" th:if="${mer.id_merchant == lap.getIdMerchant()}" th:text="${mer.nama}" th:href="'/merchant-search/' + ${mer.id_merchant}"></a>
+                                        </div>
+                                        <span class="text-muted" th:text="${#dates.format(fr.tanggal, 'dd-MM-yyyy')} + ' (' + ${#dates.format(fr.jam, 'HH:mm')} + ' WIB)'"></span>
                                         <br/>
-                                        <span class="text-muted">
-                                                    2021-06-24 (17.00)
-                                                </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card shadow item-pertandingan" style="height: 91px" >
-                                <div class="row align-items-center">
-                                    <div class="col-6">
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="row text-last-match">
-                                                    <div class="col-sm text-left text-dark">
-                                                        Tim A
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
-                                            <div class="col-4">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="row text-last-match">
-                                                    <div class="col-sm text-left  text-dark">
-                                                        Tim B
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 text-center">
-                                        <a href="">SPORT EA</a>
-                                        <br/>
-                                        <span class="text-muted">
-                                                    2021-06-24 (17.00)
-                                                </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card shadow item-pertandingan" style="height: 91px">
-                                <div class="row align-items-center">
-                                    <div class="col-6">
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="row text-last-match">
-                                                    <div class="col-sm text-left text-dark">
-                                                        Tim A
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
-                                            <div class="col-4">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="row text-last-match">
-                                                    <div class="col-sm text-left  text-dark">
-                                                        Tim B
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 text-center">
-                                        <a href="">SPORT EA</a>
-                                        <br/>
-                                        <span class="text-muted">
-                                                    2021-06-24 (17.00)
-                                                </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card shadow item-pertandingan" style="height: 91px">
-                                <div class="row align-items-center">
-                                    <div class="col-6">
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="row text-last-match">
-                                                    <div class="col-sm text-left text-dark">
-                                                        Tim A
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
-                                            <div class="col-4">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="row text-last-match">
-                                                    <div class="col-sm text-left  text-dark">
-                                                        Tim B
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 text-center">
-                                        <a href="">SPORT EA</a>
-                                        <br/>
-                                        <span class="text-muted">
-                                                    2021-06-24 (17.00)
-                                                </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card shadow item-pertandingan" style="height: 91px">
-                                <div class="row align-items-center">
-                                    <div class="col-6">
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="row text-last-match">
-                                                    <div class="col-sm text-left text-dark">
-                                                        Tim A
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
-                                            <div class="col-4">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="row text-last-match">
-                                                    <div class="col-sm text-left  text-dark">
-                                                        Tim B
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 text-center">
-                                        <a href="">SPORT EA</a>
-                                        <br/>
-                                        <span class="text-muted">
-                                                    2021-06-24 (17.00)
-                                                </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card shadow item-pertandingan" style="height: 91px">
-                                <div class="row align-items-center">
-                                    <div class="col-6">
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="row text-last-match">
-                                                    <div class="col-sm text-left text-dark">
-                                                        Tim A
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row" style="margin-top:10px; margin-bottom: 10px">
-                                            <div class="col-4">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-last-match"/>
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="row text-last-match">
-                                                    <div class="col-sm text-left  text-dark">
-                                                        Tim B
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 text-center">
-                                        <a href="">SPORT EA</a>
-                                        <br/>
-                                        <span class="text-muted">
-                                                    2021-06-24 (17.00)
-                                                </span>
                                     </div>
                                 </div>
                             </div>
@@ -759,7 +584,7 @@
                     <div class="row">
                         <div class="col">
                             <a href="/friendly-match-show-all" class="btn btn-danger">Show All Friendly Match</a>
-                            <a href="/ask-for-a-match" class="btn btn-primary">Ask For A Match</a>
+                            <a href="/ask-for-a-match" class="btn btn-primary" th:if="${session.merchant == null && session.tim != null}">Ask For A Match</a>
                         </div>
                     </div>
                 </div>
@@ -769,135 +594,26 @@
                     <div class="row">
                         <div class="col">
 <!--                           ITEM PRACTICE -->
-                            <div class="card shadow item-pertandingan" style="height: 91px">
+                            <div class="card shadow item-pertandingan" th:each="prac : ${practice}">
                                 <div class="row">
-                                    <div class="col-8">
-                                        <div class="row align-items-center">
-                                            <div class="col-6 text-left">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-practice"  style="margin-top:4px; margin-bottom: 14px"/>
+                                    <div class="col-6">
+                                        <div class="row align-items-center"  th:each="tim : ${Timlist}" th:if="${tim.idTim == prac.idTim1}" >
+                                            <div class="col-4 text-left">
+                                                <img th:src="'/images/tim/logo/' + ${tim.logo}" class="card-img icon-tim-practice"  style="margin-top:4px; margin-bottom: 14px"/>
                                             </div>
-                                            <div class="col-6 text-dark text-center" style="font-weight: 300; font-size: 20px">
-                                                Tim A
-                                                <a href="" class="btn text-primary" style="">Ask To Join Practice</a>
+                                            <div class="col-8 text-dark text-center font-weight-light">
+                                                <p th:text="${tim.nama}" style="padding-top: 10px"></p>
+                                                <a href="" th:if="${prac.mainBareng == 1}" class="btn text-primary" style="padding-bottom: 10px">Ask To Join Practice</a>
+                                                <a th:if="${prac.mainBareng == 0}" class="btn text-muted" disabled style="padding-bottom: 10px">Ask To Join Practice</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-4 text-center" style="margin-top: 10px">
-                                        <a href="" class="btn text-primary">SPORT EA</a>
-                                        <br/>
-                                        <span class="text-muted">
-                                            2021-06-24 (17.00)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card shadow item-pertandingan" style="height: 91px">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="row align-items-center">
-                                            <div class="col-6 text-left">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-practice"  style="margin-top:4px; margin-bottom: 14px"/>
-                                            </div>
-                                            <div class="col-6 text-dark text-center" style="font-weight: 300; font-size: 20px">
-                                                Tim A
-                                                <p class="btn text-muted" style="cursor: not-allowed">Ask To Join Practice</p>
-                                            </div>
+                                    <div class="col-6 text-center" style="margin-top: 10px">
+                                        <div th:each="lap : ${lapangan}" th:if="${lap.idLapangan == prac.idLapangan}">
+                                            <a th:each="mer : ${merchant}" th:if="${mer.id_merchant == lap.getIdMerchant()}" th:text="${mer.nama}" th:href="'/merchant-search/' + ${mer.id_merchant}"></a>
                                         </div>
-                                    </div>
-                                    <div class="col-4 text-center" style="margin-top: 10px">
-                                        <a href="" class="btn text-primary">SPORT EA</a>
+                                        <span class="text-muted" th:text="${#dates.format(prac.tanggal, 'dd-MM-yyyy')} + ' (' + ${#dates.format(prac.jam, 'HH:mm')} + ' WIB)'"></span>
                                         <br/>
-                                        <span class="text-muted">
-                                            2021-06-24 (17.00)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card shadow item-pertandingan" style="height: 91px">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="row align-items-center">
-                                            <div class="col-6 text-left">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-practice"  style="margin-top:4px; margin-bottom: 14px"/>
-                                            </div>
-                                            <div class="col-6 text-dark text-center" style="font-weight: 300; font-size: 20px">
-                                                Tim A
-                                                <a href="" class="btn text-primary" style="">Ask To Join Practice</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 text-center" style="margin-top: 10px">
-                                        <a href="" class="btn text-primary">SPORT EA</a>
-                                        <br/>
-                                        <span class="text-muted">
-                                            2021-06-24 (17.00)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card shadow item-pertandingan" style="height: 91px">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="row align-items-center">
-                                            <div class="col-6 text-left">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-practice"  style="margin-top:4px; margin-bottom: 14px"/>
-                                            </div>
-                                            <div class="col-6 text-dark text-center" style="font-weight: 300; font-size: 20px">
-                                                Tim A
-                                                <p class="btn text-muted" style="cursor: not-allowed">Ask To Join Practice</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 text-center" style="margin-top: 10px">
-                                        <a href="" class="btn text-primary">SPORT EA</a>
-                                        <br/>
-                                        <span class="text-muted">
-                                            2021-06-24 (17.00)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card shadow item-pertandingan" style="height: 91px">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="row align-items-center">
-                                            <div class="col-6 text-left">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-practice"  style="margin-top:4px; margin-bottom: 14px"/>
-                                            </div>
-                                            <div class="col-6 text-dark text-center" style="font-weight: 300; font-size: 20px">
-                                                Tim A
-                                                <a href="" class="btn text-primary" style="">Ask To Join Practice</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 text-center" style="margin-top: 10px">
-                                        <a href="" class="btn text-primary">SPORT EA</a>
-                                        <br/>
-                                        <span class="text-muted">
-                                            2021-06-24 (17.00)
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card shadow item-pertandingan" style="height: 91px">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="row align-items-center">
-                                            <div class="col-6 text-left">
-                                                <img src="/images/merchant/foto/f20210617221207.jpg" class="card-img icon-tim-practice"  style="margin-top:4px; margin-bottom: 14px"/>
-                                            </div>
-                                            <div class="col-6 text-dark text-center" style="font-weight: 300; font-size: 20px">
-                                                Tim A
-                                                <p class="btn text-muted" style="cursor: not-allowed">Ask To Join Practice</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 text-center" style="margin-top: 10px">
-                                        <a href="" class="btn text-primary">SPORT EA</a>
-                                        <br/>
-                                        <span class="text-muted">
-                                            2021-06-24 (17.00)
-                                        </span>
                                     </div>
                                 </div>
                             </div>
