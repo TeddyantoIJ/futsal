@@ -11,9 +11,9 @@
     <br/><br/>
     <div class="container">
         <br/><br/>
-        <h4 th:if="${bill_pendaftaran.id != -1 and bill_pendaftaran.id_status != 5}" class="font-weight-bold text-dark text-center" style="text-transform: uppercase">my registration bill</h4>
+        <h4 th:if="${bill_pendaftaran.id != -1 and bill_pendaftaran.id_status != 2}" class="font-weight-bold text-dark text-center" style="text-transform: uppercase">my registration bill</h4>
         <hr/>
-        <div th:if="${bill_pendaftaran.id != -1 and bill_pendaftaran.id_status != 5}" class="card shadow">
+        <div th:if="${bill_pendaftaran.id != -1 and bill_pendaftaran.id_status != 2}" class="card shadow">
             <div class="card-body">
                 <h6 class="text-danger font-weight-light">
                     <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>

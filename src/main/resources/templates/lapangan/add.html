@@ -17,10 +17,10 @@
         <br/>
         <div class="row">
             <div class="col">
-                <form action="/addLapangan" th:object="${MsLapangan}" method="post" >
+                <form action="/addLapangan" method="post" >
                     <div class="row">
                         <div class="col">
-                            <input type="hidden" name="id_merchant" th:value="${id_merchant}">
+                            <input type="hidden" id="id_merchant" name="idMerchant" th:value="${session.merchant.id_merchant}">
 
                             <label>Name <span style="color: red">*</span> </label>
                             <input class="form form-control" type="text" name="nama" id="nama" required>
@@ -39,6 +39,7 @@
                             <br/>
 
                             <label>Court Size <span style="color: red">*</span> </label>
+                            <br/>
 
                             <label>Lenght<span style="color: red">*</span> </label>
                             <input class="form form-control" type="number" name="panjang_lapangan" id="panjang_lapangan" required>

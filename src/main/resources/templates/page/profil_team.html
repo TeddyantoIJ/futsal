@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_userLayout">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div layout:fragment="content" class="bg-light">
+    <div style="width: 100%; height: 700px;">
+        <img th:src="'/images/tim/banner/'+${listTim.banner}" style="height: 100%; width: 100%; object-position: center">
+    </div>
+    <section>
+        <div id="visitor" class="container">
+            <br/>
+            <div class="row">
+                <div class="col-3">
+                    <img th:src="'/images/tim/logo/' + ${listTim.logo}" style="height: 150px; width: 150px; object-fit: cover; object-position: center" class="card-img">
+                </div>
+                <div class="col-9">
+                    <div class="row"  style="border-bottom: 1px solid deepskyblue">
+                        <div class="col-3">Name</div>
+                        <div class="col font-weight-light">
+                            <label th:text="': ' + ${listTim.nama}"></label>
+                        </div>
+                    </div>
+                    <div class="row" style="border-bottom: 1px solid deepskyblue">
+                        <div class="col-3">Date of establishment</div>
+                        <div class="col font-weight-light">
+                            <label th:text="': ' + ${listTim.tglBerdiri}" style="border-bottom: 1px solid deepskyblue"></label>
+                        </div>
+                    </div>
+                    <div class="row"  style="border-bottom: 1px solid deepskyblue">
+                        <div class="col-3">Private</div>
+                        <div class="col font-weight-light wrapText">
+                            <label th:if="${listTim.privat==0}" th:text="': '+No"></label>
+                            <label th:if="${listTim.privat==1}" th:text="': '+Yes"></label>
+                        </div>
+                    </div>
+                    <div class="row"  style="border-bottom: 1px solid deepskyblue">
+                        <div class="col-3">Player Type</div>
+                        <div class="col font-weight-light wrapText">
+                            <label th:if="${listTim.tipePemain==1}" th:text="': '+child"></label>
+                            <label th:if="${listTim.tipePemain==2}" th:text="': '+Adult"></label>
+                            <label th:if="${listTim.tipePemain==3}" th:text="': '+Man"></label>
+                            <label th:if="${listTim.tipePemain==4}" th:text="': '+Girl"></label>
+                            <label th:if="${listTim.tipePemain==5}" th:text="': '+Mix"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br/>
+    <div style="background-image: url(/images/assets/merchant_bg.jpg); background-repeat: no-repeat; background-position: center" id="Court" class="bg-light">
+        <div class="merchant1 container">
+            <br/>
+            <h4 class="font-weight-bold text-dark text-center">Team Player</h4>
+            <br/>
+            <table class="table table-bordered table-hover table-striped nowrap" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th class="text-center min-wd-50">No</th>
+                    <th class="text-center">Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user, iter: ${listUser}">
+                    <td class="text-center min-wd-50" style="width:20px;"><span th:text="${iter.count}"></span></td>
+                    <td th:text="${user.namaDepan}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <br/>
+    </div>
+    <br/>
+    <div class="bg-light">
+        <div class="merchant1 container">
+            <br/>
+            <h4 class="font-weight-bold text-dark text-center">History Match</h4>
+            <br/>
+            <div class="col text-center" style="background-color: transparent">
+                <!--   DATA DATA PERTANDINGAN -->
+                <div th:each="page : ${listAjakTanding}">
+<!--                    <div class="card shadow item-pertandingan" th:each="ajaktand:${listDetail}" th:if="${ajaktand.idAjakTanding==page.idAjakTanding}">-->
+                    <div class="card shadow item-pertandingan">
+                    <div class="row" th:each="detil:${listDetail}" th:if="${detil.idAjakTanding==page.id}">
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img th:each="team :${Timlist}" th:if="${team.idTim==page.idTim1}" th:src="@{'images/tim/logo/'+${team.logo}}" class="card-img icon-tim-last-match"/>
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="row text-last-match">
+                                            <div class="col-sm text-left" th:each="team :${Timlist}" th:if="${team.idTim==page.idTim1}" th:text="${team.nama}">
+                                            </div>
+                                            <div class="col text-right" th:text="${detil.skor}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img th:each="team :${Timlist}" th:if="${team.idTim==page.idTim2}" th:src="@{'images/tim/logo/'+${team.logo}}" class="card-img icon-tim-last-match"/>
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="row text-last-match">
+                                            <div class="col-sm text-left" th:each="team :${Timlist}" th:if="${team.idTim==page.idTim2}" th:text="${team.nama}">
+                                            </div>
+                                            <div class="col text-right" th:text="${detil.skor2}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                <a href="" th:each="lapang:${lapangan}" th:if="${lapang.idLapangan==page.id_lapangan}" th:text="${lapang.nama}"></a>
+                                <br/>
+                                <span class="text-muted" th:text="${#dates.dayOfWeekName(page.tanggal)} + ' ' + ${#dates.format(page.tanggal, 'dd-MM-yyyy')} +' '+ ${#dates.format(page.jam, 'HH:mm')} + ' - ' +${#dates.format(page.jam, 'HH:mm')}">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:each="page2 : ${listAjakTanding2}">
+                    <!--                    <div class="card shadow item-pertandingan" th:each="ajaktand:${listDetail}" th:if="${ajaktand.idAjakTanding==page.idAjakTanding}">-->
+                    <div class="card shadow item-pertandingan">
+                        <div class="row"  th:each="detil:${listDetail}" th:if="${detil.idAjakTanding==page2.id}">
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img th:each="team :${Timlist}" th:if="${team.idTim==page2.idTim1}" th:src="@{'images/tim/logo/'+${team.logo}}" class="card-img icon-tim-last-match"/>
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="row text-last-match">
+                                            <div class="col-sm text-left" th:each="team :${Timlist}" th:if="${team.idTim==page2.idTim1}" th:text="${team.nama}">
+                                            </div>
+                                            <div class="col text-right" th:text="${detil.skor}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img th:each="team :${Timlist}" th:if="${team.idTim==page2.idTim2}" th:src="@{'images/tim/logo/'+${team.logo}}" class="card-img icon-tim-last-match"/>
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="row text-last-match">
+                                            <div class="col-sm text-left" th:each="team :${Timlist}" th:if="${team.idTim==page2.idTim2}" th:text="${team.nama}">
+                                            </div>
+                                            <div class="col text-right" th:text="${detil.skor2}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                                <div class="col-sm-4 text-center">
+                                    <a href="" th:each="lapang:${lapangan}" th:if="${lapang.idLapangan==page2.id_lapangan}" th:text="${lapang.nama}"></a>
+                                    <br/>
+                                    <span class="text-muted" th:text="${#dates.dayOfWeekName(page2.tanggal)} + ' ' + ${#dates.format(page2.tanggal, 'dd-MM-yyyy')} +' '+ ${#dates.format(page2.jam, 'HH:mm')} + ' - ' +${#dates.format(page2.jam, 'HH:mm')}">
+                                    </span>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <br/>
+    </div>
+    <div class="bg-light">
+        <div class="merchant1 container">
+            <a class="btn btn-warning" style="width: px" href="/">Back</a>
+            <br/><br/><br/>
+        </div>
+    </div>
+</div>
+</body>
+</html>

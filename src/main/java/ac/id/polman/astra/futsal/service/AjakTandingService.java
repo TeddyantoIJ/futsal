@@ -1,9 +1,6 @@
 package ac.id.polman.astra.futsal.service;
 
-import ac.id.polman.astra.futsal.model.MsAkun;
-import ac.id.polman.astra.futsal.model.MsTim;
-import ac.id.polman.astra.futsal.model.TrAjakTanding;
-import ac.id.polman.astra.futsal.model.TrDaftarTim;
+import ac.id.polman.astra.futsal.model.*;
 import ac.id.polman.astra.futsal.repository.AjakTandingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -48,6 +45,20 @@ public class AjakTandingService {
     public List<TrAjakTanding> getAllByTim2(int id_tim){
         List<TrAjakTanding> tandingList = ajakTandingRepository.findByIdTim2(id_tim);
         return tandingList;
+    }
+
+    public List<TrAjakTanding> getAllLast6(){
+        List<TrAjakTanding> list = (List<TrAjakTanding>) ajakTandingRepository.findAll();
+        List<TrAjakTanding> output = new ArrayList<>();
+        int juju = (int) list.size() - 6;
+        for (int i = list.size()-1 ; i >=juju  ; i--)
+        {
+            if(list.get(i).getStatus()== 1){
+                output.add(list.get(i));
+            }
+        }
+
+        return output;
     }
 
     public void save(TrAjakTanding trAjakTanding){

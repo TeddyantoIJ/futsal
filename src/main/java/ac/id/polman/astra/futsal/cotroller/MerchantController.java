@@ -94,7 +94,7 @@ public class MerchantController {
         String banner = uploadController.uploadBannerMerchant(file1, "none");
 
 
-        msMerchant.setId_user((int) session.getAttribute("user_id"));
+        msMerchant.setId_user(user.getIdUser());
         msMerchant.setFoto(foto);
         msMerchant.setBanner(banner);
         msMerchant.setCreaby(user.getEmail());

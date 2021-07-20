@@ -3,6 +3,7 @@ package ac.id.polman.astra.futsal.cotroller;
 import ac.id.polman.astra.futsal.model.*;
 import ac.id.polman.astra.futsal.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,6 +58,8 @@ public class RootController {
     Tr_pelunasan_service trPelunasanService;
     @Autowired
     AjakTandingService ajakTandingService;
+    @Autowired
+    DtAjakTandingService dtAjakTandingService;
 
 
     UploadController uploadController = new UploadController();
@@ -101,7 +104,15 @@ public class RootController {
         List<TrJadwalLapangan> friendly = trJadwalLapanganService.get6AscendingFriendly();
 //      Lpanagan
         List<MsLapangan> lapangan = lapanganService.getAllLapangan();
+        List<DtAjakTanding> listdetail = dtAjakTandingService.getAllLast6();
+        List<TrAjakTanding> listajaktanding = ajakTandingService.getAll();
+        model.addAttribute("jmluser", userService.count());
+        model.addAttribute("jmltim", timService.getAllTim().size());
+        model.addAttribute("jmlmerchant", merchantService.getAllMerchant().size());
+        model.addAttribute("jmllapangant", lapanganService.getAllLapangan().size());
 
+        model.addAttribute("listAjakTanding", listajaktanding);
+        model.addAttribute("listDetail" , listdetail);
         model.addAttribute("Timlist", msTimList);
         model.addAttribute("merchantList", merchantList);
         model.addAttribute("practice", practice);
@@ -981,7 +992,7 @@ public class RootController {
         TrPendaftaranMerchant a = pendaftaran_merchant_service.getPendaftaran(id);
         a.setModidate(LocalDateTime.now());
         a.setBukti_transfer(uploadController.upload_bukti_tf(file, "none"));
-        a.setId_status(5);
+        a.setId_status(2);
         pendaftaran_merchant_service.save(a);
         return "redirect:/bill";
     }
@@ -1039,5 +1050,30 @@ public class RootController {
         }catch (Exception e){
             return 0;
         }
+    }
+
+    @GetMapping("/profil_team")
+    public String profilteam(Model model, @Param("id") int id)
+    {
+
+        List<MsLapangan> lapangan = lapanganService.getAllLapangan();
+        List<TrAjakTanding> listajaktanding = ajakTandingService.getAllByTim(id);
+        List<TrAjakTanding> listajaktanding2 = ajakTandingService.getAllByTim2(id);
+        List<DtAjakTanding> listdetail = dtAjakTandingService.getAll();
+        List<MsTim> listTeam = timService.getAllTim();
+
+        model.addAttribute("listAjakTanding", listajaktanding);
+        model.addAttribute("listAjakTanding2", listajaktanding2);
+        model.addAttribute("listDetail" , listdetail);
+        model.addAttribute("Timlist", listTeam);
+        model.addAttribute("lapangan", lapangan);
+
+        List<MsUser> user = userService.getAllByTim(id);
+        model.addAttribute("listUser", user);
+
+        MsTim tim = timService.getTimById(id);
+        model.addAttribute("listTim", tim);
+
+        return "page/profil_team";
     }
 }

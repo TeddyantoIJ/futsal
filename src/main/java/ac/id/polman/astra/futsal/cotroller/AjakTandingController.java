@@ -252,7 +252,7 @@ public class AjakTandingController {
         }
 
         TrAjakTanding trAjakTanding = ajakTandingService.getAllById(id);
-        trAjakTanding.setId_status(7);
+        trAjakTanding.setId_status(10);
         ajakTandingService.save(trAjakTanding);
 
         return "redirect:/Ajak-Tanding";

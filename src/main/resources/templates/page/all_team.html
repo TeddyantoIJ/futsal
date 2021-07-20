@@ -36,16 +36,21 @@
                             <div class="row">
                                 <div class="col-sm-3">Name</div>
                                 <div class="col-sm font-weight-light">
-                                    <a th:href="'/merchant-search/' + ${tim.idTim}" th:text="': ' + ${tim.nama}"></a>
+                                    <a th:href="@{'profil_team?id='+${tim.idTim}}" th:text="': ' + ${tim.nama}"></a>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3">Player Type</div>
-                                <div class="col-sm font-weight-light" th:text="': ' + ${tim.tipePemain}"></div>
+                                <div class="col-sm font-weight-light" th:if="${tim.tipePemain==1}" th:text="': '+child"></div>
+                                <div class="col-sm font-weight-light" th:if="${tim.tipePemain==2}" th:text="': '+Adult"></div>
+                                <div class="col-sm font-weight-light" th:if="${tim.tipePemain==3}" th:text="': '+Man"></div>
+                                <div class="col-sm font-weight-light" th:if="${tim.tipePemain==4}" th:text="': '+Girl"></div>
+                                <div class="col-sm font-weight-light" th:if="${tim.tipePemain==5}" th:text="': '+Mix"></div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3">Private</div>
-                                <div class="col-sm font-weight-light" th:text="': ' + ${tim.privat}">: Ivam (0895 6064 25999)</div>
+                                <div class="col-sm font-weight-light" th:if="${tim.privat==0}" th:text="': '+No" ></div>
+                                <div class="col-sm font-weight-light" th:if="${tim.privat==1}" th:text="': '+Yes"></div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3">Date</div>
