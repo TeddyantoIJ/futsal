@@ -58,7 +58,7 @@ public class Tr_jadwal_lapangan_service {
         for(TrJadwalLapangan jadwal : getAllAscendingPractice()){
             a.add(jadwal);
             limit++;
-            if(limit == 6){
+            if(limit == 4){
                 break;
             }
         }
@@ -70,12 +70,32 @@ public class Tr_jadwal_lapangan_service {
         for(TrJadwalLapangan jadwal : getAllAscendingFriendly()){
             a.add(jadwal);
             limit++;
-            if(limit == 6){
+            if(limit == 4){
                 break;
             }
         }
         return a;
     }
+
+    public List<TrJadwalLapangan> getAscendingPractice(){
+        List<TrJadwalLapangan> a = new ArrayList<>();
+        int limit = 0;
+        for(TrJadwalLapangan jadwal : getAllAscendingPractice()){
+            a.add(jadwal);
+            limit++;
+        }
+        return a;
+    }
+    public List<TrJadwalLapangan> getAscendingFriendly(){
+        List<TrJadwalLapangan> a = new ArrayList<>();
+        int limit = 0;
+        for(TrJadwalLapangan jadwal : getAllAscendingFriendly()){
+            a.add(jadwal);
+            limit++;
+        }
+        return a;
+    }
+
     public List<TrJadwalLapangan> getAllAscendingPractice(){
         List<TrJadwalLapangan> a = new ArrayList<>();
         for(TrJadwalLapangan jadwal : getAllFutureAscending()){

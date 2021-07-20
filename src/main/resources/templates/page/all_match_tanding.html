@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_userLayout">
+<head>
+    <meta charset="UTF-8">
+    <title>Frindly Match</title>
+</head>
+<body>
+<div layout:fragment="content" class="bg-light">
+    <div class="container" style="margin-top: 50px">
+        <div class="row">
+            <div class="col-sm text-center">
+                <br/>
+                <h3 class="font-weight-light">All Match</h3>
+                <hr style="border-color: #5cc96d"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <form class="d-inline-flex float-right" action="/team-show-all" method="get">
+                    <input type="text" class="form-control" name="search">
+                    <button class="btn btn-primary"><span class="fa fa-search"></span> Search</button>
+                </form>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col">
+                <div class="bg-light">
+                    <div class="card shadow item-pertandingan" th:each="fr : ${frindlye}">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img th:each="tim : ${Timlist}" th:if="${tim.idTim == fr.idTim1}" th:src="'/images/tim/logo/' + ${tim.logo}" class="card-img icon-tim-last-match"/>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="row text-last-match">
+                                                <p class="col-sm text-left text-dark" th:each="tim : ${Timlist}" th:if="${tim.idTim == fr.idTim1}" th:text="${tim.nama}">
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top:10px; margin-bottom: 10px">
+                                        <div class="col-4">
+                                            <img th:each="tim : ${Timlist}" th:if="${tim.idTim == fr.idTim2}" th:src="'/images/tim/logo/' + ${tim.logo}" class="card-img icon-tim-last-match"/>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="row text-last-match">
+                                                <p class="col-sm text-left  text-dark" th:each="tim : ${Timlist}" th:if="${tim.idTim == fr.idTim2}" th:text="${tim.nama}">
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-center justify-content-center">
+                                    <div th:each="lap : ${lapangan}" th:if="${lap.idLapangan == fr.idLapangan}">
+                                        <a th:each="mer : ${merchant}" th:if="${mer.id_merchant == lap.getIdMerchant()}" th:text="${mer.nama}" th:href="'/merchant-search/' + ${mer.id_merchant}"></a>
+                                    </div>
+                                    <span class="text-muted" th:text="${#dates.format(fr.tanggal, 'dd-MM-yyyy')} + ' (' + ${#dates.format(fr.jam, 'HH:mm')} + ' WIB)'"></span>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <br/>
+                <div class="bg-light">
+                    <a class="btn btn-warning" style="width: px" href="/">Back</a>
+                    <br/><br/><br/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
