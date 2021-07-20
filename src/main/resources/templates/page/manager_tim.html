@@ -41,14 +41,14 @@
                 </div>
                 <div class="col-lg-8">
                     <!-- Delete account card-->
-                    <div class="card mb-4">
+                    <div id="info" class="card mb-4">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-3">
                                     <h6 class="mb-0">Name</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" th:value="${tim.nama}">
+                                    <input type="text" class="form-control" th:value="${tim.nama}" disabled>
                                 </div>
                             </div>
                             <hr>
@@ -57,7 +57,7 @@
                                     <h6 class="mb-0">date established</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" th:value="${tim.tglBerdiri}">
+                                    <input type="text" class="form-control" th:value="${tim.tglBerdiri}" disabled>
                                 </div>
                             </div>
                             <hr>
@@ -66,8 +66,8 @@
                                     <h6 class="mb-0">Private</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input class="form-control"th:if="${tim.privat == 1}" value="Ya">
-                                    <input class="form-control"th:if="${tim.privat == 0}" value="Tidak">
+                                    <input class="form-control"th:if="${tim.privat == 1}" value="Ya" disabled>
+                                    <input class="form-control"th:if="${tim.privat == 0}" value="Tidak" disabled>
                                 </div>
                             </div>
                             <hr>
@@ -76,11 +76,11 @@
                                     <h6 class="mb-0">Player Type</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" th:if="${tim.tipePemain == 1}" value="anak - anak" class="form-control">
-                                    <input type="text" th:if="${tim.tipePemain == 2}" value="Dewasa" class="form-control">
-                                    <input type="text" th:if="${tim.tipePemain == 3}" value="Laki - laki" class="form-control">
-                                    <input type="text" th:if="${tim.tipePemain == 4}" value="Perempuan" class="form-control">
-                                    <input type="text" th:if="${tim.tipePemain == 5}" value="Bebas" class="form-control">
+                                    <input type="text" th:if="${tim.tipePemain == 1}" value="anak - anak" class="form-control" disabled>
+                                    <input type="text" th:if="${tim.tipePemain == 2}" value="Dewasa" class="form-control" disabled>
+                                    <input type="text" th:if="${tim.tipePemain == 3}" value="Laki - laki" class="form-control" disabled>
+                                    <input type="text" th:if="${tim.tipePemain == 4}" value="Perempuan" class="form-control" disabled>
+                                    <input type="text" th:if="${tim.tipePemain == 5}" value="Bebas" class="form-control" disabled>
                                 </div>
                             </div>
                         </div>

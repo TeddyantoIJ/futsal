@@ -37,7 +37,6 @@
     <div class="container-login100">
         <div class="wrap-login100">
             <form th:action="@{Logincek}" th:object="${akunObj}" method="post" class="login100-form validate-form">
-                <a class="btn btn-outline-secondary" href="/" ><i class="fa fa-home"></i>Home</a>
                 <span class="login100-form-title p-b-43">
 						WELCOME
                 </span>
@@ -67,7 +66,8 @@
                         Login
                     </button>
                 </div>
-
+                <br/>
+                <a class="btn btn-outline-secondary form-control font-weight-bold" href="/" ><i class="fa fa-home"></i>&nbsp; Home</a>
                 <div class="text-center p-t-46 p-b-20">
                     Register
 					<a href="/page-registration">here</a>

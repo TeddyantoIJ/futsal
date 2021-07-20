@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TrMainBarengService {
+public class Tr_main_bareng_service {
     @Autowired
     MainBarengRepository mainBarengRepository;
 

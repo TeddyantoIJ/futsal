@@ -39,10 +39,8 @@ public class Tr_jadwal_lapangan_service {
             Date comp = sdf.parse(sdf.format(new Date()));
             for(TrJadwalLapangan lapangan : booking){
                 if(lapangan.getTanggal().compareTo(comp) > 0){
-                    System.out.println("ID TIM 1 : " + lapangan.getIdTim1() + "\tID TIM 2 : " + lapangan.getIdTim2() + "\tID : " + lapangan.getId());
                     a.add(lapangan);
                 }else if(lapangan.getTanggal().compareTo(comp) == 0 && lapangan.getJam().compareTo(comp) >= 0){
-                    System.out.println("ID TIM 1 : " + lapangan.getIdTim1() + "ID TIM 2 : " + lapangan.getIdTim2());
                     a.add(lapangan);
                 }
             }

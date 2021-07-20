@@ -7,7 +7,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface DaftarTimRepository extends CrudRepository<TrDaftarTim, Integer> {
+public interface Tr_daftar_tim_repository extends CrudRepository<TrDaftarTim, Integer> {
+    List<TrDaftarTim> findAllByIdUserAndIdTim(int iduser, int idtim);
+
     @Query("select * from tr_daftartim where id =:id")
     TrDaftarTim findAllById(@Param("id") int id);
 

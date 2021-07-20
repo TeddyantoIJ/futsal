@@ -3,9 +3,12 @@ package ac.id.polman.astra.futsal.cotroller;
 import ac.id.polman.astra.futsal.model.MsAkun;
 import ac.id.polman.astra.futsal.model.MsTim;
 import ac.id.polman.astra.futsal.model.MsUser;
+import ac.id.polman.astra.futsal.model.TrDaftarTim;
 import ac.id.polman.astra.futsal.service.AkunService;
 import ac.id.polman.astra.futsal.service.TimService;
+import ac.id.polman.astra.futsal.service.Tr_daftar_tim_service;
 import ac.id.polman.astra.futsal.service.UserService;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +32,9 @@ public class TimController {
 
     @Autowired
     AkunService akunService;
+
+    @Autowired
+    Tr_daftar_tim_service trDaftarTimService;
 
     @GetMapping("/Tim")
     public String getTim(Model model){
@@ -160,5 +166,37 @@ public class TimController {
         msTim.setStatus(0);
         timService.update(msTim);
         return "redirect:/Tim";
+    }
+
+    @PostMapping("/ask-join-tim-index")
+    public String ask_join_tim_index(
+            HttpSession session,
+            TrDaftarTim daftar,
+            Model model
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        MsUser user = userService.getUserById(id);
+        TrDaftarTim pendaftaran = new TrDaftarTim();
+        pendaftaran.setIdTim(daftar.getIdTim());
+        pendaftaran.setAlasan(daftar.getAlasan());
+        pendaftaran.setIdUser(id);
+        pendaftaran.setCreaby(user.getEmail());
+        pendaftaran.setCreadate(LocalDateTime.now());
+        pendaftaran.setModidate(LocalDateTime.now());
+        pendaftaran.setModiby("");
+        pendaftaran.setIdStatus(2);
+        pendaftaran.setNotifikasi(0);
+        pendaftaran.setStatus(1);
+        if(trDaftarTimService.save(pendaftaran)){
+            model.addAttribute("info_pendaftaran", true);
+        }else{
+            model.addAttribute("info_pendaftaran", false);
+        }
+        return "page/index";
     }
 }

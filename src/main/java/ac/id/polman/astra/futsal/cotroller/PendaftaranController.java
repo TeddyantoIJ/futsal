@@ -31,7 +31,7 @@ public class PendaftaranController {
     @Autowired
     MerchantService merchantService;
     @Autowired
-    DaftarTimService daftarTimService;
+    Tr_daftar_tim_service daftarTimService;
     @Autowired
     StatusService statusService;
     @Autowired
@@ -205,15 +205,7 @@ public class PendaftaranController {
             return "redirect:/page-login";
         }
 
-        List<MsTim> a = timService.getAllTim();
-        MsTim m = new MsTim();
-        for (MsTim b : a) {
-            if (b.getIdUser() == id) {
-                m = b;
-                break;
-            }
-        }
-
+        MsTim m = timService.getTimByIdUser(id);
         List<TrDaftarTim> daftarList = daftarTimService.getAllIdTim(m.getIdTim());
         model.addAttribute("listTim", daftarList);
 
@@ -237,7 +229,7 @@ public class PendaftaranController {
 
         TrDaftarTim trDaftartim = daftarTimService.getTimById(id);
         trDaftartim.setIdStatus(3);
-        daftarTimService.saveTrDaftarTim(trDaftartim);
+        daftarTimService.save(trDaftartim);
 
         MsUser a = userService.getUserById(trDaftartim.getIdUser());
         a.setIdUser(trDaftartim.getIdUser());
@@ -258,7 +250,7 @@ public class PendaftaranController {
 
         TrDaftarTim trDaftartim = daftarTimService.getTimById(id);
         trDaftartim.setIdStatus(4);
-        daftarTimService.saveTrDaftarTim(trDaftartim);
+        daftarTimService.save(trDaftartim);
 
         return "redirect:/Daftar-Tim";
     }

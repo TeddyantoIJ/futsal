@@ -60,7 +60,7 @@ public class AjakTandingController {
     Tr_jadwal_lapangan_service tr_jadwal_lapangan_service;
 
     @Autowired
-    TrMainBarengService trMainBarengService;
+    Tr_main_bareng_service trMainbarengservice;
 
     ///=============================== AJak Anggota ===============================////
 
@@ -510,7 +510,7 @@ public class AjakTandingController {
             return "redirect:/page-login";
         }
 
-        List<TrMainBareng> mainBarengs = trMainBarengService.getAllIdJadwalLapangan(id, 1);
+        List<TrMainBareng> mainBarengs = trMainbarengservice.getAllIdJadwalLapangan(id, 1);
         model.addAttribute("listJadwak", mainBarengs);
 
         List<MsUser> user = userService.getAllUser();
@@ -531,10 +531,10 @@ public class AjakTandingController {
             return "redirect:/page-login";
         }
 
-        TrMainBareng mainBareng = trMainBarengService.getById(id);
+        TrMainBareng mainBareng = trMainbarengservice.getById(id);
         mainBareng.setIdStatus(4);
         mainBareng.setStatus(0);
-        trMainBarengService.save(mainBareng);
+        trMainbarengservice.save(mainBareng);
 
         return "redirect:/Play-Together-Detail?id="+mainBareng.getIdJadwalLapangan();
     }
@@ -548,9 +548,9 @@ public class AjakTandingController {
             return "redirect:/page-login";
         }
 
-        TrMainBareng mainBareng = trMainBarengService.getById(id);
+        TrMainBareng mainBareng = trMainbarengservice.getById(id);
         mainBareng.setIdStatus(3);
-        trMainBarengService.save(mainBareng);
+        trMainbarengservice.save(mainBareng);
 
         return "redirect:/Play-Together-Detail?id="+mainBareng.getIdJadwalLapangan();
     }
