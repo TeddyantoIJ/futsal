@@ -930,15 +930,44 @@ public class RootController {
     // ======================================= MATCH ======================================
 
     @GetMapping("/match-show-all")
-    public String goto_match_show_all(){
-        return "";
+    public String match_show_all(Model model)
+    {
+        List<MsTim> msTimList = timService.getAllActive();
+        List<MsLapangan> lapangan = lapanganService.getAllLapangan();
+        List<DtAjakTanding> listdetail = dtAjakTandingService.getAll();
+        List<TrAjakTanding> listajaktanding = ajakTandingService.getAll();
+
+        model.addAttribute("listAjakTanding", listajaktanding);
+        model.addAttribute("listDetail" , listdetail);
+        model.addAttribute("Timlist", msTimList);
+        model.addAttribute("lapangan", lapangan);
+
+        return "page/all_match";
     }
 
     // ======================================= FRIENDLY MATCH ======================================
 
     @GetMapping("/friendly-match-show-all")
-    public String goto_friendly_match_show_all(){
-        return "";
+    public String friendly_match_show_all(Model model)
+    {
+        List<MsMerchant> merchants = merchantService.getAllMerchant();
+        //tim
+        List<MsTim> msTimList = timService.getAllActive();
+
+        List<TrJadwalLapangan> frindly = trJadwalLapanganService.getAscendingFriendly();
+//      Lpanagan
+        List<MsLapangan> lapangan = lapanganService.getAllLapangan();
+        List<DtAjakTanding> listdetail = dtAjakTandingService.getAllLast6();
+        List<TrAjakTanding> listajaktanding = ajakTandingService.getAll();
+
+        model.addAttribute("listAjakTanding", listajaktanding);
+        model.addAttribute("listDetail" , listdetail);
+        model.addAttribute("Timlist", msTimList);
+        model.addAttribute("frindlye", frindly);
+        model.addAttribute("lapangan", lapangan);
+        model.addAttribute("merchant", merchants);
+
+        return "page/all_match_tanding";
     }
 
     @GetMapping("/ask-for-a-match")
@@ -949,8 +978,24 @@ public class RootController {
     // ======================================= PRACTICE ======================================
 
     @GetMapping("/practice-show-all")
-    public String goto_practice_show_all(){
-        return "";
+    public String practice_match_show_all(Model model)
+    {
+        //tim
+        List<MsTim> msTimList = timService.getAllActive();
+
+        List<TrJadwalLapangan> practice = trJadwalLapanganService.getAscendingPractice();
+//      Lpanagan
+        List<MsLapangan> lapangan = lapanganService.getAllLapangan();
+        List<DtAjakTanding> listdetail = dtAjakTandingService.getAllLast6();
+        List<TrAjakTanding> listajaktanding = ajakTandingService.getAll();
+
+        model.addAttribute("listAjakTanding", listajaktanding);
+        model.addAttribute("listDetail" , listdetail);
+        model.addAttribute("Timlist", msTimList);
+        model.addAttribute("pratice", practice);
+        model.addAttribute("lapangan", lapangan);
+
+        return "page/all_match_main_bareng";
     }
 
     // ======================================= BILL ======================================
