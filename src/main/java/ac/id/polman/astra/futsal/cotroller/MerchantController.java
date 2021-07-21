@@ -120,7 +120,7 @@ public class MerchantController {
         pend.setNotifikasi(0);
 
         tr_pendaftaran_merchant_service.save(pend);
-        return "/page/index";
+        return "redirect:/";
     }
 
     @PostMapping("/editMerchant")
