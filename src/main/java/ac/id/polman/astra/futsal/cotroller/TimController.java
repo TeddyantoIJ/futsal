@@ -1,15 +1,9 @@
 package ac.id.polman.astra.futsal.cotroller;
 
-import ac.id.polman.astra.futsal.model.MsAkun;
-import ac.id.polman.astra.futsal.model.MsTim;
-import ac.id.polman.astra.futsal.model.MsUser;
-import ac.id.polman.astra.futsal.model.TrDaftarTim;
-import ac.id.polman.astra.futsal.service.AkunService;
-import ac.id.polman.astra.futsal.service.TimService;
-import ac.id.polman.astra.futsal.service.Tr_daftar_tim_service;
-import ac.id.polman.astra.futsal.service.UserService;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import ac.id.polman.astra.futsal.model.*;
+import ac.id.polman.astra.futsal.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +29,12 @@ public class TimController {
 
     @Autowired
     Tr_daftar_tim_service trDaftarTimService;
+
+    @Autowired
+    Tr_main_bareng_service trMainBarengService;
+
+    @Autowired
+    Tr_jadwal_lapangan_service tr_jadwal_lapangan_service;
 
     @GetMapping("/Tim")
     public String getTim(Model model){
@@ -198,5 +198,38 @@ public class TimController {
             model.addAttribute("info_pendaftaran", false);
         }
         return "page/index";
+    }
+
+    @PostMapping("/ask-main-bareng")
+    public String ask_main_bareng(
+            HttpSession session,
+            TrMainBareng mainBareng,
+            Model model, @Param("idtim") int idtim
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e){
+            return "redirect:/page-login";
+        }
+        MsUser user = userService.getUserById(id);
+        TrJadwalLapangan trJadwalLapangan = tr_jadwal_lapangan_service.getById(idtim);
+
+        TrMainBareng trMainBareng = new TrMainBareng();
+        trMainBareng.setStatus(1);
+        trMainBareng.setIdUser(user.getIdUser());
+        trMainBareng.setAlasan(mainBareng.getAlasan());
+        trMainBareng.setIdJadwalLapangan(trJadwalLapangan.getId());
+        trMainBareng.setIdTim(trJadwalLapangan.getIdTim1());
+        trMainBareng.setCreaby(user.getNamaDepan());
+        trMainBareng.setCreadate(LocalDateTime.now());
+        trMainBareng.setModidate(LocalDateTime.now());
+        trMainBareng.setModiby("");
+        trMainBareng.setIdStatus(2);
+        trMainBareng.setNotifikasi(0);
+        trMainBareng.setStatus(1);
+        trMainBarengService.save(trMainBareng);
+
+        return "redirect:/";
     }
 }

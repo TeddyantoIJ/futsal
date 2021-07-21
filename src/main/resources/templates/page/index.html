@@ -232,7 +232,7 @@
                 </div>
                 <form action="/ask-join-tim-index" method="post" enctype="multipart/form-data" >
                     <div class="modal-body">
-                        <input type="hidden"  name="idTim" id="idTim"/>
+                        <input type="hidden" name="idTim" id="idTim"/>
                         <label class="font-weight-bold text-black" for="alasan">Reason<span style="color: red">*</span> </label>
                         <input class="form form-control"  placeholder="Reason" type="text" name="alasan" id="alasan"  required>
                     </div>
@@ -398,9 +398,14 @@
                                             </div>
                                             <div class="col-8 text-dark text-center font-weight-light">
                                                 <p th:text="${tim.nama}" style="padding-top: 10px"></p>
-                                                <a href="" th:if="${prac.mainBareng == 1}" class="btn text-primary" style="padding-bottom: 10px">Ask To Join Practice</a>
+                                                <a th:if="${prac.mainBareng == 1}" class="btn text-primary"  data-toggle="modal" data-target="#mainBareng" style="padding-bottom: 10px" th:attr="onclick=|join('${prac.id}')|">Ask To Join Practice</a>
                                                 <a th:if="${prac.mainBareng == 0}" class="btn text-muted" disabled style="padding-bottom: 10px">Ask To Join Practice</a>
                                             </div>
+                                            <script>
+                                                function join(idTim){
+                                                    document.getElementById("idtim").value = idTim;
+                                                }
+                                            </script>
                                         </div>
                                     </div>
                                     <div class="col-6 text-center" style="margin-top: 10px">
@@ -414,7 +419,33 @@
                             </div>
                         </div>
                     </div>
-                    <br/>
+
+                    <!--    boostrap modal popup-->
+                    <div class="modal fade" id="mainBareng" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-black" style="color: black">Join Main Bareng</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="/ask-main-bareng" method="post" enctype="multipart/form-data" >
+                                    <div class="modal-body">
+                                        <input type="hidden" name="idtim" id="idtim"/>
+                                        <label style="color: black; float: left">Reason<span style="color: red">*</span> </label>
+                                        <input class="form form-control"  placeholder="Reason" type="text" name="alasan" id="alasan"  required>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button class="btn btn-primary">Register</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                                        <br/>
                     <div class="row">
                         <div class="col">
                             <a href="/practice-show-all" class="btn btn-warning">Show All Practice Match</a>
