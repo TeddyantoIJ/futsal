@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -282,7 +283,22 @@ public class PendaftaranController {
         }
 
         List<MsUser> user = userService.getAllByTimNUll();
+        List<MsAkun> akun = akunService.getAllAkun();
+
+        List<MsUser> users = new ArrayList<>();
+        List<MsAkun> akuns = new ArrayList<>();
+
+        for ( MsUser us : user) {
+            for( MsAkun ak : akun){
+                if((ak.getIdRole() != 2 || ak.getIdRole() != 1) && us.getIdTim() != null){
+                    user.remove(us);
+                    akun.remove(ak);
+                }
+            }
+        }
+
         model.addAttribute("listUser", user);
+        model.addAttribute("listAkun", akun);
 
         return "page/anggota_no_tim";
     }

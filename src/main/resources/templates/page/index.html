@@ -34,7 +34,7 @@
 
             <hr/>
             <div class="row">
-                <div class="col-lg"></div>
+                <div class="col"></div>
                 <div class="col-lg-2 col-md-3 col-sm-4 d-sm-inline-flex">
                     <a href="/#our-merchant">
                         <i style="color:#5cc96d " class="fa fa-home fa-3x"></i>
@@ -43,7 +43,6 @@
                         <h5 style="color: white;"  th:text="${jmlmerchant}"></h5>
                         <h6 style="color: white">MERCHANT</h6>
                     </div>
-
                 </div>
                 <div class="col-lg-2 col-md-3 col-sm-4 d-sm-inline-flex">
                     <i style="color:#5cc96d " class="fa fa-map fa-3x"></i>
@@ -61,14 +60,14 @@
                         <h6 style="color: white">TIM</h6>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 d-sm-inline-flex">
-                    <i style="color:#5cc96d " class="fa fa-user fa-3x"></i>
-                    <div style="padding-left: 5px; margin-left: 5px">
-                        <h5 style="color: white;" th:text="${jmluser}"></h5>
-                        <h6 style="color: white">PENGGUNA</h6>
-                    </div>
-                </div>
-                <div class="col-lg"></div>
+<!--                <div class="col-lg-2 col-md-3 col-sm-4 d-sm-inline-flex">-->
+<!--                    <i style="color:#5cc96d " class="fa fa-user fa-3x"></i>-->
+<!--                    <div style="padding-left: 5px; margin-left: 5px">-->
+<!--                        <h5 style="color: white;" th:text="${jmluser}"></h5>-->
+<!--                        <h6 style="color: white">PENGGUNA</h6>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="col"></div>
             </div>
         </div>
         <br/>
@@ -434,7 +433,7 @@
                                     <div class="modal-body">
                                         <input type="hidden" name="idtim" id="idtim"/>
                                         <label style="color: black; float: left">Reason<span style="color: red">*</span> </label>
-                                        <input class="form form-control"  placeholder="Reason" type="text" name="alasan" id="alasan"  required>
+                                        <input class="form form-control"  placeholder="Reason" type="text" name="alasan"  required>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -444,8 +443,7 @@
                             </div>
                         </div>
                     </div>
-
-                                        <br/>
+                    <br/>
                     <div class="row">
                         <div class="col">
                             <a href="/practice-show-all" class="btn btn-warning">Show All Practice Match</a>

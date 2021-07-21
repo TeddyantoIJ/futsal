@@ -11,25 +11,25 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <center>
-                        <table th:border="0" class="table table-bordered table-hover table-striped nowrap" width="100%" cellspacing="0">
+                        <table th:border="0" class="table table-bordered table-hover table-striped nowrap table-borderless" width="100%" cellspacing="0">
                             <thead>
                             <tr>
                                 <th class="text-center" th:each="itemtim:${listTim}" th:if="${itemtim.idTim == listAjak.idTim1}" th:text="${itemtim.nama}"></th>
-                                <th class="text-center">Skor</th>
                                 <th class="text-center"></th>
-                                <th class="text-center">Skor</th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
                                 <th class="text-center" th:each="itemtim:${listTim}" th:if="${itemtim.idTim == listAjak.idTim2}" th:text="${itemtim.nama}"></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="text-center">
+                                <td class="d-flex justify-content-center">
                                     <img class="card card-body card-img" style="width: 400px; height: 350px;"  th:each="itemtim:${listTim}" th:if="${itemtim.idTim == listAjak.idTim1}" th:src="@{'images/tim/logo/'+${itemtim.logo}}">
                                 </td>
-                                <td class="text-center -bold" style="font-size: 50px;"  th:text="${listdetail.skor}"></td>
-                                <td class="text-center -bold" style="font-size: 50px;">-</td>
-                                <td class="text-center -bold" style="font-size: 50px;"  th:text="${listdetail.skor2}" ></td>
-                                <td class="text-center">
+                                <td class="text-center align-middle font-weight-bold" style="font-size: 50px;"  th:text="${listdetail.skor}"></td>
+                                <td class="text-center align-middle font-weight-bold"  style="font-size: 50px;">-</td>
+                                <td class="text-center align-middle font-weight-bold" style="font-size: 50px;"  th:text="${listdetail.skor2}" ></td>
+                                <td class="d-flex justify-content-center">
                                     <img class="card card-body card-img" style="width: 400px; height: 350px;"  th:each="itemtim:${listTim}" th:if="${itemtim.idTim == listAjak.idTim2}" th:src="@{'images/tim/logo/'+${itemtim.logo}}">
                                 </td>
                             </tr>
