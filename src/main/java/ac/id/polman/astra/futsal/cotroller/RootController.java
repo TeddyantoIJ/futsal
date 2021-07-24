@@ -313,7 +313,6 @@ public class RootController {
         model.addAttribute("tim",c);
         return "page/merchant_order_processed";
     }
-
     @GetMapping("/my-merchant-finished-order")
     public String goto_my_merchant_finished_order(
             Model model,
@@ -336,6 +335,30 @@ public class RootController {
         model.addAttribute("lapangan", b);
         model.addAttribute("tim",c);
         return "page/merchant_order_finish";
+    }
+
+    @GetMapping("/my-merchant-not-complete-order")
+    public String goto_my_merchant_not_complete_order(
+            Model model,
+            HttpSession session
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e) {
+            return "redirect:/page-login";
+        }
+
+        int idMerchant = merchantService.getMerchantByIdUser(id).getId_merchant();
+        List<TrBookingLapangan> a = trBookinglapanganservice.getAllNotCompleteByIdMerchant(idMerchant);
+        List<MsLapangan> b = lapanganService.getAllLapanganByIdMerchant(idMerchant);
+        List<MsTim> c = timService.getAllTim();
+
+
+        model.addAttribute("booking", a);
+        model.addAttribute("lapangan", b);
+        model.addAttribute("tim",c);
+        return "page/merchant_order_not_complete";
     }
 
     @GetMapping("/my-merchant-invalid-order")

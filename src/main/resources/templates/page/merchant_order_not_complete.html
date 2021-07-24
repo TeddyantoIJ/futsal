@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_merchant">
+<head>
+    <meta charset="UTF-8">
+    <title>Not complete order</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <br/>
+        <h6 class="text-muted font-weight-light">Not complete order</h6>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Court</th>
+                <th scope="col">Play date</th>
+                <th scope="col">Play time</th>
+                <th scope="col">Team</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book, iter : ${booking}">
+                <th scope="row" th:text="${iter.count}"></th>
+                <td th:each="lap : ${lapangan}" th:if="${lap.idLapangan == book.id_lapangan}">
+                    <a th:href="'/detail-lapangan/' + ${lap.idLapangan}" >
+                        <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+                        <span th:text="${lap.nama}"></span>
+                    </a>
+                </td>
+                <td>
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <span th:text="${#dates.format(book.tanggal, 'dd-MM-yyyy')}"></span>
+                </td>
+                <td>
+                    <i class="fa fa-clock" aria-hidden="true"></i>
+                    <span th:text="${#dates.format(book.jam, 'HH:mm')} + ' - ' +${#dates.format(book.durasi, 'HH:mm')}"></span>
+                </td>
+                <td th:each="t : ${tim}" th:if="${t.idTim == book.idTim}" th:text="${t.nama}"></td>
+                <td>
+                    No action available
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Evidence of transfer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img id="div_foto" class="card-img" src="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a id="download" class="btn btn-primary" download>Download Image</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

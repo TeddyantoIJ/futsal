@@ -78,7 +78,6 @@ public class TimService {
     public List<MsTim> getReportTim(List<TrBookingLapangan> booking){
         List<MsTim> timList = new ArrayList<>();
         for(TrBookingLapangan book : booking){
-            System.out.println(book.getIdTim());
             for(MsTim t : getAllTim()){
                 if(t.getIdTim() == book.getIdTim() && book.getIdTim() != 0){
                     if(timList.size() == 0){

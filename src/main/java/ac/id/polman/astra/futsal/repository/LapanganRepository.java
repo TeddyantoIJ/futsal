@@ -13,4 +13,5 @@ public interface LapanganRepository extends CrudRepository<MsLapangan, Integer> 
 
     @Query("select * from ms_lapangan where id_merchant =:id_merchant")
     List<MsLapangan> findAllByIdMerchant(@Param("id_merchant") int id_merchant);
+    List<MsLapangan> findAllByIdMerchantOrderByModidateDesc(@Param("id_merchant") int id_merchant);
 }

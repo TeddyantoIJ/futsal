@@ -143,6 +143,23 @@ public class Tr_booking_lapangan_service {
         return c;
     }
 
+    public List<TrBookingLapangan> getAllNotCompleteByIdMerchant(int id){
+        List<MsLapangan> lapangan = lapanganRepository.findAllByIdMerchant(id);
+        List<TrBookingLapangan> a = getAll();
+        List<TrBookingLapangan> c = new ArrayList<>();
+        for(TrBookingLapangan b : a){
+            if(b.getIdStatus() == 7){
+                for(MsLapangan d : lapangan){
+                    if(d.getIdLapangan() == b.getId_lapangan()){
+                        c.add(b);
+                    }
+                }
+            }
+        }
+        System.out.println(c.size());
+        return c;
+    }
+
     public List<TrBookingLapangan> getAllFinishByIdMerchant(int id){
         List<MsLapangan> lapangan = lapanganRepository.findAllByIdMerchant(id);
 
@@ -196,7 +213,7 @@ public class Tr_booking_lapangan_service {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        List<TrBookingLapangan> a = getAll();
+        List<TrBookingLapangan> a = trBookingLapanganRepository.findAllByOrderByModidateAsc();
         List<TrBookingLapangan> c = new ArrayList<>();
 
         TrBookingLapangan total = new TrBookingLapangan();
@@ -207,11 +224,11 @@ public class Tr_booking_lapangan_service {
                 Date comp1 = sdf.parse(tanggal1);
                 Date comp2 = sdf.parse(tanggal2);
                 if(modidate.compareTo(comp1) >= 0 && modidate.compareTo(comp2) <= 0){
-                    if(b.getIdStatus() == 5 || b.getIdStatus() == 3){
+                    if(b.getIdStatus() == 5 || b.getIdStatus() == 3 || b.getIdStatus() == 7){
                         for(MsLapangan d : lapangan){
                             if(d.getIdLapangan() == b.getId_lapangan()){
                                 c.add(b);
-                                if(b.getIdStatus() == 3){
+                                if(b.getIdStatus() == 3 || b.getIdStatus() == 7){
                                     total_uang += b.getDp();
                                 }else{
                                     total_uang += b.getSub_harga();

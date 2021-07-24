@@ -12,6 +12,7 @@ public interface TrBookingLapanganRepository extends CrudRepository<TrBookingLap
     List<TrBookingLapangan> findAllByIdTimOrderByTanggalAscJamAsc(int idTim);
     List<TrBookingLapangan> findAllByOrderByTanggalAscJamAsc();
     List<TrBookingLapangan> findAllByIdStatusOrderByTanggalAscJamAsc(int idStatus);
+    List<TrBookingLapangan> findAllByOrderByModidateAsc();
     TrBookingLapangan findById(int id);
 
 }
