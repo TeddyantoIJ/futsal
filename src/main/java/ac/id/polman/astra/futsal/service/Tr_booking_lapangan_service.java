@@ -8,10 +8,15 @@ import ac.id.polman.astra.futsal.repository.LapanganRepository;
 import ac.id.polman.astra.futsal.repository.TrBookingLapanganRepository;
 import ac.id.polman.astra.futsal.repository.TrJadwalLapanganRepository;
 import ac.id.polman.astra.futsal.repository.TrPelunasanRepository;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -185,6 +190,46 @@ public class Tr_booking_lapangan_service {
         System.out.println(c.size());
         return c;
     }
+
+    public List<TrBookingLapangan> getAllIncomeByIdMerchant(int id, String tanggal1, String tanggal2){
+        List<MsLapangan> lapangan = lapanganRepository.findAllByIdMerchant(id);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        List<TrBookingLapangan> a = getAll();
+        List<TrBookingLapangan> c = new ArrayList<>();
+
+        TrBookingLapangan total = new TrBookingLapangan();
+        int total_uang = 0;
+        for(TrBookingLapangan b : a){
+            try{
+                Date modidate = sdf.parse(b.getModidate().toString());
+                Date comp1 = sdf.parse(tanggal1);
+                Date comp2 = sdf.parse(tanggal2);
+                if(modidate.compareTo(comp1) >= 0 && modidate.compareTo(comp2) <= 0){
+                    if(b.getIdStatus() == 5 || b.getIdStatus() == 3){
+                        for(MsLapangan d : lapangan){
+                            if(d.getIdLapangan() == b.getId_lapangan()){
+                                c.add(b);
+                                if(b.getIdStatus() == 3){
+                                    total_uang += b.getDp();
+                                }else{
+                                    total_uang += b.getSub_harga();
+                                }
+                            }
+                        }
+                    }
+                }
+            }catch (Exception e){
+                System.out.println("Error pak");
+            }
+        }
+        total.setSub_harga(total_uang);
+        total.setIdStatus(-1);
+        c.add(total);
+        return c;
+    }
+
 
 //    ====================================
     public boolean save(TrBookingLapangan a){

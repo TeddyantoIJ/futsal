@@ -30,9 +30,14 @@ public class ReviewService {
         return a;
     }
 
+    public List<TrReview> getAllOrder(){
+        List<TrReview> a = reviewRepository.findAllByOrderByCreadateDesc();
+        return a;
+    }
+
     public List<TrReview> getAllByIdMerchant(int id){
         List<TrReview> a = new ArrayList<>();
-        for ( TrReview b : getAll())
+        for ( TrReview b : getAllOrder())
         {
             if(id == b.getIdMerchant()){
                 a.add(b);

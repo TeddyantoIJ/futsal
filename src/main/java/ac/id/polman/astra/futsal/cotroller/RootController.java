@@ -18,10 +18,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class RootController {
@@ -391,6 +388,68 @@ public class RootController {
         return "page/merchant_order_payment";
     }
 
+    @GetMapping("/my-merchant-review")
+    public String goto_my_merchant_review(
+            HttpSession session,
+            Model model
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e) {
+            return "redirect:/page-login";
+        }
+        int idMerchant = merchantService.getMerchantByIdUser(id).getId_merchant();
+        List<TrReview> reviews = reviewService.getAllByIdMerchant(idMerchant);
+        List<MsUser> users = userService.getAllUser();
+
+        model.addAttribute("reviews", reviews);
+        model.addAttribute("users", users);
+        return "/page/merchant_review";
+    }
+
+    @GetMapping("/my-merchant-report")
+    public String goto_my_merchant_report(
+            HttpSession session,
+            Model model,
+            @RequestParam("tanggal1") Optional<String> tanggal1,
+            @RequestParam("tanggal2") Optional<String> tanggal2
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e) {
+            return "redirect:/page-login";
+        }
+        int idMerchant = merchantService.getMerchantByIdUser(id).getId_merchant();
+        List<TrBookingLapangan> booking;
+
+        try{
+            model.addAttribute("tanggal1", tanggal1.get());
+            model.addAttribute("tanggal2", tanggal2.get());
+            booking = trBookinglapanganservice.getAllIncomeByIdMerchant(idMerchant, tanggal1.get(), tanggal2.get());
+        }catch (Exception e){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MONTH, -1);
+            Date result = cal.getTime();
+
+            model.addAttribute("tanggal1", sdf.format(result));
+            model.addAttribute("tanggal2", sdf.format(new Date()));
+            booking = trBookinglapanganservice.getAllIncomeByIdMerchant(idMerchant, sdf.format(result), sdf.format(new Date()));
+        }
+
+        List<MsLapangan> lapanganList = lapanganService.getReport(booking, idMerchant);
+        List<MsTim> timList = timService.getReportTim(booking);
+
+        model.addAttribute("lapangan", lapanganList);
+        model.addAttribute("booking", booking);
+        model.addAttribute("tim", timList);
+
+
+        return "/page/merchant_report";
+    }
+
     @GetMapping("/merchant-search/{id}")
     public String goto_merchant_id(
             @PathVariable int id,
@@ -594,6 +653,8 @@ public class RootController {
         trBookinglapanganservice.update_lunas(a);
 
         TrPelunasan pelunasan = trPelunasanService.getByIdBooking(a.getId());
+        pelunasan.setModiby(us.getEmail());
+        pelunasan.setModidate(LocalDateTime.now());
         pelunasan.setStatus(1);
         trPelunasanService.save(pelunasan);
 

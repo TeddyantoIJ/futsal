@@ -177,31 +177,41 @@
                 <div class="col-9">
                     <div class="row">
                         <div class="col-sm-4 Child collapse" style="margin-top: 5px" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain == 1}">
-                            <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
+                            <p class="font-weight-bold text-center name-team-our-teams">
+                                <a th:text="${Tim.nama}" th:href="'/profil_team?id=' + ${Tim.idTim}"></a>
+                            </p>
                             <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
                             <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0 && session.tim == null}" th:attr="onclick=|jointim('${Tim.idTim}')|">Ask To Join</a>
                             <a class="btn btn-secondary text-danger text-center name-team-our-teams form-control" th:if="${Tim.privat == 1 && session.tim == null}" >Ask To Join</a>
                         </div>
                         <div class="col-sm-4 Adult collapse" style="margin-top: 5px" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain == 2}">
-                            <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
+                            <p class="font-weight-bold text-center name-team-our-teams">
+                                <a th:text="${Tim.nama}" th:href="'/profil_team?id=' + ${Tim.idTim}"></a>
+                            </p>
                             <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
                             <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0 && session.tim == null}" th:attr="onclick=|jointim('${Tim.idTim}')|">Ask To Join</a>
                             <p class="btn btn-secondary text-danger text-center name-team-our-teams form-control" th:if="${Tim.privat == 1 && session.tim == null}" >Ask To Join</p>
                         </div>
                         <div class="col-sm-4 Man collapse" style="margin-top: 5px" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain == 3}">
-                            <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
+                            <p class="font-weight-bold text-center name-team-our-teams">
+                                <a th:text="${Tim.nama}" th:href="'/profil_team?id=' + ${Tim.idTim}"></a>
+                            </p>
                             <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
                             <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0 && session.tim == null}" th:attr="onclick=|jointim('${Tim.idTim}')|">Ask To Join</a>
                             <p class="btn btn-secondary text-danger text-center name-team-our-teams form-control" th:if="${Tim.privat == 1 && session.tim == null}" >Ask To Join</p>
                         </div>
                         <div class="col-sm-4 Girl collapse" style="margin-top: 5px" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain == 4}">
-                            <p class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
+                            <p class="font-weight-bold text-center name-team-our-teams">
+                                <a th:text="${Tim.nama}" th:href="'/profil_team?id=' + ${Tim.idTim}"></a>
+                            </p>
                             <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
                             <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0 && session.tim == null}" th:attr="onclick=|jointim('${Tim.idTim}')|">Ask To Join</a>
                             <p class="btn btn-secondary text-danger text-center name-team-our-teams form-control" th:if="${Tim.privat == 1 && session.tim == null}" >Ask To Join</p>
                         </div>
                         <div class="col-sm-4 Mix collapse" style="margin-top: 5px" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain == 5}">
-                            <p th:id="nametim" class="font-weight-bold text-center name-team-our-teams" th:text="${Tim.nama}"/>
+                            <p class="font-weight-bold text-center name-team-our-teams">
+                                <a th:text="${Tim.nama}" th:href="'/profil_team?id=' + ${Tim.idTim}"></a>
+                            </p>
                             <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
                             <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0 && session.tim == null}" th:attr="onclick=|jointim('${Tim.idTim}')|">Ask To Join</a>
                             <p class="btn btn-secondary text-danger text-center name-team-our-teams form-control" th:if="${Tim.privat == 1 && session.tim == null}">Ask To Join</p>
@@ -295,9 +305,9 @@
                                 </div>
                             </div>
                             <div class="col-sm-4 text-center">
-                                <a href="" th:each="lapang:${lapangan}" th:if="${lapang.idLapangan==ajaktand.id_lapangan}" th:text="${lapang.nama}"></a>
+                                <a th:each="lapang:${lapangan}" th:if="${lapang.idLapangan==ajaktand.id_lapangan}" th:text="${lapang.nama}" th:href="'detail-lapangan/' + ${lapang.idLapangan}"></a>
                                 <br/>
-                                <span class="text-muted" th:text="${#dates.dayOfWeekName(ajaktand.tanggal)} + ' ' + ${#dates.format(ajaktand.tanggal, 'dd-MM-yyyy')} +' '+ ${#dates.format(ajaktand.jam, 'HH:mm')} + ' - ' +${#dates.format(ajaktand.jam, 'HH:mm')}">
+                                <span class="text-muted" th:text="${#dates.dayOfWeekName(ajaktand.tanggal)} + ' ' + ${#dates.format(ajaktand.tanggal, 'dd-MM-yyyy')} +' '+ ${#dates.format(ajaktand.jam, 'HH:mm')} + ' - ' +${ajaktand.getJam1()}">
                                 </span>
                             </div>
                         </div>
@@ -367,7 +377,7 @@
                                         <div th:each="lap : ${lapangan}" th:if="${lap.idLapangan == fr.idLapangan}">
                                             <a th:each="mer : ${merchant}" th:if="${mer.id_merchant == lap.getIdMerchant()}" th:text="${mer.nama}" th:href="'/merchant-search/' + ${mer.id_merchant}"></a>
                                         </div>
-                                        <span class="text-muted" th:text="${#dates.format(fr.tanggal, 'dd-MM-yyyy')} + ' (' + ${#dates.format(fr.jam, 'HH:mm')} + ' WIB)'"></span>
+                                        <span class="text-muted" th:text="${#dates.format(fr.tanggal, 'dd-MM-yyyy')} + ' ' + ${#dates.format(fr.jam, 'HH:mm')} + ' - ' +${#dates.format(fr.getDurasi(), 'HH:mm')}"></span>
                                         <br/>
                                     </div>
                                 </div>
@@ -411,7 +421,7 @@
                                         <div th:each="lap : ${lapangan}" th:if="${lap.idLapangan == prac.idLapangan}">
                                             <a th:each="mer : ${merchant}" th:if="${mer.id_merchant == lap.getIdMerchant()}" th:text="${mer.nama}" th:href="'/merchant-search/' + ${mer.id_merchant}"></a>
                                         </div>
-                                        <span class="text-muted" th:text="${#dates.format(prac.tanggal, 'dd-MM-yyyy')} + ' (' + ${#dates.format(prac.jam, 'HH:mm')} + ' WIB)'"></span>
+                                        <span class="text-muted" th:text="${#dates.format(prac.tanggal, 'dd-MM-yyyy')} + ' ' + ${#dates.format(prac.jam, 'HH:mm')} + ' - ' +${#dates.format(prac.getDurasi(), 'HH:mm')}"></span>
                                         <br/>
                                     </div>
                                 </div>

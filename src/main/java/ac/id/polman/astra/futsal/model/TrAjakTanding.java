@@ -94,6 +94,20 @@ public class TrAjakTanding {
         return jam;
     }
 
+    public String getJam1(){
+        int waktu = Integer.parseInt(jam.toString().substring(0,2));
+        waktu++;
+        if(waktu == 24){
+            waktu = 0;
+        }
+        if(String.valueOf(waktu).length() == 1){
+            return "0" + waktu + ":00";
+        }else{
+            return waktu + ":00";
+        }
+
+    }
+
     public void setJam(Time jam) {
         this.jam = jam;
     }

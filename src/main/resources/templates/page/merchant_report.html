@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_merchant">
+<head>
+    <meta charset="UTF-8">
+    <title>Report Merchant</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid bg-gray-900">
+        <br/>
+        <div class="row">
+            <div class="col">
+                <h6 class="text-muted font-weight-light">Report Merchant</h6>
+            </div>
+            <div class="col">
+                <form class="d-inline-flex float-right" action="/my-merchant-report" method="get">
+                    <input type="date" class="form-control" name="tanggal1" th:value="${tanggal1}">
+                    &nbsp;&nbsp;
+                    <input type="date" class="form-control" name="tanggal2" th:value="${tanggal2}">
+                    <button class="btn btn-success form-control"><span class="fa fa-search"></span> Search</button>
+                </form>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col">
+                <h6 class="text-muted font-weight-light">Report Frequently Court</h6>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Court name</th>
+                        <th scope="col">Frequently</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="lap, iter : ${lapangan}">
+                        <th scope="row" th:text="${iter.count}"></th>
+                        <td>
+                            <a th:href="'/detail-lapangan/' + ${lap.idLapangan}" th:text="${lap.nama}"></a>
+                        </td>
+                        <td th:text="${lap.status}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col">
+                <h6 class="text-muted font-weight-light">Report Frequently Team</h6>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Team Name</th>
+                        <th scope="col">Frequently</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="t, iter : ${tim}">
+                        <th scope="row" th:text="${iter.count}"></th>
+                        <td>
+                            <a th:href="'/profil_team?id=' + ${t.idTim}"  th:text="${t.nama}"></a>
+                        </td>
+                        <td th:text="${t.status}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <br/>
+        <h6 class="text-muted font-weight-light">Report Income</h6>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Source</th>
+                <th scope="col">Date</th>
+                <th scope="col">Income</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book, iter : ${booking}">
+                <th th:if="${book.idStatus != -1}" scope="row" th:text="${iter.count}"></th>
+
+<!--                TOTAL -->
+                <td th:if="${book.idStatus == -1}"></td>
+                <td th:if="${book.idStatus == -1}" colspan="2"><b>Total income</b></td>
+                <td th:if="${book.idStatus == -1}">
+                    <b th:text="'Rp ' + ${book.sub_harga}"></b>
+                </td>
+
+                <td th:if="${book.idStatus == 3}">DP</td>
+                <td th:if="${book.idStatus == 5}">Remaining Payment</td>
+                <td th:if="${book.idStatus != -1}">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <span th:text="${#temporals.format(book.modidate, 'dd-MM-yyyy HH:mm')} + ' WIB'"></span>
+                </td>
+                <td th:if="${book.idStatus == 3}" th:text="'Rp ' + ${book.dp}"></td>
+                <td th:if="${book.idStatus == 5}" th:text="'Rp ' + ${book.sub_harga}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

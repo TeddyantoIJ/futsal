@@ -2,6 +2,7 @@ package ac.id.polman.astra.futsal.service;
 
 import ac.id.polman.astra.futsal.model.MsMerchant;
 import ac.id.polman.astra.futsal.model.MsTim;
+import ac.id.polman.astra.futsal.model.TrBookingLapangan;
 import ac.id.polman.astra.futsal.repository.TimRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,6 +73,40 @@ public class TimService {
         MsTim c = new MsTim();
         c.setIdTim(-1);
         return c;
+    }
+
+    public List<MsTim> getReportTim(List<TrBookingLapangan> booking){
+        List<MsTim> timList = new ArrayList<>();
+        for(TrBookingLapangan book : booking){
+            System.out.println(book.getIdTim());
+            for(MsTim t : getAllTim()){
+                if(t.getIdTim() == book.getIdTim() && book.getIdTim() != 0){
+                    if(timList.size() == 0){
+                        t.setStatus(1);
+                        timList.add(t);
+                    }else{
+                        try{
+                            int index = 0;
+                            boolean ada = false;
+                            for(MsTim t2 : timList){
+                                if(t2.getIdTim() == t.getIdTim()){
+                                    t2.setStatus(t2.getStatus()+1);
+                                    timList.set(index, t2);
+                                    ada = true;
+                                }
+                                index++;
+                            }
+                            if(!ada){
+                                t.setStatus(1);
+                                timList.add(t);
+                            }
+                        }catch (Exception e){
+                        }
+                    }
+                }
+            }
+        }
+        return timList;
     }
 //   =================================================
 

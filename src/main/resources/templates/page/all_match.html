@@ -70,7 +70,7 @@
                                         <div class="col-sm-4 text-center">
                                             <a href="" th:each="lapang:${lapangan}" th:if="${lapang.idLapangan==page.id_lapangan}" th:text="${lapang.nama}"></a>
                                             <br/>
-                                            <span class="text-muted" th:text="${#dates.dayOfWeekName(page.tanggal)} + ' ' + ${#dates.format(page.tanggal, 'dd-MM-yyyy')} +' '+ ${#dates.format(page.jam, 'HH:mm')} + ' - ' +${#dates.format(page.jam, 'HH:mm')}">
+                                            <span class="text-muted" th:text="${#dates.dayOfWeekName(page.tanggal)} + ' ' + ${#dates.format(page.tanggal, 'dd-MM-yyyy')} +' '+ ${#dates.format(page.jam, 'HH:mm')} + ' - ' +${page.getJam1()}">
                                             </span>
                                         </div>
                                     </div>
