@@ -35,6 +35,7 @@
                                     <th class="text-center">Hour</th>
                                     <th class="text-center">Field</th>
                                     <th class="text-center">Status</th>
+                                    <th class="text-center">Description</th>
                                     <th class="text-center min-wd-50">Action</th>
                                 </tr>
                                 </thead>
@@ -46,6 +47,7 @@
                                     <td th:text="${#dates.format(tanding.jam, 'HH:mm')} + ' - ' +${#dates.format(tanding.jam, 'HH:mm')}"></td>
                                     <td th:each="itemlap:${listLap}" th:if="${itemlap.idLapangan==tanding.id_lapangan}" th:text="${itemlap.nama}"></td>
                                     <td th:each="itemstatus:${listStatus}" th:if="${itemstatus.idStatus ==tanding.id_status}" th:text="${itemstatus.keterangan}"></td>
+                                    <td th:text="${tanding.alasan}"></td>
                                     <td class="text-center" th:if="${tanding.id_status==2}">
                                         <a th:href="@{'Konfirmasi-AjakTim?id='+${tanding.id}}" class="btn btn-primary" style="width: 70px;" onclick="return confirm('Are you sure you want to confirm this match?')">Confirm</a>
                                         <a th:href="@{'Tolak-AjakTim?id='+${tanding.id}}" class="btn btn-danger" style="width: 70px;" onclick="return confirm('Are you sure you want to reject this match?')">Reject</a>

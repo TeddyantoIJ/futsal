@@ -65,23 +65,34 @@ public class AjakTandingController {
     ///=============================== AJak Anggota ===============================////
 
     @GetMapping("/Add-AjakTim")
-    public String getAddTim(Model model, HttpSession session){
+    public String getAddTim(Model model, HttpSession session,
+                            @RequestParam("search") Optional<String> search){
         int idus = -1;
         try {
             idus = (int) session.getAttribute("id_user");
         } catch (Exception e) {
             return "redirect:/page-login";
         }
-        List<MsTim> data = timService.getAllTim();
-        List<MsTim> msTimList = new ArrayList<>();
-        for ( MsTim msTim : data )
-        {
-            if(msTim.getStatus() == 1){
-                msTimList.add(msTim);
-            }
+
+        List<MsTim> a = new ArrayList<>();
+        if (!search.isPresent() || search.get().equals("")) {
+        } else {
+            a = timService.getTeamByName(search.get());
+        }
+        if(a==null){
+            return "redirect:/Add-AjakTim";
         }
 
-        model.addAttribute("listTim", msTimList);
+//        List<MsTim> data = timService.getAllTim();
+//        List<MsTim> msTimList = new ArrayList<>();
+//        for ( MsTim msTim : data )
+//        {
+//            if(msTim.getStatus() == 1){
+//                msTimList.add(msTim);
+//            }
+//        }
+
+        model.addAttribute("listTim", a);
         return "page/add_ajak_tim";
     }
 

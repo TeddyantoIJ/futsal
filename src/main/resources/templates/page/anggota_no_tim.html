@@ -29,17 +29,25 @@
                         <button class="btn btn-primary"><span class="fa fa-search"></span> Search</button>
                     </form>
                     <br/><br/>
-                    <div th:if="${listUser.namaDepan!=null}">
-                        <div th:text="'Nama          : ' + ${listUser.namaDepan} + ' ' + ${listUser.namaBelakang}"></div>
-                        <div th:text="'Tanggal Lahir : ' +${listUser.tanggalLahir}"></div><br/>
-                        <a th:href="@{'AnggotaTim-Tambah?id='+${listUser.idUser}}" class="btn btn-primary" style="width: 70px;" onclick="return confirm('Are you sure you want to add this player?')">Add</a>
-                        <a class="btn btn-warning" href="/Tambah-AnggotaTim">Back</a>
+                    <div th:if="${listUser.idTim==null}">
+                        <div th:if="${listUser.namaDepan!=null}">
+                            <div th:text="'Nama          : ' + ${listUser.namaDepan} + ' ' + ${listUser.namaBelakang}"></div>
+                            <div th:text="'Tanggal Lahir : ' +${listUser.tanggalLahir}"></div><br/>
+                            <a th:href="@{'AnggotaTim-Tambah?id='+${listUser.idUser}}" class="btn btn-primary" style="width: 70px;" onclick="return confirm('Are you sure you want to add this player?')">Add</a>
+                        </div>
+                        <div th:if="${listUser.namaDepan==null}">
+                            <center>
+                                <h2>Data not found</h2>
+                            </center>
+                        </div>
                     </div>
-                    <div th:if="${listUser.namaDepan==null}">
+                    <div th:if="${listUser.idTim!=null}">
                         <center>
-                            <h2>Data not found</h2>
+                            <h2>The player already has a team</h2>
                         </center>
                     </div>
+                    <br/>
+                    <a class="btn btn-warning" href="/Tambah-AnggotaTim">Back</a>
                 </div>
             </div>
         </div>

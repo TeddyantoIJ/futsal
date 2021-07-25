@@ -278,12 +278,11 @@ public class PendaftaranController {
     @GetMapping("/Anggota_No_Tim")
     public String AnggotaNoTim(Model model, HttpSession session,
                                @RequestParam("search") Optional<Integer> search) {
+        int idus = -1;
         try {
-            if ((boolean) session.getAttribute("login")) {
-
-            }
+            idus = (int) session.getAttribute("id_user");
         } catch (Exception e) {
-            session.setAttribute("login", false);
+            return "redirect:/page-login";
         }
 
         MsUser a = new MsUser();
