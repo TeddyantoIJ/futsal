@@ -47,10 +47,10 @@
                                     <td th:text="${#dates.format(item.jam, 'HH:mm')} + ' - ' +${#dates.format(item.durasi, 'HH:mm')}"></td>
                                     <td th:text="${item.durasi1}"></td>
                                     <td class="text-center" th:if="${item.mainBareng==0}">
-                                        <a th:href="@{'Play-Together-On?id='+${item.id}}" class="btn btn-danger" style="width: 100px;" onclick="return confirm('Are you sure you want to turn on the play together feature')">NO</a>
+                                        <a th:href="@{'Play-Together-On?id='+${item.id}}" class="btn btn-danger" style="width: 100px;" onclick="return confirm('Are you sure you want to close the play together feature')">Close</a>
                                     </td>
                                     <td class="text-center" th:if="${item.mainBareng==1}">
-                                        <a th:href="@{'Play-Together-Off?id='+${item.id}}" class="btn btn-primary" style="width: 100px;" onclick="return confirm('Are you sure you want to turn off the play together feature?')">YES</a>
+                                        <a th:href="@{'Play-Together-Off?id='+${item.id}}" class="btn btn-primary" style="width: 100px;" onclick="return confirm('Are you sure you want to open the play together feature?')">Open</a>
                                         <a th:href="@{'Play-Together-Detail?id='+${item.id}}" class="btn btn-warning" style="width: 100px;" >Detail</a>
                                     </td>
                                 </tr>
