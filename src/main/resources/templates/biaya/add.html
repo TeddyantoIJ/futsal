@@ -29,7 +29,7 @@
                     <form th:action="@{addBiaya}" th:object="${msBiaya}" method="post" enctype="multipart/form-data" >
                         <div class="form-group">
                             <label for="nominal">Cost <span style="color: red">*</span> </label>
-                            <input class="form form-control" type="text" name="nominal" id="nominal" placeholder="Cost" required>
+                            <input class="form form-control" type="number" name="nominal" id="nominal" placeholder="Cost" required>
                         </div>
 
                         <div class="form-group">

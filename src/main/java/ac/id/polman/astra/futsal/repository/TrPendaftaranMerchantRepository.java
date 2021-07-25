@@ -18,5 +18,4 @@ public interface TrPendaftaranMerchantRepository extends CrudRepository<TrPendaf
     TrPendaftaranMerchant findById(@Param("id") int id);
 
     List<TrPendaftaranMerchant> findAllByOrderByModidate();
-
 }

@@ -39,6 +39,10 @@ public class PendaftaranController {
     StatusService statusService;
     @Autowired
     TimService timService;
+
+    @Autowired
+    Tr_Pendaftaran_Merchant_Service tr_pendaftaran_merchant_service;
+
     @Autowired
     private JavaMailSender javaMailSender;
     @Autowired
@@ -99,14 +103,15 @@ public class PendaftaranController {
         return "template/lupa_password";
     }
 
-    @PostMapping("/Passwordcek")
+    @RequestMapping("/Passwordcek")
     public String Passwordcek(@RequestParam(name = "telephone") String telephone,
                            @RequestParam(name = "email") String email,
-                           HttpSession session) {
+                           HttpSession session, Model model) {
 
         MsUser user = userService.getUserByEmail(email);
         if (user == null) {
-            return "redirect:/Lupa-Password";
+            model.addAttribute("notif", true);
+            return "template/lupa_password";
         }
 
         if (user.getEmail().equals(email)&& user.getTelephone().equals(telephone)) {
@@ -123,7 +128,8 @@ public class PendaftaranController {
             }
             return "redirect:/page-login";
         } else {
-            return "redirect:/Lupa-Password";
+            model.addAttribute("notif", true);
+            return "template/lupa_password";
         }
     }
 
@@ -187,7 +193,6 @@ public class PendaftaranController {
             model.addAttribute("pendaftaran", pendaftaran);
         }
         int income = trPendaftaranMerchantService.income();
-
         model.addAttribute("merchant", merchantService.getAllActive());
         model.addAttribute("income", income);
         model.addAttribute("jmluser", userService.count());
