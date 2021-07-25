@@ -31,14 +31,18 @@ public class LapanganService {
 
     public List<MsLapangan> getReport(List<TrBookingLapangan> booking, int idMerchant){
         List<MsLapangan> lapangans = getAllLapanganByIdMerchant(idMerchant);
+
         List<MsLapangan> lapanganList = new ArrayList<>();
+
         for(MsLapangan lap : lapangans){
             int penggunaan = 0;
+
             for(TrBookingLapangan book : booking){
                 if(book.getId_lapangan() == lap.getIdLapangan()){
                     penggunaan++;
                 }
             }
+
             lap.setStatus(penggunaan);
             lapanganList.add(lap);
         }
