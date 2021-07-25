@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -39,7 +40,6 @@ public class PendaftaranController {
     StatusService statusService;
     @Autowired
     TimService timService;
-
     @Autowired
     private JavaMailSender javaMailSender;
 
@@ -48,14 +48,15 @@ public class PendaftaranController {
 
     ///========================================Login=========================================//
 
-    @PostMapping("/Logincek")
+    @RequestMapping("/Logincek")
     public String Logincek(@RequestParam(name = "username") String username,
                            @RequestParam(name = "password") String password,
-                           HttpSession session) {
+                           HttpSession session,Model model) {
 
         MsAkun msAkun = akunService.getUserByUsername(username);
         if (msAkun == null) {
-            return "redirect:/page-login";
+            model.addAttribute("notif", true);
+            return "template/login";
         }
 
         if (msAkun.getUsername().equals(username) && msAkun.getPassword().equals(password)) {
@@ -74,7 +75,9 @@ public class PendaftaranController {
                 return "redirect:/Admin";
             }
         } else {
-            return "redirect:/page-login";
+            int nilai=1;
+            model.addAttribute("notif", nilai);
+            return "template/login";
         }
     }
 
@@ -151,9 +154,7 @@ public class PendaftaranController {
     //======================================ADMIN============================================//
 
     @GetMapping("/Admin")
-    public String goto_admin(
-            HttpSession session, ModelMap modelMap, Model model
-    ) {
+    public String goto_admin(HttpSession session, ModelMap modelMap, Model model) {
         int id = -1;
         try {
             id = (int) session.getAttribute("id_user");
@@ -195,9 +196,7 @@ public class PendaftaranController {
         return "redirect:/page-login";
     }
 
-
     //=================================MENAMBAH DAN MENGKONFIRMASI ANGGOTA TIM=====================//
-
     //Pendaftaran TIM
     @GetMapping("/Daftar-Tim")
     public String getDaftarTim(Model model, TrDaftarTim trDaftartim, HttpSession session) {
