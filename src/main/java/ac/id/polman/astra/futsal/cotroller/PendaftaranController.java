@@ -21,10 +21,9 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class PendaftaranController {
@@ -42,6 +41,8 @@ public class PendaftaranController {
     TimService timService;
     @Autowired
     private JavaMailSender javaMailSender;
+    @Autowired
+    Tr_Pendaftaran_Merchant_Service trPendaftaranMerchantService;
 
     public Integer id_akun_lupa_password = 0;
     public String email_lupa_password = "";
@@ -83,7 +84,10 @@ public class PendaftaranController {
 
 
     @GetMapping("/MenuAdmin")
-    public String Admin(Model model, HttpSession session, ModelMap modelMap) {
+    public String Admin(
+            Model model,
+            HttpSession session,
+            ModelMap modelMap) {
         String nama = (String) session.getAttribute("nama_depan");
 
         return "template/dashboard_admin";
@@ -154,17 +158,42 @@ public class PendaftaranController {
     //======================================ADMIN============================================//
 
     @GetMapping("/Admin")
-    public String goto_admin(HttpSession session, ModelMap modelMap, Model model) {
+    public String goto_admin(
+            HttpSession session,
+            ModelMap modelMap,
+            Model model,
+            @RequestParam("tanggal1") Optional<String> tanggal1,
+            @RequestParam("tanggal2") Optional<String> tanggal2) {
         int id = -1;
         try {
             id = (int) session.getAttribute("id_user");
         } catch (Exception e) {
             return "redirect:/page-login";
         }
+        try{
+            model.addAttribute("tanggal1", tanggal1.get());
+            model.addAttribute("tanggal2", tanggal2.get());
+            List<TrPendaftaranMerchant> pendaftaran = trPendaftaranMerchantService.getAllByDate(tanggal1.get(),tanggal2.get());
+            model.addAttribute("pendaftaran", pendaftaran);
+        }catch (Exception e){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MONTH, -1);
+            Date result = cal.getTime();
 
+            model.addAttribute("tanggal1", sdf.format(result));
+            model.addAttribute("tanggal2", sdf.format(new Date()));
+            List<TrPendaftaranMerchant> pendaftaran = trPendaftaranMerchantService.getAllByDate(sdf.format(result),sdf.format(new Date()));
+            model.addAttribute("pendaftaran", pendaftaran);
+        }
+        int income = trPendaftaranMerchantService.income();
+
+        model.addAttribute("merchant", merchantService.getAllActive());
+        model.addAttribute("income", income);
         model.addAttribute("jmluser", userService.count());
         modelMap.addAttribute("jmltim", timService.getAllTim().size());
         model.addAttribute("jmlmerchant", merchantService.getAllMerchant().size());
+
 
         return "/template/dashboard_admin";
     }

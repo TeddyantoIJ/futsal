@@ -88,7 +88,7 @@
                 <td th:if="${book.idStatus == -1}"></td>
                 <td th:if="${book.idStatus == -1}" colspan="2"><b>Total income</b></td>
                 <td th:if="${book.idStatus == -1}">
-                    <b th:text="'Rp ' + ${book.sub_harga}"></b>
+                    <b class="float-right"  th:text="'Rp ' + ${#numbers.formatDecimal(book.sub_harga, 0, 'COMMA', 2, 'POINT')}"></b>
                 </td>
 
                 <td th:if="${book.idStatus == 3 || book.idStatus == 7}">DP</td>
@@ -97,8 +97,8 @@
                     <i class="fa fa-calendar" aria-hidden="true"></i>
                     <span th:text="${#temporals.format(book.modidate, 'dd-MM-yyyy HH:mm')} + ' WIB'"></span>
                 </td>
-                <td th:if="${book.idStatus == 3 || book.idStatus == 7}" th:text="'Rp ' + ${book.dp}"></td>
-                <td th:if="${book.idStatus == 5}" th:text="'Rp ' + ${book.sub_harga}"></td>
+                <td class="float-right"  th:if="${book.idStatus == 3 || book.idStatus == 7}" th:text="'Rp ' + ${#numbers.formatDecimal(book.dp, 0, 'COMMA', 2, 'POINT')}"></td>
+                <td class="float-right" th:if="${book.idStatus == 5}" th:text="'Rp ' + ${#numbers.formatDecimal(book.sub_harga, 0, 'COMMA', 2, 'POINT')}"></td>
             </tr>
             </tbody>
         </table>

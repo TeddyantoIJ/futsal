@@ -17,4 +17,6 @@ public interface TrPendaftaranMerchantRepository extends CrudRepository<TrPendaf
     @Query("select * from tr_pendaftaran_merchant where id =:id")
     TrPendaftaranMerchant findById(@Param("id") int id);
 
+    List<TrPendaftaranMerchant> findAllByOrderByModidate();
+
 }

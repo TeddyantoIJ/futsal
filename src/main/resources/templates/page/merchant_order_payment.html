@@ -42,7 +42,7 @@
                     <span th:text="${#dates.format(book.jam, 'HH:mm')} + ' - ' +${#dates.format(book.durasi, 'HH:mm')}"></span>
                 </td>
                 <td th:each="t : ${tim}" th:if="${t.idTim == book.idTim}" th:text="${t.nama}"></td>
-                <td th:each="p : ${pelunasan}" th:if="${p.idTrbooking == book.id}" th:text="'Rp. ' + ${p.nominal}"></td>
+                <td th:each="p : ${pelunasan}" th:if="${p.idTrbooking == book.id}" th:text="'Rp. ' + ${#numbers.formatDecimal(p.nominal, 0, 'COMMA', 2, 'POINT')}" class="float-right"></td>
                 <td th:each="p : ${pelunasan}" th:if="${p.idTrbooking == book.id}" >
                     <a href="" data-toggle="modal" data-target="#exampleModal" th:attr="onclick=|showfoto('${book.bukti_transfer}')|">
                         <i class="fa fa-file-image" aria-hidden="true"></i>

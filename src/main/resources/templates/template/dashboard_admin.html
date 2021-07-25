@@ -20,13 +20,13 @@
                             </h1>
                             <div class="page-header-subtitle"></div>
                         </div>
-                        <div class="col-12 col-xl-auto mt-4">
-                            <button class="btn btn-white p-3" id="reportrange">
-                                <i class="mr-2 text-primary" data-feather="calendar"></i>
-                                <span></span>
-                                <i class="ml-1" data-feather="chevron-down"></i>
-                            </button>
-                        </div>
+<!--                        <div class="col-12 col-xl-auto mt-4">-->
+<!--                            <button class="btn btn-white p-3" id="reportrange">-->
+<!--                                <i class="mr-2 text-primary" data-feather="calendar"></i>-->
+<!--                                <span></span>-->
+<!--                                <i class="ml-1" data-feather="chevron-down"></i>-->
+<!--                            </button>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -50,21 +50,20 @@
                 </div>
             </div>
             <!-- Example Colored Cards for Dashboard Demo-->
+            <p class="text-muted">Website from the past until now</p>
             <div class="row">
                 <div class="col-xxl-3 col-lg-6">
                     <div class="card bg-primary text-white mb-4">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="mr-3">
-                                    <div class="text-white-75 small">Number of Merchants</div>
+                                    <div class="text-white-75 small">
+                                        <i class="fa fa-home fa-2x"></i> Number of Merchants
+                                    </div>
                                     <div class="text-lg font-weight-bold" th:text="${jmlmerchant}"></div>
                                 </div>
                                 <i class="feather-xl text-white-50" data-feather="university"></i>
                             </div>
-                        </div>
-                        <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="#">View Report</a>
-                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>
                 </div>
@@ -73,15 +72,12 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="mr-3">
-                                    <div class="text-white-75 small">Number of Teams</div>
+                                    <div class="text-white-75 small">
+                                        <i class="fa fa-users fa-2x"></i> Number of Teams</div>
                                     <div class="text-lg font-weight-bold" th:text="${jmltim}"></div>
                                 </div>
                                 <i class="feather-xl text-white-50" data-feather="trophy"></i>
                             </div>
-                        </div>
-                        <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="#">View Report</a>
-                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>
                 </div>
@@ -90,15 +86,12 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="mr-3">
-                                    <div class="text-white-75 small">Number of Users</div>
+                                    <div class="text-white-75 small">
+                                        <i class="fa fa-user fa-2x"></i> Number of Users</div>
                                     <div class="text-lg font-weight-bold" th:text="${jmluser}"></div>
                                 </div>
                                 <i class="feather-xl text-white-50" data-feather="users"></i>
                             </div>
-                        </div>
-                        <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="#">View Tasks</a>
-                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>
                 </div>
@@ -107,39 +100,67 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="mr-3">
-                                    <div class="text-white-75 small">Inclusion</div>
-                                    <div class="text-lg font-weight-bold">Rp. 4.000.000</div>
+                                    <div class="text-white-75 small">
+                                        <i class="fa fa-arrow-left fa-2x"></i> Income</div>
+                                    <div class="text-lg font-weight-bold float-right" th:text="'Rp ' + ${#numbers.formatDecimal(income, 0, 'COMMA', 2, 'POINT')}"></div>
                                 </div>
                                 <i class="feather-xl text-white-50" data-feather="dollar-sign"></i>
                             </div>
                         </div>
-                        <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="#">View Requests</a>
-                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                        </div>
                     </div>
                 </div>
             </div>
+            <br/>
+            <div class="row">
+                <div class="col">
+                    <form class="d-inline-flex float-right" action="/Admin" method="get">
+                        <input type="date" class="form-control" name="tanggal1" th:value="${tanggal1}">
+                        &nbsp;&nbsp;
+                        <input type="date" class="form-control" name="tanggal2" th:value="${tanggal2}">
+                        &nbsp;&nbsp;
+                        <button class="btn btn-success form-control"><span class="fa fa-search"></span>&nbsp;&nbsp;Search</button>
+                    </form>
+                </div>
+            </div>
+            <br/>
             <!-- Example Charts for Dashboard Demo-->
             <div class="row">
                 <div class="col-xl-12 mb-4">
                     <div class="card card-header-actions h-100">
                         <div class="card-header">
-                            Merchant Upgrade
-                            <div class="dropdown no-caret">
-                                <button class="btn btn-transparent-dark btn-icon dropdown-toggle" id="areaChartDropdownExample" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="text-gray-500" data-feather="more-vertical"></i></button>
-                                <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="areaChartDropdownExample">
-                                    <a class="dropdown-item" href="#!">Last 12 Months</a>
-                                    <a class="dropdown-item" href="#!">Last 30 Days</a>
-                                    <a class="dropdown-item" href="#!">Last 7 Days</a>
-                                    <a class="dropdown-item" href="#!">This Month</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#!">Custom Range</a>
-                                </div>
-                            </div>
+                            Website income
                         </div>
                         <div class="card-body">
-                            <div class="chart-area"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
+<!--                            <div class="chart-area"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>-->
+                            <table class="table table-striped">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Merchant name</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Income</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="pend, iter : ${pendaftaran}">
+                                    <th th:if="${pend.id_status != -1}" scope="row" th:text="${iter.count}"></th>
+
+                                    <!--                TOTAL -->
+                                    <td th:if="${pend.id_status == -1}"></td>
+                                    <td th:if="${pend.id_status == -1}" colspan="2"><b>Total income</b></td>
+                                    <td th:if="${pend.id_status == -1}">
+                                        <b class="float-right"  th:text="'Rp ' + ${#numbers.formatDecimal(pend.nominal, 0, 'COMMA', 2, 'POINT')}"></b>
+                                    </td>
+
+                                    <td th:each="mer : ${merchant}" th:if="${mer.id_merchant == pend.id_merchant}" th:text="${mer.nama}"></td>
+                                    <td th:if="${pend.id_status != -1}">
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        <span th:text="${#temporals.format(pend.modidate, 'dd-MM-yyyy HH:mm')} + ' WIB'"></span>
+                                    </td>
+                                    <td class="float-right"  th:if="${pend.id_status != -1}" th:text="'Rp ' + ${#numbers.formatDecimal(pend.nominal, 0, 'COMMA', 2, 'POINT')}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
