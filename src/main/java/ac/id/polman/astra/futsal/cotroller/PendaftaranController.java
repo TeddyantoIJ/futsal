@@ -2,6 +2,7 @@ package ac.id.polman.astra.futsal.cotroller;
 
 import ac.id.polman.astra.futsal.model.*;
 import ac.id.polman.astra.futsal.service.*;
+import org.apache.tomcat.jni.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PendaftaranController {
@@ -274,31 +276,28 @@ public class PendaftaranController {
     }
 
     @GetMapping("/Anggota_No_Tim")
-    public String AnggotaNoTim(Model model, HttpSession session) {
-        int idus = -1;
+    public String AnggotaNoTim(Model model, HttpSession session,
+                               @RequestParam("search") Optional<Integer> search) {
         try {
-            idus = (int) session.getAttribute("id_user");
-        } catch (Exception e) {
-            return "redirect:/page-login";
-        }
+            if ((boolean) session.getAttribute("login")) {
 
-        List<MsUser> user = userService.getAllByTimNUll();
-        List<MsAkun> akun = akunService.getAllAkun();
-
-        List<MsUser> users = new ArrayList<>();
-        List<MsAkun> akuns = new ArrayList<>();
-
-        for ( MsUser us : user) {
-            for( MsAkun ak : akun){
-                if((ak.getIdRole() != 2 || ak.getIdRole() != 1) && us.getIdTim() != null){
-                    user.remove(us);
-                    akun.remove(ak);
-                }
             }
+        } catch (Exception e) {
+            session.setAttribute("login", false);
         }
 
-        model.addAttribute("listUser", user);
-        model.addAttribute("listAkun", akun);
+        MsUser a = new MsUser();
+
+        if (!search.isPresent() || search.get()==0) {
+        } else {
+            a = userService.getUserById(search.get());
+        }
+
+        if(a==null){
+            return "redirect:/Anggota_No_Tim";
+        }
+
+        model.addAttribute("listUser", a);
 
         return "page/anggota_no_tim";
     }

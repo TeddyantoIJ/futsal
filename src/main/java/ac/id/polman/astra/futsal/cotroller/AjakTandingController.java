@@ -321,8 +321,6 @@ public class AjakTandingController {
     }
 
 
-
-
     ///===================================Konfirmasi Ajak Tim=============================//
 
     @GetMapping("/Konfirmasi-Ajak-Tanding")
