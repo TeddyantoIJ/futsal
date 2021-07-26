@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_userLayout">
+<head>
+    <meta charset="UTF-8">
+    <title>About Us</title>
+</head>
+<body class="bg-body">
+<div layout:fragment="content">
+    <br/><br/>
+    <section id="about-us" style="background-color: #5cc96d">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col col-sm">
+                    <br/>
+                    <h3 class="font-weight-bold text-light who-we-are">WHO WE ARE ?</h3>
+                    <p class="font-weight-light text-light">
+                        We provide a platform for users to book futsal courts, invite matches, follow teams and much more online via mobile or web applications.
+                    </p>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-4">
+                    <img src="/images/assets/misson_image.jpg" class="card-img"/>
+                    <p class="font-weight-bold who-we-are-title">Mission</p>
+                    <p class="font-weight-light text-light who-we-are-description">
+                        To provide the largest apps that enable sport field booking and social interaction among the users.
+                    </p>
+                </div>
+                <div class="col-4">
+                    <img src="/images/assets/vision.jpg" class="card-img"/>
+                    <p class="font-weight-bold who-we-are-title">Vision</p>
+                    <p class="font-weight-light text-light who-we-are-description">
+                        To increase people engagement, through doing group sport activities that promotes consistency , fairness, and competitiveness
+                    </p>
+                </div>
+                <div class="col-4">
+                    <img src="/images/assets/goal.jpg" class="card-img"/>
+                    <p class="font-weight-bold who-we-are-title">Goal</p>
+                    <p class="font-weight-light text-light who-we-are-description">
+                        To provide business tools for field owner that will enable them to optimize the occupancy rate of the field
+                    </p>
+                </div>
+            </div>
+            <br/><br/>
+        </div>
+    </section>
+
+    <section id="user-review" style="background-color: lightgrey">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col col-sm">
+                    <br/>
+                    <h3 class="font-weight-bold text-dark who-we-are">WHY US ?</h3>
+                    <p class="font-weight-light text-dark" style="font-size: 15px">
+                        Wit IVTE-P, we will assist you in choosing the right futsal court for you to play and help manage your team or business
+                    </p>
+                </div>
+            </div>
+            <br/>
+            <div class="row text-center">
+                <div class="col-4">
+                    <i class="fa fa-map-marked fa-4x" style="color: #5cc96d"></i>
+                    <br/><br/>
+                    <p class="font-weight-bold text-dark" style="font-size: 20px; text-transform: uppercase">Find everything you want</p>
+                    <p class="font-weight-light text-muted who-we-are-description">
+                        Choose the place you like from over 200+ courses
+                    </p>
+                </div>
+                <div class="col-4">
+                    <i class="fa fa-clock fa-4x" style="color: #5cc96d"></i>
+                    <br/><br/>
+                    <p class="font-weight-bold text-dark" style="font-size: 20px; text-transform: uppercase">know all schedules</p>
+                    <p class="font-weight-light text-muted who-we-are-description">
+                        Sit quietly and orderly, without having to go down to the field
+                    </p>
+                </div>
+                <div class="col-4">
+                    <i class="fa fa-user fa-4x" style="color: #5cc96d"></i>
+                    <br/><br/>
+                    <p class="font-weight-bold text-dark" style="font-size: 20px; text-transform: uppercase">easy to find friends to play</p>
+                    <p class="font-weight-light text-muted who-we-are-description">
+                        No playmates? search for teams here with 20+ teams registered
+                    </p>
+                </div>
+            </div>
+            <br/><br/>
+        </div>
+    </section>
+
+    <section id="join-us" class="bg-dark">
+        <div class="container">
+            <br/>
+            <div class="row text-center">
+                <div class="col col-sm">
+                    <br/>
+                    <h3 class="font-weight-bold text-light" style="font-size: 15px">JOIN US</h3>
+                    <p class="font-weight-normal text-muted">Being one of us is an honor for us. Best regards, developers (Ivan & Teddy)</p>
+                    <a class="btn btn-outline-light" href="/page-registration" style="width: 200px" th:if="${session.login == false}">Sign Up</a>
+                </div>
+            </div>
+            <br/><br/>
+        </div>
+    </section>
+</div>
+
+<br/><br/><br/>
+</body>
+
+<script type="text/javascript">
+    $("#buttonjoin").click(function () {
+        var name = $("#nametim").val();
+        var str = "You Have Entered "
+            + "Name: " + name;
+        $("#nametimmodal").html(str);
+    });
+</script>
+
+</html>

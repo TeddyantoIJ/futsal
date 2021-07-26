@@ -161,10 +161,9 @@ public class RootController {
     }
 
     @GetMapping("/about-ivte-p")
-    public String about_ivte_p(){
-        return "";
+    public String about_ivte_p() {
+        return "/page/about_us";
     }
-
     // ======================================= Profil ======================================
     @GetMapping("/my-profile")
     public String goto_my_profile(

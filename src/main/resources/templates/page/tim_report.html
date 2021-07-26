@@ -70,9 +70,9 @@
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                             <span th:text="${#dates.format(tand.tanggal, 'dd-MM-yyyy')} + ' ' + ${#dates.format(tand.jam, 'HH:mm')} + ' WIB'"></span>
                             </td>
-                            <td class="text-center text-warning" th:if="${tand.idTim1 != -1 && tand.id_lapangan == tand.idTim2}">Lost</td>
-                            <td class="text-center text-success" th:if="${tand.idTim1 != -1 && tand.id_lapangan == tand.idTim1}">Win</td>
-                            <td class="text-center text-success" th:if="${tand.idTim1 != -1 && tand.id_lapangan == 0}">Draw</td>
+                            <td class="text-warning" th:if="${tand.idTim1 != -1 && tand.id_lapangan == tand.idTim2}">Lost</td>
+                            <td class="text-success" th:if="${tand.idTim1 != -1 && tand.id_lapangan == tand.idTim1}">Win</td>
+                            <td class="text-success" th:if="${tand.idTim1 != -1 && tand.id_lapangan == 0}">Draw</td>
                         </tr>
                         </tbody>
                     </table>
