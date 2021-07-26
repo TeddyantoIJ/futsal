@@ -64,10 +64,11 @@ public class RootController {
             HttpSession session,
             Model model
     ){
+        int id = -1;
 
         try{
             if((boolean) session.getAttribute("login")){
-                int id = -1;
+
 
                 id = (int) session.getAttribute("id_user");
                 int bill = get_notif_bill(id);
@@ -88,6 +89,13 @@ public class RootController {
         }catch (Exception e){
 
             session.setAttribute("login", false);
+        }
+        //msuser
+        MsUser userjoin = userService.getUserById(id);
+        if(userjoin==null){
+            model.addAttribute("userjoin", null);
+        }else{
+            model.addAttribute("userjoin", userjoin.getIdTim());
         }
         //merchant
         List<MsMerchant> merchantList = merchantService.get6MerchantActive();

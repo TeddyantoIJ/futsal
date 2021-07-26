@@ -181,7 +181,7 @@
                                 <a th:text="${Tim.nama}" th:href="'/profil_team?id=' + ${Tim.idTim}"></a>
                             </p>
                             <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
-                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0 && session.tim == null}" th:attr="onclick=|jointim('${Tim.idTim}')|">Ask To Join</a>
+                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0 && session.tim == null && userjoin==null}" th:attr="onclick=|jointim('${Tim.idTim}')|">Ask To Join</a>
                             <a class="btn btn-secondary text-danger text-center name-team-our-teams form-control" th:if="${Tim.privat == 1 && session.tim == null}" >Ask To Join</a>
                         </div>
                         <div class="col-sm-4 Adult collapse" style="margin-top: 5px" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain == 2}">
@@ -189,7 +189,7 @@
                                 <a th:text="${Tim.nama}" th:href="'/profil_team?id=' + ${Tim.idTim}"></a>
                             </p>
                             <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
-                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0 && session.tim == null}" th:attr="onclick=|jointim('${Tim.idTim}')|">Ask To Join</a>
+                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0 && session.tim == null && userjoin==null}" th:attr="onclick=|jointim('${Tim.idTim}')|">Ask To Join</a>
                             <p class="btn btn-secondary text-danger text-center name-team-our-teams form-control" th:if="${Tim.privat == 1 && session.tim == null}" >Ask To Join</p>
                         </div>
                         <div class="col-sm-4 Man collapse" style="margin-top: 5px" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain == 3}">
@@ -197,7 +197,7 @@
                                 <a th:text="${Tim.nama}" th:href="'/profil_team?id=' + ${Tim.idTim}"></a>
                             </p>
                             <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
-                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0 && session.tim == null}" th:attr="onclick=|jointim('${Tim.idTim}')|">Ask To Join</a>
+                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0 && session.tim == null && userjoin==null}" th:attr="onclick=|jointim('${Tim.idTim}')|">Ask To Join</a>
                             <p class="btn btn-secondary text-danger text-center name-team-our-teams form-control" th:if="${Tim.privat == 1 && session.tim == null}" >Ask To Join</p>
                         </div>
                         <div class="col-sm-4 Girl collapse" style="margin-top: 5px" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain == 4}">
@@ -205,7 +205,7 @@
                                 <a th:text="${Tim.nama}" th:href="'/profil_team?id=' + ${Tim.idTim}"></a>
                             </p>
                             <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
-                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0 && session.tim == null}" th:attr="onclick=|jointim('${Tim.idTim}')|">Ask To Join</a>
+                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0 && session.tim == null && userjoin==null}" th:attr="onclick=|jointim('${Tim.idTim}')|">Ask To Join</a>
                             <p class="btn btn-secondary text-danger text-center name-team-our-teams form-control" th:if="${Tim.privat == 1 && session.tim == null}" >Ask To Join</p>
                         </div>
                         <div class="col-sm-4 Mix collapse" style="margin-top: 5px" th:each="Tim, iter: ${Timlist}" th:if="${Tim.tipePemain == 5}">
@@ -213,7 +213,7 @@
                                 <a th:text="${Tim.nama}" th:href="'/profil_team?id=' + ${Tim.idTim}"></a>
                             </p>
                             <img th:src="'/images/tim/logo/' + ${Tim.logo}" class="card-img tim-our-teams" />
-                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0 && session.tim == null}" th:attr="onclick=|jointim('${Tim.idTim}')|">Ask To Join</a>
+                            <a class="btn btn-primary text-light text-center name-team-our-teams form-control" data-toggle="modal" data-target="#exampleModal" th:if="${Tim.privat == 0 && session.tim == null && userjoin==null}" th:attr="onclick=|jointim('${Tim.idTim}')|">Ask To Join</a>
                             <p class="btn btn-secondary text-danger text-center name-team-our-teams form-control" th:if="${Tim.privat == 1 && session.tim == null}">Ask To Join</p>
                         </div>
                         <script>

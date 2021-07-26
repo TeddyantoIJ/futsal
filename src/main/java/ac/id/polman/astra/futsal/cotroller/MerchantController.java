@@ -48,6 +48,23 @@ public class MerchantController {
         return "merchant/list";
     }
 
+    @GetMapping("/listmerchant")
+    public String getListMerchant(Model model){
+        List<MsMerchant> data = merchantService.getAllMerchant();
+        List<MsMerchant> msMerchantList = new ArrayList<>();
+        for ( MsMerchant msMerchant : data )
+        {
+            if(msMerchant.getStatus() == 1){
+                msMerchantList.add(msMerchant);
+            }
+        }
+//        model.addAttribute("listMerchant", msMerchantList);
+        model.addAttribute("listMerchant", data);
+        return "merchant/list_merchant";
+    }
+
+
+
     @GetMapping("/Merchant-add")
     public String gotoAdd(Model model){
         model.addAttribute("merchantObj", new MsMerchant());
@@ -174,7 +191,17 @@ public class MerchantController {
         MsMerchant msMerchant = merchantService.getMerchantById(id_merchant);
         msMerchant.setStatus(0);
         merchantService.update(msMerchant);
-        return "redirect:/Merchant";
+        return "redirect:/listmerchant";
+    }
+
+    @GetMapping("/aktifMerchant")
+    public String aktifMerchant(
+            @RequestParam("id_merchant") Integer id_merchant
+    ){
+        MsMerchant msMerchant = merchantService.getMerchantById(id_merchant);
+        msMerchant.setStatus(1);
+        merchantService.update(msMerchant);
+        return "redirect:/listmerchant";
     }
 
     @GetMapping("/konfirmasi-merchant/c")
