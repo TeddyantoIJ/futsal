@@ -44,7 +44,7 @@
                                     <td class="text-center min-wd-50" style="width:20px;"><span th:text="${iter.count}"></span></td>
                                     <td th:each="itemtim:${listTim}" th:if="${itemtim.idTim ==tanding.idTim1}" th:text="${itemtim.nama}"></td>
                                     <td th:text="${#dates.dayOfWeekName(tanding.tanggal)} + ' ' + ${#dates.format(tanding.tanggal, 'dd-MM-yyyy')}"></td>
-                                    <td th:text="${#dates.format(tanding.jam, 'HH:mm')} + ' - ' +${#dates.format(tanding.jam, 'HH:mm')}"></td>
+                                    <td th:text="${#dates.format(tanding.jam, 'HH:mm')} + ' WIB'"></td>
                                     <td th:each="itemlap:${listLap}" th:if="${itemlap.idLapangan==tanding.id_lapangan}" th:text="${itemlap.nama}"></td>
                                     <td th:each="itemstatus:${listStatus}" th:if="${itemstatus.idStatus ==tanding.id_status}" th:text="${itemstatus.keterangan}"></td>
                                     <td th:text="${tanding.alasan}"></td>

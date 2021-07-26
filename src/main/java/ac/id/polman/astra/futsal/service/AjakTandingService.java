@@ -84,8 +84,8 @@ public class AjakTandingService {
                             if(dt.getJuara() == idTim){
                                 kemenangan++;
                                 b.setId_lapangan(idTim);
-                            }else{
-                                b.setId_lapangan(-1);
+                            }else if(dt.getJuara() == 0){
+                                b.setId_lapangan(0);
                             }
                             if(b.getIdTim2() == idTim){
                                 b.setIdTim2(b.getIdTim1());
