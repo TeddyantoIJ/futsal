@@ -2,7 +2,9 @@ package ac.id.polman.astra.futsal.cotroller;
 
 import ac.id.polman.astra.futsal.model.*;
 import ac.id.polman.astra.futsal.service.*;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +18,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class AjakTandingController {
@@ -562,5 +561,47 @@ public class AjakTandingController {
         trMainbarengservice.save(mainBareng);
 
         return "redirect:/Play-Together-Detail?id="+mainBareng.getIdJadwalLapangan();
+    }
+
+    @GetMapping("/Tim-report")
+    public String goto_tim_report(
+            HttpSession session,
+            Model model,
+            @RequestParam("tanggal1") Optional<String> tanggal1,
+            @RequestParam("tanggal2") Optional<String> tanggal2
+    ){
+        int id = -1;
+        try{
+            id = (int) session.getAttribute("id_user");
+        }catch (Exception e) {
+            return "redirect:/page-login";
+        }
+        MsUser d = userService.getUserById(id);
+        MsTim tim = timService.getTimById(d.getIdTim());
+        List<TrAjakTanding> ajakTandings;
+        try{
+            model.addAttribute("tanggal1", tanggal1.get());
+            model.addAttribute("tanggal2", tanggal2.get());
+            ajakTandings = ajakTandingService.getAllByIdTimTanggal(tanggal1.get(), tanggal2.get(), tim.getIdTim());
+        }catch (Exception e){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MONTH, -1);
+            Date result = cal.getTime();
+
+            model.addAttribute("tanggal1", sdf.format(result));
+            model.addAttribute("tanggal2", sdf.format(new Date()));
+            ajakTandings = ajakTandingService.getAllByIdTimTanggal(sdf.format(result), sdf.format(new Date()), tim.getIdTim());
+        }
+        float kemenangan = new Integer(ajakTandings.get(ajakTandings.size()-1).getId_status()).floatValue();
+        float size = new Integer(ajakTandings.size() - 1).floatValue();
+        float rating = kemenangan / size;
+        if(ajakTandings.size() == 1){
+            rating = 0;
+        }
+        model.addAttribute("rating", rating);
+        model.addAttribute("tanding", ajakTandings);
+        model.addAttribute("tim", timService.getAllActive());
+        return "/page/tim_report";
     }
 }

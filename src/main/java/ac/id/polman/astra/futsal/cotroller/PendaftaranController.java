@@ -40,6 +40,7 @@ public class PendaftaranController {
     @Autowired
     TimService timService;
 
+
     @Autowired
     Tr_Pendaftaran_Merchant_Service tr_pendaftaran_merchant_service;
 
@@ -373,4 +374,6 @@ public class PendaftaranController {
 
         return "redirect:/Tambah-AnggotaTim";
     }
+
+
 }

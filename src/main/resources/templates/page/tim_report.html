@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/_team">
+<head>
+    <meta charset="UTF-8">
+    <title>Team Report</title>
+    <link rel="stylesheet" href="/css/custome/rating.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <main>
+        <header>
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item">Report</li>
+                    <li class="breadcrumb-item text-blue" aria-current="page">Winning Rate</li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+        </header>
+        <!-- Main page content-->
+        <div class="container-fluid mt-4">
+            <div class="card mb-4">
+                <div class="row card-header">
+                    <div class="col">
+                        <h6 class="text-muted font-weight-light">Winning Rate</h6>
+                    </div>
+                    <div class="col">
+                        <form class="d-inline-flex" action="/Tim-report" method="get">
+                            <button class="btn btn-primary form-control"><span class="fa fa-calendar"></span>&nbsp;&nbsp;Last Month</button>
+                        </form>
+                        &nbsp;&nbsp;
+                        <form class="d-inline-flex float-right" action="/Tim-report" method="get">
+                            <input type="date" class="form-control" name="tanggal1" th:value="${tanggal1}">
+                            &nbsp;&nbsp;
+                            <input type="date" class="form-control" name="tanggal2" th:value="${tanggal2}" th:max="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+                            &nbsp;
+                            <button class="btn btn-success form-control"><span class="fa fa-search"></span> Search</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Opponent</th>
+                            <th scope="col">Play time</th>
+                            <th scope="col">Result</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="tand, iter : ${tanding}">
+                            <th th:if="${tand.idTim1 != -1}" scope="row" th:text="${iter.count}"></th>
+
+                            <!--                TOTAL -->
+                            <td th:if="${tand.idTim1 == -1}"></td>
+                            <td th:if="${tand.idTim1 == -1}" colspan="2" class="text-center"><b>Total winnings</b></td>
+                            <td th:if="${tand.idTim1 == -1}" class="text-center">
+                                <b>
+                                    <span th:text="${tand.id_status}"></span>
+                                    <span th:text="'(' + ${rating} +'%)'"></span>
+                                </b>
+                            </td>
+
+                            <td th:each="t : ${tim}" th:if="${tand.idTim1 != -1 && t.idTim == tand.idTim2}" th:text="${t.nama}"></td>
+                            <td th:if="${tand.idTim1 != -1}">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                            <span th:text="${#dates.format(tand.tanggal, 'dd-MM-yyyy')} + ' ' + ${#dates.format(tand.jam, 'HH:mm')} + ' WIB'"></span>
+                            </td>
+                            <td class="text-center text-danger" th:if="${tand.idTim1 != -1 && tand.id_lapangan != tand.idTim1}">Lost</td>
+                            <td class="text-center text-success" th:if="${tand.idTim1 != -1 && tand.id_lapangan == tand.idTim1}">Win</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

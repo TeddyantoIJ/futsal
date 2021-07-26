@@ -28,4 +28,6 @@ public interface AjakTandingRepository extends CrudRepository<TrAjakTanding, Int
 
     @Query("select * from tr_ajak_tanding where id_tim1=idtim and tanggal=tanggal and jam=jam")
     TrAjakTanding findByIdTim1AndTanggalAndJam(@Param("idtim") int idtim, @Param("tanggal") Date tanggal, @Param("jam") Time jam);
+
+    List<TrAjakTanding> findAllByOrderByModidateAsc();
 }

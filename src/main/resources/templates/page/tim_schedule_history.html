@@ -38,7 +38,7 @@
                                     <th scope="col">Play time</th>
                                     <th scope="col">Schedule type</th>
                                     <th scope="col">Opponent</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Action / Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -66,7 +66,8 @@
                                     </td>
                                     <td>
                                         <span th:if="${jad.status == 2}" class="text-success">Finished</span>
-                                        <span th:if="${jad.status == 0}" class="text-danger">Unfinished</span>&nbsp;&nbsp;
+                                        <span th:if="${jad.status == 0}" class="text-danger">Unfinished</span>
+                                        <span th:if="${jad.status == 1}" class="text-danger">Not finished yet</span>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <span  th:each="rev : ${review}" th:if="${rev.id_trbooking == jad.id && rev.rating == 0}">
                                             <a data-toggle="modal" data-target="#exampleModal" class="text-primary" style="cursor: pointer">
                                                 <span class="fa fa-comment" aria-hidden="true"></span> Review merchant
