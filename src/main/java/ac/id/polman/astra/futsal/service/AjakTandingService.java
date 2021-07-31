@@ -106,6 +106,29 @@ public class AjakTandingService {
         return c;
     }
 
+    public TrAjakTanding getReportAllTime(int idTim){
+        List<TrAjakTanding> a = ajakTandingRepository.findAllByOrderByModidateAsc();
+
+        TrAjakTanding total = new TrAjakTanding();
+        int kemenangan = 0;
+        int match = 0;
+        for(TrAjakTanding b : a){
+            if(b.getId_status() == 3){
+                if(b.getIdTim1() == idTim || b.getIdTim2() == idTim){
+                    DtAjakTanding dt = dtAjakTandingService.getAllByAjakTandings(b.getId());
+                    if(dt.getJuara() == idTim){
+                        kemenangan++;
+                    }
+                    match++;
+                }
+            }
+        }
+        total.setId_status(kemenangan);
+        total.setIdTim1(-1);
+        total.setIdTim2(match);
+        return total;
+    }
+
     public void save(TrAjakTanding trAjakTanding){
         ajakTandingRepository.save(trAjakTanding);
     }

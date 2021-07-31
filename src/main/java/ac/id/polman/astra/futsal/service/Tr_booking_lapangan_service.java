@@ -1,9 +1,6 @@
 package ac.id.polman.astra.futsal.service;
 
-import ac.id.polman.astra.futsal.model.MsLapangan;
-import ac.id.polman.astra.futsal.model.TrBookingLapangan;
-import ac.id.polman.astra.futsal.model.TrJadwalLapangan;
-import ac.id.polman.astra.futsal.model.TrPelunasan;
+import ac.id.polman.astra.futsal.model.*;
 import ac.id.polman.astra.futsal.repository.LapanganRepository;
 import ac.id.polman.astra.futsal.repository.TrBookingLapanganRepository;
 import ac.id.polman.astra.futsal.repository.TrJadwalLapanganRepository;
@@ -31,6 +28,8 @@ public class Tr_booking_lapangan_service {
     LapanganRepository lapanganRepository;
     @Autowired
     TrPelunasanRepository trPelunasanRepository;
+    @Autowired
+    MerchantService merchantService;
 
     public List<TrBookingLapangan> getAll(){
         List<TrBookingLapangan> a = trBookingLapanganRepository.findAllByOrderByTanggalAscJamAsc();
@@ -122,7 +121,6 @@ public class Tr_booking_lapangan_service {
                 }
             }
         }
-        System.out.println(c.size());
         return c;
     }
 
@@ -210,12 +208,9 @@ public class Tr_booking_lapangan_service {
 
     public List<TrBookingLapangan> getAllIncomeByIdMerchant(int id, String tanggal1, String tanggal2){
         List<MsLapangan> lapangan = lapanganRepository.findAllByIdMerchant(id);
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
         List<TrBookingLapangan> a = trBookingLapanganRepository.findAllByOrderByModidateAsc();
         List<TrBookingLapangan> c = new ArrayList<>();
-
         TrBookingLapangan total = new TrBookingLapangan();
         int total_uang = 0;
         for(TrBookingLapangan b : a){
@@ -223,6 +218,7 @@ public class Tr_booking_lapangan_service {
                 Date modidate = sdf.parse(b.getModidate().toString());
                 Date comp1 = sdf.parse(tanggal1);
                 Date comp2 = sdf.parse(tanggal2);
+
                 if(modidate.compareTo(comp1) >= 0 && modidate.compareTo(comp2) <= 0){
                     if(b.getIdStatus() == 5 || b.getIdStatus() == 3 || b.getIdStatus() == 7){
                         for(MsLapangan d : lapangan){
@@ -241,12 +237,45 @@ public class Tr_booking_lapangan_service {
                 System.out.println("Error pak");
             }
         }
+
         total.setSub_harga(total_uang);
         total.setIdStatus(-1);
         c.add(total);
         return c;
     }
 
+    public MsMerchant getBestMerchant(){
+        List<MsMerchant> mer = merchantService.getAllMerchant();
+        MsMerchant output = new MsMerchant();
+        output.setStatus(0);
+        for(MsMerchant a : mer){
+            List<TrBookingLapangan> tr = getAllTerkonfirmasiByIdMerchant(a.getId_merchant());
+            if(output.getStatus() < tr.size()){
+                output.setStatus(tr.size());
+                output.setNama(a.getNama());
+            }else if(output.getStatus() == tr.size()){
+                output.setNama(output.getNama() + ", " + a.getNama());
+            }
+        }
+        return output;
+    }
+    public MsMerchant getWortsMerchant(){
+        List<MsMerchant> mer = merchantService.getAllActive();
+        MsMerchant output = new MsMerchant();
+        output.setStatus(-1);
+        for(MsMerchant a : mer){
+            List<TrBookingLapangan> tr = getAllTerkonfirmasiByIdMerchant(a.getId_merchant());
+            if(output.getStatus() == -1){
+                output.setStatus(tr.size());
+                output.setNama(a.getNama());
+            }else if(output.getStatus() > tr.size()){
+                output.setStatus(tr.size());
+            }else if(output.getStatus() == tr.size()){
+                output.setNama(output.getNama() + ", " + a.getNama());
+            }
+        }
+        return output;
+    }
 
 //    ====================================
     public boolean save(TrBookingLapangan a){

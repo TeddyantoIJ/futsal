@@ -36,14 +36,14 @@
                                 <input class="form form-control" type="text" name="skor2" id="skor2" th:placeholder="${listdetail.skor2}" th:value="${listdetail.skor2}">
                                 <br/>
 
-                                <label>Winner <span style="color: red">*</span> </label>
-                                <select  name="juara" id="juara" class="form-control" required>
-                                    <option th:value="0" selected disabled hidden>Select the winning team</option>
-                                    <option th:each="tim ,cek:${listTim}" th:if="${tim.idTim==listAjak.idTim1}" th:value="${listAjak.idTim1}" th:text="${tim.nama}"></option>
-                                    <option th:each="tim ,cek:${listTim}" th:if="${tim.idTim==listAjak.idTim2}" th:value="${listAjak.idTim2}" th:text="${tim.nama}"></option>
-                                    <option th:value="0">Draw</option>
-                                </select>
-                                <br/>
+<!--                                <label>Winner <span style="color: red">*</span> </label>-->
+<!--                                <select  name="juara" id="juara" class="form-control" required>-->
+<!--                                    <option th:value="0" selected disabled hidden>Select the winning team</option>-->
+<!--                                    <option th:each="tim ,cek:${listTim}" th:if="${tim.idTim==listAjak.idTim1}" th:value="${listAjak.idTim1}" th:text="${tim.nama}"></option>-->
+<!--                                    <option th:each="tim ,cek:${listTim}" th:if="${tim.idTim==listAjak.idTim2}" th:value="${listAjak.idTim2}" th:text="${tim.nama}"></option>-->
+<!--                                    <option th:value="0">Draw</option>-->
+<!--                                </select>-->
+<!--                                <br/>-->
                             </div>
                         </div>
                         <div class="row">

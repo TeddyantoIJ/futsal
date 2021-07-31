@@ -39,6 +39,8 @@ public class PendaftaranController {
     StatusService statusService;
     @Autowired
     TimService timService;
+    @Autowired
+    Tr_booking_lapangan_service trBookingLapanganService;
 
 
     @Autowired
@@ -193,13 +195,15 @@ public class PendaftaranController {
             List<TrPendaftaranMerchant> pendaftaran = trPendaftaranMerchantService.getAllByDate(sdf.format(result),sdf.format(new Date()));
             model.addAttribute("pendaftaran", pendaftaran);
         }
+
         int income = trPendaftaranMerchantService.income();
         model.addAttribute("merchant", merchantService.getAllActive());
         model.addAttribute("income", income);
         model.addAttribute("jmluser", userService.count());
         modelMap.addAttribute("jmltim", timService.getAllTim().size());
         model.addAttribute("jmlmerchant", merchantService.getAllMerchant().size());
-
+        model.addAttribute("best", trBookingLapanganService.getBestMerchant());
+        model.addAttribute("worst", trBookingLapanganService.getWortsMerchant());
 
         return "/template/dashboard_admin";
     }

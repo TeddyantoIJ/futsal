@@ -51,9 +51,9 @@
                             <label class="font-weight-bold text-light" >Gender <span style="color: red">*</span> </label>
                             <br/>
                             <input type="radio" id="laki" name="jenisKelamin" value="L" th:checked="${user.jenisKelamin == 'L'}">
-                              <label class="font-weight-bold text-light" for="laki">Man</label><br>
+                              <label class="font-weight-bold text-light" for="laki">Male</label><br>
                             <input type="radio" id="perempuan" name="jenisKelamin" value="P" th:checked="${user.jenisKelamin == 'P'}">
-                              <label class="font-weight-bold text-light" for="perempuan">Woman</label><br>
+                              <label class="font-weight-bold text-light" for="perempuan">Female</label><br>
                             <hr/>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${notif == true}">
                                 <strong>Username already in use</strong> by another user!

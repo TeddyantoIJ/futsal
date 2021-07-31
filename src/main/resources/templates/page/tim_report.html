@@ -58,10 +58,10 @@
                             <!--                TOTAL -->
                             <td th:if="${tand.idTim1 == -1}"></td>
                             <td th:if="${tand.idTim1 == -1}" colspan="2" class="text-center"><b>Total winnings</b></td>
-                            <td th:if="${tand.idTim1 == -1}" class="text-center">
+                            <td th:if="${tand.idTim1 == -1}">
                                 <b>
                                     <span th:text="${tand.id_status}"></span>
-                                    <span th:text="'(' + ${rating} +'%)'"></span>
+                                    <span th:text="'(' + ${#numbers.formatDecimal(rating, 0, 2)} +'%)'"></span>
                                 </b>
                             </td>
 

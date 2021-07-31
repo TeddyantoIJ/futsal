@@ -164,6 +164,38 @@
                     </div>
                 </div>
             </div>
+            <!-- Example Charts for Dashboard Demo-->
+            <div class="row">
+                <div class="col-xl-12 mb-4">
+                    <div class="card card-header-actions h-100">
+                        <div class="card-header">
+                            The best and worst merchant of all time
+                        </div>
+                        <div class="card-body">
+                            <!--                            <div class="chart-area"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>-->
+                            <table class="table">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>&nbsp; Merchant</th>
+                                        <th>Transaction amount</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <td>The best</td>
+                                    <td th:text="${best.nama}" class="text-success font-weight-bold"></td>
+                                    <td th:text="${best.status} + ' Transaction booking'" class="text-success font-weight-bold"></td>
+                                </tr>
+                                <tr>
+                                    <td>The worst</td>
+                                    <td th:text="${worst.nama}" class="text-danger font-weight-bold"></td>
+                                    <td th:text="${worst.status} + ' Transaction booking'" class="text-danger font-weight-bold"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 </div>

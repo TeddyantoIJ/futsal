@@ -79,6 +79,11 @@
         <div class="merchant1 container">
             <br/>
             <h4 class="font-weight-bold text-dark text-center">History Match</h4>
+            <h4 class="font-weight-bold text-dark text-center">
+                All-time win rate :
+                <span th:if="${rating > 0}" th:text="${#numbers.formatDecimal(rating, 0, 2)} +'%'"></span>
+                <span th:if="${rating == 0}">0.00%</span>
+            </h4>
             <br/>
             <div class="col text-center" style="background-color: transparent">
                 <!--   DATA DATA PERTANDINGAN -->

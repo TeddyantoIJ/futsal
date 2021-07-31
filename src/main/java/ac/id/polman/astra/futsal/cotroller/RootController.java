@@ -1196,6 +1196,15 @@ public class RootController {
         List<DtAjakTanding> listdetail = dtAjakTandingService.getAll();
         List<MsTim> listTeam = timService.getAllTim();
 
+        TrAjakTanding ajakTandings = ajakTandingService.getReportAllTime(id);
+        float kemenangan = new Integer(ajakTandings.getId_status()).floatValue();
+        float size = new Integer(ajakTandings.getIdTim2()).floatValue();
+        float rating = (kemenangan / size) * 100;
+        if(size == 0){
+            rating = 0;
+        }
+        model.addAttribute("rating", rating);
+
         model.addAttribute("listAjakTanding", listajaktanding);
         model.addAttribute("listAjakTanding2", listajaktanding2);
         model.addAttribute("listDetail" , listdetail);

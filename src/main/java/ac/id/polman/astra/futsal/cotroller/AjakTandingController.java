@@ -312,8 +312,9 @@ public class AjakTandingController {
 
     @PostMapping("/GetUbahDetailAjak")
     public String getUbahDetilAjakTim(@RequestParam("id") Integer id, HttpSession session,
-                                      @RequestParam("skor") Integer skor, @RequestParam("skor2") Integer skor2,
-                                      @RequestParam("juara") Integer juara) {
+                                      @RequestParam("skor") Integer skor, @RequestParam("skor2") Integer skor2
+//    ,@RequestParam("juara") String juara
+    ) {
         int idus = -1;
         try {
             idus = (int) session.getAttribute("id_user");
@@ -324,7 +325,14 @@ public class AjakTandingController {
         DtAjakTanding dtAjakTanding = dtAjakTandingService.getAllById(id);
         dtAjakTanding.setSkor(skor);
         dtAjakTanding.setSkor2(skor2);
-        dtAjakTanding.setJuara(juara);
+        if(skor == skor2){
+            dtAjakTanding.setJuara(0);
+        }else if(skor > skor2){
+            dtAjakTanding.setJuara(ajakTandingService.getAllById(dtAjakTanding.getIdAjakTanding()).getIdTim1());
+        }else{
+            dtAjakTanding.setJuara(ajakTandingService.getAllById(dtAjakTanding.getIdAjakTanding()).getIdTim2());
+        }
+//        dtAjakTanding.setJuara(juara);
         dtAjakTandingService.save(dtAjakTanding);
 
         return "redirect:/AjakTim-Detail?id="+dtAjakTanding.getIdAjakTanding();
@@ -595,7 +603,7 @@ public class AjakTandingController {
         }
         float kemenangan = new Integer(ajakTandings.get(ajakTandings.size()-1).getId_status()).floatValue();
         float size = new Integer(ajakTandings.size() - 1).floatValue();
-        float rating = kemenangan / size;
+        float rating = (kemenangan / size) * 100;
         if(ajakTandings.size() == 1){
             rating = 0;
         }
